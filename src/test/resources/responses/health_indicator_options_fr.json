@@ -1,0 +1,1184 @@
+[
+  {
+    "categoryId": 1,
+    "categoryName": "Leadership et gouvernance",
+    "indicators": [
+      {
+        "indicatorId": 1,
+        "indicatorCode": "1",
+        "indicatorName": "Priorité accordée à la santé numérique au niveau national par l'intermédiaire d'organes et de mécanismes de gouvernance dédiés",
+        "indicatorDefinition": "Le pays dispose-t-il d'un ministère, d'un organisme ou d'un groupe de travail national distinct pour la santé numérique ?",
+        "scores": [
+          {
+            "scoreId": 1,
+            "score": -1,
+            "scoreDefinition": "Non disponible"
+          },
+          {
+            "scoreId": 3,
+            "score": 1,
+            "scoreDefinition": "Il n'existe pas d'organe de coordination et/ou une structure de gouvernance naissante pour la santé numérique est constituée au cas par cas."
+          },
+          {
+            "scoreId": 4,
+            "score": 2,
+            "scoreDefinition": "La structure de gouvernance est officiellement constituée, mais elle n'est pas completement fonctionnelle et ne se réunit pas régulièrement."
+          },
+          {
+            "scoreId": 5,
+            "score": 3,
+            "scoreDefinition": "La structure de gouvernance et tout groupe de travail connexe ont un cahier des charges et tiennent régulièrement des réunions avec la participation ou la consultation des intervenants."
+          },
+          {
+            "scoreId": 6,
+            "score": 4,
+            "scoreDefinition": "La structure de gouvernance est completement fonctionnelle, dirigée par le gouvernement, consulte les autres ministères et surveille la mise en œuvre de la santé numérique en fonction d'un plan de travail."
+          },
+          {
+            "scoreId": 7,
+            "score": 5,
+            "scoreDefinition": "La structure de gouvernance de la santé numérique est institutionnalisée, consulte les autres ministères et surveille la mise en œuvre de la santé numérique. Il est relativement protégé contre les interférences ou les changements organisationnels. La structure de gouvernance et ses groupes de travail techniques mettent l'accent sur l'équilibre entre les sexes dans la composition de ses membres."
+          }
+        ]
+      },
+      {
+        "indicatorId": 2,
+        "indicatorCode": "2",
+        "indicatorName": "Priorité accordée à la santé numérique à l'échelle nationale par le biais de la planification",
+        "indicatorDefinition": "Le pays dispose-t-il d'un ministère, d'un organisme ou d'un groupe de travail national distinct pour la santé numérique ?",
+        "scores": [
+          {
+            "scoreId": 8,
+            "score": -1,
+            "scoreDefinition": "Non disponible"
+          },
+          {
+            "scoreId": 10,
+            "score": 1,
+            "scoreDefinition": "La santé numérique n'est pas incluse dans la stratégie nationale de santé. Il est mis en œuvre de façon ponctuelle dans les programmes de santé."
+          },
+          {
+            "scoreId": 11,
+            "score": 2,
+            "scoreDefinition": "L'inclusion de la santé numérique dans les stratégies ou plans nationaux de santé ou d'autres stratégies ou plans nationaux pertinents fait l'objet d'un certain débat. Le libellé proposé pour L'inclusion de la santé numérique dans les stratégies et/ou plans nationaux de santé ou les stratégies et/ou plans nationaux pertinents a été élaboré et/ou est en cours d'examen."
+          },
+          {
+            "scoreId": 12,
+            "score": 3,
+            "scoreDefinition": "La santé numérique est incluse dans les stratégies et/ou plans nationaux de santé ou les stratégies et/ou plans nationaux pertinents."
+          },
+          {
+            "scoreId": 13,
+            "score": 4,
+            "scoreDefinition": "La santé numérique est mise en œuvre dans le cadre de stratégies et/ou de plans nationaux de santé ou d'autres stratégies et/ou plans nationaux pertinents."
+          },
+          {
+            "scoreId": 14,
+            "score": 5,
+            "scoreDefinition": "La santé numérique est mise en œuvre et périodiquement évaluée et optimisée dans les stratégies et/ou plans nationaux de santé ou autres stratégies et/ou plans nationaux pertinents."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "categoryId": 2,
+    "categoryName": "Stratégie et investissement",
+    "indicators": [
+      {
+        "indicatorId": 3,
+        "indicatorCode": "3",
+        "indicatorName": "Stratégie ou cadre national en matière de cybersanté et de santé numérique",
+        "indicatorDefinition": "Le pays dispose-t-il d'une stratégie ou d'un cadre pour la cybersanté ou la santé numérique et d'un plan de santé numérique chiffré ?",
+        "scores": [
+          {
+            "scoreId": 15,
+            "score": -1,
+            "scoreDefinition": "Non disponible"
+          },
+          {
+            "scoreId": 17,
+            "score": 1,
+            "scoreDefinition": "Il n'y a pas de stratégie ou de cadre de travail sur la santé numérique. L'ébauche d'une stratégie ou d'un cadre de travail sur la santé numérique a été élaborée, mais n'a pas fait l'objet d'un examen officiel."
+          },
+          {
+            "scoreId": 18,
+            "score": 2,
+            "scoreDefinition": "Approbation de la stratégie ou du cadre national en matière de santé numérique."
+          },
+          {
+            "scoreId": 19,
+            "score": 3,
+            "scoreDefinition": "Élaboration et approbation d'un plan national de santé numérique chiffré."
+          },
+          {
+            "scoreId": 20,
+            "score": 4,
+            "scoreDefinition": "Stratégie nationale de santé numérique et plan chiffré partiellement mis en œuvre avec des ressources pour assurer la mise en œuvre complète."
+          },
+          {
+            "scoreId": 21,
+            "score": 5,
+            "scoreDefinition": "Stratégie nationale en matière de santé numérique et plan chiffré entièrement mis en œuvre et planification en cours pour le prochain cycle de trois à cinq ans."
+          }
+        ]
+      },
+      {
+        "indicatorId": 4,
+        "indicatorCode": "4",
+        "indicatorName": "Financement public de la santé numérique",
+        "indicatorDefinition": "Quel est le pourcentage estimé (%) des dépenses publiques annuelles en santé consacrées à la santé numérique ?",
+        "scores": [
+          {
+            "scoreId": 22,
+            "score": -1,
+            "scoreDefinition": "Non disponible"
+          },
+          {
+            "scoreId": 24,
+            "score": 1,
+            "scoreDefinition": "Aucun poste budgétaire disponible pour la santé numérique. Il existe un poste budgétaire pour la santé numérique, mais la proportion n'est pas disponible."
+          },
+          {
+            "scoreId": 25,
+            "score": 2,
+            "scoreDefinition": "Moins de 1%"
+          },
+          {
+            "scoreId": 26,
+            "score": 3,
+            "scoreDefinition": "1-3%"
+          },
+          {
+            "scoreId": 27,
+            "score": 4,
+            "scoreDefinition": "3-5%"
+          },
+          {
+            "scoreId": 28,
+            "score": 5,
+            "scoreDefinition": "Plus de 5 %"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "categoryId": 3,
+    "categoryName": "Lois, politiques et conformité",
+    "indicators": [
+      {
+        "indicatorId": 5,
+        "indicatorCode": "5",
+        "indicatorName": "Cadre juridique pour la protection des données (sécurité)",
+        "indicatorDefinition": "Existe-t-il une loi sur la sécurité des données (stockage, transmission, utilisation) qui concerne la santé numérique ?",
+        "scores": [
+          {
+            "scoreId": 29,
+            "score": -1,
+            "scoreDefinition": "Non disponible"
+          },
+          {
+            "scoreId": 31,
+            "score": 1,
+            "scoreDefinition": "Il n'existe aucune loi sur la sécurité des données (stockage, transmission, utilisation) qui concerne la santé numérique."
+          },
+          {
+            "scoreId": 32,
+            "score": 2,
+            "scoreDefinition": "Une loi sur la sécurité des données (stockage, transmission, utilisation) concernant la santé numérique a été proposée et est en cours de révision."
+          },
+          {
+            "scoreId": 33,
+            "score": 3,
+            "scoreDefinition": "Il existe une loi sur la sécurité des données (stockage, transmission, utilisation) relative à la santé numérique qui a été adoptée, mais qui n'a pas encore été pleinement mise en œuvre."
+          },
+          {
+            "scoreId": 34,
+            "score": 4,
+            "scoreDefinition": "Il existe une loi sur la sécurité des données (stockage, transmission, utilisation) qui s'applique à la santé numérique et qui a été mise en œuvre, mais n'est pas appliquée de manière cohérente."
+          },
+          {
+            "scoreId": 35,
+            "score": 5,
+            "scoreDefinition": "Il existe une loi sur la sécurité des données (stockage, transmission, utilisation) qui s'applique à la santé numérique et qui a été appliquée de manière cohérente."
+          }
+        ]
+      },
+      {
+        "indicatorId": 6,
+        "indicatorCode": "6",
+        "indicatorName": "Lois ou règlements sur la protection de la vie privée, la confidentialité et l'accès à l'information sur la santé (vie privée)",
+        "indicatorDefinition": "Existe-t-il une loi pour protéger la vie privée des personnes, régissant la propriété, l'accès et le partage des données  numériques sur la santé qui sont identifiables individuellement ?",
+        "scores": [
+          {
+            "scoreId": 36,
+            "score": -1,
+            "scoreDefinition": "Non disponible"
+          },
+          {
+            "scoreId": 38,
+            "score": 1,
+            "scoreDefinition": "Il n'existe aucune loi visant à protéger la vie privée des personnes et régissant la propriété, l'accès et le partage des données numériques sur la santé qui sont identifiables individuellement."
+          },
+          {
+            "scoreId": 39,
+            "score": 2,
+            "scoreDefinition": "Il existe une loi visant à protéger la vie privée des personnes, qui régit la propriété, l'accès et le partage des données numériques sur la santé qui sont identifiables individuellement, a été proposée et est à l'étude."
+          },
+          {
+            "scoreId": 40,
+            "score": 3,
+            "scoreDefinition": "Il existe une loi visant à protéger la vie privée des personnes, qui régit la propriété, l'accès et le partage des données numériques sur la santé qui sont identifiables individuellement, a été adoptée, mais qui n'est pas encore entièrement mise en œuvre."
+          },
+          {
+            "scoreId": 41,
+            "score": 4,
+            "scoreDefinition": "Il existe une loi visant à protéger la vie privée des personnes, qui régit la propriété, l'accès et le partage des données numériques sur la santé qui sont identifiables individuellement, a été mise en œuvre, mais qui n'est pas appliquée de façon uniforme."
+          },
+          {
+            "scoreId": 42,
+            "score": 5,
+            "scoreDefinition": "Il existe une loi visant à protéger la vie privée des personnes, qui régit la propriété, l'accès et le partage des données numériques sur la santé qui sont identifiables individuellement, a été mise en œuvre et est appliquée de façon uniforme."
+          }
+        ]
+      },
+      {
+        "indicatorId": 7,
+        "indicatorCode": "7",
+        "indicatorName": "Protocole pour la réglementation ou la certification de dispositifs et/ou de services de santé numériques",
+        "indicatorDefinition": "Existe-t-il des protocoles, des politiques, des cadres ou des processus acceptés régissant l'utilisation clinique et les soins aux patients des dispositifs médicaux et des services de santé numériques connectés (p. ex. télémédecine, applications), particulièrement en ce qui concerne la sécurité, l'intégrité des données et la qualité des soins ?",
+        "scores": [
+          {
+            "scoreId": 43,
+            "score": -1,
+            "scoreDefinition": "Non disponible"
+          },
+          {
+            "scoreId": 45,
+            "score": 1,
+            "scoreDefinition": "Il n'existe pas de protocoles, de politiques, de cadres ou de processus acceptés régissant l'utilisation clinique et les soins aux patients des dispositifs médicaux et des services de santé numériques connectés (p. ex. télémédecine, applications), particulièrement en ce qui concerne la sécurité, l'intégrité des données et la qualité des soins."
+          },
+          {
+            "scoreId": 46,
+            "score": 2,
+            "scoreDefinition": "Des protocoles, des politiques, des cadres ou des processus acceptés régissant l'utilisation clinique et les soins aux patients des dispositifs médicaux et des services de santé numériques connectés (p. ex. télémédecine, applications), particulièrement en ce qui concerne la sécurité, l'intégrité des données et la qualité des soins, ont été proposés et sont à l'étude."
+          },
+          {
+            "scoreId": 47,
+            "score": 3,
+            "scoreDefinition": "Des protocoles, des politiques, des cadres ou des processus acceptés régissant l'utilisation clinique et les soins aux patients des dispositifs médicaux et des services de santé numériques connectés (p. ex. télémédecine, applications), particulièrement en ce qui concerne la sécurité, l'intégrité des données et la qualité des soins, ont été adoptés, mais ne sont pas entièrement appliqués."
+          },
+          {
+            "scoreId": 48,
+            "score": 4,
+            "scoreDefinition": "Des protocoles, des politiques, des cadres ou des processus acceptés régissant l'utilisation clinique et les soins aux patients des dispositifs médicaux et des services de santé numériques connectés (p. ex. télémédecine, applications), particulièrement en ce qui concerne la sécurité, l'intégrité des données et la qualité des soins, ont été mis en œuvre, mais ne sont pas toujours respectés."
+          },
+          {
+            "scoreId": 49,
+            "score": 5,
+            "scoreDefinition": "Des protocoles, des politiques, des cadres ou des processus acceptés régissant l'utilisation clinique et les soins aux patients des dispositifs médicaux et des services de santé numériques connectés (p. ex. télémédecine, applications), particulièrement en ce qui concerne la sécurité, l'intégrité des données et la qualité des soins, ont été mis en œuvre et sont appliqués uniformément."
+          }
+        ]
+      },
+      {
+        "indicatorId": 8,
+        "indicatorCode": "8",
+        "indicatorName": "Sécurité et partage transfrontaliers des données",
+        "indicatorDefinition": "Existe-t-il des protocoles, des politiques, des cadres ou des processus acceptés pour soutenir l'échange et le stockage transfrontaliers sécurisés des données ? Note : Ceci inclut les données relatives à la santé entrant dans un pays, sortant d'un pays, et/ou étant utilisées dans un pays lié à un individu d'un autre pays.",
+        "scores": [
+          {
+            "scoreId": 50,
+            "score": -1,
+            "scoreDefinition": "Non disponible"
+          },
+          {
+            "scoreId": 52,
+            "score": 1,
+            "scoreDefinition": "Il n'y a pas de protocoles, de politiques, de cadres ou de processus acceptés en place pour appuyer l'échange et le stockage transfrontaliers sécuritaires des données."
+          },
+          {
+            "scoreId": 53,
+            "score": 2,
+            "scoreDefinition": "Des protocoles, des politiques, des cadres ou des processus acceptés pour l'échange et le stockage transfrontaliers de données ont été proposés et sont à l'étude."
+          },
+          {
+            "scoreId": 54,
+            "score": 3,
+            "scoreDefinition": "Des protocoles, des politiques, des cadres ou des processus acceptés pour l'échange et le stockage transfrontaliers des données ont été adoptés, mais ne sont pas encore pleinement mis en œuvre."
+          },
+          {
+            "scoreId": 55,
+            "score": 4,
+            "scoreDefinition": "Des protocoles, des politiques, des cadres ou des processus acceptés pour l'échange et le stockage transfrontaliers des données ont été mis en œuvre, mais ils ne sont pas appliqués de façon uniforme."
+          },
+          {
+            "scoreId": 56,
+            "score": 5,
+            "scoreDefinition": "Les protocoles, les politiques, les cadres ou les processus acceptés pour l'échange et le stockage transfrontaliers des données ont été mis en œuvre et appliqués de façon cohérente."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "categoryId": 4,
+    "categoryName": "Ressources Humaines",
+    "indicators": [
+      {
+        "indicatorId": 9,
+        "indicatorCode": "9",
+        "indicatorName": "Intégration de la santé numérique dans la formation initiale des professionnels de la santé et dans la formation professionnelle connexe (avant le déploiement)   ",
+        "indicatorDefinition": "Un registre des décès sécurisé existe, est disponible et utilisé activement et comprend plus de 75 % de la population concernée. Les données sont disponibles, utilisées et conservées.",
+        "scores": [
+          {
+            "scoreId": 57,
+            "score": -1,
+            "scoreDefinition": "Non disponible"
+          },
+          {
+            "scoreId": 59,
+            "score": 1,
+            "scoreDefinition": "Il n'y a pas de programme d'études en santé numérique pour les professionnels de la santé dans le cadre des exigences de formation préalable à l'emploi."
+          },
+          {
+            "scoreId": 60,
+            "score": 2,
+            "scoreDefinition": "Programme d'études en santé numérique proposé et en cours d'examen dans le cadre des exigences de la formation initiale."
+          },
+          {
+            "scoreId": 61,
+            "score": 3,
+            "scoreDefinition": "La mise en œuvre d'un programme d'enseignement numérique en santé est en cours, couvrant environ 0 à 25 % des professionnels de la santé en formation initiale."
+          },
+          {
+            "scoreId": 62,
+            "score": 4,
+            "scoreDefinition": "La santé numérique est enseignée dans les établissements pertinents, et on estime que 50 à 75 % des professionnels de la santé reçoivent une formation préalable à l'emploi."
+          },
+          {
+            "scoreId": 63,
+            "score": 5,
+            "scoreDefinition": "Enseignement de la santé numérique dans les établissements concernés, plus de 75 % des professionnels de la santé bénéficiant d'une formation initiale."
+          }
+        ]
+      },
+      {
+        "indicatorId": 20,
+        "indicatorCode": "9a",
+        "indicatorName": "Cadre national d'architecture de santé numérique et/ou échange d'information sur la santé",
+        "indicatorDefinition": "Existe-t-il un cadre national d'architecture de santé numérique (cybersanté) et/ou d'échange d'information sur la santé ?",
+        "scores": [
+          {
+            "scoreId": 134,
+            "score": -1,
+            "scoreDefinition": "Non disponible"
+          },
+          {
+            "scoreId": 135,
+            "score": 1,
+            "scoreDefinition": "Il n'existe pas de cadre d'architecture de santé numérique (cybersanté) ni d'échange d'information sur la santé."
+          },
+          {
+            "scoreId": 136,
+            "score": 2,
+            "scoreDefinition": "Un cadre national d'architecture de santé numérique et/ou un échange d'information sur la santé ont été proposés, mais non approuvés, y compris les couches sémantique, syntaxique et organisationnelle."
+          },
+          {
+            "scoreId": 137,
+            "score": 3,
+            "scoreDefinition": "L'architecture nationale de la santé numérique et/ou l'échange d'information sur la santé est fonctionnelle et offre des fonctions de base comme l'authentification, la traduction, le stockage et l'entreposage, un guide sur les données disponibles et la façon d'y accéder et l'interprétation des données."
+          },
+          {
+            "scoreId": 138,
+            "score": 4,
+            "scoreDefinition": "Le gouvernement dirige, gère et applique la mise en œuvre de l'architecture nationale de la santé numérique et/ou l'échange d'information sur la santé, qui sont entièrement mis en œuvre conformément aux normes de l'industrie."
+          },
+          {
+            "scoreId": 139,
+            "score": 5,
+            "scoreDefinition": "L'architecture nationale de la santé numérique et/ou l'échange d'information sur la santé fournit des fonctions d'échange de données de base et est périodiquement révisée et mise à jour pour répondre aux besoins de l'architecture numérique de la santé en évolution. Il y a l'apprentissage continu, l'innovation et le contrôle de la qualité. Les données sont activement utilisées pour la planification stratégique et la budgétisation de la santé nationale."
+          }
+        ]
+      },
+      {
+        "indicatorId": 21,
+        "indicatorCode": "9b",
+        "indicatorName": "Normes d'information sur la santé",
+        "indicatorDefinition": "Existe-t-il des normes relatives à l'échange, à la transmission, à la messagerie, à la sécurité, à la confidentialité et au matériel d'échange de données et d'information sur la santé numérique ?",
+        "scores": [
+          {
+            "scoreId": 140,
+            "score": -1,
+            "scoreDefinition": "Non disponible"
+          },
+          {
+            "scoreId": 141,
+            "score": 1,
+            "scoreDefinition": "Il n'existe pas de normes de santé numérique et d'information sur la santé pour l'échange de données, la transmission, la messagerie, la sécurité, la confidentialité et le matériel."
+          },
+          {
+            "scoreId": 142,
+            "score": 2,
+            "scoreDefinition": "Certaines normes de santé numérique et d'information sur la santé pour l'échange de données, la transmission, la messagerie, la sécurité, la confidentialité et le matériel informatique ont été adoptées ou sont utilisées."
+          },
+          {
+            "scoreId": 143,
+            "score": 3,
+            "scoreDefinition": "Des normes relatives à l'échange, à la transmission, à la messagerie, à la sécurité, à la protection des renseignements personnels et au matériel informatique ont été publiées et diffusées dans le pays sous la direction du gouvernement."
+          },
+          {
+            "scoreId": 144,
+            "score": 4,
+            "scoreDefinition": "Des normes relatives à l'échange, à la transmission, à la messagerie, à la sécurité, à la protection des renseignements personnels et au matériel informatique ont été publiées et diffusées dans le pays sous la direction du gouvernement."
+          },
+          {
+            "scoreId": 145,
+            "score": 5,
+            "scoreDefinition": "Les normes de données sont régulièrement mises à jour et les données sont activement utilisées pour le suivi et l'évaluation du système de santé ainsi que pour la planification stratégique et la budgétisation de la santé nationale."
+          }
+        ]
+      },
+      {
+        "indicatorId": 22,
+        "indicatorCode": "9c",
+        "indicatorName": "Disponibilité du réseau",
+        "indicatorDefinition": "Extraire le score de l'indice de préparation du réseau WEF",
+        "scores": [
+          {
+            "scoreId": 146,
+            "score": -1,
+            "scoreDefinition": "Non disponible"
+          },
+          {
+            "scoreId": 147,
+            "score": 1,
+            "scoreDefinition": "1.0 - 3.3"
+          },
+          {
+            "scoreId": 148,
+            "score": 2,
+            "scoreDefinition": ">3.3 - 4.0"
+          },
+          {
+            "scoreId": 149,
+            "score": 3,
+            "scoreDefinition": ">4.0 - 5.0"
+          },
+          {
+            "scoreId": 150,
+            "score": 4,
+            "scoreDefinition": ">5.0 - 5.4"
+          },
+          {
+            "scoreId": 151,
+            "score": 5,
+            "scoreDefinition": ">5.4 - 7.0"
+          }
+        ]
+      },
+      {
+        "indicatorId": 10,
+        "indicatorCode": "10",
+        "indicatorName": "Intégration de la santé numérique dans la formation initiale des professionnels de la santé et dans la formation professionnelle connexe (avant le déploiement)  ",
+        "indicatorDefinition": "Plus précisément, la santé numérique fait-elle partie du programme d'études des docteurs/médecins en formation médicale ?   ",
+        "scores": [
+          {
+            "scoreId": 64,
+            "score": -1,
+            "scoreDefinition": "Non disponible"
+          },
+          {
+            "scoreId": 66,
+            "score": 1,
+            "scoreDefinition": "Il n'y a pas de programme d'études en santé numérique pour les docteurs/médecins dans le cadre des exigences de formation préalable à l'emploi."
+          },
+          {
+            "scoreId": 67,
+            "score": 2,
+            "scoreDefinition": "Proposition d'un programme d'études en santé numérique et révision en cours dans le cadre de la formation initiale des docteurs/médecins."
+          },
+          {
+            "scoreId": 68,
+            "score": 3,
+            "scoreDefinition": "La mise en œuvre d'un programme d'enseignement numérique en santé est en cours, couvrant environ 0 à 25 % des docteurs/médecins en formation initiale"
+          },
+          {
+            "scoreId": 69,
+            "score": 4,
+            "scoreDefinition": "Enseignement de la santé numérique dans les établissements concernés, environ 50 à 75 % des docteurs/médecins bénéficiant d'une formation initiale."
+          },
+          {
+            "scoreId": 70,
+            "score": 5,
+            "scoreDefinition": "Enseignement de la santé numérique dans les établissements concernés, plus de 75 % des docteurs/médecins recevant une formation préalable à l'emploi."
+          }
+        ]
+      },
+      {
+        "indicatorId": 23,
+        "indicatorCode": "10a",
+        "indicatorName": "Planification et soutien de l'entretien continu de l'infrastructure pour la santé numérique",
+        "indicatorDefinition": "Existe-t-il un plan articulé pour soutenir la fourniture et l'entretien de l'infrastructure de santé numérique (y compris l'équipement - ordinateurs, tablettes, téléphones, fournitures, logiciels, appareils, etc.",
+        "scores": [
+          {
+            "scoreId": 152,
+            "score": -1,
+            "scoreDefinition": "Non disponible"
+          },
+          {
+            "scoreId": 153,
+            "score": 1,
+            "scoreDefinition": "Il n'y a pas de plan articulé pour soutenir la fourniture et l'entretien de l'infrastructure de santé numérique (y compris l'équipement - ordinateurs, tablettes, téléphones, fournitures, logiciels, appareils, etc."
+          },
+          {
+            "scoreId": 154,
+            "score": 2,
+            "scoreDefinition": "Un plan de soutien à la fourniture et à l'entretien de l'infrastructure pour la santé numérique (y compris l'équipement (ordinateurs, tablettes, téléphones, fournitures, logiciels, appareils, etc.) a été élaboré, mais n'a pas été mis en œuvre."
+          },
+          {
+            "scoreId": 155,
+            "score": 3,
+            "scoreDefinition": "Un plan de soutien à la fourniture et à l'entretien de l'infrastructure pour la santé numérique (y compris l'équipement - ordinateurs, tablettes, téléphones, fournitures, logiciels, appareils, etc.) a été mis en œuvre en partie, mais pas toujours avec une estimation de 0 à 25 % de l'infrastructure nécessaire, disponible et en service dans le secteur des services de santé publique."
+          },
+          {
+            "scoreId": 156,
+            "score": 4,
+            "scoreDefinition": "Un plan d'appui à la fourniture et à l'entretien de l'infrastructure pour la santé numérique (y compris l'équipement - ordinateurs, tablettes, téléphones, fournitures, logiciels, appareils, etc.) a été mis en œuvre partiellement et conformément à l'estimation de 25 à 50 % de l'infrastructure nécessaire, disponible et en service dans le secteur des services de santé publique.."
+          },
+          {
+            "scoreId": 157,
+            "score": 5,
+            "scoreDefinition": "l'infrastructure de santé numérique (y compris l'équipement - ordinateurs, tablettes, téléphones, fournitures, logiciels, appareils, etc.) est disponible, utilisée, régulièrement entretenue et mise à niveau dans plus de 75 % du secteur des services de santé publique."
+          }
+        ]
+      },
+      {
+        "indicatorId": 24,
+        "indicatorCode": "10b",
+        "indicatorName": "Systèmes de santé numériques à l'échelle nationale",
+        "indicatorDefinition": "Les priorités du secteur public en matière de santé sont appuyées par des systèmes de santé numériques à l'échelle nationale. (Utilisez une feuille de travail distincte pour énumérer les domaines prioritaires spécifiés du pays, indiquer si des systèmes numériques sont en place et si ces systèmes sont à l'échelle nationale.) [ex. Le pays X choisit 4 domaines prioritaires, utilise des systèmes numériques pour traiter 2 des 4, dont 1 seulement à l'échelle nationale, reçoit un score de 25%].",
+        "scores": [
+          {
+            "scoreId": 158,
+            "score": -1,
+            "scoreDefinition": "Non disponible"
+          },
+          {
+            "scoreId": 159,
+            "score": 1,
+            "scoreDefinition": "Les domaines prioritaires nationaux ne sont soutenus par la santé numérique à aucune échelle."
+          },
+          {
+            "scoreId": 160,
+            "score": 2,
+            "scoreDefinition": "Peu de domaines prioritaires nationaux sont appuyés par la santé numérique et la mise en œuvre a commencé (< 25 % des domaines prioritaires)."
+          },
+          {
+            "scoreId": 161,
+            "score": 3,
+            "scoreDefinition": "Certains domaines prioritaires nationaux appuyés par des systèmes de santé numériques à l'échelle (25 à 50 % des domaines prioritaires)."
+          },
+          {
+            "scoreId": 162,
+            "score": 4,
+            "scoreDefinition": "La majorité, mais pas tous les domaines prioritaires nationaux (50 à 75 % des domaines prioritaires) sont soutenus par des systèmes de santé numériques à l'échelle."
+          },
+          {
+            "scoreId": 163,
+            "score": 5,
+            "scoreDefinition": "Tous les domaines prioritaires à l'échelle nationale sont soutenus par des systèmes de santé numériques à l'échelle nationale (>75 %) avec des résultats et des systèmes de suivi et d'évaluation."
+          }
+        ]
+      },
+      {
+        "indicatorId": 25,
+        "indicatorCode": "10c",
+        "indicatorName": "Gestion de l'identité numérique des fournisseurs de services, des administrateurs et des installations pour la santé numérique, y compris les données de localisation pour la cartographie SIG ",
+        "indicatorDefinition": "Les registres du système de santé: des prestataires, des administrateurs et des établissements publics (et privés s'il y a lieu) identifiables de façon unique sont-ils disponibles, accessibles et à jour ? Les données sont-elles géolocalisées pour permettre la cartographie SIG ?",
+        "scores": [
+          {
+            "scoreId": 164,
+            "score": -1,
+            "scoreDefinition": "Non disponible"
+          },
+          {
+            "scoreId": 165,
+            "score": 1,
+            "scoreDefinition": "Les registres du système de santé : des prestataires, administrateurs et établissements publics (et privés s'il y a lieu) identifiables de façon unique ne sont pas disponibles, accessibles et à jour."
+          },
+          {
+            "scoreId": 166,
+            "score": 2,
+            "scoreDefinition": "Des registres du système de santé : des prestataires, des administrateurs et des établissements publics (et privés s'il y a lieu) identifiables de façon unique sont en cours d'élaboration, mais ne sont pas disponibles pour utilisation."
+          },
+          {
+            "scoreId": 167,
+            "score": 3,
+            "scoreDefinition": "Les registres du système de santé: des prestataires, des administrateurs et des établissements publics (et privés s'il y a lieu) identifiables de façon unique sont disponibles pour utilisation, mais ils sont incomplets, partiellement disponibles, utilisés de façon sporadique et tenus de façon irrégulière."
+          },
+          {
+            "scoreId": 168,
+            "score": 4,
+            "scoreDefinition": "Les registres du système de santé: des prestataires, administrateurs et établissements publics (et privés s'il y a lieu) identifiables de façon unique sont disponibles, utilisés, mis à jour et tenus à jour régulièrement. Les données sont géolocalisées pour permettre la cartographie SIG."
+          },
+          {
+            "scoreId": 169,
+            "score": 5,
+            "scoreDefinition": "Les registres du système de santé : des prestataires, des administrateurs et des établissements publics (et privés s'il y a lieu) identifiables de façon unique sont disponibles, mis à jour à l'aide de données géolocalisées et utilisés pour la planification stratégique et la budgétisation du système et des services de santé."
+          }
+        ]
+      },
+      {
+        "indicatorId": 11,
+        "indicatorCode": "11",
+        "indicatorName": "Intégration de la santé numérique dans la formation initiale des professionnels de la santé et dans la formation professionnelle connexe (avant le déploiement)  ",
+        "indicatorDefinition": "Plus précisément, la santé numérique fait-elle partie du programme d'études des infirmières en formation initiale ?  ",
+        "scores": [
+          {
+            "scoreId": 71,
+            "score": -1,
+            "scoreDefinition": "Non disponible"
+          },
+          {
+            "scoreId": 73,
+            "score": 1,
+            "scoreDefinition": "Il n'y a pas de programme d'études en santé numérique pour les infirmières dans le cadre des exigences de la formation initiale."
+          },
+          {
+            "scoreId": 74,
+            "score": 2,
+            "scoreDefinition": "Un programme d'études en santé numérique a été proposé et fait l'objet d'un examen dans le cadre des exigences de formation initiale des infirmières et infirmiers."
+          },
+          {
+            "scoreId": 75,
+            "score": 3,
+            "scoreDefinition": "La mise en œuvre d'un programme d'enseignement numérique en santé est en cours, couvrant environ 0 à 25 % des professionnels de la santé en formation initiale."
+          },
+          {
+            "scoreId": 76,
+            "score": 4,
+            "scoreDefinition": "Enseignement de la santé numérique dans les établissements concernés, environ 50 à 75 % des infirmières et infirmiers recevant une formation préalable à l'emploi."
+          },
+          {
+            "scoreId": 77,
+            "score": 5,
+            "scoreDefinition": "Enseignement de la santé numérique dans les établissements concernés avec plus de 75 % d'infirmières et d'infirmiers ayant reçu une formation initiale."
+          }
+        ]
+      },
+      {
+        "indicatorId": 26,
+        "indicatorCode": "11a",
+        "indicatorName": "Gestion de l'identité  des individus pour la santé numérique",
+        "indicatorDefinition": "Existe-t-il des registres sécurisés ou un fichier maître des patients contenant les noms de personnes identifiables de façon unique, accessibles et à jour pour utilisation à des fins liées à la santé ? ",
+        "scores": [
+          {
+            "scoreId": 170,
+            "score": -1,
+            "scoreDefinition": "Non disponible"
+          },
+          {
+            "scoreId": 171,
+            "score": 1,
+            "scoreDefinition": "Il n'existe pas de registre ou de fichier maître sécurisé des patients."
+          },
+          {
+            "scoreId": 172,
+            "score": 2,
+            "scoreDefinition": "Il existe un registre sécurisé, mais il est incomplet / partiellement disponible, utilisé et tenu de façon irrégulière."
+          },
+          {
+            "scoreId": 173,
+            "score": 3,
+            "scoreDefinition": "Un registre sécurisé existe, est disponible et utilisé activement et comprend moins de 25 % de la population concernée."
+          },
+          {
+            "scoreId": 174,
+            "score": 4,
+            "scoreDefinition": "Un registre sécurisé existe, est disponible et utilisé activement et comprend moins de 25 % de la population concernée."
+          },
+          {
+            "scoreId": 175,
+            "score": 5,
+            "scoreDefinition": "Un registre sécurisé existe, est disponible et utilisé activement et comprend plus de 75 % de la population concernée. Les données sont disponibles, utilisées et conservées."
+          }
+        ]
+      },
+      {
+        "indicatorId": 12,
+        "indicatorCode": "12",
+        "indicatorName": "Intégration de la santé numérique dans la formation initiale des professionnels de la santé et dans la formation professionnelle connexe (avant le déploiement)  ",
+        "indicatorDefinition": "Plus précisément, la santé numérique fait-elle partie du programme d'études des professionnels de la santé et des professionnels de soutien à la santé en formation pour les agents de santé communautaires ? ",
+        "scores": [
+          {
+            "scoreId": 78,
+            "score": -1,
+            "scoreDefinition": "Non disponible"
+          },
+          {
+            "scoreId": 80,
+            "score": 1,
+            "scoreDefinition": "Il n'y a pas de programme d'études en santé numérique pour les professionnels de la santé dans le cadre des exigences de formation initiale des agents de santé communautaires."
+          },
+          {
+            "scoreId": 81,
+            "score": 2,
+            "scoreDefinition": "Programme d'études en santé numérique proposé et en cours d'examen dans le cadre des exigences de formation initiale des agents de santé communautaire."
+          },
+          {
+            "scoreId": 82,
+            "score": 3,
+            "scoreDefinition": "La mise en œuvre d'un programme d'enseignement numérique en santé est en cours, couvrant environ 0 à 25 % des agents de santé communautaire en formation initiale."
+          },
+          {
+            "scoreId": 83,
+            "score": 4,
+            "scoreDefinition": "Enseignement de la santé numérique dans les établissements concernés, environ 50 à 75 % des agents de santé communautaires recevant une formation initiale."
+          },
+          {
+            "scoreId": 84,
+            "score": 5,
+            "scoreDefinition": "Enseignement de la santé numérique dans les établissements concernés avec plus de 75 % des agents de santé communautaires recevant une formation initiale."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "categoryId": 5,
+    "categoryName": "Normes et interopérabilité",
+    "indicators": [
+      {
+        "indicatorId": 13,
+        "indicatorCode": "13",
+        "indicatorName": "Intégration de la santé numérique dans la formation initiale des professionnels de la santé et dans la formation professionnelle connexe (avant le déploiement)  ",
+        "indicatorDefinition": "Plus précisément, la santé numérique fait-elle partie du programme d'études des professionnels de la santé et des personnels de soutien en santé en général ? [Définie comme étant les travailleurs de la santé communautaire, les infirmières, les médecins, les professionnels paramédicaux, les gestionnaires/administrateurs de la santé et les technologues.]",
+        "scores": [
+          {
+            "scoreId": 85,
+            "score": -1,
+            "scoreDefinition": "Non disponible"
+          },
+          {
+            "scoreId": 87,
+            "score": 1,
+            "scoreDefinition": "Il n'y a pas de programme d'études en santé numérique dans le cadre de la formation en cours d'emploi (formation continue) des professionnels de la santé en milieu de travail."
+          },
+          {
+            "scoreId": 88,
+            "score": 2,
+            "scoreDefinition": "Programme d'études en santé numérique proposé et en cours de révision dans le cadre de la formation en cours d'emploi (formation continue) des professionnels de la santé sur le marché du travail."
+          },
+          {
+            "scoreId": 89,
+            "score": 3,
+            "scoreDefinition": "Le programme d'études en santé numérique est mis en œuvre dans le cadre de la formation en cours d'emploi (formation continue) de 0 à 25 % des professionnels de la santé sur le marché du travail."
+          },
+          {
+            "scoreId": 90,
+            "score": 4,
+            "scoreDefinition": "Le programme d'études en santé numérique est mis en œuvre dans le cadre de la formation en cours d'emploi (formation continue) de 50 à 75 % des professionnels de la santé sur le marché du travail."
+          },
+          {
+            "scoreId": 91,
+            "score": 5,
+            "scoreDefinition": "Le programme d'études en santé numérique est mis en œuvre dans le cadre de la formation en cours d'emploi (formation continue) des professionnels de la santé de plus de 75 % de la population active."
+          }
+        ]
+      },
+      {
+        "indicatorId": 14,
+        "indicatorCode": "14",
+        "indicatorName": "",
+        "indicatorDefinition": "Plus précisément, la santé numérique fait-elle partie du programme d'études des docteurs/médecins en milieu de travail ?",
+        "scores": [
+          {
+            "scoreId": 92,
+            "score": -1,
+            "scoreDefinition": "Non disponible"
+          },
+          {
+            "scoreId": 94,
+            "score": 1,
+            "scoreDefinition": "Il n'y a pas de programme de santé numérique dans le cadre de la formation en cours d'emploi (formation continue) pour les docteurs et les médecins qui travaillent."
+          },
+          {
+            "scoreId": 95,
+            "score": 2,
+            "scoreDefinition": "Programme d'études en santé numérique proposé et en cours de révision dans le cadre de la formation en cours d'emploi (formation continue) des docteurs/médecins en milieu de travail."
+          },
+          {
+            "scoreId": 96,
+            "score": 3,
+            "scoreDefinition": "Le programme de santé numérique est mis en œuvre dans le cadre de la formation en cours d'emploi (formation continue) de 0 à 25 % des docteurs/médecins de la population active."
+          },
+          {
+            "scoreId": 97,
+            "score": 4,
+            "scoreDefinition": "Le programme de santé numérique est mis en œuvre dans le cadre de la formation en cours d'emploi (formation continue) de 50 à 75 % des docteurs/médecins de la population active."
+          },
+          {
+            "scoreId": 98,
+            "score": 5,
+            "scoreDefinition": "Le programme de santé numérique est mis en œuvre dans le cadre de la formation en cours d'emploi (formation continue) pour plus de 75 % des docteurs/médecins de la population active."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "categoryId": 6,
+    "categoryName": "Infrastructure",
+    "indicators": [
+      {
+        "indicatorId": 15,
+        "indicatorCode": "15",
+        "indicatorName": "",
+        "indicatorDefinition": "Plus précisément, la santé numérique fait-elle partie du programme d'études des infirmières en milieu de travail ?",
+        "scores": [
+          {
+            "scoreId": 99,
+            "score": -1,
+            "scoreDefinition": "Non disponible"
+          },
+          {
+            "scoreId": 101,
+            "score": 1,
+            "scoreDefinition": "Il n'y a pas de programme d'études en santé numérique dans le cadre de la formation en cours d'emploi (formation continue) des infirmières en milieu de travail"
+          },
+          {
+            "scoreId": 102,
+            "score": 2,
+            "scoreDefinition": "Programme d'études en santé numérique proposé et en cours de révision dans le cadre de la formation en cours d'emploi (formation continue) des infirmières et infirmiers en milieu de travail."
+          },
+          {
+            "scoreId": 103,
+            "score": 3,
+            "scoreDefinition": "Le programme d'études en santé numérique est mis en œuvre dans le cadre de la formation en cours d'emploi (formation continue) de 0 à 25 % des infirmières sur le marché du travail."
+          },
+          {
+            "scoreId": 104,
+            "score": 4,
+            "scoreDefinition": "Le programme d'études en santé numérique est mis en œuvre dans le cadre de la formation en cours d'emploi (formation continue) de 50 à 75 % des infirmières sur le marché du travail."
+          },
+          {
+            "scoreId": 105,
+            "score": 5,
+            "scoreDefinition": "Le programme d'études en santé numérique est mis en œuvre dans le cadre de la formation en cours d'emploi (formation continue) de plus de 75 % des infirmières en milieu de travail."
+          }
+        ]
+      },
+      {
+        "indicatorId": 16,
+        "indicatorCode": "16",
+        "indicatorName": "",
+        "indicatorDefinition": "Plus précisément, la santé numérique fait-elle partie du programme d'études des travailleurs de la santé communautaire sur le marché du travail ?",
+        "scores": [
+          {
+            "scoreId": 106,
+            "score": -1,
+            "scoreDefinition": "Non disponible"
+          },
+          {
+            "scoreId": 108,
+            "score": 1,
+            "scoreDefinition": "Il n'y a pas de programme de santé numérique dans le cadre de la formation en cours d'emploi (formation continue) des agents de santé communautaires sur le marché du travail."
+          },
+          {
+            "scoreId": 109,
+            "score": 2,
+            "scoreDefinition": "Proposition et révision du programme d'études en santé numérique dans le cadre de la formation en cours d'emploi (formation continue) des agents de santé communautaires sur le marché du travail."
+          },
+          {
+            "scoreId": 110,
+            "score": 3,
+            "scoreDefinition": "Le programme de santé numérique est mis en œuvre dans le cadre de la formation en cours d'emploi (formation continue) de 0 à 25 % des agents de santé communautaires sur le lieu de travail."
+          },
+          {
+            "scoreId": 111,
+            "score": 4,
+            "scoreDefinition": "Le programme de santé numérique est mis en œuvre dans le cadre de la formation en cours d'emploi (formation continue) de 50 à 75 % des agents de santé communautaires sur le lieu de travail."
+          },
+          {
+            "scoreId": 112,
+            "score": 5,
+            "scoreDefinition": "Le programme de santé numérique est mis en œuvre dans le cadre de la formation en cours d'emploi (formation continue) de plus de 75 % des agents de santé communautaires sur le marché du travail."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "categoryId": 7,
+    "categoryName": "Services et applications",
+    "indicators": [
+      {
+        "indicatorId": 17,
+        "indicatorCode": "17",
+        "indicatorName": "Formation du personnel de santé numérique",
+        "indicatorDefinition": "En général, la formation en santé numérique / informatique de la santé / systèmes d'information sur la santé / systèmes d'information sur la santé / programmes de diplôme en informatique biomédicale (dans des établissements publics ou privés) forme-t-elle des travailleurs en santé numérique ? ",
+        "scores": [
+          {
+            "scoreId": 113,
+            "score": -1,
+            "scoreDefinition": "Non disponible"
+          },
+          {
+            "scoreId": 115,
+            "score": 1,
+            "scoreDefinition": "Il n'y a pas de formation disponible dans le pays pour le personnel de santé numérique."
+          },
+          {
+            "scoreId": 116,
+            "score": 2,
+            "scoreDefinition": "Évaluation des besoins en personnel de santé numérique, identification des lacunes et options de formation en cours d'élaboration."
+          },
+          {
+            "scoreId": 117,
+            "score": 3,
+            "scoreDefinition": "Une formation professionnelle est disponible, mais les cursus ne sont pas encore déployés."
+          },
+          {
+            "scoreId": 118,
+            "score": 4,
+            "scoreDefinition": "Des professionnels de la santé formés à l'informatique sont disponibles et déployés, mais des lacunes essentielles subsistent en matière de personnel."
+          },
+          {
+            "scoreId": 119,
+            "score": 5,
+            "scoreDefinition": "Un nombre suffisant de professionnels de la santé numériques formés et disponibles pour répondre aux besoins nationaux en matière de santé numérique."
+          }
+        ]
+      },
+      {
+        "indicatorId": 18,
+        "indicatorCode": "18",
+        "indicatorName": "Formation du personnel de santé numérique",
+        "indicatorDefinition": "Plus précisément, la formation en informatique sanitaire et/ou biomédicale (dans des établissements publics ou privés) produit-elle des informaticiens ou des spécialistes des systèmes d'information sanitaire formés ? ",
+        "scores": [
+          {
+            "scoreId": 120,
+            "score": -1,
+            "scoreDefinition": "Non disponible"
+          },
+          {
+            "scoreId": 122,
+            "score": 1,
+            "scoreDefinition": "Il n'existe pas de formation en informatique ou en systèmes d'information sanitaire dans le pays."
+          },
+          {
+            "scoreId": 123,
+            "score": 2,
+            "scoreDefinition": "Évaluation des besoins de la main-d'œuvre en informatique de la santé, détermination des lacunes et des options de formation en cours d'élaboration."
+          },
+          {
+            "scoreId": 124,
+            "score": 3,
+            "scoreDefinition": "Une formation professionnelle en informatique de la santé est disponible, mais les cursus ne sont pas encore déployés."
+          },
+          {
+            "scoreId": 125,
+            "score": 4,
+            "scoreDefinition": "Des professionnels de l'informatique formés sont disponibles et déployés, mais il subsiste des lacunes essentielles en matière de personnel."
+          },
+          {
+            "scoreId": 126,
+            "score": 5,
+            "scoreDefinition": "Un nombre suffisant de professionnels de l'informatique de la santé formés et disponibles pour répondre aux besoins du système national d'information sur la santé"
+          }
+        ]
+      },
+      {
+        "indicatorId": 19,
+        "indicatorCode": "19",
+        "indicatorName": "Maturité des carrières professionnelles en santé numérique dans le secteur public",
+        "indicatorDefinition": "Existe-t-il des titres professionnels et des cheminements de carrière dans le secteur public en santé numérique ?",
+        "scores": [
+          {
+            "scoreId": 127,
+            "score": -1,
+            "scoreDefinition": "Non disponible"
+          },
+          {
+            "scoreId": 129,
+            "score": 1,
+            "scoreDefinition": "Il n'existe pas de stratégie, de politique ou de guide sur la main-d'œuvre qui reconnaît la santé numérique. La répartition du personnel de santé numérique est ponctuelle."
+          },
+          {
+            "scoreId": 130,
+            "score": 2,
+            "scoreDefinition": "Une évaluation nationale des besoins montre le nombre et les types de compétences nécessaires pour soutenir la santé numérique, en mettant explicitement l'accent sur la formation des cadres des agents de santé féminins."
+          },
+          {
+            "scoreId": 131,
+            "score": 3,
+            "scoreDefinition": "Les rôles et les responsabilités du personnel de santé numérique sont mis en correspondance avec les effectifs et les plans de carrière du gouvernement et 25 à 50 % des effectifs de santé numérique nécessaires du secteur public sont en place."
+          },
+          {
+            "scoreId": 132,
+            "score": 4,
+            "scoreDefinition": "Il existe une politique et un plan stratégique en matière de ressources humaines qui définissent les compétences et les fonctions nécessaires pour appuyer la santé numérique, en mettant explicitement l'accent sur la formation de cadres d'agents de santé féminins et d'environ 50 à 75 % des effectifs en santé numérique du secteur public en place."
+          },
+          {
+            "scoreId": 133,
+            "score": 5,
+            "scoreDefinition": "Un plan à long terme est en place pour former et maintenir en poste le personnel possédant les compétences nécessaires pour maintenir la santé numérique aux niveaux national et infranational, en mettant explicitement l'accent sur la formation de cadres d'agents de santé féminins dont on estime que plus de 75 % des postes sont pourvus. Des systèmes de gestion du rendement sont en place pour assurer la croissance et la viabilité de la main-d'œuvre en santé numérique, avec un approvisionnement suffisant pour répondre aux besoins en santé numérique et un faible roulement du personnel."
+          }
+        ]
+      },
+      {
+        "indicatorId": 27,
+        "indicatorCode": "19a",
+        "indicatorName": "Gestion de l'identité  des individus pour la santé numérique",
+        "indicatorDefinition": "Plus précisément, existe-t-il un fichier index de référence sécurisé des patients contenant les noms de personnes identifiables de façon unique, accessible et à jour, qui peut être utilisé à des fins médicales ? ",
+        "scores": [
+          {
+            "scoreId": 176,
+            "score": -1,
+            "scoreDefinition": "Non disponible"
+          },
+          {
+            "scoreId": 177,
+            "score": 1,
+            "scoreDefinition": "Il n'existe pas de fichier index de référence sécurisé des patients."
+          },
+          {
+            "scoreId": 178,
+            "score": 2,
+            "scoreDefinition": "Il n'existe pas de fichier index de référence sécurisé des patients."
+          },
+          {
+            "scoreId": 179,
+            "score": 3,
+            "scoreDefinition": "Un fichier index de référence des patients existe, est disponible et utilisé activement et comprend moins de 25 % de la population concernée."
+          },
+          {
+            "scoreId": 180,
+            "score": 4,
+            "scoreDefinition": "Un fichier index de référence des patients existe, est disponible et utilisé activement et comprend 25 à 50 % de la population concernée."
+          },
+          {
+            "scoreId": 181,
+            "score": 5,
+            "scoreDefinition": "Un fichier index de référence des patients existe, est disponible et utilisé activement et comprend plus de 75 % de la population concernée. Les données sont disponibles, utilisées et conservées."
+          }
+        ]
+      },
+      {
+        "indicatorId": 28,
+        "indicatorCode": "19b",
+        "indicatorName": "Gestion de l'identité  des individus pour la santé numérique",
+        "indicatorDefinition": "Plus précisément, existe-t-il un registre des naissances sûr, accessible et à jour, contenant les noms de personnes identifiables de façon unique, qui peut être utilisé à des fins médicales ? ",
+        "scores": [
+          {
+            "scoreId": 182,
+            "score": -1,
+            "scoreDefinition": "Non disponible"
+          },
+          {
+            "scoreId": 183,
+            "score": 1,
+            "scoreDefinition": "Il n'existe pas de registre des naissances sécurisé."
+          },
+          {
+            "scoreId": 184,
+            "score": 2,
+            "scoreDefinition": "Il existe un registre des naissances sûr, mais il est incomplet / partiellement disponible, utilisé et tenu de façon irrégulière."
+          },
+          {
+            "scoreId": 185,
+            "score": 3,
+            "scoreDefinition": "Un registre des naissances sécurisé existe, est disponible et utilisé activement et comprend moins de 25 % de la population concernée."
+          },
+          {
+            "scoreId": 186,
+            "score": 4,
+            "scoreDefinition": "Un registre des naissances sécurisé existe, est disponible et utilisé activement et comprend 25 à 50 % de la population concernée."
+          },
+          {
+            "scoreId": 187,
+            "score": 5,
+            "scoreDefinition": "Un registre des naissances sécurisé existe, est disponible et utilisé activement et comprend plus de 75 % de la population concernée. Les données sont disponibles, utilisées et conservées."
+          }
+        ]
+      },
+      {
+        "indicatorId": 29,
+        "indicatorCode": "19c",
+        "indicatorName": "Gestion de l'identité  des individus pour la santé numérique",
+        "indicatorDefinition": "Plus précisément, existe-t-il un registre sûr des décès de personnes identifiables de façon unique, accessible et à jour, qui peut être utilisé à des fins médicales ? ",
+        "scores": [
+          {
+            "scoreId": 188,
+            "score": -1,
+            "scoreDefinition": "Non disponible"
+          },
+          {
+            "scoreId": 189,
+            "score": 1,
+            "scoreDefinition": "Il n'existe pas de registre des décès sécurisé."
+          },
+          {
+            "scoreId": 190,
+            "score": 2,
+            "scoreDefinition": "Il existe un registre des décès sûr, mais il est incomplet / partiellement disponible, utilisé et tenu de façon irrégulière."
+          },
+          {
+            "scoreId": 191,
+            "score": 3,
+            "scoreDefinition": "Un registre des décès sécurisé existe, est disponible et utilisé activement et comprend moins de 25 % de la population concernée."
+          },
+          {
+            "scoreId": 192,
+            "score": 4,
+            "scoreDefinition": "Un registre des décès sécurisé existe, est disponible et utilisé activement et comprend 25 à 50 % de la population concernée."
+          },
+          {
+            "scoreId": 193,
+            "score": 5,
+            "scoreDefinition": "Un registre des décès sécurisé existe, est disponible et utilisé activement et comprend plus de 75 % de la population concernée. Les données sont disponibles, utilisées et conservées."
+          }
+        ]
+      },
+      {
+        "indicatorId": 30,
+        "indicatorCode": "19d",
+        "indicatorName": "Gestion de l'identité  des individus pour la santé numérique",
+        "indicatorDefinition": "Plus précisément, existe-t-il un registre d'immunisation sûr, accessible et à jour, où l'on peut inscrire des personnes identifiables de façon unique, et qui peut être utilisé à des fins de promotion de la santé ? ",
+        "scores": [
+          {
+            "scoreId": 194,
+            "score": -1,
+            "scoreDefinition": "Non disponible"
+          },
+          {
+            "scoreId": 195,
+            "score": 1,
+            "scoreDefinition": "Il n'existe pas de registre d'immunisation sécurisé."
+          },
+          {
+            "scoreId": 196,
+            "score": 2,
+            "scoreDefinition": "Il existe un registre d'immunisation sécurisé, mais il est incomplet / partiellement disponible, utilisé et tenu de façon irrégulière."
+          },
+          {
+            "scoreId": 197,
+            "score": 3,
+            "scoreDefinition": "Un registre d'immunisation sécurisé existe, est disponible et utilisé activement et comprend moins de 25 % de la population concernée."
+          },
+          {
+            "scoreId": 198,
+            "score": 4,
+            "scoreDefinition": "Un registre d'immunisation sécurisé existe, est disponible et utilisé activement et comprend 25 à 50 % de la population concernée."
+          },
+          {
+            "scoreId": 199,
+            "score": 5,
+            "scoreDefinition": "Un registre d'immunisation sécurisé existe, est disponible et utilisé activement et comprend plus de 75 % de la population concernée. Les données sont disponibles, utilisées et conservées."
+          }
+        ]
+      }
+    ]
+  }
+]

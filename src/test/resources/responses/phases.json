@@ -1,0 +1,22 @@
+[
+  {
+    "phaseName": "Phase 1",
+    "phaseValue": 1
+  },
+  {
+    "phaseName": "Phase 2",
+    "phaseValue": 2
+  },
+  {
+    "phaseName": "Phase 3",
+    "phaseValue": 3
+  },
+  {
+    "phaseName": "Phase 4",
+    "phaseValue": 4
+  },
+  {
+    "phaseName": "Phase 5",
+    "phaseValue": 5
+  }
+]

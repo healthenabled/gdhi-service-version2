@@ -1,0 +1,87 @@
+{
+  "countryId": "IND",
+  "countryName": "India",
+  "countryAlpha2Code": "IN",
+  "categories": [
+    {
+      "id": 1,
+      "name": "Liderazgo y gobernanza",
+      "overallScore": 1.5,
+      "phase": 2,
+      "indicators": [
+        {
+          "id": 1,
+          "code": "1",
+          "name": "Priorización de la salud digital a nivel nacional a través de organismos y mecanismos dedicados a la gobernanza.",
+          "indicatorDescription": "¿Tiene el país un departamento / agencia / grupo de trabajo nacional separado para la salud digital?",
+          "score": 1,
+          "supportingText": "sp1",
+          "scoreDescription": "No existe ningún órgano de coordinación y/o la estructura de gobernanza naciente para la salud digital, se constituye caso por caso."
+        },
+        {
+          "id": 2,
+          "code": "2",
+          "name": "Priorización de la salud digital a nivel nacional a través de la planificación",
+          "indicatorDescription": "¿Se incluye y presupuesta la salud digital en las estrategias y/o planes nacionales de salud o en las estrategias y/o planes nacionales pertinentes? Nota: Este indicador se centra en la inclusión de la salud digital o la salud electrónica en la estrategia nacional de salud.",
+          "score": 2,
+          "supportingText": "sp1",
+          "scoreDescription": "Se está debatiendo la inclusión de la salud digital en las estrategias o planes nacionales de salud u otras estrategias o planes nacionales pertinentes. Se ha propuesto un lenguaje para la inclusión de la salud digital en las estrategias y/o planes nacionales de salud o en las estrategias y/o planes nacionales pertinentes, y se está revisando."
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Estrategia e inversión",
+      "overallScore": 2.0,
+      "phase": 2,
+      "indicators": [
+        {
+          "id": 3,
+          "code": "3",
+          "name": "Marco o estrategia nacional de salud electrónica y salud digital",
+          "indicatorDescription": "¿Dispone el país de una estrategia o marco de salud digital o eHealth y de un plan de salud digital presupuestado?",
+          "score": 3,
+          "supportingText": "sp1",
+          "scoreDescription": "Elaboración y aprobación de un plan nacional de salud digital con cálculo de costos."
+        },
+        {
+          "id": 4,
+          "code": "4",
+          "name": "Financiación pública para la salud digital",
+          "indicatorDescription": "¿Cuál es el porcentaje estimado (%) del gasto público anual en salud comprometido con la salud digital?",
+          "score": null,
+          "supportingText": "sp1",
+          "scoreDescription": "Not Available"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Legislación, políticas y cumplimiento",
+      "overallScore": 1.0,
+      "phase": 1,
+      "indicators": [
+        {
+          "id": 5,
+          "code": "5",
+          "name": "Marco Legal para la Protección de Datos (Seguridad)",
+          "indicatorDescription": "¿Existe una ley sobre seguridad de datos (almacenamiento, transmisión, uso) que sea relevante para la salud digital?",
+          "score": null,
+          "supportingText": "sp1",
+          "scoreDescription": "Not Available"
+        },
+        {
+          "id": 6,
+          "code": "6",
+          "name": "Leyes o reglamentos para la privacidad, confidencialidad y acceso a la información de salud (Privacidad)",
+          "indicatorDescription": "¿Existe una ley que proteja la privacidad de las personas, que regule la propiedad, el acceso y el intercambio de datos sanitarios digitales identificables individualmente?",
+          "score": null,
+          "supportingText": "sp1",
+          "scoreDescription": "Not Available"
+        }
+      ]
+    }
+  ],
+  "countryPhase": 2,
+  "collectedDate": "April 2018"
+}

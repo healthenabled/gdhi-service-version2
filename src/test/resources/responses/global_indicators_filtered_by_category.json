@@ -1,0 +1,12 @@
+{
+  "overAllScore": 2,
+  "categories": [
+    {
+      "id": 1,
+      "name": "Leadership and Governance",
+      "overallScore": 2.0,
+      "phase": 2,
+      "indicators": null
+    }
+  ]
+}

@@ -1,0 +1,584 @@
+[
+  {
+    "ALB": "Albanie"
+  },
+  {
+    "DZA": "Algérie"
+  },
+  {
+    "AND": "Andorre"
+  },
+  {
+    "AFG": "Afghanistan"
+  },
+  {
+    "AGO": "Angola"
+  },
+  {
+    "ATG": "Antigua-et-Barbuda"
+  },
+  {
+    "ARG": "Argentine"
+  },
+  {
+    "ARM": "Arménie"
+  },
+  {
+    "AUS": "Australie"
+  },
+  {
+    "AUT": "Autriche"
+  },
+  {
+    "AZE": "Azerbaïdjan"
+  },
+  {
+    "BHS": "Bahamas"
+  },
+  {
+    "BHR": "Bahreïn"
+  },
+  {
+    "BGD": "Bangladesh"
+  },
+  {
+    "BRB": "Barbade"
+  },
+  {
+    "BLR": "Biélorussie"
+  },
+  {
+    "BEL": "Belgique"
+  },
+  {
+    "BLZ": "Belize"
+  },
+  {
+    "BEN": "Bénin"
+  },
+  {
+    "BTN": "Bhoutan"
+  },
+  {
+    "BOL": "Bolivie"
+  },
+  {
+    "BIH": "Bosnie-Herzégovine"
+  },
+  {
+    "BWA": "Botswana"
+  },
+  {
+    "BRA": "Brésil"
+  },
+  {
+    "BRN": "Brunéi Darussalam"
+  },
+  {
+    "BGR": "Bulgarie"
+  },
+  {
+    "BFA": "Burkina Faso"
+  },
+  {
+    "BDI": "Burundi"
+  },
+  {
+    "KHM": "Cambodge"
+  },
+  {
+    "CMR": "Cameroun"
+  },
+  {
+    "CAN": "Canada"
+  },
+  {
+    "CPV": "Cap-Vert"
+  },
+  {
+    "CAF": "République centrafricaine"
+  },
+  {
+    "TCD": "Tchad"
+  },
+  {
+    "CHL": "Chili"
+  },
+  {
+    "CHN": "Chine"
+  },
+  {
+    "COL": "Colombie"
+  },
+  {
+    "COM": "Comores"
+  },
+  {
+    "COG": "Congo-Brazzaville"
+  },
+  {
+    "COD": "Congo-Kinshasa"
+  },
+  {
+    "COK": "Îles Cook"
+  },
+  {
+    "CRI": "Costa Rica"
+  },
+  {
+    "HRV": "Croatie"
+  },
+  {
+    "CUB": "Cuba"
+  },
+  {
+    "CYP": "Chypre"
+  },
+  {
+    "CZE": "Tchéquie"
+  },
+  {
+    "CIV": "Côte d’Ivoire"
+  },
+  {
+    "DNK": "Danemark"
+  },
+  {
+    "DJI": "Djibouti"
+  },
+  {
+    "DMA": "Dominique"
+  },
+  {
+    "DOM": "République dominicaine"
+  },
+  {
+    "ECU": "Équateur"
+  },
+  {
+    "EGY": "Égypte"
+  },
+  {
+    "SLV": "Salvador"
+  },
+  {
+    "GNQ": "Guinée équatoriale"
+  },
+  {
+    "ERI": "Érythrée"
+  },
+  {
+    "EST": "Estonie"
+  },
+  {
+    "ETH": "Éthiopie"
+  },
+  {
+    "FJI": "Fidji"
+  },
+  {
+    "FIN": "Finlande"
+  },
+  {
+    "FRA": "France"
+  },
+  {
+    "GAB": "Gabon"
+  },
+  {
+    "GMB": "Gambie"
+  },
+  {
+    "GEO": "Géorgie"
+  },
+  {
+    "DEU": "Allemagne"
+  },
+  {
+    "GHA": "Ghana"
+  },
+  {
+    "GRC": "Grèce"
+  },
+  {
+    "GRD": "Grenade"
+  },
+  {
+    "GTM": "Guatemala"
+  },
+  {
+    "GIN": "Guinée"
+  },
+  {
+    "GNB": "Guinée-Bissau"
+  },
+  {
+    "PRK": "Corée du Nord"
+  },
+  {
+    "GUY": "Guyana"
+  },
+  {
+    "HTI": "Haïti"
+  },
+  {
+    "HND": "Honduras"
+  },
+  {
+    "HUN": "Hongrie"
+  },
+  {
+    "ISL": "Islande"
+  },
+  {
+    "IND": "Inde"
+  },
+  {
+    "IDN": "Indonésie"
+  },
+  {
+    "IRN": "Iran"
+  },
+  {
+    "IRQ": "Irak"
+  },
+  {
+    "IRL": "Irlande"
+  },
+  {
+    "ISR": "Israël"
+  },
+  {
+    "ITA": "Italie"
+  },
+  {
+    "JAM": "Jamaïque"
+  },
+  {
+    "JPN": "Japon"
+  },
+  {
+    "JOR": "Jordanie"
+  },
+  {
+    "KAZ": "Kazakhstan"
+  },
+  {
+    "KEN": "Kenya"
+  },
+  {
+    "KIR": "Kiribati"
+  },
+  {
+    "KOR": "Corée du Sud"
+  },
+  {
+    "KWT": "Koweït"
+  },
+  {
+    "KGZ": "Kirghizistan"
+  },
+  {
+    "LAO": "République démocratique populaire lao"
+  },
+  {
+    "LVA": "Lettonie"
+  },
+  {
+    "LBN": "Liban"
+  },
+  {
+    "LSO": "Lesotho"
+  },
+  {
+    "LBR": "Libéria"
+  },
+  {
+    "LBY": "Libye"
+  },
+  {
+    "LTU": "Lituanie"
+  },
+  {
+    "LUX": "Luxembourg"
+  },
+  {
+    "MKD": "Macédoine du Nord"
+  },
+  {
+    "MDG": "Madagascar"
+  },
+  {
+    "MWI": "Malawi"
+  },
+  {
+    "MYS": "Malaisie"
+  },
+  {
+    "MDV": "Maldives"
+  },
+  {
+    "MLI": "Mali"
+  },
+  {
+    "MLT": "Malte"
+  },
+  {
+    "MHL": "Îles Marshall"
+  },
+  {
+    "MRT": "Mauritanie"
+  },
+  {
+    "MUS": "Maurice"
+  },
+  {
+    "MEX": "Mexique"
+  },
+  {
+    "FSM": "États fédérés de Micronésie"
+  },
+  {
+    "MDA": "Moldavie"
+  },
+  {
+    "MCO": "Monaco"
+  },
+  {
+    "MNG": "Mongolie"
+  },
+  {
+    "MNE": "Monténégro"
+  },
+  {
+    "MAR": "Maroc"
+  },
+  {
+    "MOZ": "Mozambique"
+  },
+  {
+    "MMR": "Myanmar (Birmanie)"
+  },
+  {
+    "NAM": "Namibie"
+  },
+  {
+    "NRU": "Nauru"
+  },
+  {
+    "NPL": "Népal"
+  },
+  {
+    "NLD": "Pays-Bas"
+  },
+  {
+    "NZL": "Nouvelle-Zélande"
+  },
+  {
+    "NIC": "Nicaragua"
+  },
+  {
+    "NER": "Niger"
+  },
+  {
+    "NGA": "Nigéria"
+  },
+  {
+    "NIU": "Niue"
+  },
+  {
+    "NOR": "Norvège"
+  },
+  {
+    "OMN": "Oman"
+  },
+  {
+    "PAK": "Pakistan"
+  },
+  {
+    "PLW": "Palaos"
+  },
+  {
+    "PAN": "Panama"
+  },
+  {
+    "PNG": "Papouasie-Nouvelle-Guinée"
+  },
+  {
+    "PRY": "Paraguay"
+  },
+  {
+    "PER": "Pérou"
+  },
+  {
+    "PHL": "Philippines"
+  },
+  {
+    "POL": "Pologne"
+  },
+  {
+    "PRT": "Portugal"
+  },
+  {
+    "QAT": "Qatar"
+  },
+  {
+    "ROU": "Roumanie"
+  },
+  {
+    "RUS": "Russie"
+  },
+  {
+    "RWA": "Rwanda"
+  },
+  {
+    "KNA": "Saint-Christophe-et-Niévès"
+  },
+  {
+    "LCA": "Sainte-Lucie"
+  },
+  {
+    "VCT": "Saint-Vincent-et-les-Grenadines"
+  },
+  {
+    "WSM": "Samoa"
+  },
+  {
+    "SMR": "Saint-Marin"
+  },
+  {
+    "STP": "Sao Tomé-et-Principe"
+  },
+  {
+    "SAU": "Arabie saoudite"
+  },
+  {
+    "SEN": "Sénégal"
+  },
+  {
+    "SRB": "Serbie"
+  },
+  {
+    "SYC": "Seychelles"
+  },
+  {
+    "SLE": "Sierra Leone"
+  },
+  {
+    "SGP": "Singapour"
+  },
+  {
+    "SVK": "Slovaquie"
+  },
+  {
+    "SVN": "Slovénie"
+  },
+  {
+    "SLB": "Îles Salomon"
+  },
+  {
+    "SOM": "Somalie"
+  },
+  {
+    "ZAF": "Afrique du Sud"
+  },
+  {
+    "SSD": "Soudan du Sud"
+  },
+  {
+    "ESP": "Espagne"
+  },
+  {
+    "LKA": "Sri Lanka"
+  },
+  {
+    "SDN": "Soudan"
+  },
+  {
+    "SUR": "Suriname"
+  },
+  {
+    "SWZ": "Eswatini"
+  },
+  {
+    "SWE": "Suède"
+  },
+  {
+    "CHE": "Suisse"
+  },
+  {
+    "SYR": "Syrie"
+  },
+  {
+    "TJK": "Tadjikistan"
+  },
+  {
+    "TZA": "Tanzanie"
+  },
+  {
+    "THA": "Thaïlande"
+  },
+  {
+    "TLS": "Timor oriental"
+  },
+  {
+    "TGO": "Togo"
+  },
+  {
+    "TON": "Tonga"
+  },
+  {
+    "TTO": "Trinité-et-Tobago"
+  },
+  {
+    "TUN": "Tunisie"
+  },
+  {
+    "TUR": "Turquie"
+  },
+  {
+    "TKM": "Turkménistan"
+  },
+  {
+    "TUV": "Tuvalu"
+  },
+  {
+    "UGA": "Ouganda"
+  },
+  {
+    "UKR": "Ukraine"
+  },
+  {
+    "ARE": "Émirats arabes unis"
+  },
+  {
+    "GBR": "Royaume-Uni"
+  },
+  {
+    "USA": "États-Unis"
+  },
+  {
+    "URY": "Uruguay"
+  },
+  {
+    "UZB": "Ouzbékistan"
+  },
+  {
+    "VUT": "Vanuatu"
+  },
+  {
+    "VEN": "Venezuela"
+  },
+  {
+    "VNM": "Vietnam"
+  },
+  {
+    "YEM": "Yémen"
+  },
+  {
+    "ZMB": "Zambie"
+  },
+  {
+    "ZWE": "Zimbabwe"
+  }
+]

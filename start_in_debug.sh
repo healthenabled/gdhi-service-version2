@@ -1,0 +1,1 @@
+gradle build -x test && java -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=7777 -jar build/libs/gdhi-1.0.jar

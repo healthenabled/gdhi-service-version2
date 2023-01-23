@@ -1,0 +1,21 @@
+{
+  "countryId": "IND",
+  "countryName": "India",
+  "countryAlpha2Code": "IN",
+  "summary": "summary",
+  "contactName": "contactName",
+  "contactDesignation": "contactDesignation",
+  "contactOrganization": "contactOrganization",
+  "contactEmail": "email",
+  "dataFeederName": "feeder name",
+  "dataFeederRole": "coll role",
+  "dataFeederEmail": "email",
+  "dataApproverName": "coll name",
+  "dataApproverRole": "coll role",
+  "dataApproverEmail": "coll email",
+  "collectedDate": "04-04-2018",
+  "resources": [
+    "link1",
+    "link2"
+  ]
+}

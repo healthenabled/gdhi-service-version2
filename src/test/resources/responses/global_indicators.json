@@ -1,0 +1,33 @@
+{
+  "overAllScore": 3,
+  "categories": [
+    {
+      "id": 1,
+      "name": "Leadership and Governance",
+      "overallScore": 3.0,
+      "phase": 3,
+      "indicators": null
+    },
+    {
+      "id": 2,
+      "name": "Strategy and Investment",
+      "overallScore": 3.0,
+      "phase": 3,
+      "indicators": null
+    },
+    {
+      "id": 3,
+      "name": "Legislation, Policy, and Compliance",
+      "overallScore": 1.5,
+      "phase": 2,
+      "indicators": null
+    },
+    {
+      "id": 4,
+      "name": "Workforce",
+      "overallScore": 1.0,
+      "phase": 1,
+      "indicators": null
+    }
+  ]
+}

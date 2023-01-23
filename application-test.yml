@@ -1,0 +1,28 @@
+server:
+    port: 8888
+
+spring:
+  jmx:
+    enabled: false
+  datasource:
+    url: jdbc:postgresql://localhost:5432/gdhi
+    host: localhost
+    port: 5432
+    username: gdhi_test
+    password: testpassword
+  jpa:
+    showSql: true
+    formatSql: true
+    hibernate:
+      ddlAuto: true
+      namingStrategy : org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyHbmImpl
+      physicalNamingStrategy : it.CustomPhysicalNamingStrategyImpl
+      dialect: org.hibernate.dialect.PostgreSQL94Dialect
+
+db:
+  url: jdbc:postgresql://localhost:5432/gdhi_test
+  host: localhost
+  port: 5432
+  username: gdhi_test
+  password: testpassword
+  driverClassName: org.postgresql.Driver

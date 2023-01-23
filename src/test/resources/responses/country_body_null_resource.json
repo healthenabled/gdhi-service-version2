@@ -1,0 +1,27 @@
+{
+  "countryId": "IND",
+  "status":"DRAFT",
+  "countrySummary": {
+    "countryId": "IND",
+    "countryName": "India",
+    "countryAlpha2Code": "IN",
+    "summary": "summary",
+    "contactName": "contactName",
+    "contactDesignation": "contactDesignation",
+    "contactOrganization": "contactOrganization",
+    "contactEmail": "email",
+    "dataFeederName": "feeder name",
+    "dataFeederRole": "coll role",
+    "dataFeederEmail": "email",
+    "dataApproverName": "coll name",
+    "dataApproverRole": "coll role",
+    "dataApproverEmail": "coll email",
+    "collectedDate": "",
+    "resources": [
+      "link1",
+      "",
+      "link2"
+    ]
+  },
+  "healthIndicators": []
+}

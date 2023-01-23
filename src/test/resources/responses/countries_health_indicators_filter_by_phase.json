@@ -1,0 +1,178 @@
+{
+  "countryHealthScores": [
+    {
+      "countryId": "IND",
+      "countryName": "India",
+      "countryAlpha2Code": "IN",
+      "categories": [
+        {
+          "id": 1,
+          "name": "Leadership and Governance",
+          "overallScore": 2.0,
+          "phase": 2,
+          "indicators": [
+            {
+              "id": 1,
+              "code": "1",
+              "name": "Digital health prioritized at the national level through dedicated bodies / mechanisms for governance",
+              "indicatorDescription": "Does the country have a separate department / agency / national working group for digital health?",
+              "score": 3,
+              "supportingText": "sp1",
+              "scoreDescription": "Governance structure and any related working groups have a scope of work (SOW) and conduct regular meetings with stakeholder participation and/or consultation."
+            },
+            {
+              "id": 2,
+              "code": "2",
+              "name": "Digital Health prioritized at the national level through planning",
+              "indicatorDescription": "Is digital health included and budgeted for in national health or relevant national strategies and/or plan(s)? The focus of this indicator is on the inclusion of digital health or eHealth in the national health strategy.",
+              "score": 1,
+              "supportingText": "sp2",
+              "scoreDescription": "Digital health is not included in the national health strategy. It is being implemented in an ad hoc fashion in health programs."
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "name": "Strategy and Investment",
+          "overallScore": 2.0,
+          "phase": 2,
+          "indicators": [
+            {
+              "id": 3,
+              "code": "3",
+              "name": "National eHealth/ Digital Health Strategy or Framework",
+              "indicatorDescription": "Does the country have an eHealth or digital health strategy or framework and a costed digital health plan?",
+              "score": 3,
+              "supportingText": "sp3",
+              "scoreDescription": "National digital health costed plan developed and approved."
+            },
+            {
+              "id": 4,
+              "code": "4",
+              "name": "Public funding for digital health",
+              "indicatorDescription": "What is the estimated percent (%) of the annual public spending on health committed to digital health?",
+              "score": null,
+              "supportingText": "sp4",
+              "scoreDescription": "Not Available"
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "name": "Legislation, Policy, and Compliance",
+          "overallScore": 1.0,
+          "phase": 1,
+          "indicators": [
+            {
+              "id": 5,
+              "code": "5",
+              "name": "Legal Framework for Data Protection (Security)",
+              "indicatorDescription": "Is there a law on data security (storage, transmission, use) that is relevant to digital health?",
+              "score": null,
+              "supportingText": "sp5",
+              "scoreDescription": "Not Available"
+            },
+            {
+              "id": 6,
+              "code": "6",
+              "name": "Laws or Regulations for privacy, confidentiality and access to health information (Privacy)",
+              "indicatorDescription": "Is there a law to protect individual privacy, governing ownership, access and sharing of individually identifiable digital health data ?",
+              "score": null,
+              "supportingText": "sp6",
+              "scoreDescription": "Not Available"
+            }
+          ]
+        }
+      ],
+      "countryPhase": 3,
+      "collectedDate": "April 2018"
+    },
+    {
+      "countryId": "GBR",
+      "countryName": "United Kingdom",
+      "countryAlpha2Code": "GB",
+      "categories": [
+        {
+          "id": 1,
+          "name": "Leadership and Governance",
+          "overallScore": 1.0,
+          "phase": 1,
+          "indicators": [
+            {
+              "id": 1,
+              "code": "1",
+              "name": "Digital health prioritized at the national level through dedicated bodies / mechanisms for governance",
+              "indicatorDescription": "Does the country have a separate department / agency / national working group for digital health?",
+              "score": 1,
+              "supportingText": "sp7",
+              "scoreDescription": "No coordinating body exists and/or nascent governance structure for digital health is constituted on a case-by-case basis."
+            },
+            {
+              "id": 2,
+              "code": "2",
+              "name": "Digital Health prioritized at the national level through planning",
+              "indicatorDescription": "Is digital health included and budgeted for in national health or relevant national strategies and/or plan(s)? The focus of this indicator is on the inclusion of digital health or eHealth in the national health strategy.",
+              "score": null,
+              "supportingText": "sp8",
+              "scoreDescription": "Not Available"
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "name": "Strategy and Investment",
+          "overallScore": 3.0,
+          "phase": 3,
+          "indicators": [
+            {
+              "id": 3,
+              "code": "3",
+              "name": "National eHealth/ Digital Health Strategy or Framework",
+              "indicatorDescription": "Does the country have an eHealth or digital health strategy or framework and a costed digital health plan?",
+              "score": 5,
+              "supportingText": "sp9",
+              "scoreDescription": "National digital health strategy and costed plan fully implemented with planning underway for the next 3-5 year cycle."
+            },
+            {
+              "id": 4,
+              "code": "4",
+              "name": "Public funding for digital health",
+              "indicatorDescription": "What is the estimated percent (%) of the annual public spending on health committed to digital health?",
+              "score": null,
+              "supportingText": "sp10",
+              "scoreDescription": "Not Available"
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "name": "Legislation, Policy, and Compliance",
+          "overallScore": 1.0,
+          "phase": 1,
+          "indicators": [
+            {
+              "id": 5,
+              "code": "5",
+              "name": "Legal Framework for Data Protection (Security)",
+              "indicatorDescription": "Is there a law on data security (storage, transmission, use) that is relevant to digital health?",
+              "score": null,
+              "supportingText": "sp11",
+              "scoreDescription": "Not Available"
+            },
+            {
+              "id": 6,
+              "code": "6",
+              "name": "Laws or Regulations for privacy, confidentiality and access to health information (Privacy)",
+              "indicatorDescription": "Is there a law to protect individual privacy, governing ownership, access and sharing of individually identifiable digital health data ?",
+              "score": null,
+              "supportingText": "sp12",
+              "scoreDescription": "Not Available"
+            }
+          ]
+        }
+      ],
+      "countryPhase": 3,
+      "collectedDate": "April 2018"
+    }
+  ]
+}

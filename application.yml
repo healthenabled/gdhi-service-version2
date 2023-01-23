@@ -1,0 +1,74 @@
+server:
+    port: 8888
+
+spring:
+  jmx:
+    enabled: false
+  datasource:
+    url: jdbc:postgresql://localhost:5432/gdhi
+    host: localhost
+    port: 5432
+    username: gdhi
+    password: password
+  jpa:
+    showSql: true
+    formatSql: true
+    hibernate:
+      ddlAuto: true
+      namingStrategy : org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyHbmImpl
+      physicalNamingStrategy : it.CustomPhysicalNamingStrategyImpl
+      dialect: org.hibernate.dialect.PostgreSQL94Dialect
+  mail:
+    host: smtp.gmail.com
+    port: 465
+    protocol: smtps
+    username: twgdhitest@gmail.com
+    password: xxxxxxxxx
+    properties:
+      mail:
+        smtp:
+          ssl:
+            enable: true
+          auth: true
+  flyway:
+    enabled: true
+    baseline-version: 1
+    baseline-on-migrate: true
+    locations:classpath: db/migration
+    table: flyway_schema_history
+  mvc:
+    pathmatch:
+      matching-strategy: ANT_PATH_MATCHER
+db:
+  url: jdbc:postgresql://localhost:5432/gdhi
+  host: localhost
+  port: 5432
+  username: gdhi
+  password: password
+  driverClassName: org.postgresql.Driver
+
+endpoints.info.id: ping
+endpoints.info.sensitive: false
+endpoints.info.enabled: true
+info.AppName: GDHI-Service
+info.Description: Application Health Checker
+info.body: pong
+info.status: 200
+
+frontEndURL: http://localhost:8080
+
+mailer:
+  addressMap:
+    pavikrish2988@gmail.com: Name1
+
+logging:
+  level:
+    root: info
+  path: logs
+  file: gdhi.log
+  config: logback-spring.xml
+  pattern:
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+
+excelFileLocation: "/opt/gdhi/service/Digital Health Data.xlsx"

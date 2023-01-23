@@ -1,0 +1,51 @@
+
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '2.7.7'
+	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+	id 'com.github.johnrengelman.shadow' version '7.1.2'
+}
+
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '17'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation ('org.springframework.boot:spring-boot-starter-web') {
+		exclude module: "spring-boot-starter-tomcat"
+	}
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	implementation 'org.springframework.boot:spring-boot-starter-jetty'		//Our Servlet container
+	runtimeOnly 'org.postgresql:postgresql'
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+	implementation 'org.apache.poi:poi:5.2.2'
+	implementation 'org.apache.poi:poi-ooxml:5.2.2'
+	implementation 'org.flywaydb:flyway-core:6.2.1'
+	implementation group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.1'
+	implementation 'org.springframework.boot:spring-boot-starter-mail'	   //Java mailer alternative (not sure yet)
+	implementation group: 'io.springfox', name: 'springfox-swagger2', version: '2.7.0'
+	implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.7.0'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test' //Contains all the testing libraries required such as Junit, assertJ, Mockito, easier to manage
+	testImplementation 'io.rest-assured:rest-assured:4.3.1'             //testing restful webservices, http get,post,update requests
+	testImplementation 'io.rest-assured:json-schema-validator:4.3.1'	//testing payloads
+	testImplementation 'io.rest-assured:spring-mock-mvc:5.3.0'			//testing MVC controllers
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
+

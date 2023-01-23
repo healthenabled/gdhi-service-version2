@@ -1,0 +1,36 @@
+{
+  "NEW": [{
+    "countryName": "India",
+    "countryUUID": "1b9f0f33-9c69-4bfc-8730-8bcbb5c06d88",
+    "status": "NEW",
+    "contactName": "contactName",
+    "contactEmail": "email"
+  }, {
+    "countryName": "Australia",
+    "countryUUID": "5a1f8e8c-7ebd-499a-b6b0-015828695796",
+    "status": "NEW",
+    "contactName": "contactName",
+    "contactEmail": "email"
+  }],
+  "PUBLISHED": [{
+    "countryName": "Australia",
+    "countryUUID": "5a1f8e8c-7ebd-499a-b6b0-015828695796",
+    "status": "PUBLISHED",
+    "contactName": "contactName",
+    "contactEmail": "email"
+  }],
+  "DRAFT": [{
+    "countryName": "Australia",
+    "countryUUID": "5a1f8e8c-7ebd-499a-b6b0-015828695796",
+    "status": "DRAFT",
+    "contactName": "contactName",
+    "contactEmail": "email"
+  }],
+  "REVIEW_PENDING": [{
+    "countryName": "Australia",
+    "countryUUID": "5a1f8e8c-7ebd-499a-b6b0-015828695796",
+    "status": "REVIEW_PENDING",
+    "contactName": "contactName",
+    "contactEmail": "email"
+  }]
+}
