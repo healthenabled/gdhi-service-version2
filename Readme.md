@@ -1,20 +1,32 @@
-**Setup**
+**DB Setup using Postgres Container running in Docker**
 
-1. Create user and database
+1. Pull docker image for postgres
+```
+    docker pull postgres
+```
+2.  Check if the postgres image is pulled in
+```
+    docker image ls 
+```
+3. Run the postgres container 
+```
+    docker run -dit -e POSTGRES_USER=gdhi -e POSTGRES_PASSWORD=password -p 5432:5432 -v /data:/var/lib/postgresql/data --name gdhi postgres
+```
+4. Create user and database using Postgres GUI client (for e.g., pgAdmin4, dbeaver)
 ```
     CREATE USER gdhi WITH PASSWORD 'password';
     CREATE DATABASE gdhi OWNER gdhi;
 ```
-2. Install uuid extension
+5. Install uuid extension
 
 connect to DB gdhi
 ```
     create extension if not exists "uuid-ossp";
 ```
 
-3. Execute `sh ./utils/set-up-git-hooks.sh` from base folder to validate commit message format.
+6. Execute `sh ./utils/set-up-git-hooks.sh` from base folder to validate commit message format.
 
-4. Upon the server start, hit the following endpoint to populate the country overall phase (Only for Published Countries.)
+7. Upon the server start, hit the following endpoint to populate the country overall phase (Only for Published Countries.)
 
 ```
    localhost:8080/api/admin/countries/calculate_phase
