@@ -42,36 +42,36 @@ public class CountryController {
     @Autowired
     private DevelopmentIndicatorService developmentIndicatorService;
 
-    @RequestMapping("/countries")
+    @GetMapping("/countries")
     public List<Country> getCountries(HttpServletRequest request) {
         LanguageCode languageCode = LanguageCode.getValueFor(request.getHeader(USER_LANGUAGE));
         return countryService.fetchCountries(languageCode);
     }
 
-    @RequestMapping("/countries/{id}/development_indicators")
+    @GetMapping("/countries/{id}/development_indicators")
     @JsonView(DevelopmentIndicatorView.class)
     public DevelopmentIndicator getDevelopmentIndicatorForGivenCountryCode(@PathVariable("id") String countryId) {
         return developmentIndicatorService.fetchCountryDevelopmentScores(countryId);
     }
 
-    @RequestMapping("/countries/{id}/health_indicators")
+    @GetMapping("/countries/{id}/health_indicators")
     public CountryHealthScoreDto getHealthIndicatorForGivenCountryCode(HttpServletRequest request,
                                                                        @PathVariable("id") String countryId) {
         LanguageCode languageCode = LanguageCode.getValueFor(request.getHeader(USER_LANGUAGE));
         return countryHealthIndicatorService.fetchCountryHealthScore(countryId, languageCode);
     }
 
-    @RequestMapping("/countries/{id}/country_summary")
+    @GetMapping("/countries/{id}/country_summary")
     public CountrySummaryDto fetchCountrySummary(@PathVariable("id") String countryId) {
         return countryService.fetchCountrySummary(countryId);
     }
 
-    @RequestMapping(value = "/countries/save", method = RequestMethod.POST)
+    @PostMapping("/countries/save")
     public void saveHealthIndicatorsFor(@RequestBody GdhiQuestionnaire gdhiQuestionnaire) {
         countryHealthDataService.save(gdhiQuestionnaire, DRAFT.name());
     }
 
-    @RequestMapping(value = "/countries/submit", method = RequestMethod.POST)
+    @PostMapping("/countries/submit")
     @ResponseBody
     public ResponseEntity submitHealthIndicatorsFor(@RequestBody GdhiQuestionnaire gdhiQuestionnaire) {
         boolean isValid;
@@ -84,12 +84,12 @@ public class CountryController {
         }
     }
 
-    @RequestMapping(value = "/countries/saveCorrection", method = RequestMethod.POST)
+    @PostMapping("/countries/saveCorrection")
     public void saveCorrectionsFor(@RequestBody GdhiQuestionnaire gdhiQuestionnaire) {
         countryHealthDataService.saveCorrection(gdhiQuestionnaire);
     }
 
-    @RequestMapping(value = "/countries/publish", method = RequestMethod.POST)
+    @PostMapping("/countries/publish")
     @ResponseBody
     public ResponseEntity publishHealthIndicatorsFor(@RequestBody GdhiQuestionnaire gdhiQuestionnaire) {
         boolean isValid;
@@ -102,28 +102,28 @@ public class CountryController {
         }
     }
 
-    @RequestMapping(value = "/countries/{uuid}", method = RequestMethod.GET)
+    @GetMapping("/countries/{uuid}")
     public GdhiQuestionnaire getQuestionnaireForCountry(HttpServletRequest request,
                                                         @PathVariable("uuid") UUID countryUIID) {
         LanguageCode languageCode = LanguageCode.getValueFor(request.getHeader(USER_LANGUAGE));
         return countryService.getDetails(countryUIID, languageCode, false);
     }
 
-    @RequestMapping(value = "/countries/viewPublish/{uuid}", method = RequestMethod.GET)
+    @GetMapping("/countries/viewPublish/{uuid}")
     public GdhiQuestionnaire getQuestionnaireForPublishedCountry(HttpServletRequest request,
                                                                  @PathVariable("uuid") UUID countryUIID) {
         LanguageCode languageCode = LanguageCode.getValueFor(request.getHeader(USER_LANGUAGE));
         return countryService.getDetails(countryUIID, languageCode, true);
     }
 
-    @RequestMapping(value = "/export_global_data", method = RequestMethod.GET)
+    @GetMapping("/export_global_data")
     public void exportGlobalData(HttpServletRequest request,
                                  HttpServletResponse response) throws IOException {
         log.info("Entered export global data end point");
         countryHealthIndicatorService.createGlobalHealthIndicatorInExcel(request, response);
     }
 
-    @RequestMapping(value = "/export_country_data/{id}", method = RequestMethod.GET)
+    @GetMapping("/export_country_data/{id}")
     public void exportCountryDetails(HttpServletRequest request,
                                      HttpServletResponse response,
                                      @PathVariable("id") String countryId) throws IOException {
@@ -131,29 +131,29 @@ public class CountryController {
     }
 
     //TODO: add integration test for this endpoint
-    @RequestMapping(value = "/countries/{uuid}/generate_url", method = RequestMethod.POST)
+    @PostMapping("/countries/{uuid}/generate_url")
     public CountryUrlGenerationStatusDto saveNewCountrySummary(@PathVariable("uuid") UUID countryUIID)
             throws Exception {
         return countryHealthDataService.saveNewCountrySummary(countryUIID);
     }
 
-    @RequestMapping(value = "/countries/{uuid}/delete", method = RequestMethod.DELETE)
+    @DeleteMapping("/countries/{uuid}/delete")
     public void deleteCountryData(@PathVariable("uuid") UUID countryUIID) throws Exception {
         countryHealthDataService.deleteCountryData(countryUIID);
     }
 
-    @RequestMapping("/countries/country_status_summaries")
+    @GetMapping("/countries/country_status_summaries")
     public Map<String, List<CountrySummaryStatusDto>> getAllCountryStatusSummaries() {
         return countryHealthDataService.getAllCountryStatusSummaries();
     }
 
-    @RequestMapping(value = "/countries/{id}/benchmark/{type}", method = RequestMethod.GET)
+    @GetMapping("/countries/{id}/benchmark/{type}")
     public Map<Integer, BenchmarkDto> getBenchmarkDetailsFor(@PathVariable("id") String countryId,
                                                              @PathVariable("type") Integer benchmarkType) {
         return countryHealthDataService.getBenchmarkDetailsFor(countryId, benchmarkType);
     }
 
-    @RequestMapping(value = "/admin/countries/calculate_phase", method = RequestMethod.GET)
+    @GetMapping("/admin/countries/calculate_phase")
     public void calculateCountryPhase() {
         countryHealthDataService.calculatePhaseForAllCountries();
     }

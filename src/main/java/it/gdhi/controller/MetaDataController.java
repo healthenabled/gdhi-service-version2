@@ -6,8 +6,7 @@ import it.gdhi.service.CategoryIndicatorService;
 import it.gdhi.service.PhaseService;
 import it.gdhi.utils.LanguageCode;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,13 +23,13 @@ public class MetaDataController {
     @Autowired
     private PhaseService phaseService;
 
-    @RequestMapping("/health_indicator_options")
+    @GetMapping("/health_indicator_options")
     public List<CategoryIndicatorDto> getHealthIndicatorOptions(HttpServletRequest request) {
         LanguageCode languageCode = LanguageCode.getValueFor(request.getHeader(USER_LANGUAGE));
         return categoryIndicatorService.getHealthIndicatorOptions(languageCode);
     }
 
-    @RequestMapping(value = "/phases", method = RequestMethod.GET)
+    @GetMapping("/phases")
     public List<PhaseDto> getPhases() {
         return phaseService.getPhaseOptions();
     }

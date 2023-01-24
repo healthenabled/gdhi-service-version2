@@ -6,7 +6,7 @@ import it.gdhi.service.CountryHealthIndicatorService;
 import it.gdhi.utils.LanguageCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,7 +21,7 @@ public class HealthIndicatorController {
     @Autowired
     private CountryHealthIndicatorService countryHealthIndicatorService;
 
-    @RequestMapping("/global_health_indicators")
+    @GetMapping("/global_health_indicators")
     public GlobalHealthScoreDto getGlobalHealthIndicator(
                                             HttpServletRequest request,
                                             @RequestParam(value = "categoryId", required = false) Integer categoryId,
@@ -30,7 +30,7 @@ public class HealthIndicatorController {
         return countryHealthIndicatorService.getGlobalHealthIndicator(categoryId, score, languageCode);
     }
 
-    @RequestMapping("/countries_health_indicator_scores")
+    @GetMapping("/countries_health_indicator_scores")
     public CountriesHealthScoreDto getCountriesHealthIndicatorScores(
                                             HttpServletRequest request,
                                             @RequestParam(value = "categoryId", required = false) Integer categoryId,
