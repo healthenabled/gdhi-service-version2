@@ -3,11 +3,12 @@ package it.gdhi.repository;
 import it.gdhi.model.Country;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.UUID;
 
-@org.springframework.stereotype.Repository
+@Repository
 public interface ICountryRepository extends JpaRepository<Country, Long> {
 
     List<Country> findAll();
