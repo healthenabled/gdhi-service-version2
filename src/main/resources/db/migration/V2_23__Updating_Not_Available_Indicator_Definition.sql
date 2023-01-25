@@ -1,0 +1,1 @@
+UPDATE master.health_indicator_scores SET definition= 'Not Available' WHERE score = -1;
