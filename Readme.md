@@ -10,7 +10,7 @@
 ```
 3. Run the postgres container 
 ```
-    docker run -dit -e POSTGRES_USER=gdhi -e POSTGRES_PASSWORD=password -p 5432:5432 -v /data:/var/lib/postgresql/data --name gdhi postgres
+    docker run -dit -e POSTGRES_USER=gdhi -e POSTGRES_PASSWORD=password -p 5432:5432 --name gdhi postgres
 ```
 4. Create user and database using Postgres GUI client (for e.g., pgAdmin4, dbeaver)
 ```
