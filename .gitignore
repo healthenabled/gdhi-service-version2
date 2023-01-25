@@ -37,3 +37,4 @@ LOG_PATH_IS_UNDEFINED/
 
 ### VS Code ###
 .vscode/
+.DS_Store/
