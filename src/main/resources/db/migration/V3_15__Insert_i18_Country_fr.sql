@@ -169,8 +169,5 @@ INSERT INTO i18n.country(country_id, language_id, name) VALUES('VEN', 'fr', 'Ven
 INSERT INTO i18n.country(country_id, language_id, name) VALUES('VNM', 'fr', 'Vietnam'); 
 INSERT INTO i18n.country(country_id, language_id, name) VALUES('YEM', 'fr', 'Yémen'); 
 INSERT INTO i18n.country(country_id, language_id, name) VALUES('ZMB', 'fr', 'Zambie'); 
-INSERT INTO i18n.country(country_id, language_id, name) VALUES('ZWE', 'fr', 'Zimbabwe'); "
+INSERT INTO i18n.country(country_id, language_id, name) VALUES('ZWE', 'fr', 'Zimbabwe');
 
-        );
-    }
-}
