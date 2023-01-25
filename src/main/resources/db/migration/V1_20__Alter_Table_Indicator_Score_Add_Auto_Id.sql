@@ -1,0 +1,1 @@
+ALTER TABLE master.health_indicator_scores ADD COLUMN id BIGSERIAL PRIMARY KEY;
