@@ -1,0 +1,1 @@
+ALTER TABLE validated_config.health_indicators ADD COLUMN last_survey_date DATE;
