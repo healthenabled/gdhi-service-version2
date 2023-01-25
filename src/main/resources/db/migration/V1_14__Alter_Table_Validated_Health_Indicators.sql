@@ -1,0 +1,1 @@
+ALTER TABLE validated_config.health_indicators ADD CONSTRAINT health_indicator_pkey PRIMARY KEY (country_id, last_survey_date, category_id, indicator_id);
