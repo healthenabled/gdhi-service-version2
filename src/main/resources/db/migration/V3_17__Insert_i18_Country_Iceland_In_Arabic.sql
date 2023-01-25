@@ -1,0 +1,1 @@
+INSERT INTO i18n.country(country_id, language_id, name) VALUES('ISL', 'ar', 'آيسلندا'); 
