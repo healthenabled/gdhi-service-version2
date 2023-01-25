@@ -1,0 +1,1 @@
+UPDATE i18n.score_definition SET definition='7.0 - 5.4<' WHERE indicator_id=15 AND score=5 AND language_id='ar';
