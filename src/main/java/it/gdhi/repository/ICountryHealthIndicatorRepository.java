@@ -11,8 +11,6 @@ import java.util.List;
 @Repository
 public interface ICountryHealthIndicatorRepository extends JpaRepository<CountryHealthIndicator, Long> {
 
-    List<CountryHealthIndicator> findAll();
-
     @Query("SELECT h FROM CountryHealthIndicator h WHERE " +
             "h.countryHealthIndicatorId.countryId = ?1 and h.countryHealthIndicatorId.status=?2")
     List<CountryHealthIndicator> findByCountryIdAndStatus(String countryId, String status);
