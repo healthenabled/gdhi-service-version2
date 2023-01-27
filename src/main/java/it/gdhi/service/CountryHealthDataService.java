@@ -163,7 +163,7 @@ public class CountryHealthDataService {
     }
 
     private void sendMail(String feederName, String feederRole, String contactEmail, String countryId) {
-        Country country = iCountryRepository.find(countryId);
+        Country country = iCountryRepository.findById(countryId);
         mailerService.send(country, feederName, feederRole, contactEmail);
 
     }
