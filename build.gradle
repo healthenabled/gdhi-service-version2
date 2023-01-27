@@ -7,10 +7,20 @@ plugins {
 	id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
+def jenkinsBuild = System.getenv("BUILD_NUMBER") ?: "0"
 
-group = 'com.example'
-version = '0.0.1-SNAPSHOT'
+group = 'gdhi-service'
+version = '1.0-SNAPSHOT'
 sourceCompatibility = '17'
+
+jar {
+	archiveBaseName = 'gdhi'
+	archiveVersion = '1.0.' + jenkinsBuild
+}
+
+task setUpGitHooks(type: Exec){
+	commandLine './utils/set-up-git-hooks.sh'
+}
 
 configurations {
 	compileOnly {
