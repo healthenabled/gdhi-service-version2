@@ -1,0 +1,1 @@
+CREATE TABLE country_health_data.country_phase(country_id VARCHAR PRIMARY KEY, country_overall_phase INTEGER, FOREIGN KEY(country_id) REFERENCES master.countries (id));

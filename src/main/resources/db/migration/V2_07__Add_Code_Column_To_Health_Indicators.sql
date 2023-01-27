@@ -1,0 +1,1 @@
+ALTER TABLE master.health_indicators ADD COLUMN code VARCHAR(5);
