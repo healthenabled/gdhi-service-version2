@@ -4,9 +4,10 @@ import it.gdhi.model.CountryResourceLink;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
-
+@Repository
 public interface ICountryResourceLinkRepository extends JpaRepository<CountryResourceLink, String> {
 
     @Query("SELECT c from CountryResourceLink c where c.countryResourceLinkId.countryId = ?1")

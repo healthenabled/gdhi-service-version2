@@ -55,7 +55,7 @@ public class CountryService {
     }
 
     public GdhiQuestionnaire getDetails(UUID countryUUID, LanguageCode languageCode, boolean publishedOnly) {
-        String countryId = iCountryRepository.findByUUID(countryUUID).getId();
+        String countryId = iCountryRepository.findByUniqueId(countryUUID).getId();
 
         GdhiQuestionnaire gdhiQuestionnaire = null;
         List<CountrySummary> countrySummaries;

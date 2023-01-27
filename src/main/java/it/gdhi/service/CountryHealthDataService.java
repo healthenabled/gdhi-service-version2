@@ -64,7 +64,7 @@ public class CountryHealthDataService {
 
     @Transactional
     public CountryUrlGenerationStatusDto saveNewCountrySummary(UUID countryUUID) {
-        String countryId = iCountryRepository.findByUUID(countryUUID).getId();
+        String countryId = iCountryRepository.findByUniqueId(countryUUID).getId();
 
         CountryUrlGenerationStatusDto statusDto;
 
@@ -102,7 +102,7 @@ public class CountryHealthDataService {
 
     @Transactional
     public void deleteCountryData(UUID countryUUID) {
-        String countryId = iCountryRepository.findByUUID(countryUUID).getId();
+        String countryId = iCountryRepository.findByUniqueId(countryUUID).getId();
         iCountryHealthIndicatorRepository.removeHealthIndicatorsBy(countryId, REVIEW_PENDING.name());
         iCountryResourceLinkRepository.deleteResources(countryId, REVIEW_PENDING.name());
         iCountrySummaryRepository.removeCountrySummary(countryId, REVIEW_PENDING.name());
@@ -163,7 +163,7 @@ public class CountryHealthDataService {
     }
 
     private void sendMail(String feederName, String feederRole, String contactEmail, String countryId) {
-        Country country = iCountryRepository.find(countryId);
+        Country country = iCountryRepository.findById(countryId);
         mailerService.send(country, feederName, feederRole, contactEmail);
 
     }

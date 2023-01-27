@@ -40,7 +40,7 @@ public class ICountryRepositoryTest {
         entityManager.flush();
         entityManager.clear();
 
-        Country actualCountry = countryRepository.find(country.getId());
+        Country actualCountry = countryRepository.findById(country.getId());
 
         assertEquals(country.getId(), actualCountry.getId());
         assertEquals(country.getName(), actualCountry.getName());

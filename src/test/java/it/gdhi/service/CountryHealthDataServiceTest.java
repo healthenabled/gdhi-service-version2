@@ -115,7 +115,7 @@ public class CountryHealthDataServiceTest {
 
         when(iCountrySummaryRepository.save(any(CountrySummary.class))).thenReturn(CountrySummary.builder().build());
         when(iCountryHealthIndicatorRepository.save(any(CountryHealthIndicator.class))).thenReturn(CountryHealthIndicator.builder().build());
-        when(countryDetailRepository.find(countryId)).thenReturn(country);
+        when(countryDetailRepository.findById(countryId)).thenReturn(country);
         when(iCountrySummaryRepository.getCountrySummaryStatus(countryId)).thenReturn("DRAFT");
         countryHealthDataService.submit(gdhiQuestionnaire);
 
@@ -129,7 +129,7 @@ public class CountryHealthDataServiceTest {
         ArgumentCaptor<CountrySummary> summaryCaptor = ArgumentCaptor.forClass(CountrySummary.class);
         Country country = new Country(countryId, "Argentina", countryUUID, "AR");
 
-        when(countryDetailRepository.findByUUID(countryUUID)).thenReturn(country);
+        when(countryDetailRepository.findByUniqueId(countryUUID)).thenReturn(country);
         when(iCountrySummaryRepository.getAllStatus(anyString())).thenReturn(emptyList());
         CountryUrlGenerationStatusDto countryUrlGenerationStatusDto = countryHealthDataService
                 .saveNewCountrySummary(countryUUID);
@@ -149,7 +149,7 @@ public class CountryHealthDataServiceTest {
         ArgumentCaptor<CountrySummary> summaryCaptor = ArgumentCaptor.forClass(CountrySummary.class);
         Country country = new Country(countryId, "Argentina", countryUUID, "AR");
 
-        when(countryDetailRepository.findByUUID(countryUUID)).thenReturn(country);
+        when(countryDetailRepository.findByUniqueId(countryUUID)).thenReturn(country);
 
         when(iCountrySummaryRepository.getAllStatus(anyString())).thenReturn(asList(PUBLISHED.toString()));
         CountryUrlGenerationStatusDto countryUrlGenerationStatusDto = countryHealthDataService
@@ -169,7 +169,7 @@ public class CountryHealthDataServiceTest {
         UUID countryUUID = UUID.randomUUID();
         Country country = new Country(countryId, "Argentina", countryUUID, "AR");
 
-        when(countryDetailRepository.findByUUID(countryUUID)).thenReturn(country);
+        when(countryDetailRepository.findByUniqueId(countryUUID)).thenReturn(country);
 
         when(iCountrySummaryRepository.getAllStatus(anyString())).thenReturn(asList(NEW.toString()));
 
@@ -187,7 +187,7 @@ public class CountryHealthDataServiceTest {
         UUID countryUUID = UUID.randomUUID();
         Country country = new Country(countryId, "Argentina", countryUUID, "AR");
 
-        when(countryDetailRepository.findByUUID(countryUUID)).thenReturn(country);
+        when(countryDetailRepository.findByUniqueId(countryUUID)).thenReturn(country);
 
         when(iCountrySummaryRepository.getAllStatus(anyString()))
                 .thenReturn(asList(PUBLISHED.toString(), DRAFT.toString()));
@@ -206,7 +206,7 @@ public class CountryHealthDataServiceTest {
         UUID countryUUID = UUID.randomUUID();
         Country country = new Country(countryId, "Argentina", countryUUID, "AR");
 
-        when(countryDetailRepository.findByUUID(countryUUID)).thenReturn(country);
+        when(countryDetailRepository.findByUniqueId(countryUUID)).thenReturn(country);
 
         when(iCountrySummaryRepository.getAllStatus(anyString()))
                 .thenReturn(asList(PUBLISHED.toString(), NEW.toString()));
@@ -225,7 +225,7 @@ public class CountryHealthDataServiceTest {
         String status = REVIEW_PENDING.name();
         UUID countryUUID = UUID.randomUUID();
         Country country = new Country(countryId, "Argentina", countryUUID, "AR");
-        when(countryDetailRepository.findByUUID(countryUUID)).thenReturn(country);
+        when(countryDetailRepository.findByUniqueId(countryUUID)).thenReturn(country);
 
         countryHealthDataService.deleteCountryData(countryUUID);
 

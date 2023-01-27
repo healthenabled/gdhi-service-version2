@@ -67,7 +67,7 @@ public class CountryIntegrationTest extends BaseIntegrationTest {
 
     @BeforeEach
     public void setup() {
-        INDIA_UUID = iCountryRepository.find(INDIA_ID).getUniqueId();
+        INDIA_UUID = iCountryRepository.findById(INDIA_ID).getUniqueId();
     }
 
     @Test
@@ -384,8 +384,8 @@ public class CountryIntegrationTest extends BaseIntegrationTest {
 
     @Test
     public void shouldGetAllCountrySummaries() throws Exception {
-        UUID indiaUUID = iCountryRepository.find(INDIA_ID).getUniqueId();;
-        UUID australiaUUID = iCountryRepository.find("AUS").getUniqueId();;
+        UUID indiaUUID = iCountryRepository.findById(INDIA_ID).getUniqueId();;
+        UUID australiaUUID = iCountryRepository.findById("AUS").getUniqueId();;
 
         addCountrySummary("AUS", "AUSTRALIA", "NEW", "AU", australiaUUID, "2018-04-04" , emptyList());
         addCountrySummary("AUS", "AUSTRALIA", "DRAFT", "AU", australiaUUID, "2018-04-04" , emptyList());
