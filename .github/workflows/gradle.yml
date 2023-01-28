@@ -32,7 +32,5 @@ jobs:
        - name: build action
          run : ./gradlew build
          
-permissions:
-  contents: read
 
 
