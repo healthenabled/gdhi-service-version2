@@ -45,7 +45,6 @@ jacocoTestReport {
 					"it/gdhi/dto/**/CountryDTO.class",
 					"it/gdhi/internationalization/model/**/Country*.class",
 					"it/gdhi/internationalization/model/**/Score*.class",
-					'**/lombok/**'
 			])
 		})
 	}
