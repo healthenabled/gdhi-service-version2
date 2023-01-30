@@ -230,7 +230,7 @@ public class CountryHealthDataServiceTest {
         countryHealthDataService.deleteCountryData(countryUUID);
 
         verify(iCountrySummaryRepository).removeCountrySummary(countryId, status);
-        verify(iCountryHealthIndicatorRepository).removeHealthIndicatorsBy(countryId, status);
+        verify(iCountryHealthIndicatorRepository).deleteByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdStatus(countryId, status);
         verify(iCountryResourceLinkRepository).deleteByCountryResourceLinkIdCountryIdAndCountryResourceLinkIdStatus(countryId, status);
     }
 

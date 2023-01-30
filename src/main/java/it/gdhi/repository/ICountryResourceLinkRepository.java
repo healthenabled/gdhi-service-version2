@@ -2,6 +2,7 @@ package it.gdhi.repository;
 
 import it.gdhi.model.CountryResourceLink;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -10,6 +11,6 @@ public interface ICountryResourceLinkRepository extends JpaRepository<CountryRes
 
 
     List<CountryResourceLink> findAllByCountryResourceLinkIdCountryId(String countryId);
-
+    @Modifying
     void deleteByCountryResourceLinkIdCountryIdAndCountryResourceLinkIdStatus(String countryId, String currentStatus);
 }
