@@ -30,12 +30,39 @@ configurations {
 repositories {
 	mavenCentral()
 }
+
 jacocoTestReport {
+	dependsOn test
+
 	reports {
 		xml.enabled true
 		html.enabled true
 	}
+
+	afterEvaluate {
+		classDirectories.setFrom(classDirectories.files.collect {
+			fileTree(dir: it, exclude: [
+					"it/gdhi/dto/**/CountryDTO.class",
+					"it/gdhi/internationalization/model/**/Country*.class",
+					"it/gdhi/internationalization/model/**/Score*.class",
+					'**/lombok/**'
+			])
+		})
+	}
 }
+
+jacocoTestCoverageVerification {
+
+	violationRules {
+		rule {
+			limit {
+				minimum = 0.8
+			}
+		}
+	}
+}
+
+check.dependsOn jacocoTestCoverageVerification
 
 dependencies {
 	implementation ('org.springframework.boot:spring-boot-starter-web') {
