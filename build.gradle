@@ -30,12 +30,39 @@ configurations {
 repositories {
 	mavenCentral()
 }
+
 jacocoTestReport {
+	dependsOn test
+
 	reports {
 		xml.enabled true
 		html.enabled true
 	}
+
+	afterEvaluate {
+		classDirectories.setFrom(classDirectories.files.collect {
+			fileTree(dir: it, exclude: [
+					"it/gdhi/dto/**/CountryDTO.class",
+					"it/gdhi/internationalization/model/**/Country*.class",
+					"it/gdhi/internationalization/model/**/Score*.class",
+			])
+		})
+	}
 }
+
+jacocoTestCoverageVerification {
+
+	violationRules {
+		rule {
+			limit {
+				minimum = 0.8
+			}
+		}
+	}
+}
+
+test.finalizedBy(jacocoTestReport)
+check.dependsOn jacocoTestCoverageVerification
 
 dependencies {
 	implementation ('org.springframework.boot:spring-boot-starter-web') {
@@ -55,6 +82,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
 	implementation group: 'io.springfox', name: 'springfox-swagger2', version: '2.7.0'
 	implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.7.0'
+	testImplementation 'com.h2database:h2'
+	runtimeOnly 'com.h2database:h2'
 	testImplementation 'org.jacoco:org.jacoco.core:0.8.5'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'io.rest-assured:rest-assured:4.3.1'

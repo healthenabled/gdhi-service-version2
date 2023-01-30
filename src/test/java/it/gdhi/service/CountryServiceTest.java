@@ -173,6 +173,74 @@ public class CountryServiceTest {
         assertSummary(countrySummary, details.getCountrySummary());
         assertIndicators(countryHealthIndicators, details.getHealthIndicators());
     }
+    @Test
+    public void shouldGetGlobalHealthScoreDtoForNotPublished() throws Exception {
+        String countryIdInd = "IND";
+        String statusValueInd = "REVIEW_PENDING";
+        UUID countryUUIDInd = randomUUID();
+        Country countryInd = new Country(countryIdInd, "India", countryUUIDInd, "IN");
+        CountrySummary countrySummaryInd = CountrySummary.builder()
+                .countrySummaryId(new CountrySummaryId(countryIdInd, statusValueInd))
+                .country(countryInd)
+                .summary("summary")
+                .contactName("contactName")
+                .contactDesignation("contact designation")
+                .contactOrganization("contact org")
+                .contactEmail("contact email")
+                .dataFeederName("feeder name")
+                .dataFeederRole("feeder role")
+                .dataFeederEmail("feeder email")
+                .dataApproverName("collector name")
+                .dataApproverRole("collector role")
+                .dataApproverRole("collector email")
+                .collectedDate(new Date())
+                .countryResourceLinks(asList(new CountryResourceLink(new CountryResourceLinkId(countryIdInd, "link",
+                        statusValueInd), new Date(), null)))
+                .build();
+        String countryIdArg = "ARG";
+        String statusValueArg = "REVIEW_PENDING";
+        UUID countryUUIDArg = randomUUID();
+        Country countryArg = new Country(countryIdArg, "Argentina", countryUUIDArg, "Arg");
+        CountrySummary countrySummaryArg = CountrySummary.builder()
+                .countrySummaryId(new CountrySummaryId(countryIdArg, statusValueArg))
+                .country(countryArg)
+                .summary("summary")
+                .contactName("contactName")
+                .contactDesignation("contact designation")
+                .contactOrganization("contact org")
+                .contactEmail("contact email")
+                .dataFeederName("feeder name")
+                .dataFeederRole("feeder role")
+                .dataFeederEmail("feeder email")
+                .dataApproverName("collector name")
+                .dataApproverRole("collector role")
+                .dataApproverRole("collector email")
+                .collectedDate(new Date())
+                .countryResourceLinks(asList(new CountryResourceLink(new CountryResourceLinkId(countryIdInd, "link",
+                        statusValueInd), new Date(), null)))
+                .build();
+
+        when(iCountrySummaryRepository.findAll(countryIdInd)).thenReturn(asList(countrySummaryInd,countrySummaryArg));
+        when(iCountrySummaryRepository.findByCountryAndStatus(countryIdInd, statusValueInd)).thenReturn(countrySummaryInd);
+        when(countryDetailRepository.findByUniqueId(countryUUIDInd)).thenReturn(countryInd);
+        CountryHealthIndicator indicator1 = CountryHealthIndicator.builder()
+                .countryHealthIndicatorId(new CountryHealthIndicatorId(countryIdInd, 1, 2, statusValueInd))
+                .indicator(new Indicator(2, "Some indicator", "some code", 1, null, new ArrayList<>(), "some def"))
+                .score(5)
+                .build();
+        CountryHealthIndicator indicator2 = CountryHealthIndicator.builder()
+                .countryHealthIndicatorId(new CountryHealthIndicatorId(countryIdInd, 2, 3, statusValueInd))
+                .indicator(new Indicator(3, "Some indicator", "some code", 2, null, new ArrayList<>(), "some def"))
+                .score(4)
+                .build();
+        List<CountryHealthIndicator> countryHealthIndicators = asList(indicator1, indicator2);
+        when(iCountryHealthIndicatorRepository.findByCountryIdAndStatus(countryIdInd, statusValueInd)).thenReturn(countryHealthIndicators);
+
+        GdhiQuestionnaire details = countryService.getDetails(countryUUIDInd, LanguageCode.en, false);
+
+        assertSummary(countrySummaryInd, details.getCountrySummary());
+        assertIndicators(countryHealthIndicators, details.getHealthIndicators());
+    }
 
     @Test
     public void shouldGetGlobalHealthScoreDtoForArabic() throws Exception {

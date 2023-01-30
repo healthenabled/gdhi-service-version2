@@ -342,6 +342,18 @@ public class CountryIntegrationTest extends BaseIntegrationTest {
     }
 
     @Test
+    public void shouldNotSubmitCountryDetailsForInvalidHealthIndicators() throws Exception {
+        addCountrySummary(INDIA_ID, null, "NEW", "IN", UUID.randomUUID(),  "2018-04-04", new ArrayList<>());
+
+        Response response = given()
+                .contentType("application/json")
+                .body(expectedResponseJson("country_body_no_date.json"))
+                .when()
+                .post("http://localhost:" + port + "/countries/submit");
+
+        assertEquals(400, response.getStatusCode());
+    }
+    @Test
     public void shouldDeleteCountryData() throws Exception {
         String countryId = INDIA_ID;
         String status = "REVIEW_PENDING";
