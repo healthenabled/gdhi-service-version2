@@ -147,8 +147,7 @@ public class CountryHealthDataService {
 
 
     private void calculateAndSaveCountryPhase(String countryId, String status) {
-        CountryHealthIndicators countryHealthIndicators = new CountryHealthIndicators(iCountryHealthIndicatorRepository
-                .findByCountryIdAndStatus(countryId, status));
+        CountryHealthIndicators countryHealthIndicators = new CountryHealthIndicators(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdStatus(countryId, status));
         Double overallScore = countryHealthIndicators.getOverallScore();
         Integer countryPhase = new Score(overallScore).convertToPhase();
         iCountryPhaseRepository.save(new CountryPhase(countryId, countryPhase));

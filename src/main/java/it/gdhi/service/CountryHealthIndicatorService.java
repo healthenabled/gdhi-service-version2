@@ -50,8 +50,7 @@ public class CountryHealthIndicatorService {
     private HealthIndicatorTranslator healthIndicatorTranslator;
 
     public CountryHealthScoreDto fetchCountryHealthScore(String countryId, LanguageCode languageCode) {
-        CountryHealthIndicators countryHealthIndicators = new CountryHealthIndicators(iCountryHealthIndicatorRepository
-                                                            .findByCountryIdAndStatus(countryId, PUBLISHED.name()));
+        CountryHealthIndicators countryHealthIndicators = new CountryHealthIndicators(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdStatus(countryId, PUBLISHED.name()));
         CountryHealthScoreDto countryHealthScoreDto = constructCountryHealthScore(countryId, countryHealthIndicators,
                                                                 getCategoryPhaseFilter(null, null));
         return healthIndicatorTranslator.translateCountryHealthScores(languageCode, countryHealthScoreDto);

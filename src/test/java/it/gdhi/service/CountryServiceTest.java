@@ -166,7 +166,7 @@ public class CountryServiceTest {
                 .score(4)
                 .build();
         List<CountryHealthIndicator> countryHealthIndicators = asList(indicator1, indicator2);
-        when(iCountryHealthIndicatorRepository.findByCountryIdAndStatus(countryId, statusValue)).thenReturn(countryHealthIndicators);
+        when(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdStatus(countryId, statusValue)).thenReturn(countryHealthIndicators);
 
         GdhiQuestionnaire details = countryService.getDetails(countryUUID, LanguageCode.en, false);
 
@@ -216,7 +216,7 @@ public class CountryServiceTest {
                 .score(4)
                 .build();
         List<CountryHealthIndicator> countryHealthIndicators = asList(indicator1, indicator2);
-        when(iCountryHealthIndicatorRepository.findByCountryIdAndStatus(countryId, statusValue)).thenReturn(countryHealthIndicators);
+        when(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdStatus(countryId, statusValue)).thenReturn(countryHealthIndicators);
 
         GdhiQuestionnaire details = countryService.getDetails(countryUUID, LanguageCode.ar, false);
 
@@ -250,7 +250,7 @@ public class CountryServiceTest {
 
         when(iCountrySummaryRepository.findAll(countryId)).thenReturn(null);
 
-        when(iCountryHealthIndicatorRepository.findByCountryIdAndStatus(countryId, null)).thenReturn(Collections.emptyList());
+        when(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdStatus(countryId, null)).thenReturn(Collections.emptyList());
 
         when(countryDetailRepository.findByUniqueId(countryUUID)).thenReturn(country);
         GdhiQuestionnaire details = countryService.getDetails(countryUUID, LanguageCode.en, false);

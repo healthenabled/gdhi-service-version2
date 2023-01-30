@@ -70,7 +70,7 @@ public class CountryHealthDataServiceTest {
                 .build();
 
 
-        when(iCountryHealthIndicatorRepository.findByCountryIdAndStatus(countryId, status))
+        when(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdStatus(countryId, status))
                 .thenReturn(asList(countryHealthIndicator1));
         when(iCountrySummaryRepository.getCountrySummaryStatus(countryId)).thenReturn(status);
         countryHealthDataService.publish(gdhiQuestionnaire);
@@ -521,7 +521,7 @@ public class CountryHealthDataServiceTest {
                 .category(Category.builder().id(1).indicators(asList(indicator)).build())
                 .build();
 
-        when(iCountryHealthIndicatorRepository.findByCountryIdAndStatus("IND", publishedStatus))
+        when(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdStatus("IND", publishedStatus))
                 .thenReturn(asList(countryHealthIndicator));
 
         countryHealthDataService.calculatePhaseForAllCountries();

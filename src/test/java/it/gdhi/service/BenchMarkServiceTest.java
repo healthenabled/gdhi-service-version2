@@ -48,7 +48,7 @@ public class BenchMarkServiceTest {
                 .thenReturn(Arrays.asList(countryHealthIndicator1, countryHealthIndicator2, countryHealthIndicator3,
                         countryHealthIndicatorForInd1, countryHealthIndicatorForInd2, countryHealthIndicatorForInd3));
 
-        when(iCountryHealthIndicatorRepository.findByCountryIdAndStatus(countryId, PUBLISHED.name()))
+        when(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdStatus(countryId, PUBLISHED.name()))
                 .thenReturn(
                         Arrays.asList(countryHealthIndicatorForInd1, countryHealthIndicatorForInd2, countryHealthIndicatorForInd3
                         ));
@@ -84,7 +84,7 @@ public class BenchMarkServiceTest {
                 .thenReturn(Arrays.asList(countryHealthIndicator1, countryHealthIndicator2,
                         countryHealthIndicatorForInd1, countryHealthIndicatorForInd2, countryHealthIndicator3));
 
-        when(iCountryHealthIndicatorRepository.findByCountryIdAndStatus(countryId, PUBLISHED.name()))
+        when(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdStatus(countryId, PUBLISHED.name()))
                 .thenReturn(
                         Arrays.asList(countryHealthIndicatorForInd1, countryHealthIndicatorForInd2
                         ));
@@ -119,7 +119,7 @@ public class BenchMarkServiceTest {
                 .thenReturn(Arrays.asList(countryHealthIndicatorForInd3, countryHealthIndicator2,
                         countryHealthIndicatorForInd1, countryHealthIndicatorForInd2));
 
-        when(iCountryHealthIndicatorRepository.findByCountryIdAndStatus(countryId, PUBLISHED.name()))
+        when(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdStatus(countryId, PUBLISHED.name()))
                 .thenReturn(
                         Arrays.asList(countryHealthIndicatorForInd1, countryHealthIndicatorForInd2
                         ));
@@ -153,7 +153,7 @@ public class BenchMarkServiceTest {
                 .thenReturn(Arrays.asList(countryHealthIndicator1, countryHealthIndicator3,
                         countryHealthIndicatorForInd1, countryHealthIndicatorForInd2, countryHealthIndicatorForInd3));
 
-        when(iCountryHealthIndicatorRepository.findByCountryIdAndStatus(countryId, PUBLISHED.name()))
+        when(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdStatus(countryId, PUBLISHED.name()))
                 .thenReturn(
                         Arrays.asList(countryHealthIndicatorForInd1, countryHealthIndicatorForInd2, countryHealthIndicatorForInd3
                         ));

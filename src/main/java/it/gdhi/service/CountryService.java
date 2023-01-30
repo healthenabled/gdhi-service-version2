@@ -82,7 +82,7 @@ public class CountryService {
 
     private List<CountryHealthIndicator> getCountryHealthIndicators(String countryId, CountrySummary countrySummary) {
         List<CountryHealthIndicator> countryHealthIndicators =
-                iCountryHealthIndicatorRepository.findByCountryIdAndStatus(countryId,
+                iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdStatus(countryId,
                         countrySummary.getCountrySummaryId().getStatus());
 
         return countryHealthIndicators.stream().sorted(
