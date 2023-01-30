@@ -76,7 +76,7 @@ public class ICountryResourceLinkRepositoryTest {
         entityManager.persist(countryResourceLink3);
         entityManager.flush();
         entityManager.clear();
-        List<CountryResourceLink> actual = iCountryResourceLinkRepository.findAllBy("NZL");
+        List<CountryResourceLink> actual = iCountryResourceLinkRepository.findAllByCountryResourceLinkIdCountryId("NZL");
         assertThat(actual.size(), is(2));
         assertThat(actual.stream().map(CountryResourceLink::getLink).collect(toList()), containsInAnyOrder("Res 1", "Res 3"));
     }
@@ -96,9 +96,9 @@ public class ICountryResourceLinkRepositoryTest {
         entityManager.persist(countryResourceLink3);
         entityManager.flush();
         entityManager.clear();
-        iCountryResourceLinkRepository.deleteResources("NZL", "PUBLISHED");
-        List<CountryResourceLink> actual1 = iCountryResourceLinkRepository.findAllBy("NZL");
-        List<CountryResourceLink> actual2 = iCountryResourceLinkRepository.findAllBy("AUS");
+        iCountryResourceLinkRepository.deleteByCountryResourceLinkIdCountryIdAndCountryResourceLinkIdStatus("NZL", "PUBLISHED");
+        List<CountryResourceLink> actual1 = iCountryResourceLinkRepository.findAllByCountryResourceLinkIdCountryId("NZL");
+        List<CountryResourceLink> actual2 = iCountryResourceLinkRepository.findAllByCountryResourceLinkIdCountryId("AUS");
         assertThat(actual1.size(), is(0));
         assertThat(actual2.size(), is(1));
         assertThat(actual2.stream().map(CountryResourceLink::getLink).collect(toList()), containsInAnyOrder("Res 2"));

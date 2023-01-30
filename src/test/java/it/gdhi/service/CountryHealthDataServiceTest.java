@@ -79,7 +79,7 @@ public class CountryHealthDataServiceTest {
         ArgumentCaptor<CountryHealthIndicator> healthIndicatorsCaptorList = ArgumentCaptor.forClass(CountryHealthIndicator.class);
         InOrder inOrder = inOrder(iCountryResourceLinkRepository, iCountrySummaryRepository,
                 iCountryHealthIndicatorRepository, iCountryPhaseRepository);
-        inOrder.verify(iCountryResourceLinkRepository).deleteResources(countryId, status);
+        inOrder.verify(iCountryResourceLinkRepository).deleteByCountryResourceLinkIdCountryIdAndCountryResourceLinkIdStatus(countryId, status);
         inOrder.verify(iCountrySummaryRepository).save(summaryCaptor.capture());
         inOrder.verify(iCountryHealthIndicatorRepository).save(healthIndicatorsCaptorList.capture());
         CountrySummary summaryCaptorValue = summaryCaptor.getValue();
@@ -231,7 +231,7 @@ public class CountryHealthDataServiceTest {
 
         verify(iCountrySummaryRepository).removeCountrySummary(countryId, status);
         verify(iCountryHealthIndicatorRepository).removeHealthIndicatorsBy(countryId, status);
-        verify(iCountryResourceLinkRepository).deleteResources(countryId, status);
+        verify(iCountryResourceLinkRepository).deleteByCountryResourceLinkIdCountryIdAndCountryResourceLinkIdStatus(countryId, status);
     }
 
     @Test
