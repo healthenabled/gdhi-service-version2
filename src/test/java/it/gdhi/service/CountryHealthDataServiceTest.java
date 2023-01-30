@@ -245,7 +245,7 @@ public class CountryHealthDataServiceTest {
         CountrySummary countrySummaryINDNEW = getCountrySummary("IND","NEW","INDIA",
                 "IN","Contact Name 1","con1@gdhi.com");
 
-        when(iCountrySummaryRepository.getAll()).thenReturn(asList(countrySummaryIND,countrySummaryARG,
+        when(iCountrySummaryRepository.findAllByOrderByUpdatedAtDesc()).thenReturn(asList(countrySummaryIND,countrySummaryARG,
                 countrySummaryALG,countrySummaryINDNEW));
         Map<String, List<CountrySummaryStatusDto>> adminViewFormDetails = countryHealthDataService.getAllCountryStatusSummaries();
         assertEquals(adminViewFormDetails.get("NEW").size(), 2);

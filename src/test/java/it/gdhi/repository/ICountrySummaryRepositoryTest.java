@@ -174,7 +174,7 @@ public class ICountrySummaryRepositoryTest {
                 "IN","IND summary", new ArrayList<>(), PUBLISHED.toString());
         addCountrySummary(countryId, "INDIA",
                 "IN","IND summary", new ArrayList<>(), NEW.toString());
-        List<CountrySummary> countrySummaries = iCountrySummaryRepository.getAll();
+        List<CountrySummary> countrySummaries = iCountrySummaryRepository.findAllByOrderByUpdatedAtDesc();
         assertEquals(countrySummaries.size(),2);
     }
 }
