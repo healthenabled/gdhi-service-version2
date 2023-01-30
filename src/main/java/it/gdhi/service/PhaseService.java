@@ -15,7 +15,7 @@ public class PhaseService {
     private IPhaseRepository iPhaseRepository;
 
     public List<PhaseDto> getPhaseOptions() {
-        return iPhaseRepository.findAll().stream()
+        return iPhaseRepository.findAllByOrderByPhaseIdAsc().stream()
                 .map(phase -> new PhaseDto(phase.getPhaseName(),phase.getPhaseValue()))
                 .collect(Collectors.toList());
     }
