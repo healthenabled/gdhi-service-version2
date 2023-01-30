@@ -27,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 @ActiveProfiles("test")
 public class ICategoryRepositoryTest {
     @Autowired
-    ICategoryRepository categoryRepository;
+    ICategoryRepository iCategoryRepository;
     @Autowired
     private EntityManager entityManager;
 
@@ -62,7 +62,7 @@ public class ICategoryRepositoryTest {
         entityManager.flush();
         entityManager.clear();
 
-        List<Category> categories = categoryRepository.findAll();
+        List<Category> categories = iCategoryRepository.findAllByOrderById();
         assertEquals(9, categories.size());
         Category category = categories.get(8);
         assertThat(category.getName(), is(category9.getName()));

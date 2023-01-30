@@ -71,7 +71,7 @@ public class ExcelUtilService {
 
     void convertListToExcel(List<CountryHealthScoreDto> countryHealthScoreDtos, LanguageCode languageCode) {
         this.languageCode = languageCode;
-        List<Category> categories = iCategoryRepository.findAll();
+        List<Category> categories = iCategoryRepository.findAllByOrderById();
 
         try {
             XSSFWorkbook workbook = new XSSFWorkbook();
