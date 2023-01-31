@@ -30,7 +30,7 @@ jobs:
          run : chmod +x gradlew
          
        - name: Run tests with application_test.yml profile
-         run: ./gradlew clean build -Dspring.config.name=application_test -Dspring.config.location=file:/application_test.yml
+         run: ./gradlew clean build
 
 
 
