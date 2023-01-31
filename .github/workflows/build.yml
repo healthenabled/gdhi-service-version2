@@ -30,6 +30,6 @@ jobs:
          run : chmod +x gradlew
          
        - name: Run tests with application_test.yml profile
-         run: ./gradlew build --tests --info --project-prop "spring.profiles.active=test" --stacktrace
+         run: ./gradlew build --info --project-prop "spring.profiles.active=test" --stacktrace
 
 
