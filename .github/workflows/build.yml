@@ -9,9 +9,9 @@ name: Java CI with Gradle
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "Actions_setup" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "Actions_setup" ]
     
 env:
   SPRING_PROFILES_ACTIVE: test
