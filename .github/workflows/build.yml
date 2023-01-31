@@ -9,6 +9,9 @@ name: Java CI with Gradle
 
 on: [push]
 
+env:
+  SPRING_PROFILES_ACTIVE: test
+
 jobs:
   build:
     runs-on: ubuntu-latest
