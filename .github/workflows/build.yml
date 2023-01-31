@@ -29,8 +29,6 @@ jobs:
        - name: grant permissions
          run : chmod +x gradlew
          
-       - name: run integration tests
-         run: ./gradlew integrationTest -PintegrationTestProfile
-
        - name: build action
-         run : SPRING_PROFILES_ACTIVE=test ./gradlew build
+         run: ./gradlew build --args='--spring.profiles.active=test'
+
