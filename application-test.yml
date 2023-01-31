@@ -1,20 +1,22 @@
 server:
     port: 8888
+
 spring:
-  datasource:
-    url: jdbc:h2:mem:gdhi_test
-    driverClassName: org.h2.Driver
-    username: gdhi_test
-    password: testpassword
-    initialization-mode: always
+  jmx:
+    enabled: false
   jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
+    showSql: true
+    formatSql: true
     hibernate:
-      ddl-auto: create-drop
-    show-sql: true
-  h2:
-    console:
-      enabled: true
-  flyway:
-    baseline-on-migrate: true
-    enabled: true
+      ddlAuto: true
+      namingStrategy : org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyHbmImpl
+      physicalNamingStrategy : it.CustomPhysicalNamingStrategyImpl
+      dialect: org.hibernate.dialect.PostgreSQL94Dialect
+
+db:
+  url: jdbc:postgresql://localhost:5432/gdhi_test
+  host: localhost
+  port: 5432
+  username: gdhi_test
+  password: testpassword
+  driverClassName: org.postgresql.Driver
