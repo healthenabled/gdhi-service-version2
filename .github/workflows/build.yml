@@ -29,6 +29,7 @@ jobs:
        - name: grant permissions
          run : chmod +x gradlew
          
-       - name: build action
-         run: ./gradlew build --args='--spring.profiles.active=test'
+       - name: Run tests with application_test.yml profile
+         run: ./gradlew test --tests *IT --args='--spring.profiles.active=test'
+
 
