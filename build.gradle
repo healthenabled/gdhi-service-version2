@@ -91,7 +91,3 @@ dependencies {
 	testImplementation 'io.rest-assured:spring-mock-mvc:5.3.0'
 }
 
-tasks.named('test') {
-	useJUnitPlatform()
-}
-
