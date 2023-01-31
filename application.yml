@@ -2,6 +2,7 @@ server:
     port: 8888
 
 spring:
+  profile: production
   jmx:
     enabled: false
   jpa:
