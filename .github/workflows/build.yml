@@ -15,9 +15,9 @@ on:
     
 env:
   POSTGRESQL_VERSION: 13.1
-  POSTGRESQL_DB: gdhi_test
-  POSTGRESQL_USER: gdhi_test
-  POSTGRESQL_PASSWORD: testpassword
+  POSTGRESQL_DB: gdhi
+  POSTGRESQL_USER: gdhi
+  POSTGRESQL_PASSWORD: password
   JAVA_VERSION: 17
 
 jobs:
