@@ -1,7 +1,7 @@
 server:
     port: 8888
 spring:
-  profile: test
+  profiles: test
   datasource:
     url: jdbc:h2:mem:gdhi_test
     driverClassName: org.h2.Driver
