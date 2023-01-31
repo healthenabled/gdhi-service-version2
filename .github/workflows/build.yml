@@ -18,7 +18,6 @@ jobs:
 
     steps:
       - name: Start Postgres container
-        uses: docker://postgres
         env:
           POSTGRES_DB: gdhi
           POSTGRES_USER: gdhi
