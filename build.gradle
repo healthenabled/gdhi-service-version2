@@ -44,7 +44,7 @@ jacocoTestReport {
 			fileTree(dir: it, exclude: [
 					"it/gdhi/dto/**/CountryDTO.class",
 					"it/gdhi/internationalization/model/**/Country*.class",
-					"it/gdhi/internationalization/model/**/Score*.class",
+					"it/gdhi/internationalization/model/**/Score*.class"
 			])
 		})
 	}
@@ -91,5 +91,11 @@ dependencies {
 
 tasks.named('test') {
 	useJUnitPlatform()
+	if (System.properties['includeIntegrationTestAndRepositoryTest']  == 'false') {
+		exclude '**/*IntegrationTest.class',
+				'**/*RepositoryTest.class'
+	}
 }
+
+
 
