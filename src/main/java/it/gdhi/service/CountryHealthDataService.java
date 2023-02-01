@@ -115,7 +115,7 @@ public class CountryHealthDataService {
     }
 
     public Map<String, List<CountrySummaryStatusDto>> getAllCountryStatusSummaries() {
-        List<CountrySummary> countrySummaries = iCountrySummaryRepository.getAll();
+        List<CountrySummary> countrySummaries = iCountrySummaryRepository.findAllByOrderByUpdatedAtDesc();
 
         List<CountrySummaryStatusDto> countrySummaryStatusDtos = countrySummaries
                 .stream().map(CountrySummaryStatusDto::new).collect(toList());
