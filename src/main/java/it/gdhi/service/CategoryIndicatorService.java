@@ -28,14 +28,14 @@ public class CategoryIndicatorService {
     }
 
     public List<CategoryIndicatorDto> getHealthIndicatorOptions(LanguageCode languageCode) {
-        return iCategoryRepository.findAll().stream()
-                                    .map(CategoryIndicatorDto::new)
-                                    .map(dto -> translator.translateHealthIndicatorOptions(dto, languageCode))
-                                    .collect(toList());
+        return iCategoryRepository.findAllByOrderById().stream()
+                .map(CategoryIndicatorDto::new)
+                .map(dto -> translator.translateHealthIndicatorOptions(dto, languageCode))
+                .collect(toList());
     }
 
     Integer getHealthIndicatorCount() {
-        List<Category> categoryList = iCategoryRepository.findAll();
+        List<Category> categoryList = iCategoryRepository.findAllByOrderById();
         AtomicInteger count = new AtomicInteger(0);
 
         categoryList.stream().forEach(category -> count.addAndGet(category.getIndicators().size()));
