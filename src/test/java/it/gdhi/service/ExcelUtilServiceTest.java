@@ -86,7 +86,7 @@ public class ExcelUtilServiceTest {
         List<Indicator> indicators = singletonList(new Indicator(1, "Ind 1", "Ind Def 1", 1));
         List<Category> categories = singletonList(new Category(1, "Cat 1",
                 indicators));
-        when(iCategoryRepository.findAll()).thenReturn(categories);
+        when(iCategoryRepository.findAllByOrderById()).thenReturn(categories);
 
         CategoryTranslation categoryTranslation = new CategoryTranslation(new CategoryTranslationId(1, fr), "Cat 1", categories.get(0));
         IndicatorTranslation indicatorTranslation = new IndicatorTranslation(new HealthIndicatorTranslationId(1, fr), "Ind 1", "Ind Def 1", indicators.get(0));
@@ -112,7 +112,7 @@ public class ExcelUtilServiceTest {
         List<Indicator> indicators = singletonList(new Indicator(1, "Ind 1", "Ind Def 1", 1));
         List<Category> categories = singletonList(new Category(1, "Cat 1",
                 indicators));
-        when(iCategoryRepository.findAll()).thenReturn(categories);
+        when(iCategoryRepository.findAllByOrderById()).thenReturn(categories);
 
         CategoryTranslation categoryTranslation = new CategoryTranslation(new CategoryTranslationId(1, fr), "Cat 1", categories.get(0));
         IndicatorTranslation indicatorTranslation = new IndicatorTranslation(new HealthIndicatorTranslationId(1, fr), "Ind 1", "Ind Def 1", indicators.get(0));
@@ -138,7 +138,7 @@ public class ExcelUtilServiceTest {
         List<Indicator> indicators = singletonList(new Indicator(1, "Ind 1", "Ind Def 1", 1));
         List<Category> categories = singletonList(new Category(1, "Cat 1", indicators));
 
-        when(iCategoryRepository.findAll()).thenReturn(categories);
+        when(iCategoryRepository.findAllByOrderById()).thenReturn(categories);
 
         CategoryTranslation categoryTranslation = new CategoryTranslation(new CategoryTranslationId(1, fr), "Cat 1", categories.get(0));
         IndicatorTranslation indicatorTranslation = new IndicatorTranslation(new HealthIndicatorTranslationId(1, fr), "Ind 1", "Ind Def 1", indicators.get(0));
@@ -205,7 +205,7 @@ public class ExcelUtilServiceTest {
         List<Indicator> indicators = singletonList(new Indicator(1, "Ind 1", "Ind Def 1", 1));
         List<Category> categories = singletonList(new Category(1, "Cat 1", indicators));
 
-        when(iCategoryRepository.findAll()).thenReturn(categories);
+        when(iCategoryRepository.findAllByOrderById()).thenReturn(categories);
 
         CategoryTranslation categoryTranslation = new CategoryTranslation(new CategoryTranslationId(1, fr), "Cat 1 fr", categories.get(0));
         IndicatorTranslation indicatorTranslation = new IndicatorTranslation(new HealthIndicatorTranslationId(1, fr), "Ind 1 fr", "Ind Def 1 fr", indicators.get(0));

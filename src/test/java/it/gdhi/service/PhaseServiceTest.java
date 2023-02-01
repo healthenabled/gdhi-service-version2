@@ -31,7 +31,7 @@ public class PhaseServiceTest {
         Phase phase2 = new Phase(2,"phase 2 ", 2);
         Phase phase3 = new Phase(3,"phase 3 ", 3);
 
-        when(iPhaseRepository.findAll()).thenReturn(Arrays.asList(phase1,phase2,phase3));
+        when(iPhaseRepository.findAllByOrderByPhaseIdAsc()).thenReturn(Arrays.asList(phase1,phase2,phase3));
 
         List<PhaseDto> expectedPhaseDtos = Arrays.asList(
                 new PhaseDto(phase1.getPhaseName(), phase1.getPhaseValue()),

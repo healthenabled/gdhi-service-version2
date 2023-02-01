@@ -71,7 +71,7 @@ public class ExcelUtilService {
 
     void convertListToExcel(List<CountryHealthScoreDto> countryHealthScoreDtos, LanguageCode languageCode) {
         this.languageCode = languageCode;
-        List<Category> categories = iCategoryRepository.findAll();
+        List<Category> categories = iCategoryRepository.findAllByOrderById();
 
         try {
             XSSFWorkbook workbook = new XSSFWorkbook();
@@ -83,7 +83,7 @@ public class ExcelUtilService {
             Map<String, String> headerDefinitions = populateHeaderDefinitions(workbook, sheet, rownum++, categories);
             if (countryHealthScoreDtos != null && !countryHealthScoreDtos.isEmpty()) {
                 populateHealthIndicatorsWithDefinitionsAndScores(sheet, countryHealthScoreDtos,
-                                                                 headerDefinitions, rownum);
+                        headerDefinitions, rownum);
             }
             for(int i = 0; i<= noOfColumns; i++) {
                 sheet.autoSizeColumn(i);
@@ -108,9 +108,9 @@ public class ExcelUtilService {
         categories.forEach(category -> {
             category.getIndicators()
                     .forEach(indicator -> headerDef.put(  INDICATOR + indicator.getIndicatorId(),
-                                                          indicatorHeading + indicator.getCode()));
+                            indicatorHeading + indicator.getCode()));
             headerDef.put(  CATEGORY + category.getId(),
-                            categoryHeading + category.getId());
+                    categoryHeading + category.getId());
         });
         Row row = sheet.createRow(rownum);
         addRow(headerDef, row, getFontStyle(workBook));
@@ -121,9 +121,9 @@ public class ExcelUtilService {
     Map<String, String> populateHeaderDefinitions(XSSFWorkbook workBook, XSSFSheet sheet, int rownum,
                                                   List<Category> categories) {
         Map<Integer, String> categoryNameTranslations = getTranslatedCategories().stream()
-                                    .collect(toMap(CategoryTranslation::getCategoryId, CategoryTranslation::getName));
+                .collect(toMap(CategoryTranslation::getCategoryId, CategoryTranslation::getName));
         Map<Integer, String> indicatorNameTranslations = getTranslatedIndicators().stream()
-                                .collect(toMap(IndicatorTranslation::getIndicatorId, IndicatorTranslation::getName));
+                .collect(toMap(IndicatorTranslation::getIndicatorId, IndicatorTranslation::getName));
 
         Map<String, String> headerDef = new LinkedHashMap<>();
         headerDef.put(COUNTRY_NAME, translateCOUNTRYNAME());
@@ -131,7 +131,7 @@ public class ExcelUtilService {
         categories.forEach(category -> {
             category.getIndicators()
                     .forEach(indicator -> headerDef.put(INDICATOR + indicator.getIndicatorId(),
-                                                        indicatorNameTranslations.get(indicator.getIndicatorId())));
+                            indicatorNameTranslations.get(indicator.getIndicatorId())));
             headerDef.put(CATEGORY + category.getId(), categoryNameTranslations.get(category.getId()));
         });
 
@@ -158,13 +158,13 @@ public class ExcelUtilService {
                 List<IndicatorScoreDto> indicators = category.getIndicators();
                 for (IndicatorScoreDto indicator : indicators) {
                     content.put(INDICATOR + indicator.getId(),
-                                    isValidScore(indicator) ? translatePHASE() + indicator.getScore()
-                                                            : translateNOTAVAILABLE());
+                            isValidScore(indicator) ? translatePHASE() + indicator.getScore()
+                                    : translateNOTAVAILABLE());
 
                 }
                 content.put(CATEGORY + category.getId(),
-                                category.getPhase() != null ? translatePHASE() + category.getPhase()
-                                                            : translateNOTAVAILABLE());
+                        category.getPhase() != null ? translatePHASE() + category.getPhase()
+                                : translateNOTAVAILABLE());
             }
             content.put(OVERALL_PHASE, countryHealthScoreDto.getCountryPhase() != null ?
                     translatePHASE() + countryHealthScoreDto.getCountryPhase() : translateNOTAVAILABLE());
