@@ -45,7 +45,7 @@
         "indicatorId": 2,
         "indicatorCode": "2",
         "indicatorName": "Digital Health prioritized at the national level through planning",
-        "indicatorDefinition": "Is digital health included and budgeted for in national health or relevant national strategies and/or plan(s)?",
+        "indicatorDefinition": "Is digital health included and budgeted for in national health or relevant national strategies and/or plan(s)? Note: The focus of this indicator is on the inclusion of digital health or eHealth in the national health strategy.",
         "scores": [
           {
             "scoreId": 8,
@@ -99,7 +99,7 @@
           {
             "scoreId": 17,
             "score": 1,
-            "scoreDefinition": "There is no digital health strategy or framework or draft digital health strategy or framework developed, but not officially reviewed."
+            "scoreDefinition": "There is no digital health strategy or framework. Draft digital health strategy or framework developed, but not officially reviewed."
           },
           {
             "scoreId": 18,
@@ -127,7 +127,7 @@
         "indicatorId": 4,
         "indicatorCode": "4",
         "indicatorName": "Public funding for digital health",
-        "indicatorDefinition": "What is the estimated percent (%) of the annual public spending on health committed to digital health?",
+        "indicatorDefinition": "Is public funding (including loans) for digital health sufficient for the digital health strategies, priorities (needs), or costed-plan of the country?",
         "scores": [
           {
             "scoreId": 22,
@@ -137,7 +137,7 @@
           {
             "scoreId": 24,
             "score": 1,
-            "scoreDefinition": "No budget line item for ICT or digital health available or a budget line item for ICT exists but proportion not available."
+            "scoreDefinition": "No budget line item for digital health available. A budget line item for digital health exists but proportion not available."
           },
           {
             "scoreId": 25,
@@ -171,7 +171,7 @@
         "indicatorId": 5,
         "indicatorCode": "5",
         "indicatorName": "Legal Framework for Data Protection (Security)",
-        "indicatorDefinition": "Is there a law on data security (storage, transmission, use) that is relevant to digital health?",
+        "indicatorDefinition": "Is there a law on data security (across the full data lifecycle e.g. collection, processing, storage, transmission, use and destruction) that is relevant to digital health?",
         "scores": [
           {
             "scoreId": 29,
@@ -196,7 +196,7 @@
           {
             "scoreId": 34,
             "score": 4,
-            "scoreDefinition": "There is a law on data security (storage, transmission, use) that is relevant to digital health that has been implemented, but not consistenly enforced."
+            "scoreDefinition": "There is a law on data security (storage, transmission, use) that is relevant to digital health that has been implemented, but not consistently enforced."
           },
           {
             "scoreId": 35,
@@ -208,7 +208,7 @@
       {
         "indicatorId": 6,
         "indicatorCode": "6",
-        "indicatorName": "Laws or Regulations for privacy, confidentiality and acess to health information (Privacy)",
+        "indicatorName": "Laws or Regulations for privacy, confidentiality and access to health information (Privacy)",
         "indicatorDefinition": "Is there a law to protect individual privacy, governing ownership, access and sharing of individually identifiable digital health data ?",
         "scores": [
           {
@@ -234,7 +234,7 @@
           {
             "scoreId": 41,
             "score": 4,
-            "scoreDefinition": "There is a law to protect individual privacy, governing ownership, access and sharing of individually identifiable digital health data that has been implemented, but not consistenly enforced."
+            "scoreDefinition": "There is a law to protect individual privacy, governing ownership, access and sharing of individually identifiable digital health data that has been implemented, but not consistently enforced."
           },
           {
             "scoreId": 42,
@@ -246,8 +246,8 @@
       {
         "indicatorId": 7,
         "indicatorCode": "7",
-        "indicatorName": "Protocol for regulating or certifying devices and/or digital health services",
-        "indicatorDefinition": "Are there protocols, policies, frameworks or accepted processes governing the clinical and patient care use of connected medical devices and digital health services (e.g. telemedicine, applications), particularly in relation to safety, data integrity and quality of care?",
+        "indicatorName": "Protocol for regulating or certifying devices and/or health services- including provisions for AI and algorithms (at higher stages of maturity)",
+        "indicatorDefinition": "Are there protocols, policies, frameworks or accepted processes governing the clinical and patient care use of connected medical devices and health services (e.g. telemedicine, applications), particularly in relation to safety, data integrity and quality of care- including provisions for AI and algorithms (at higher stages of maturity)?",
         "scores": [
           {
             "scoreId": 43,
@@ -272,7 +272,7 @@
           {
             "scoreId": 48,
             "score": 4,
-            "scoreDefinition": "Protocols, policies, frameworks or accepted processes governing the clinical and patient care use of connected medical devices and digital health services (e.g. telemedicine, applications), particularly in relation to safety, data integrity and quality of care have been implemented, but not consistenly enforced."
+            "scoreDefinition": "Protocols, policies, frameworks or accepted processes governing the clinical and patient care use of connected medical devices and digital health services (e.g. telemedicine, applications), particularly in relation to safety, data integrity and quality of care have been implemented, but not consistently enforced."
           },
           {
             "scoreId": 49,
@@ -285,7 +285,7 @@
         "indicatorId": 8,
         "indicatorCode": "8",
         "indicatorName": "Cross-border data security and sharing",
-        "indicatorDefinition": "Are there protocols, policies, frameworks or accepted processes in place to support secure cross-border data exchange and storage? This includes health-related data coming into a country, going out of a country, and/or being used in a country related to an individual from another country.",
+        "indicatorDefinition": "Are there protocols, policies, frameworks or accepted processes in place to support secure cross-border data exchange and storage in support of public health goals while protecting individual privacy? Note: This includes health-related data coming into a country, going out of a country, and/or being used in a country related to an individual from another country.",
         "scores": [
           {
             "scoreId": 50,
@@ -300,22 +300,22 @@
           {
             "scoreId": 53,
             "score": 2,
-            "scoreDefinition": "Protocols, policies, frameworks or accepted processes for cross boarder data exchange and storage have been proposed and are under review."
+            "scoreDefinition": "Protocols, policies, frameworks or accepted processes for cross border data exchange and storage have been proposed and are under review."
           },
           {
             "scoreId": 54,
             "score": 3,
-            "scoreDefinition": "Protocols, policies, frameworks or accepted processes for cross boarder data exchange and storage have been passed, but are not fully implemented."
+            "scoreDefinition": "Protocols, policies, frameworks or accepted processes for cross border data exchange and storage have been passed, but are not fully implemented."
           },
           {
             "scoreId": 55,
             "score": 4,
-            "scoreDefinition": "Protocols, policies, frameworks or accepted processes for cross boarder data exchange and storage have been implemented, but not consistently enforced."
+            "scoreDefinition": "Protocols, policies, frameworks or accepted processes for cross border data exchange and storage have been implemented, but not consistently enforced."
           },
           {
             "scoreId": 56,
             "score": 5,
-            "scoreDefinition": "Protocols, policies, frameworks or accepted processes for cross boarder data exchange and storage have been implemented and enforced consistently."
+            "scoreDefinition": "Protocols, policies, frameworks or accepted processes for cross border data exchange and storage have been implemented and enforced consistently."
           }
         ]
       }
@@ -354,7 +354,7 @@
           {
             "scoreId": 62,
             "score": 4,
-            "scoreDefinition": "Digital health taught in relevant institutions with an estimated 26-75% health professionals receiving pre-service training."
+            "scoreDefinition": "Digital health taught in relevant institutions with an estimated 50-75% health professionals receiving pre-service training."
           },
           {
             "scoreId": 63,
@@ -392,12 +392,12 @@
           {
             "scoreId": 138,
             "score": 4,
-            "scoreDefinition": "Digital health taught in relevant institutions with an estimated 26-75% of doctors/physicians receiving pre-service training."
+            "scoreDefinition": "Digital health taught in relevant institutions with an estimated 50-75% of doctors/physicians receiving pre-service training."
           },
           {
             "scoreId": 139,
             "score": 5,
-            "scoreDefinition": "Digital health taught in relevant instutitions with >75% of doctors/physicians receiving pre-service training."
+            "scoreDefinition": "Digital health taught in relevant institutions with >75% of doctors/physicians receiving pre-service training."
           }
         ]
       },
@@ -430,7 +430,7 @@
           {
             "scoreId": 144,
             "score": 4,
-            "scoreDefinition": "Digital health taught in relevant institutions with an estimated 26-75% of nurses receiving pre-service training."
+            "scoreDefinition": "Digital health taught in relevant institutions with an estimated 50-75% of nurses receiving pre-service training."
           },
           {
             "scoreId": 145,
@@ -468,7 +468,7 @@
           {
             "scoreId": 150,
             "score": 4,
-            "scoreDefinition": "Digital health taught in relevant institutions with an estimated 26-75% of community health workers receiving pre-service training."
+            "scoreDefinition": "Digital health taught in relevant institutions with an estimated 50-75% of community health workers receiving pre-service training."
           },
           {
             "scoreId": 151,
@@ -481,7 +481,7 @@
         "indicatorId": 10,
         "indicatorCode": "10",
         "indicatorName": "Digital health integrated in health and related professional in-service training (after deployment)",
-        "indicatorDefinition": "Is digital health part of curriculum for health and health-related support professionals in the workforce (as defined below)? [Defined as community health workers, nurses, doctors, allied health, health managers/administrators, and technologists]",
+        "indicatorDefinition": "Specifically, is digital health part of curriculum for health and health-related support professionals in the workforce in general? [Defined as community health workers, nurses, doctors, allied health, health managers/administrators, and technologists]",
         "scores": [
           {
             "scoreId": 64,
@@ -496,22 +496,22 @@
           {
             "scoreId": 67,
             "score": 2,
-            "scoreDefinition": "Digital health curriculum proposed and under review as part of in-service (continuing edication) training for health professionals in the workforce."
+            "scoreDefinition": "Digital health curriculum proposed and under review as part of in-service (continuing education) training for health professionals in the workforce."
           },
           {
             "scoreId": 68,
             "score": 3,
-            "scoreDefinition": "Digital health curriculum is implemented as part of in-service (continuing edication) training for 0-25% health professionals in the workforce."
+            "scoreDefinition": "Digital health curriculum is implemented as part of in-service (continuing education) training for 0-25% health professionals in the workforce."
           },
           {
             "scoreId": 69,
             "score": 4,
-            "scoreDefinition": "Digital health curriculum is implemented as part of in-service (continuing education) training for 26-75% health professionals in the workforce."
+            "scoreDefinition": "Digital health curriculum is implemented as part of in-service (continuing education) training for 50-75% health professionals in the workforce."
           },
           {
             "scoreId": 70,
             "score": 5,
-            "scoreDefinition": "Digital health curriculum is implemented as part of in-service (continuing edication) training for >75% health professionals in the workforce."
+            "scoreDefinition": "Digital health curriculum is implemented as part of in-service (continuing education) training for >75% health professionals in the workforce."
           }
         ]
       },
@@ -544,7 +544,7 @@
           {
             "scoreId": 156,
             "score": 4,
-            "scoreDefinition": "Digital health curriculum is implemented as part of in-service (continuing education) training for 26-75% of doctors/physicians in the workforce."
+            "scoreDefinition": "Digital health curriculum is implemented as part of in-service (continuing education) training for 50-75% of doctors/physicians in the workforce."
           },
           {
             "scoreId": 157,
@@ -582,7 +582,7 @@
           {
             "scoreId": 162,
             "score": 4,
-            "scoreDefinition": "Digital health curriculum is implemented as part of in-service (continuing education) training for 26-75% of nurses in the workforce."
+            "scoreDefinition": "Digital health curriculum is implemented as part of in-service (continuing education) training for 50-75% of nurses in the workforce."
           },
           {
             "scoreId": 163,
@@ -620,7 +620,7 @@
           {
             "scoreId": 168,
             "score": 4,
-            "scoreDefinition": "Digital health curriculum is implemented as part of in-service (continuing education) training for 26-75% of community health workers in the workforce."
+            "scoreDefinition": "Digital health curriculum is implemented as part of in-service (continuing education) training for 50-75% of community health workers in the workforce."
           },
           {
             "scoreId": 169,
@@ -632,8 +632,8 @@
       {
         "indicatorId": 11,
         "indicatorCode": "11",
-        "indicatorName": "Training of digital health work force",
-        "indicatorDefinition": "Is training in digital health / health informatics / health information systems / biomedical informatics degree programs (in either public or private institutions) producing trained digital health workers?",
+        "indicatorName": "Training of digital health workforce",
+        "indicatorDefinition": "In general, is training in digital health / health informatics / health information systems / biomedical informatics degree programs (in either public or private institutions) producing trained digital health workers?",
         "scores": [
           {
             "scoreId": 71,
@@ -643,12 +643,12 @@
           {
             "scoreId": 73,
             "score": 1,
-            "scoreDefinition": "There is no training available for digital heath workforce available in the country."
+            "scoreDefinition": "There is no training available for digital health workforce available in the country."
           },
           {
             "scoreId": 74,
             "score": 2,
-            "scoreDefinition": "Digital heath workforce needs assessed, gaps identified and training options under development."
+            "scoreDefinition": "Digital health workforce needs assessed, gaps identified and training options under development."
           },
           {
             "scoreId": 75,
@@ -670,7 +670,7 @@
       {
         "indicatorId": 26,
         "indicatorCode": "11a",
-        "indicatorName": "Training of digital health work force",
+        "indicatorName": "Training of digital health workforce",
         "indicatorDefinition": "Specifically, is training in health and/or biomedical informatics (in either public or private institutions) producing trained informaticists or health information systems specialists?",
         "scores": [
           {
@@ -719,7 +719,7 @@
           {
             "scoreId": 80,
             "score": 1,
-            "scoreDefinition": "No workforce strategy, policy, or guide that recognizes digital health is in place. Distribution of digital health work force is ad hoc."
+            "scoreDefinition": "No workforce strategy, policy, or guide that recognizes digital health is in place. Distribution of digital health workforce is ad hoc."
           },
           {
             "scoreId": 81,
@@ -768,12 +768,12 @@
           {
             "scoreId": 88,
             "score": 2,
-            "scoreDefinition": "A national digital health architecture and/or health information exchange [HIE] is defined including semantic, syntactic, and organizational layers."
+            "scoreDefinition": "A national digital health architecture and/or health information exchange (HIE) has been proposed, but not approved including semantic, syntactic, and organizational layers."
           },
           {
             "scoreId": 89,
             "score": 3,
-            "scoreDefinition": "The HIE is operable and provides core functions, such as authentication, translation, storage and warehousing function, guide to what data is available and how to access it, and data interpretation."
+            "scoreDefinition": "The national digital health architecture and/or health information exchange (HIE) is operable and provides core functions, such as authentication, translation, storage and warehousing function, guide to what data is available and how to access it, and data interpretation."
           },
           {
             "scoreId": 90,
@@ -835,7 +835,7 @@
         "indicatorId": 15,
         "indicatorCode": "15",
         "indicatorName": "Network readiness",
-        "indicatorDefinition": "Extract the WEF Network Readiness Index score. This data can be sourced from the WEF Network Readiness Index (http://reports.weforum.org/global-information-technology-report-2016/networked-readiness-index/) or will be added by the GDHI team upon submission.",
+        "indicatorDefinition": "Extract the Portuland institute technology pillar of network network readiness index score (https://networkreadinessindex.org )",
         "scores": [
           {
             "scoreId": 99,
@@ -845,27 +845,27 @@
           {
             "scoreId": 101,
             "score": 1,
-            "scoreDefinition": "WEF score (1.0 - 3.3)"
+            "scoreDefinition": "1.0 - 3.3"
           },
           {
             "scoreId": 102,
             "score": 2,
-            "scoreDefinition": "WEF score (>3.3 - 4.0)"
+            "scoreDefinition": ">3.3 - 4.0"
           },
           {
             "scoreId": 103,
             "score": 3,
-            "scoreDefinition": "WEF score (>4.0 - 5.0)"
+            "scoreDefinition": ">4.0 - 5.0"
           },
           {
             "scoreId": 104,
             "score": 4,
-            "scoreDefinition": "WEF score (>5.0 - 5.4)"
+            "scoreDefinition": ">5.0 - 5.4"
           },
           {
             "scoreId": 105,
             "score": 5,
-            "scoreDefinition": "WEF score (>5.4 - 7.0)"
+            "scoreDefinition": ">5.4 - 7.0"
           }
         ]
       },
@@ -873,7 +873,7 @@
         "indicatorId": 16,
         "indicatorCode": "16",
         "indicatorName": "Planning and support for ongoing digital health infrastructure maintenance",
-        "indicatorDefinition": "Is there an articulated plan for supporting digital health infrastructure (including equipment- computers/ tablets/ phones, supplies, software, devices, etc.) provision and maintenance?",
+        "indicatorDefinition": "Is there an articulated plan for supporting the expansion of digital health infrastructure (including equipment- computers/ tablets/ phones, supplies, software, devices, etc.) provision and maintenance to all public healthcare facilities?",
         "scores": [
           {
             "scoreId": 106,
@@ -898,7 +898,7 @@
           {
             "scoreId": 111,
             "score": 4,
-            "scoreDefinition": "A plan for supporting digital health infrastructure (including equipment- computers/ tablets/ phones, supplies, software, devices, etc.) provision and maintenance has been implemented partially and consistently with estimated 26-75% of necessary digital health infrastructure needed in public healthcare service sector available and in use."
+            "scoreDefinition": "A plan for supporting digital health infrastructure (including equipment- computers/ tablets/ phones, supplies, software, devices, etc.) provision and maintenance has been implemented partially and consistently with estimated 25-50% of necessary digital health infrastructure needed in public healthcare service sector available and in use."
           },
           {
             "scoreId": 112,
@@ -917,7 +917,7 @@
         "indicatorId": 17,
         "indicatorCode": "17",
         "indicatorName": "Nationally scaled digital health systems",
-        "indicatorDefinition": "Public sector health priorities are supported by nationally-scaled digital health systems. (Use separate worksheet to list the country's specified priority areas, whether digital systems are in place, and whether those systems are national-scale.) [eg. Country X chooses 4 priority areas, uses digital systems to address 2 of the 4, with only 1 being at national scale, receives a score of 25%.]",
+        "indicatorDefinition": "Public sector priorities are supported by nationally-scaled digital health systems",
         "scores": [
           {
             "scoreId": 113,
@@ -927,27 +927,27 @@
           {
             "scoreId": 115,
             "score": 1,
-            "scoreDefinition": "National health priority areas are not supported by digital health at any scale."
+            "scoreDefinition": "National priority areas are not supported by digital health at any scale."
           },
           {
             "scoreId": 116,
             "score": 2,
-            "scoreDefinition": "Few national health priority areas are supported by digital health, and implementation initiated (< 25% priority areas)."
+            "scoreDefinition": "Few national priority areas are supported by digital health, and implementation initiated (< 25% priority areas)."
           },
           {
             "scoreId": 117,
             "score": 3,
-            "scoreDefinition": "Some national health priority areas supported by a diverse range of nationally scaled digital health services and applications (25-50% of priority areas)."
+            "scoreDefinition": "Some national priority areas supported by scaled digital health systems (25-50% of priority areas)."
           },
           {
             "scoreId": 118,
             "score": 4,
-            "scoreDefinition": "The majority, but not all national health priority areas (50-75% of priority areas) supported by a diverse range of nationally scaled digital health services and applications."
+            "scoreDefinition": "The majority, but not all national priority areas (50-75% of priority areas) supported by scaled digital health systems."
           },
           {
             "scoreId": 119,
             "score": 5,
-            "scoreDefinition": "All nationally prioritized health areas supported by a diverse range of national-scale digital health services and applications (>75%) with monitoring and evaluation systems and results."
+            "scoreDefinition": "All nationally prioritized areas supported by national-scale digital health systems (>75%) with monitoring and evaluation systems and results."
           }
         ]
       },
@@ -955,7 +955,7 @@
         "indicatorId": 18,
         "indicatorCode": "18",
         "indicatorName": "Digital identity management of service providers, administrators, and facilities for digital health, including location data for GIS mapping",
-        "indicatorDefinition": "Are health system registries of uniquely identifiable providers, administrators, and public facilities (and private if applicable) available, accessible and current? Is the data geotagged to enable GIS mapping?",
+        "indicatorDefinition": "Are health system registries of uniquely identifiable providers, administrators, and public facilities (and private if applicable) available, accessible and current? Is the data geotagged to enable GIS mapping with protocols in place to protect sensitive datasets?",
         "scores": [
           {
             "scoreId": 120,
@@ -993,7 +993,7 @@
         "indicatorId": 19,
         "indicatorCode": "19",
         "indicatorName": "Digital identity management of individuals for health",
-        "indicatorDefinition": "Are secure registries or a master patient index of uniquely identifiable individuals available, accessible and current for use for health-related purposes?",
+        "indicatorDefinition": "Are secure registries or a master patient index of uniquely identifiable individuals available, fully representative of the population, accessible and current for use for health-related purposes?",
         "scores": [
           {
             "scoreId": 127,
@@ -1018,7 +1018,7 @@
           {
             "scoreId": 132,
             "score": 4,
-            "scoreDefinition": "A secure registry exists, is available and in active use and includes 26-75% of the relevant population."
+            "scoreDefinition": "A secure registry exists, is available and in active use and includes 25-50% of the relevant population."
           },
           {
             "scoreId": 133,
@@ -1056,7 +1056,7 @@
           {
             "scoreId": 180,
             "score": 4,
-            "scoreDefinition": "A master patient index exists, is available and in active use and includes 26-75% of the relevant population."
+            "scoreDefinition": "A master patient index exists, is available and in active use and includes 25-50% of the relevant population."
           },
           {
             "scoreId": 181,
@@ -1069,7 +1069,7 @@
         "indicatorId": 28,
         "indicatorCode": "19b",
         "indicatorName": "Digital identity management of individuals for health",
-        "indicatorDefinition": "Specifically, is there a secure digital birth registry of uniquely identifiable individuals available, accessible and current for use for health-related purposes?",
+        "indicatorDefinition": "Specifically, is there a secure birth registry of uniquely identifiable individuals available, accessible and current for use for health-related purposes?",
         "scores": [
           {
             "scoreId": 182,
@@ -1079,27 +1079,27 @@
           {
             "scoreId": 183,
             "score": 1,
-            "scoreDefinition": "No secure digital birth registry exists."
+            "scoreDefinition": "No secure birth registry exists."
           },
           {
             "scoreId": 184,
             "score": 2,
-            "scoreDefinition": "A secure digital birth registry exists, but is incomplete / partially available, used, and irregularly maintained."
+            "scoreDefinition": "A secure birth registry exists, but is incomplete / partially available, used, and irregularly maintained."
           },
           {
             "scoreId": 185,
             "score": 3,
-            "scoreDefinition": "A secure digital birth registry exists, is available and in active use and includes <25% of the relevant population."
+            "scoreDefinition": "A secure birth registry exists, is available and in active use and includes <25% of the relevant population."
           },
           {
             "scoreId": 186,
             "score": 4,
-            "scoreDefinition": "A secure digital birth registry exists, is available and in active use and includes 26-75% of the relevant population."
+            "scoreDefinition": "A secure birth registry exists, is available and in active use and includes 25-50% of the relevant population."
           },
           {
             "scoreId": 187,
             "score": 5,
-            "scoreDefinition": "A secure digital birth registry exists, is available and in active use and includes >75% of the relevant population. The data is available, used, and curated."
+            "scoreDefinition": "A secure birth registry exists, is available and in active use and includes >75% of the relevant population. The data is available, used, and curated."
           }
         ]
       },
@@ -1132,7 +1132,7 @@
           {
             "scoreId": 192,
             "score": 4,
-            "scoreDefinition": "A secure death registry exists, is available and in active use and includes 26-75% of the relevant population."
+            "scoreDefinition": "A secure death registry exists, is available and in active use and includes 25-50% of the relevant population."
           },
           {
             "scoreId": 193,
@@ -1170,7 +1170,7 @@
           {
             "scoreId": 198,
             "score": 4,
-            "scoreDefinition": "A secure immunization registry exists, is available and in active use and includes 26-75% of the relevant population."
+            "scoreDefinition": "A secure immunization registry exists, is available and in active use and includes 25-50% of the relevant population."
           },
           {
             "scoreId": 199,

@@ -22,7 +22,7 @@
           "id": 2,
           "code": "2",
           "name": "Digital Health prioritized at the national level through planning",
-          "indicatorDescription": "Is digital health included and budgeted for in national health or relevant national strategies and/or plan(s)? The focus of this indicator is on the inclusion of digital health or eHealth in the national health strategy.",
+          "indicatorDescription": "Is digital health included and budgeted for in national health or relevant national strategies and/or plan(s)? Note: The focus of this indicator is on the inclusion of digital health or eHealth in the national health strategy.",
           "score": 2,
           "supportingText": "sp1",
           "scoreDescription": "There is some discussion of inclusion of digital health in national health or other relevant national strategies or plans. Proposed language for inclusion of digital health in national health or relevant national strategies and/or plans has been made and is under review."
@@ -48,7 +48,7 @@
           "id": 4,
           "code": "4",
           "name": "Public funding for digital health",
-          "indicatorDescription": "What is the estimated percent (%) of the annual public spending on health committed to digital health?",
+          "indicatorDescription": "Is public funding (including loans) for digital health sufficient for the digital health strategies, priorities (needs), or costed-plan of the country?",
           "score": null,
           "supportingText": "sp1",
           "scoreDescription": "Not Available"
@@ -65,7 +65,7 @@
           "id": 5,
           "code": "5",
           "name": "Legal Framework for Data Protection (Security)",
-          "indicatorDescription": "Is there a law on data security (storage, transmission, use) that is relevant to digital health?",
+          "indicatorDescription": "Is there a law on data security (across the full data lifecycle e.g. collection, processing, storage, transmission, use and destruction) that is relevant to digital health?",
           "score": null,
           "supportingText": "sp1",
           "scoreDescription": "Not Available"

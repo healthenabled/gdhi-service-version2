@@ -38,7 +38,6 @@ public class MetaDataIntegrationTest extends BaseIntegrationTest{
     }
 
     @Test
-    @Disabled("Only for local")
     public void shouldReturnHealthIndicatorOptions() throws IOException {
         Response response = given()
                 .contentType("application/json")
