@@ -1,0 +1,1 @@
+UPDATE i18n.health_indicator SET name='Protocole de réglementation ou de certification des dispositifs et/ou des services de santé - y compris les dispositions relatives à l''IA et aux algorithmes (à des stades de maturité plus élevés)' where indicator_id=7 and language_id='fr';

@@ -24,7 +24,7 @@
               "id": 2,
               "code": "2",
               "name": "Priorité accordée à la santé numérique à l'échelle nationale par le biais de la planification",
-              "indicatorDescription": "Le pays dispose-t-il d'un ministère, d'un organisme ou d'un groupe de travail national distinct pour la santé numérique ?",
+              "indicatorDescription": "La santé numérique est-elle incluse et budgétisée dans la politique nationale de santé ou les stratégies et/ou plans nationaux pertinents? Remarque: Cet indicateur se concentre sur l'inclusion de la santé numérique ou de la cybersanté dans la stratégie nationale de santé.",
               "score": 2,
               "supportingText": "sp2",
               "scoreDescription": "L'inclusion de la santé numérique dans les stratégies ou plans nationaux de santé ou d'autres stratégies ou plans nationaux pertinents fait l'objet d'un certain débat. Le libellé proposé pour L'inclusion de la santé numérique dans les stratégies et/ou plans nationaux de santé ou les stratégies et/ou plans nationaux pertinents a été élaboré et/ou est en cours d'examen."
@@ -50,7 +50,7 @@
               "id": 4,
               "code": "4",
               "name": "Financement public de la santé numérique",
-              "indicatorDescription": "Quel est le pourcentage estimé (%) des dépenses publiques annuelles en santé consacrées à la santé numérique ?",
+              "indicatorDescription": "Le financement public (y compris les prêts) pour la santé numérique est-il suffisant pour les stratégies, les priorités (besoins) ou le plan chiffré de santé numérique du pays?",
               "score": null,
               "supportingText": "sp4",
               "scoreDescription": "Not Available"
@@ -67,7 +67,7 @@
               "id": 5,
               "code": "5",
               "name": "Cadre juridique pour la protection des données (sécurité)",
-              "indicatorDescription": "Existe-t-il une loi sur la sécurité des données (stockage, transmission, utilisation) qui concerne la santé numérique ?",
+              "indicatorDescription": "Existe-t-il une loi sur la sécurité des données (tout au long du cycle de vie des données, par exemple la collecte, le traitement, le stockage, la transmission, l'utilisation et la destruction) qui concerne la santé numérique?",
               "score": null,
               "supportingText": "sp5",
               "scoreDescription": "Not Available"
@@ -111,7 +111,7 @@
               "id": 2,
               "code": "2",
               "name": "Priorité accordée à la santé numérique à l'échelle nationale par le biais de la planification",
-              "indicatorDescription": "Le pays dispose-t-il d'un ministère, d'un organisme ou d'un groupe de travail national distinct pour la santé numérique ?",
+              "indicatorDescription": "La santé numérique est-elle incluse et budgétisée dans la politique nationale de santé ou les stratégies et/ou plans nationaux pertinents? Remarque: Cet indicateur se concentre sur l'inclusion de la santé numérique ou de la cybersanté dans la stratégie nationale de santé.",
               "score": null,
               "supportingText": "sp14",
               "scoreDescription": "Not Available"
@@ -137,7 +137,7 @@
               "id": 4,
               "code": "4",
               "name": "Financement public de la santé numérique",
-              "indicatorDescription": "Quel est le pourcentage estimé (%) des dépenses publiques annuelles en santé consacrées à la santé numérique ?",
+              "indicatorDescription": "Le financement public (y compris les prêts) pour la santé numérique est-il suffisant pour les stratégies, les priorités (besoins) ou le plan chiffré de santé numérique du pays?",
               "score": null,
               "supportingText": "sp16",
               "scoreDescription": "Not Available"
@@ -154,7 +154,7 @@
               "id": 5,
               "code": "5",
               "name": "Cadre juridique pour la protection des données (sécurité)",
-              "indicatorDescription": "Existe-t-il une loi sur la sécurité des données (stockage, transmission, utilisation) qui concerne la santé numérique ?",
+              "indicatorDescription": "Existe-t-il une loi sur la sécurité des données (tout au long du cycle de vie des données, par exemple la collecte, le traitement, le stockage, la transmission, l'utilisation et la destruction) qui concerne la santé numérique?",
               "score": null,
               "supportingText": "sp17",
               "scoreDescription": "Not Available"
@@ -198,7 +198,7 @@
               "id": 2,
               "code": "2",
               "name": "Priorité accordée à la santé numérique à l'échelle nationale par le biais de la planification",
-              "indicatorDescription": "Le pays dispose-t-il d'un ministère, d'un organisme ou d'un groupe de travail national distinct pour la santé numérique ?",
+              "indicatorDescription": "La santé numérique est-elle incluse et budgétisée dans la politique nationale de santé ou les stratégies et/ou plans nationaux pertinents? Remarque: Cet indicateur se concentre sur l'inclusion de la santé numérique ou de la cybersanté dans la stratégie nationale de santé.",
               "score": 5,
               "supportingText": "sp8",
               "scoreDescription": "La santé numérique est mise en œuvre et périodiquement évaluée et optimisée dans les stratégies et/ou plans nationaux de santé ou autres stratégies et/ou plans nationaux pertinents."
@@ -224,7 +224,7 @@
               "id": 4,
               "code": "4",
               "name": "Financement public de la santé numérique",
-              "indicatorDescription": "Quel est le pourcentage estimé (%) des dépenses publiques annuelles en santé consacrées à la santé numérique ?",
+              "indicatorDescription": "Le financement public (y compris les prêts) pour la santé numérique est-il suffisant pour les stratégies, les priorités (besoins) ou le plan chiffré de santé numérique du pays?",
               "score": null,
               "supportingText": "sp10",
               "scoreDescription": "Not Available"
@@ -241,7 +241,7 @@
               "id": 5,
               "code": "5",
               "name": "Cadre juridique pour la protection des données (sécurité)",
-              "indicatorDescription": "Existe-t-il une loi sur la sécurité des données (stockage, transmission, utilisation) qui concerne la santé numérique ?",
+              "indicatorDescription": "Existe-t-il une loi sur la sécurité des données (tout au long du cycle de vie des données, par exemple la collecte, le traitement, le stockage, la transmission, l'utilisation et la destruction) qui concerne la santé numérique?",
               "score": null,
               "supportingText": "sp11",
               "scoreDescription": "Not Available"
