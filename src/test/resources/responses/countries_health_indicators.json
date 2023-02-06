@@ -192,7 +192,7 @@
               "indicatorDescription": "Does the country have a separate department / agency / national working group for digital health?",
               "score": 4,
               "supportingText": "sp7",
-              "scoreDescription": "Governance structure is fully-functional, government-led, consults with other ministries, and monitors implementation of digital health based on a work plan."
+              "scoreDescription": "Governance structure is fully-functional, government-led, consults with other ministries, and monitors implementation of digital health and data governance, including artificial intelligence, based on a work plan."
             },
             {
               "id": 2,

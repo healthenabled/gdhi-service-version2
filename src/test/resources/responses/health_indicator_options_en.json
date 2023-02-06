@@ -32,12 +32,12 @@
           {
             "scoreId": 6,
             "score": 4,
-            "scoreDefinition": "Governance structure is fully-functional, government-led, consults with other ministries, and monitors implementation of digital health based on a work plan."
+            "scoreDefinition": "Governance structure is fully-functional, government-led, consults with other ministries, and monitors implementation of digital health and data governance, including artificial intelligence, based on a work plan."
           },
           {
             "scoreId": 7,
             "score": 5,
-            "scoreDefinition": "The digital health governance structure is institutionalized, consults with other ministries, and monitors implementation of digital health. It is relatively protected from interference or organizational changes. It is nationally recognized as the lead for digital health.The governance structure and its technical working groups emphasize gender balance in membership."
+            "scoreDefinition": "The digital health and data governance structure is institutionalized, consults with other ministries, and monitors implementation of digital health. It is relatively protected from interference or organizational changes. It is nationally recognized as the lead for digital health. The governance structure and its technical working groups emphasize gender balance in membership."
           }
         ]
       },
@@ -137,27 +137,27 @@
           {
             "scoreId": 24,
             "score": 1,
-            "scoreDefinition": "No budget line item for digital health available. A budget line item for digital health exists but proportion not available."
+            "scoreDefinition": "No budget line item for digital health available."
           },
           {
             "scoreId": 25,
             "score": 2,
-            "scoreDefinition": "Less than 1%"
+            "scoreDefinition": "Non-systematic budget allocated for digital health exists or are projects and/or system-based."
           },
           {
             "scoreId": 26,
             "score": 3,
-            "scoreDefinition": "1-3%"
+            "scoreDefinition": "A structured and systematic budget line item for digital health exists but is significantly insufficient (less than 50% of need) to meet the country's digital health needs."
           },
           {
             "scoreId": 27,
             "score": 4,
-            "scoreDefinition": "3-5%"
+            "scoreDefinition": "A structured and systematic budget line item for digital health exists but is moderately insufficient (above 50% of need) to meet the country's digital health needs."
           },
           {
             "scoreId": 28,
             "score": 5,
-            "scoreDefinition": "Greater than 5%"
+            "scoreDefinition": "Structure and systematic budget line exists for digital health and is completely sufficient to meet the country's digital health needs."
           }
         ]
       }
@@ -181,27 +181,27 @@
           {
             "scoreId": 31,
             "score": 1,
-            "scoreDefinition": "There is no law on data security (storage, transmission, use) that is relevant to digital health."
+            "scoreDefinition": "There is no law on data security (across the full data lifecycle e.g. collection, processing, storage, transmission, use and destruction) that is relevant to digital health."
           },
           {
             "scoreId": 32,
             "score": 2,
-            "scoreDefinition": "There is a law on data security (storage, transmission, use) that is relevant to digital health that has been proposed and is under review."
+            "scoreDefinition": "There is a law on data security (across the full data lifecycle e.g. collection, processing, storage, transmission, use and destruction) that is relevant to digital health that has been proposed and is under review."
           },
           {
             "scoreId": 33,
             "score": 3,
-            "scoreDefinition": "There is a law on data security (storage, transmission, use) that is relevant to digital health that has been passed, but has not yet been fully implemented."
+            "scoreDefinition": "There is a law on data security (across the full data lifecycle e.g. collection, processing, storage, transmission, use and destruction) that is relevant to digital health that has been passed, but has not yet been fully implemented."
           },
           {
             "scoreId": 34,
             "score": 4,
-            "scoreDefinition": "There is a law on data security (storage, transmission, use) that is relevant to digital health that has been implemented, but not consistently enforced."
+            "scoreDefinition": "There is a law on data security (across the full data lifecycle e.g. collection, processing, storage, transmission, use and destruction), that is relevant to digital health that has been implemented, but not consistently enforced."
           },
           {
             "scoreId": 35,
             "score": 5,
-            "scoreDefinition": "There is a law on data security (storage, transmission, use) that is relevant to digital health that has been implemented and enforced consistently."
+            "scoreDefinition": "There is a law on data security (across the full data lifecycle e.g. collection, processing, storage, transmission, use and destruction)  that is relevant to digital health that has been implemented and enforced consistently."
           }
         ]
       },
@@ -257,7 +257,7 @@
           {
             "scoreId": 45,
             "score": 1,
-            "scoreDefinition": "There are no protocols, policies, frameworks or accepted processes governing the clinical and patient care use of connected medical devices and digital health services (e.g. telemedicine, applications), particularly in relation to safety, data integrity and quality of care."
+            "scoreDefinition": "There are no protocols, policies, frameworks or accepted processes governing the clinical and patient care use of connected medical devices and health services (e.g. telemedicine, applications), particularly in relation to safety, data integrity and quality of care."
           },
           {
             "scoreId": 46,
@@ -272,12 +272,12 @@
           {
             "scoreId": 48,
             "score": 4,
-            "scoreDefinition": "Protocols, policies, frameworks or accepted processes governing the clinical and patient care use of connected medical devices and digital health services (e.g. telemedicine, applications), particularly in relation to safety, data integrity and quality of care have been implemented, but not consistently enforced."
+            "scoreDefinition": "Protocols, policies, frameworks or accepted processes governing the clinical and patient care use of connected medical devices and health services (e.g. telemedicine, applications), particularly in relation to safety, data integrity and quality of care --including provisions for AI and algorithms- have been implemented, but not consistently enforced."
           },
           {
             "scoreId": 49,
             "score": 5,
-            "scoreDefinition": "Protocols, policies, frameworks or accepted processes governing the clinical and patient care use of connected medical devices and digital health services (e.g. telemedicine, applications), particularly in relation to safety, data integrity and quality of care have been implemented and are enforced consistently."
+            "scoreDefinition": "Protocols, policies, frameworks or accepted processes governing the clinical and patient care use of connected medical devices and health services (e.g. telemedicine, applications), particularly in relation to safety, data integrity and quality of care - including provisions for AI and algorithms- have been implemented and are enforced consistently."
           }
         ]
       },
@@ -295,27 +295,27 @@
           {
             "scoreId": 52,
             "score": 1,
-            "scoreDefinition": "There are no protocols, policies, frameworks or accepted processes in place to support secure cross-border data exchange and storage."
+            "scoreDefinition": "There are no protocols, policies, frameworks, or accepted processes governing AI use in health services."
           },
           {
             "scoreId": 53,
             "score": 2,
-            "scoreDefinition": "Protocols, policies, frameworks or accepted processes for cross border data exchange and storage have been proposed and are under review."
+            "scoreDefinition": "Protocols, policies, frameworks, or accepted processes governing AI use in health service have been proposed and under review"
           },
           {
             "scoreId": 54,
             "score": 3,
-            "scoreDefinition": "Protocols, policies, frameworks or accepted processes for cross border data exchange and storage have been passed, but are not fully implemented."
+            "scoreDefinition": "Protocols, policies, frameworks, or accepted processes governing AI use in health service have been passed but are not fully implemented."
           },
           {
             "scoreId": 55,
             "score": 4,
-            "scoreDefinition": "Protocols, policies, frameworks or accepted processes for cross border data exchange and storage have been implemented, but not consistently enforced."
+            "scoreDefinition": "Protocols, policies, frameworks or accepted processes governing AI use in health service have been implemented but are not consistently enforced."
           },
           {
             "scoreId": 56,
             "score": 5,
-            "scoreDefinition": "Protocols, policies, frameworks or accepted processes for cross border data exchange and storage have been implemented and enforced consistently."
+            "scoreDefinition": "Protocols, policies, frameworks, or accepted processes governing AI use in health service have been implemented and are enforced consistently."
           }
         ]
       }
@@ -349,7 +349,7 @@
           {
             "scoreId": 61,
             "score": 3,
-            "scoreDefinition": "Digital health curriculum implementation underway covering an estimated 0-25% of health professionals in pre-service training."
+            "scoreDefinition": "Digital health curriculum implementation underway covering an estimated <50% of health professionals in pre-service training."
           },
           {
             "scoreId": 62,
@@ -501,7 +501,7 @@
           {
             "scoreId": 68,
             "score": 3,
-            "scoreDefinition": "Digital health curriculum is implemented as part of in-service (continuing education) training for 0-25% health professionals in the workforce."
+            "scoreDefinition": "Digital health curriculum is implemented as part of in-service (continuing education) training for <50% health professionals in the workforce."
           },
           {
             "scoreId": 69,
@@ -816,7 +816,7 @@
           {
             "scoreId": 97,
             "score": 4,
-            "scoreDefinition": "Digital health / health information industry-based technical standards for data exchange, transmission, messaging, security, privacy, and hardware are in use in the majority of applications and systems to ensure the availability of high-quality data. Conformance testing is routinely carried out to certify implementers."
+            "scoreDefinition": "Digital health / health information industry-based technical standards for data exchange, transmission, messaging, security, privacy, and hardware are in use in the majority of applications and systems to ensure the availability (and use) of high-quality data. Conformance testing is routinely carried out to certify implementers."
           },
           {
             "scoreId": 98,
@@ -845,27 +845,27 @@
           {
             "scoreId": 101,
             "score": 1,
-            "scoreDefinition": "1.0 - 3.3"
+            "scoreDefinition": "0"
           },
           {
             "scoreId": 102,
             "score": 2,
-            "scoreDefinition": ">3.3 - 4.0"
+            "scoreDefinition": "< 25"
           },
           {
             "scoreId": 103,
             "score": 3,
-            "scoreDefinition": ">4.0 - 5.0"
+            "scoreDefinition": "26 - 50"
           },
           {
             "scoreId": 104,
             "score": 4,
-            "scoreDefinition": ">5.0 - 5.4"
+            "scoreDefinition": "51 - 75"
           },
           {
             "scoreId": 105,
             "score": 5,
-            "scoreDefinition": ">5.4 - 7.0"
+            "scoreDefinition": "> 75"
           }
         ]
       },
@@ -903,7 +903,7 @@
           {
             "scoreId": 112,
             "score": 5,
-            "scoreDefinition": "Digital health infrastructure (including equipment- computers/ tablets/ phones, supplies, software, devices, etc.) is available, in use, and regularly maintained and upgraded in >75% of public healthcare service sector."
+            "scoreDefinition": "Digital health infrastructure (including equipment- computers/ tablets/ phones, supplies, software, devices, etc.) is available, in use, and regularly maintained and upgraded in >75% of public healthcare service sector. Strategies are being implemented to close outstanding gaps in access/coverage and reach the whole population."
           }
         ]
       }
@@ -985,7 +985,7 @@
           {
             "scoreId": 126,
             "score": 5,
-            "scoreDefinition": "Health system registries of uniquely identifiable providers, administrators, and public facilities (and private if applicable) are available, up-to-date with geo-tagged data, and used for health system and service strategic planning and budgeting."
+            "scoreDefinition": "All nationally prioritized areas supported by national-scale digital health systems (>75%) with monitoring and evaluation systems and results."
           }
         ]
       },
@@ -1023,7 +1023,7 @@
           {
             "scoreId": 133,
             "score": 5,
-            "scoreDefinition": "A secure registry exists, is available and in active use and includes >75% of the relevant population. The data is available, used, and curated."
+            "scoreDefinition": "A secure registry exists, is available and in active use and includes >75% of the relevant population. The data is available, used, and curated. Strategies are being implemented to include missing data and ensure fully representative datasets are available."
           }
         ]
       },
@@ -1061,7 +1061,7 @@
           {
             "scoreId": 181,
             "score": 5,
-            "scoreDefinition": "A master patient index exists, is available and in active use and includes >75% of the relevant population. The data is available, used, and curated."
+            "scoreDefinition": "A master patient index exists, is available and in active use and includes >75% of the relevant population. The data is available, used, and curated. Strategies are being implemented to include 100% of the population."
           }
         ]
       },
@@ -1099,7 +1099,7 @@
           {
             "scoreId": 187,
             "score": 5,
-            "scoreDefinition": "A secure birth registry exists, is available and in active use and includes >75% of the relevant population. The data is available, used, and curated."
+            "scoreDefinition": "A secure birth registry exists, is available and in active use and includes >75% of the relevant population. The data is available, used, and curated. Strategies are being implemented to include 100% of the population."
           }
         ]
       },
@@ -1137,7 +1137,7 @@
           {
             "scoreId": 193,
             "score": 5,
-            "scoreDefinition": "A secure death registry exists, is available and in active use and includes >75% of the relevant population. The data is available, used, and curated."
+            "scoreDefinition": "A secure death registry exists, is available and in active use and includes >75% of the relevant population. The data is available, used, and curated. Strategies are being implemented to include 100% of the population."
           }
         ]
       },
