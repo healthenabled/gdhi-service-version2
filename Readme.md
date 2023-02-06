@@ -1,5 +1,6 @@
-[![GDHI-Backend](https://github.com/healthenabled/gdhi-service-version2/actions/workflows/build.yml/badge.svg?branch=main)]
-(https://github.com/healthenabled/gdhi-service-version2/actions/workflows/build.yml)
+# GDHI-Backend
+
+[![GDHI-Backend](https://github.com/healthenabled/gdhi-service-version2/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/healthenabled/gdhi-service-version2/actions/workflows/build.yml)
 
 **DB Setup using Postgres Container running in Docker**
 
