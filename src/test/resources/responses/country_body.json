@@ -32,15 +32,8 @@
     {"categoryId":3, "indicatorId":7, "status":"DRAFT", "score":1, "supportingText":"blah@blah.com"},
     {"categoryId":3, "indicatorId":8, "status":"DRAFT", "score":1, "supportingText":"blah@blah.com"},
     {"categoryId":4, "indicatorId":9, "status":"DRAFT", "score":1, "supportingText":"blah@blah.com"},
-    {"categoryId":4, "indicatorId":20, "status":"DRAFT", "score":1, "supportingText":"blah@blah.com"},
-    {"categoryId":4, "indicatorId":21, "status":"DRAFT", "score":1, "supportingText":"blah@blah.com"},
-    {"categoryId":4, "indicatorId":22, "status":"DRAFT", "score":1, "supportingText":"blah@blah.com"},
     {"categoryId":4, "indicatorId":10, "status":"DRAFT", "score":1, "supportingText":"blah@blah.com"},
-    {"categoryId":4, "indicatorId":23, "status":"DRAFT", "score":1, "supportingText":"blah@blah.com"},
-    {"categoryId":4, "indicatorId":24, "status":"DRAFT", "score":1, "supportingText":"blah@blah.com"},
-    {"categoryId":4, "indicatorId":25, "status":"DRAFT", "score":1, "supportingText":"blah@blah.com"},
     {"categoryId":4, "indicatorId":11, "status":"DRAFT", "score":1, "supportingText":"blah@blah.com"},
-    {"categoryId":4, "indicatorId":26, "status":"DRAFT", "score":1, "supportingText":"blah@blah.com"},
     {"categoryId":4, "indicatorId":12, "status":"DRAFT", "score":1, "supportingText":"blah@blah.com"},
     {"categoryId":5, "indicatorId":13, "status":"DRAFT", "score":1, "supportingText":"blah@blah.com"},
     {"categoryId":5, "indicatorId":14, "status":"DRAFT", "score":1, "supportingText":"blah@blah.com"},
@@ -51,7 +44,6 @@
     {"categoryId":7, "indicatorId":19, "status":"DRAFT", "score":1, "supportingText":"blah@blah.com"},
     {"categoryId":7, "indicatorId":27, "status":"DRAFT", "score":1, "supportingText":"blah@blah.com"},
     {"categoryId":7, "indicatorId":28, "status":"DRAFT", "score":1, "supportingText":"blah@blah.com"},
-    {"categoryId":7, "indicatorId":29, "status":"DRAFT", "score":1, "supportingText":"blah@blah.com"},
-    {"categoryId":7, "indicatorId":30, "status":"DRAFT", "score":1, "supportingText":"blah@blah.com"}
+    {"categoryId":7, "indicatorId":29, "status":"DRAFT", "score":1, "supportingText":"blah@blah.com"}
   ]
 }
