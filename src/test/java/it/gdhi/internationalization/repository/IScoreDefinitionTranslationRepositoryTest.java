@@ -23,9 +23,7 @@ public class IScoreDefinitionTranslationRepositoryTest {
 
     @Test
     public void shouldReturnScoreDefinitionInFrenchForGivenHealthIndicator() {
-        String expectedScoreDefinition = "La structure de gouvernance est completement fonctionnelle, dirigée par le " +
-                "gouvernement, consulte les autres ministères et surveille la mise en œuvre de la santé numérique en " +
-                "fonction d'un plan de travail.";
+        String expectedScoreDefinition = "La structure de gouvernance est entièrement fonctionnelle, dirigée par le gouvernement, consulte d'autres ministères et surveille la mise en œuvre de la santé numérique et de la gouvernance des données, y compris l'intelligence artificielle, sur la base d'un plan de travail.";
 
         String scoreDefinitionFR = repository.findTranslationForLanguage(fr, 1, 4);
 

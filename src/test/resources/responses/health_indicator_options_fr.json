@@ -32,12 +32,12 @@
           {
             "scoreId": 6,
             "score": 4,
-            "scoreDefinition": "La structure de gouvernance est completement fonctionnelle, dirigée par le gouvernement, consulte les autres ministères et surveille la mise en œuvre de la santé numérique en fonction d'un plan de travail."
+            "scoreDefinition": "La structure de gouvernance est entièrement fonctionnelle, dirigée par le gouvernement, consulte d'autres ministères et surveille la mise en œuvre de la santé numérique et de la gouvernance des données, y compris l'intelligence artificielle, sur la base d'un plan de travail."
           },
           {
             "scoreId": 7,
             "score": 5,
-            "scoreDefinition": "La structure de gouvernance de la santé numérique est institutionnalisée, consulte les autres ministères et surveille la mise en œuvre de la santé numérique. Il est relativement protégé contre les interférences ou les changements organisationnels. La structure de gouvernance et ses groupes de travail techniques mettent l'accent sur l'équilibre entre les sexes dans la composition de ses membres."
+            "scoreDefinition": "La structure de gouvernance de la santé numérique et des données est institutionnalisée, consulte d'autres ministères et surveille la mise en œuvre de la santé numérique. Il est relativement protégé des ingérences ou des changements organisationnels. Il est reconnu à l'échelle nationale comme le leader de la santé numérique. La structure de gouvernance et ses groupes de travail techniques mettent l'accent sur l'équilibre entre les sexes parmi les membres."
           }
         ]
       },
@@ -137,27 +137,27 @@
           {
             "scoreId": 24,
             "score": 1,
-            "scoreDefinition": "Aucun poste budgétaire disponible pour la santé numérique. Il existe un poste budgétaire pour la santé numérique, mais la proportion n'est pas disponible."
+            "scoreDefinition": "Aucun poste budgétaire disponible pour la santé numérique."
           },
           {
             "scoreId": 25,
             "score": 2,
-            "scoreDefinition": "Moins de 1%"
+            "scoreDefinition": "Des budgets non systématiques alloués à la santé numérique existent ou sont des projets et/ou basés sur le système."
           },
           {
             "scoreId": 26,
             "score": 3,
-            "scoreDefinition": "1-3%"
+            "scoreDefinition": "Une ligne budgétaire structurée et systématique pour la santé numérique existe mais est largement insuffisante (moins de 50% des besoins) pour répondre aux besoins de santé numérique du pays."
           },
           {
             "scoreId": 27,
             "score": 4,
-            "scoreDefinition": "3-5%"
+            "scoreDefinition": "Une ligne budgétaire structurée et systématique pour la santé numérique existe mais est modérément insuffisante (supérieure à 50% des besoins) pour répondre aux besoins de santé numérique du pays."
           },
           {
             "scoreId": 28,
             "score": 5,
-            "scoreDefinition": "Plus de 5 %"
+            "scoreDefinition": "Une ligne budgétaire structurée et systématique existe pour la santé numérique et est tout à fait suffisante pour répondre aux besoins de santé numérique du pays."
           }
         ]
       }
@@ -181,27 +181,27 @@
           {
             "scoreId": 31,
             "score": 1,
-            "scoreDefinition": "Il n'existe aucune loi sur la sécurité des données (stockage, transmission, utilisation) qui concerne la santé numérique."
+            "scoreDefinition": "Il n'existe aucune loi sur la sécurité des données (tout au long du cycle de vie des données, par exemple la collecte, le traitement, le stockage, la transmission, l'utilisation et la destruction) qui soit pertinente pour la santé numérique."
           },
           {
             "scoreId": 32,
             "score": 2,
-            "scoreDefinition": "Une loi sur la sécurité des données (stockage, transmission, utilisation) concernant la santé numérique a été proposée et est en cours de révision."
+            "scoreDefinition": "Une loi sur la sécurité des données (tout au long du cycle de vie des données, par exemple la collecte, le traitement, le stockage, la transmission, l'utilisation et la destruction) qui concerne la santé numérique a été proposée et est en cours de révision."
           },
           {
             "scoreId": 33,
             "score": 3,
-            "scoreDefinition": "Il existe une loi sur la sécurité des données (stockage, transmission, utilisation) relative à la santé numérique qui a été adoptée, mais qui n'a pas encore été pleinement mise en œuvre."
+            "scoreDefinition": "Il existe une loi sur la sécurité des données (tout au long du cycle de vie des données, par exemple la collecte, le traitement, le stockage, la transmission, l'utilisation et la destruction) qui concerne la santé numérique qui a été adoptée, mais qui n'a pas encore été pleinement mise en œuvre."
           },
           {
             "scoreId": 34,
             "score": 4,
-            "scoreDefinition": "Il existe une loi sur la sécurité des données (stockage, transmission, utilisation) qui s'applique à la santé numérique et qui a été mise en œuvre, mais n'est pas appliquée de manière cohérente."
+            "scoreDefinition": "Il existe une loi sur la sécurité des données (tout au long du cycle de vie des données, par exemple la collecte, le traitement, le stockage, la transmission, l'utilisation et la destruction), qui est pertinente pour la santé numérique et qui a été mise en œuvre, mais qui n'est pas appliquée de manière cohérente."
           },
           {
             "scoreId": 35,
             "score": 5,
-            "scoreDefinition": "Il existe une loi sur la sécurité des données (stockage, transmission, utilisation) qui s'applique à la santé numérique et qui a été appliquée de manière cohérente."
+            "scoreDefinition": "Il existe une loi sur la sécurité des données (tout au long du cycle de vie des données, par exemple la collecte, le traitement, le stockage, la transmission, l'utilisation et la destruction) qui concerne la santé numérique et qui a été mise en œuvre et appliquée de manière cohérente."
           }
         ]
       },
@@ -257,7 +257,7 @@
           {
             "scoreId": 45,
             "score": 1,
-            "scoreDefinition": "Il n'existe pas de protocoles, de politiques, de cadres ou de processus acceptés régissant l'utilisation clinique et les soins aux patients des dispositifs médicaux et des services de santé numériques connectés (p. ex. télémédecine, applications), particulièrement en ce qui concerne la sécurité, l'intégrité des données et la qualité des soins."
+            "scoreDefinition": "Il n'y a pas de protocoles, de politiques, de cadres ou de processus acceptés régissant l'utilisation clinique et des soins aux patients des dispositifs médicaux connectés et des services de santé (par exemple, la télémédecine, les applications), notamment en ce qui concerne la sécurité, l'intégrité des données et la qualité des soins."
           },
           {
             "scoreId": 46,
@@ -272,12 +272,12 @@
           {
             "scoreId": 48,
             "score": 4,
-            "scoreDefinition": "Des protocoles, des politiques, des cadres ou des processus acceptés régissant l'utilisation clinique et les soins aux patients des dispositifs médicaux et des services de santé numériques connectés (p. ex. télémédecine, applications), particulièrement en ce qui concerne la sécurité, l'intégrité des données et la qualité des soins, ont été mis en œuvre, mais ne sont pas toujours respectés."
+            "scoreDefinition": "Protocoles, politiques, cadres ou processus acceptés régissant l'utilisation clinique et des soins aux patients des dispositifs médicaux et des services de santé connectés (par exemple, la télémédecine, les applications), en particulier en ce qui concerne la sécurité, l'intégrité des données et la qualité des soins - y compris les dispositions relatives à l'IA et aux algorithmes - ont été mis en œuvre, mais pas systématiquement appliqués."
           },
           {
             "scoreId": 49,
             "score": 5,
-            "scoreDefinition": "Des protocoles, des politiques, des cadres ou des processus acceptés régissant l'utilisation clinique et les soins aux patients des dispositifs médicaux et des services de santé numériques connectés (p. ex. télémédecine, applications), particulièrement en ce qui concerne la sécurité, l'intégrité des données et la qualité des soins, ont été mis en œuvre et sont appliqués uniformément."
+            "scoreDefinition": "Les protocoles, politiques, cadres ou processus acceptés régissant l'utilisation clinique et des soins aux patients des dispositifs médicaux et des services de santé connectés (par exemple, la télémédecine, les applications), en particulier en ce qui concerne la sécurité, l'intégrité des données et la qualité des soins - y compris les dispositions relatives à l'IA et aux algorithmes - ont été mis en œuvre et sont appliqués de manière cohérente."
           }
         ]
       },
@@ -295,27 +295,27 @@
           {
             "scoreId": 52,
             "score": 1,
-            "scoreDefinition": "Il n'y a pas de protocoles, de politiques, de cadres ou de processus acceptés en place pour appuyer l'échange et le stockage transfrontaliers sécuritaires des données."
+            "scoreDefinition": "Il n'y a pas de protocoles, de politiques, de cadres ou de processus acceptés en place pour soutenir l'échange et le stockage de données transfrontaliers sécurisés à l'appui des objectifs de santé publique tout en protégeant la vie privée des individus."
           },
           {
             "scoreId": 53,
             "score": 2,
-            "scoreDefinition": "Des protocoles, des politiques, des cadres ou des processus acceptés pour l'échange et le stockage transfrontaliers de données ont été proposés et sont à l'étude."
+            "scoreDefinition": "Des protocoles, des politiques, des cadres ou des processus acceptés pour l'échange et le stockage transfrontaliers de données à l'appui des objectifs de santé publique tout en protégeant la vie privée des individus ont été proposés et sont en cours d'examen."
           },
           {
             "scoreId": 54,
             "score": 3,
-            "scoreDefinition": "Des protocoles, des politiques, des cadres ou des processus acceptés pour l'échange et le stockage transfrontaliers des données ont été adoptés, mais ne sont pas encore pleinement mis en œuvre."
+            "scoreDefinition": "Des protocoles, des politiques, des cadres ou des processus acceptés pour l'échange et le stockage transfrontaliers de données à l'appui des objectifs de santé publique tout en protégeant la vie privée des individus ont été adoptés, mais ne sont pas entièrement mis en œuvre."
           },
           {
             "scoreId": 55,
             "score": 4,
-            "scoreDefinition": "Des protocoles, des politiques, des cadres ou des processus acceptés pour l'échange et le stockage transfrontaliers des données ont été mis en œuvre, mais ils ne sont pas appliqués de façon uniforme."
+            "scoreDefinition": "Des protocoles, des politiques, des cadres ou des processus acceptés pour l'échange et le stockage transfrontaliers de données à l'appui des objectifs de santé publique tout en protégeant la vie privée des individus ont été mis en œuvre, mais pas systématiquement appliqués."
           },
           {
             "scoreId": 56,
             "score": 5,
-            "scoreDefinition": "Les protocoles, les politiques, les cadres ou les processus acceptés pour l'échange et le stockage transfrontaliers des données ont été mis en œuvre et appliqués de façon cohérente."
+            "scoreDefinition": "Les protocoles, politiques, cadres ou processus acceptés pour l'échange et le stockage transfrontaliers de données à l'appui des objectifs de santé publique tout en protégeant la vie privée des individus ont été mis en œuvre et appliqués de manière cohérente."
           }
         ]
       }
@@ -349,7 +349,7 @@
           {
             "scoreId": 61,
             "score": 3,
-            "scoreDefinition": "La mise en œuvre d'un programme d'enseignement numérique en santé est en cours, couvrant environ 0 à 25 % des professionnels de la santé en formation initiale."
+            "scoreDefinition": "Mise en œuvre du programme de santé numérique en cours couvrant environ <50 % des professionnels de la santé en formation initiale."
           },
           {
             "scoreId": 62,
@@ -501,7 +501,7 @@
           {
             "scoreId": 68,
             "score": 3,
-            "scoreDefinition": "Le programme d'études en santé numérique est mis en œuvre dans le cadre de la formation en cours d'emploi (formation continue) de 0 à 25 % des professionnels de la santé sur le marché du travail. "
+            "scoreDefinition": "Le programme de santé numérique est mis en œuvre dans le cadre de la formation continue (formation continue) pour <50 % des professionnels de la santé dans la population active."
           },
           {
             "scoreId": 69,
@@ -816,7 +816,7 @@
           {
             "scoreId": 97,
             "score": 4,
-            "scoreDefinition": "Des normes relatives à l'échange, à la transmission, à la messagerie, à la sécurité, à la protection des renseignements personnels et au matériel informatique ont été publiées et diffusées dans le pays sous la direction du gouvernement."
+            "scoreDefinition": "Les normes techniques basées sur l'industrie de l'information numérique sur la santé et la santé pour l'échange de données, la transmission, la messagerie, la sécurité, la confidentialité et le matériel sont utilisées dans la majorité des applications et des systèmes pour garantir la disponibilité (et l'utilisation) de données de haute qualité. Des tests de conformité sont régulièrement effectués pour certifier les exécutants."
           },
           {
             "scoreId": 98,
@@ -845,27 +845,27 @@
           {
             "scoreId": 101,
             "score": 1,
-            "scoreDefinition": "1.0 - 3.3"
+            "scoreDefinition": "0"
           },
           {
             "scoreId": 102,
             "score": 2,
-            "scoreDefinition": ">3.3 - 4.0"
+            "scoreDefinition": "< 25"
           },
           {
             "scoreId": 103,
             "score": 3,
-            "scoreDefinition": ">4.0 - 5.0"
+            "scoreDefinition": "26 - 50"
           },
           {
             "scoreId": 104,
             "score": 4,
-            "scoreDefinition": ">5.0 - 5.4"
+            "scoreDefinition": "51 - 75"
           },
           {
             "scoreId": 105,
             "score": 5,
-            "scoreDefinition": ">5.4 - 7.0"
+            "scoreDefinition": "> 75"
           }
         ]
       },
@@ -893,7 +893,7 @@
           {
             "scoreId": 110,
             "score": 3,
-            "scoreDefinition": "Un plan de soutien à la fourniture et à l'entretien de l'infrastructure pour la santé numérique (y compris l'équipement - ordinateurs, tablettes, téléphones, fournitures, logiciels, appareils, etc.) a été mis en œuvre en partie, mais pas toujours avec une estimation de 0 à 25 % de l'infrastructure nécessaire, disponible et en service dans le secteur des services de santé publique."
+            "scoreDefinition": "Un plan de soutien à l'infrastructure de santé numérique (y compris l'équipement - ordinateurs/tablettes/téléphones, fournitures, logiciels, appareils, etc.) a été mis en œuvre partiellement, mais pas de manière cohérente avec une estimation de 0 à 25 % de l'infrastructure de santé numérique nécessaire dans secteur public des services de santé disponible et utilisé."
           },
           {
             "scoreId": 111,
@@ -903,7 +903,7 @@
           {
             "scoreId": 112,
             "score": 5,
-            "scoreDefinition": "L'infrastructure de santé numérique (y compris l'équipement - ordinateurs, tablettes, téléphones, fournitures, logiciels, appareils, etc.) est disponible, utilisée, régulièrement entretenue et mise à niveau dans plus de 75 % du secteur des services de santé publique."
+            "scoreDefinition": "L'infrastructure de santé numérique (y compris l'équipement - ordinateurs/tablettes/téléphones, fournitures, logiciels, appareils, etc.) est disponible, utilisée, et régulièrement entretenue et mise à niveau dans > 75 % du secteur des services de santé publics. Des stratégies sont mises en œuvre pour combler les lacunes en matière d'accès/couverture et atteindre l'ensemble de la population."
           }
         ]
       }
@@ -985,7 +985,7 @@
           {
             "scoreId": 126,
             "score": 5,
-            "scoreDefinition": "Les registres du système de santé : des prestataires, des administrateurs et des établissements publics (et privés s'il y a lieu) identifiables de façon unique sont disponibles, mis à jour à l'aide de données géolocalisées et utilisés pour la planification stratégique et la budgétisation du système et des services de santé. "
+            "scoreDefinition": "Tous les domaines prioritaires au niveau national soutenus par des systèmes de santé numériques à l'échelle nationale (> 75 %) avec des systèmes de suivi et d'évaluation et des résultats."
           }
         ]
       },
@@ -1023,7 +1023,7 @@
           {
             "scoreId": 133,
             "score": 5,
-            "scoreDefinition": "Un registre sécurisé existe, est disponible et utilisé activement et comprend plus de 75 % de la population concernée. Les données sont disponibles, utilisées et conservées."
+            "scoreDefinition": "Un registre sécurisé existe, est disponible et utilisé activement et comprend > 75 % de la population concernée. Les données sont disponibles, utilisées et conservées. Des stratégies sont mises en œuvre pour inclure les données manquantes et s'assurer que des ensembles de données pleinement représentatifs sont disponibles."
           }
         ]
       },
@@ -1061,7 +1061,7 @@
           {
             "scoreId": 181,
             "score": 5,
-            "scoreDefinition": "Un fichier index de référence des patients existe, est disponible et utilisé activement et comprend plus de 75 % de la population concernée. Les données sont disponibles, utilisées et conservées."
+            "scoreDefinition": "Un index principal des patients existe, est disponible et utilisé activement et comprend > 75 % de la population concernée. Les données sont disponibles, utilisées et conservées. Des stratégies sont mises en œuvre pour inclure 100 % de la population."
           }
         ]
       },
@@ -1099,7 +1099,7 @@
           {
             "scoreId": 187,
             "score": 5,
-            "scoreDefinition": "Un registre des naissances sécurisé existe, est disponible et utilisé activement et comprend plus de 75 % de la population concernée. Les données sont disponibles, utilisées et conservées."
+            "scoreDefinition": "Un registre des naissances sécurisé existe, est disponible et utilisé activement et comprend > 75 % de la population concernée. Les données sont disponibles, utilisées et conservées. Des stratégies sont mises en œuvre pour inclure 100 % de la population."
           }
         ]
       },
@@ -1137,7 +1137,7 @@
           {
             "scoreId": 193,
             "score": 5,
-            "scoreDefinition": "Un registre des décès sécurisé existe, est disponible et utilisé activement et comprend plus de 75 % de la population concernée. Les données sont disponibles, utilisées et conservées."
+            "scoreDefinition": "Un registre sécurisé des décès existe, est disponible et utilisé activement et comprend > 75 % de la population concernée. Les données sont disponibles, utilisées et conservées. Des stratégies sont mises en œuvre pour inclure 100 % de la population."
           }
         ]
       },
