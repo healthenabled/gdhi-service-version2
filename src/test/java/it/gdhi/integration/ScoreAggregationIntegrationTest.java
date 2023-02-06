@@ -652,4 +652,54 @@ public class ScoreAggregationIntegrationTest extends BaseIntegrationTest {
 
         assertResponse(response.asString(), "countries_health_indicators_fr.json");
     }
+    @Test
+    public void shouldNotCalculateSubIndicatorsScoreForOverallScore() throws Exception {
+        String india = "IND";
+        String pakistan = "PAK";
+        Integer categoryId1 = 1;
+        Integer categoryId2 = 2;
+        Integer categoryId7 = 7;
+        Integer indicatorId1_1 = 1;
+        Integer indicatorId1_2 = 2;
+        Integer indicatorId2_1 = 3;
+        Integer indicatorId7_1 = 27;
+        Integer indicatorId7_2 = 28;
+        Integer indicatorId7_3 = 29;
+
+        String status = "PUBLISHED";
+        addCountrySummary(india, status, "IN");
+        addCountrySummary(pakistan, status, "PK");
+        List<HealthIndicatorDto> healthIndicatorDtos = asList(
+                HealthIndicatorDto.builder().categoryId(categoryId1).indicatorId(indicatorId1_1).status(status).score(1).supportingText("sp1").build(),
+                HealthIndicatorDto.builder().categoryId(categoryId1).indicatorId(indicatorId1_2).status(status).score(1).supportingText("sp2").build(),
+                HealthIndicatorDto.builder().categoryId(categoryId2).indicatorId(indicatorId2_1).status(status).score(1).supportingText("sp3").build(),
+                HealthIndicatorDto.builder().categoryId(categoryId7).indicatorId(indicatorId7_1).status(status).score(null).supportingText("sp4").build(),
+                HealthIndicatorDto.builder().categoryId(categoryId7).indicatorId(indicatorId7_2).status(status).score(null).supportingText("sp5").build(),
+                HealthIndicatorDto.builder().categoryId(categoryId7).indicatorId(indicatorId7_3).status(status).score(null).supportingText("sp6").build());
+
+        setupHealthIndicatorsForCountry(india, healthIndicatorDtos);
+        healthIndicatorDtos = asList(
+                HealthIndicatorDto.builder().categoryId(categoryId1).indicatorId(indicatorId1_1).status(status).score(1).supportingText("sp1").build(),
+                HealthIndicatorDto.builder().categoryId(categoryId1).indicatorId(indicatorId1_2).status(status).score(1).supportingText("sp2").build(),
+                HealthIndicatorDto.builder().categoryId(categoryId2).indicatorId(indicatorId2_1).status(status).score(1).supportingText("sp3").build(),
+                HealthIndicatorDto.builder().categoryId(categoryId7).indicatorId(indicatorId7_1).status(status).score(5).supportingText("sp4").build(),
+                HealthIndicatorDto.builder().categoryId(categoryId7).indicatorId(indicatorId7_2).status(status).score(5).supportingText("sp5").build(),
+                HealthIndicatorDto.builder().categoryId(categoryId7).indicatorId(indicatorId7_3).status(status).score(5).supportingText("sp6").build());
+
+        setupHealthIndicatorsForCountry(pakistan, healthIndicatorDtos);
+
+        Response calculatePhase = given()
+                .contentType("application/json")
+                .header(USER_LANGUAGE, "en")
+                .when()
+                .get("http://localhost:" + port + "/admin/countries/calculate_phase");
+
+        Response response = given()
+                .contentType("application/json")
+                .header(USER_LANGUAGE, "en")
+                .when()
+                .get("http://localhost:" + port + "/countries_health_indicator_scores");
+        assertResponse(response.asString(), "countries_health_indicators_sub_indicator_score.json");
+
+    }
 }

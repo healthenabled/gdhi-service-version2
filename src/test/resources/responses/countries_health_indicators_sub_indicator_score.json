@@ -1,0 +1,178 @@
+{
+  "countryHealthScores": [
+    {
+      "countryId": "IND",
+      "countryName": "India",
+      "countryAlpha2Code": "IN",
+      "categories": [
+        {
+          "id": 1,
+          "name": "Leadership and Governance",
+          "overallScore": 1.0,
+          "phase": 1,
+          "indicators": [
+            {
+              "id": 1,
+              "code": "1",
+              "name": "Digital health prioritized at the national level through dedicated bodies / mechanisms for governance",
+              "indicatorDescription": "Does the country have a separate department / agency / national working group for digital health?",
+              "score": 1,
+              "supportingText": "sp1",
+              "scoreDescription": "No coordinating body exists and/or nascent governance structure for digital health is constituted on a case-by-case basis."
+            },
+            {
+              "id": 2,
+              "code": "2",
+              "name": "Digital Health prioritized at the national level through planning",
+              "indicatorDescription": "Is digital health included and budgeted for in national health or relevant national strategies and/or plan(s)? Note: The focus of this indicator is on the inclusion of digital health or eHealth in the national health strategy.",
+              "score": 1,
+              "supportingText": "sp2",
+              "scoreDescription": "Digital health is not included in the national health strategy. It is being implemented in an ad hoc fashion in health programs."
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "name": "Strategy and Investment",
+          "overallScore": 1.0,
+          "phase": 1,
+          "indicators": [
+            {
+              "id": 3,
+              "code": "3",
+              "name": "National eHealth/ Digital Health Strategy or Framework",
+              "indicatorDescription": "Does the country have an eHealth or digital health strategy or framework and a costed digital health plan?",
+              "score": 1,
+              "supportingText": "sp3",
+              "scoreDescription": "There is no digital health strategy or framework. Draft digital health strategy or framework developed, but not officially reviewed."
+            }
+          ]
+        },
+        {
+          "id": 7,
+          "name": "Services and Applications",
+          "overallScore": null,
+          "phase": null,
+          "indicators": [
+            {
+              "id": 27,
+              "code": "19a",
+              "name": "Digital identity management of individuals for health",
+              "indicatorDescription": "Specifically, is there a secure master patient index of uniquely identifiable individuals available, accessible and current for use for health-related purposes?",
+              "score": null,
+              "supportingText": "sp4",
+              "scoreDescription": "Not Available"
+            },
+            {
+              "id": 28,
+              "code": "19b",
+              "name": "Digital identity management of individuals for health",
+              "indicatorDescription": "Specifically, is there a secure birth registry of uniquely identifiable individuals available, accessible and current for use for health-related purposes?",
+              "score": null,
+              "supportingText": "sp5",
+              "scoreDescription": "Not Available"
+            },
+            {
+              "id": 29,
+              "code": "19c",
+              "name": "Digital identity management of individuals for health",
+              "indicatorDescription": "Specifically, is there a secure death registry of uniquely identifiable individuals available, accessible and current for use for health-related purposes?",
+              "score": null,
+              "supportingText": "sp6",
+              "scoreDescription": "Not Available"
+            }
+          ]
+        }
+      ],
+      "countryPhase": 1,
+      "collectedDate": "April 2018"
+    },
+    {
+      "countryId": "PAK",
+      "countryName": "Pakistan",
+      "countryAlpha2Code": "PK",
+      "categories": [
+        {
+          "id": 1,
+          "name": "Leadership and Governance",
+          "overallScore": 1.0,
+          "phase": 1,
+          "indicators": [
+            {
+              "id": 1,
+              "code": "1",
+              "name": "Digital health prioritized at the national level through dedicated bodies / mechanisms for governance",
+              "indicatorDescription": "Does the country have a separate department / agency / national working group for digital health?",
+              "score": 1,
+              "supportingText": "sp1",
+              "scoreDescription": "No coordinating body exists and/or nascent governance structure for digital health is constituted on a case-by-case basis."
+            },
+            {
+              "id": 2,
+              "code": "2",
+              "name": "Digital Health prioritized at the national level through planning",
+              "indicatorDescription": "Is digital health included and budgeted for in national health or relevant national strategies and/or plan(s)? Note: The focus of this indicator is on the inclusion of digital health or eHealth in the national health strategy.",
+              "score": 1,
+              "supportingText": "sp2",
+              "scoreDescription": "Digital health is not included in the national health strategy. It is being implemented in an ad hoc fashion in health programs."
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "name": "Strategy and Investment",
+          "overallScore": 1.0,
+          "phase": 1,
+          "indicators": [
+            {
+              "id": 3,
+              "code": "3",
+              "name": "National eHealth/ Digital Health Strategy or Framework",
+              "indicatorDescription": "Does the country have an eHealth or digital health strategy or framework and a costed digital health plan?",
+              "score": 1,
+              "supportingText": "sp3",
+              "scoreDescription": "There is no digital health strategy or framework. Draft digital health strategy or framework developed, but not officially reviewed."
+            }
+          ]
+        },
+        {
+          "id": 7,
+          "name": "Services and Applications",
+          "overallScore": null,
+          "phase": null,
+          "indicators": [
+            {
+              "id": 27,
+              "code": "19a",
+              "name": "Digital identity management of individuals for health",
+              "indicatorDescription": "Specifically, is there a secure master patient index of uniquely identifiable individuals available, accessible and current for use for health-related purposes?",
+              "score": 5,
+              "supportingText": "sp4",
+              "scoreDescription": "A master patient index exists, is available and in active use and includes >75% of the relevant population. The data is available, used, and curated. Strategies are being implemented to include 100% of the population."
+            },
+            {
+              "id": 28,
+              "code": "19b",
+              "name": "Digital identity management of individuals for health",
+              "indicatorDescription": "Specifically, is there a secure birth registry of uniquely identifiable individuals available, accessible and current for use for health-related purposes?",
+              "score": 5,
+              "supportingText": "sp5",
+              "scoreDescription": "A secure birth registry exists, is available and in active use and includes >75% of the relevant population. The data is available, used, and curated. Strategies are being implemented to include 100% of the population."
+            },
+            {
+              "id": 29,
+              "code": "19c",
+              "name": "Digital identity management of individuals for health",
+              "indicatorDescription": "Specifically, is there a secure death registry of uniquely identifiable individuals available, accessible and current for use for health-related purposes?",
+              "score": 5,
+              "supportingText": "sp6",
+              "scoreDescription": "A secure death registry exists, is available and in active use and includes >75% of the relevant population. The data is available, used, and curated. Strategies are being implemented to include 100% of the population."
+            }
+          ]
+        }
+      ],
+      "countryPhase": 1,
+      "collectedDate": "April 2018"
+    }
+  ]
+}
