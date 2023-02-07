@@ -208,8 +208,8 @@
       {
         "indicatorId": 6,
         "indicatorCode": "6",
-        "indicatorName": "Lois ou règlements sur la protection de la vie privée, la confidentialité et l'accès à l'information sur la santé (vie privée)",
-        "indicatorDefinition": "Existe-t-il une loi pour protéger la vie privée des personnes, régissant la propriété, l'accès et le partage des données numériques sur la santé qui sont identifiables individuellement ?",
+        "indicatorName": "Lois ou réglementations relatives à la vie privée, au consentement, à la confidentialité et à l'accès aux informations sur la santé (Confidentialité)",
+        "indicatorDefinition": "Existe-t-il une loi pour protéger la vie privée des individus, régissant la propriété, le consentement, l'accès et le partage des données de santé numériques identifiables individuellement ?",
         "scores": [
           {
             "scoreId": 36,
@@ -219,27 +219,27 @@
           {
             "scoreId": 38,
             "score": 1,
-            "scoreDefinition": "Il n'existe aucune loi visant à protéger la vie privée des personnes et régissant la propriété, l'accès et le partage des données numériques sur la santé qui sont identifiables individuellement."
+            "scoreDefinition": "Il n'existe aucune loi pour protéger la vie privée des individus, régissant la propriété, le consentement, l'accès et le partage des données de santé numériques identifiables individuellement."
           },
           {
             "scoreId": 39,
             "score": 2,
-            "scoreDefinition": "Il existe une loi visant à protéger la vie privée des personnes, qui régit la propriété, l'accès et le partage des données numériques sur la santé qui sont identifiables individuellement, a été proposée et est à l'étude."
+            "scoreDefinition": "Une loi visant à protéger la vie privée des individus, régissant la propriété, le consentement, l'accès et le partage des données de santé numériques identifiables individuellement, a été proposée et est en cours de révision."
           },
           {
             "scoreId": 40,
             "score": 3,
-            "scoreDefinition": "Il existe une loi visant à protéger la vie privée des personnes, qui régit la propriété, l'accès et le partage des données numériques sur la santé qui sont identifiables individuellement, a été adoptée, mais qui n'est pas encore entièrement mise en œuvre."
+            "scoreDefinition": "Il existe une loi visant à protéger la vie privée des individus, régissant la propriété, le consentement, l'accès et le partage des données de santé numériques identifiables individuellement qui a été adoptée, mais pas encore pleinement mise en œuvre."
           },
           {
             "scoreId": 41,
             "score": 4,
-            "scoreDefinition": "Il existe une loi visant à protéger la vie privée des personnes, qui régit la propriété, l'accès et le partage des données numériques sur la santé qui sont identifiables individuellement, a été mise en œuvre, mais qui n'est pas appliquée de façon uniforme."
+            "scoreDefinition": "Il existe une loi pour protéger la vie privée des individus, régissant la propriété, l'accès, le consentement et le partage des données de santé numériques identifiables individuellement qui a été mise en œuvre, mais pas systématiquement appliquée."
           },
           {
             "scoreId": 42,
             "score": 5,
-            "scoreDefinition": "Il existe une loi visant à protéger la vie privée des personnes, qui régit la propriété, l'accès et le partage des données numériques sur la santé qui sont identifiables individuellement, a été mise en œuvre et est appliquée de façon uniforme."
+            "scoreDefinition": "Il existe une loi pour protéger la vie privée des individus, régissant la propriété, l'accès, le consentement et le partage des données de santé numériques identifiables individuellement qui a été mise en œuvre et est appliquée de manière cohérente. Des lois et des protections spécifiques sont en place pour protéger la vie privée des enfants et d'autres groupes vulnérables."
           }
         ]
       },

@@ -208,8 +208,8 @@
       {
         "indicatorId": 6,
         "indicatorCode": "6",
-        "indicatorName": "Laws or Regulations for privacy, confidentiality and access to health information (Privacy)",
-        "indicatorDefinition": "Is there a law to protect individual privacy, governing ownership, access and sharing of individually identifiable digital health data ?",
+        "indicatorName": "Laws or Regulations for privacy, consent, confidentiality and access to health information (Privacy)",
+        "indicatorDefinition": "Is there a law to protect individual privacy, governing ownership, consent, access and sharing of individually identifiable digital health data ?",
         "scores": [
           {
             "scoreId": 36,
@@ -219,27 +219,27 @@
           {
             "scoreId": 38,
             "score": 1,
-            "scoreDefinition": "There is no law to protect individual privacy, governing ownership, access and sharing of individually identifiable digital health data."
+            "scoreDefinition": "There is no law to protect individual privacy, governing ownership, consent, access and sharing of individually identifiable digital health data."
           },
           {
             "scoreId": 39,
             "score": 2,
-            "scoreDefinition": "There is a law to protect individual privacy, governing ownership, access and sharing of individually identifiable digital health data that has been proposed and is under review."
+            "scoreDefinition": "There is a law to protect individual privacy, governing ownership, consent, access and sharing of individually identifiable digital health data that has been proposed and is under review."
           },
           {
             "scoreId": 40,
             "score": 3,
-            "scoreDefinition": "There is a law to protect individual privacy, governing ownership, access and sharing of individually identifiable digital health data that has been passed, but not yet fully implemented."
+            "scoreDefinition": "There is a law to protect individual privacy, governing ownership, consent, access and sharing of individually identifiable digital health data that has been passed, but not yet fully implemented."
           },
           {
             "scoreId": 41,
             "score": 4,
-            "scoreDefinition": "There is a law to protect individual privacy, governing ownership, access and sharing of individually identifiable digital health data that has been implemented, but not consistently enforced."
+            "scoreDefinition": "There is a law to protect individual privacy, governing ownership, access, consent,  and sharing of individually identifiable digital health data that has been implemented, but not consistently enforced."
           },
           {
             "scoreId": 42,
             "score": 5,
-            "scoreDefinition": "There is a law to protect individual privacy, governing ownership, access and sharing of individually identifiable digital health data that has been implemented and is enforced consistently."
+            "scoreDefinition": "There is a law to protect individual privacy, governing ownership, access, consent, and sharing of individually identifiable digital health data that has been implemented and is enforced consistently. Specific laws and protections are in place to protect the privacy of children and other vulnerable groups."
           }
         ]
       },

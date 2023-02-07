@@ -75,8 +75,8 @@
             {
               "id": 6,
               "code": "6",
-              "name": "Laws or Regulations for privacy, confidentiality and access to health information (Privacy)",
-              "indicatorDescription": "Is there a law to protect individual privacy, governing ownership, access and sharing of individually identifiable digital health data ?",
+              "name": "Laws or Regulations for privacy, consent, confidentiality and access to health information (Privacy)",
+              "indicatorDescription": "Is there a law to protect individual privacy, governing ownership, consent, access and sharing of individually identifiable digital health data ?",
               "score": null,
               "supportingText": "sp6",
               "scoreDescription": "Not Available"
@@ -162,8 +162,8 @@
             {
               "id": 6,
               "code": "6",
-              "name": "Laws or Regulations for privacy, confidentiality and access to health information (Privacy)",
-              "indicatorDescription": "Is there a law to protect individual privacy, governing ownership, access and sharing of individually identifiable digital health data ?",
+              "name": "Laws or Regulations for privacy, consent, confidentiality and access to health information (Privacy)",
+              "indicatorDescription": "Is there a law to protect individual privacy, governing ownership, consent, access and sharing of individually identifiable digital health data ?",
               "score": null,
               "supportingText": "sp12",
               "scoreDescription": "Not Available"

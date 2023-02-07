@@ -1,1 +1,2 @@
 UPDATE i18n.health_indicator SET name='بروتوكول تنظيم أو اعتماد الأجهزة و/أو الخدمات الصحية - بما في ذلك الأحكام المتعلقة بالذكاء الاصطناعي والخوارزميات (في مراحل متقدمة من الاكتمال)' where indicator_id=7 and language_id = 'ar';
+UPDATE i18n.health_indicator SET name='القوانين أو الأنظمة المتعلقة بالخصوصية والموافقة والسرية والوصول إلى المعلومات الصحية (الخصوصية' where indicator_id=6 and language_id='ar';
