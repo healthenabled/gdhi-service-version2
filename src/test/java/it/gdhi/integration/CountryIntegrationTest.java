@@ -138,6 +138,44 @@ public class CountryIntegrationTest extends BaseIntegrationTest {
     }
 
     @Test
+    public void shouldGetHealthIndicatorForACountryInPortuguese() throws Exception {
+        String countryId = INDIA_ID;
+        String status = "PUBLISHED";
+        String alpha2Code = "IN";
+
+        Integer categoryId1 = 1;
+        Integer categoryId2 = 2;
+        Integer categoryId3 = 3;
+        Integer indicatorId1_1 = 1;
+        Integer indicatorId1_2 = 2;
+        Integer indicatorId2_1 = 3;
+        Integer indicatorId2_2 = 4;
+        Integer indicatorId3_1 = 5;
+        Integer indicatorId3_2 = 6;
+
+        addCountrySummary(countryId, "India", status, alpha2Code, INDIA_UUID, "04-04-2018",new ArrayList<>());
+
+        List<HealthIndicatorDto> healthIndicatorDtos = asList(
+                HealthIndicatorDto.builder().categoryId(categoryId1).indicatorId(indicatorId1_1).status(status).score(1).supportingText("sp1").build(),
+                HealthIndicatorDto.builder().categoryId(categoryId1).indicatorId(indicatorId1_2).status(status).score(2).supportingText("sp1").build(),
+                HealthIndicatorDto.builder().categoryId(categoryId2).indicatorId(indicatorId2_1).status(status).score(3).supportingText("sp1").build(),
+                HealthIndicatorDto.builder().categoryId(categoryId2).indicatorId(indicatorId2_2).status(status).score(null).supportingText("sp1").build(),
+                HealthIndicatorDto.builder().categoryId(categoryId3).indicatorId(indicatorId3_1).status(status).score(null).supportingText("sp1").build(),
+                HealthIndicatorDto.builder().categoryId(categoryId3).indicatorId(indicatorId3_2).status(status).score(null).supportingText("sp1").build());
+
+        setupHealthIndicatorsForCountry(countryId, healthIndicatorDtos);
+        setUpCountryPhase(countryId, 2);
+
+        Response response = given()
+                .contentType("application/json")
+                .header(USER_LANGUAGE, "pt")
+                .when()
+                .get("http://localhost:" + port + "/countries/IND/health_indicators");
+
+        assertResponse(response.asString(), "health_indicators_pt.json");
+    }
+
+    @Test
     public void shouldGetHealthIndicatorForACountryInSpanish() throws Exception {
         String countryId = INDIA_ID;
         String status = "PUBLISHED";

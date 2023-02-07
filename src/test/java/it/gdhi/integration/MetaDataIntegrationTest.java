@@ -71,6 +71,18 @@ public class MetaDataIntegrationTest extends BaseIntegrationTest{
         assertResponse(response.asString(), "health_indicator_options_ar.json");
     }
 
+    @Test
+    public void shouldReturnHealthIndicatorOptionsInPortuguese() throws IOException {
+        Response response = given()
+                .contentType("application/json")
+                .header(USER_LANGUAGE, "pt")
+                .when()
+                .get("http://localhost:" + port + "/health_indicator_options");
+
+        assertEquals(200, response.getStatusCode());
+        assertResponse(response.asString(), "health_indicator_options_pt.json");
+    }
+
     @Override
     void assertResponse(String responseJSON, String expectedJsonFileName) throws IOException {
         String expectedJSON = expectedResponseJson(expectedJsonFileName);
