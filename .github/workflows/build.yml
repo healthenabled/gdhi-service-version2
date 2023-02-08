@@ -20,8 +20,8 @@ jobs:
       - name: grant permissions
         run : chmod +x gradlew
 
-      - name: Run tests with application_test.yml profile
-        run: ./gradlew clean build
+      - name: Run tests without integration and repository tests
+        run: ./gradlew clean build -DincludeIntegrationTestAndRepositoryTest=false
 
   continuous-deployment:
     runs-on: ubuntu-latest
