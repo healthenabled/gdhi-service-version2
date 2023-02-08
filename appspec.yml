@@ -5,7 +5,7 @@ files:
     destination: /home/centos/gdhi-service-version2
 file_exists_behavior: OVERWRITE
 hooks:
-  BeforeInstall:
+  AfterInstall:
     - location: scripts/install_service_dependencies.sh
       timeout: 300
       runas: root
