@@ -43,4 +43,5 @@ jobs:
             --application-name GDHI-Backend-v2 \
             --deployment-group-name GDHI-Backend-v2-Deployment-Group \
             --deployment-config-name CodeDeployDefault.OneAtATime \
-            --github-location repository=${{ github.repository }},commitId=${{ github.sha }}
+            --github-location repository=${{ github.repository }},commitId=${{ github.sha }} 
+            --ignore-application-stop-failures
