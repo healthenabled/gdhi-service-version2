@@ -3,6 +3,7 @@ os: linux
 files:
   - source: .
     destination: /home/centos/gdhi-service-version2
+file_exists_behavior: OVERWRITE
 hooks:
   BeforeInstall:
     - location: scripts/install_service_dependencies.sh
