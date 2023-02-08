@@ -38,11 +38,11 @@ spring:
     pathmatch:
       matching-strategy: ANT_PATH_MATCHER
 db:
-  url:
-  host:
-  port:
-  username:
-  password:
+  url: jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB__SCHEMA_NAME}
+  host: ${DB_HOST}
+  port: ${DB_PORT}
+  username: ${DB_USERNAME}
+  password: ${DB_PASSWORD}
   driverClassName: org.postgresql.Driver
 
 endpoints.info.id: ping
