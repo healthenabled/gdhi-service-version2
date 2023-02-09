@@ -48,11 +48,6 @@ public class CountryController {
         return countryService.fetchCountries(languageCode);
     }
 
-    @GetMapping("/helloWorld")
-    public ResponseEntity<String> helloWorld(HttpServletRequest request) {
-        return ResponseEntity.status(HttpStatus.CREATED).body("HELLO WORLD");
-    }
-
     @GetMapping("/countries/{id}/development_indicators")
     @JsonView(DevelopmentIndicatorView.class)
     public DevelopmentIndicator getDevelopmentIndicatorForGivenCountryCode(@PathVariable("id") String countryId) {
