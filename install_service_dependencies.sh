@@ -1,4 +1,5 @@
 #!/bin/bash
+set -xe
 chmod +x ./gradlew
 echo "Show the current directory for execution."
 pwd
