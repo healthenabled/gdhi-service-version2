@@ -36,14 +36,24 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-1
+          aws-region: ${{ secrets.AWS_REGION }}
+
       # Step 2
-      - name: Create CodeDeploy Deployment
+      - name: Create fat jar for GDHI-Backend-v2
+        run:  ./gradlew shadowJar
+
+      # Step 3
+      - name: Upload Artifact to s3
+        working-directory: ${{ secrets.JAR_LOCATION }}
+        run: aws s3 cp *-all.jar s3://${{ secrets.AWS_S3_BUCKET_NAME }}/
+
+      # Step 4
+      - name: Create CodeDeploy Deployment for QA
         id: deploy
         run: |
           aws deploy create-deployment \
-            --application-name GDHI-Backend-v2 \
-            --deployment-group-name GDHI-Backend-v2-QA \
+            --application-name ${{ secrets.AWS_APPLICATION_NAME }} \
+            --deployment-group-name ${{ secrets.AWS_QA_DEPLOYMENT_GROUP }} \
             --deployment-config-name CodeDeployDefault.OneAtATime \
             --github-location repository=${{ github.repository }},commitId=${{ github.sha }} \
             --ignore-application-stop-failures
@@ -61,14 +71,14 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-1
+          aws-region: ${{ secrets.AWS_REGION }}
       # Step 2
-      - name: Create CodeDeploy Deployment
+      - name: Create CodeDeploy Deployment for Showcase
         id: deploy
         run: |
           aws deploy create-deployment \
-            --application-name GDHI-Backend-v2 \
-            --deployment-group-name GDHI-Backend-v2-Showcase \
+            --application-name ${{ secrets.AWS_APPLICATION_NAME }} \
+            --deployment-group-name ${{ secrets.AWS_SHOWCASE_DEPLOYMENT_GROUP }} \
             --deployment-config-name CodeDeployDefault.OneAtATime \
             --github-location repository=${{ github.repository }},commitId=${{ github.sha }} \
             --ignore-application-stop-failures  
@@ -85,19 +95,14 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-1
-
-      - name: Upload Artifact to s3
-        working-directory: ${{ env.applicationfolder }}/target
-        run: aws s3 cp *.war s3://${{ env.S3BUCKET }}/
-
-      # Step 3
-      - name: Create CodeDeploy Deployment
+          aws-region: ${{ secrets.AWS_REGION }}
+      # Step 2
+      - name: Create CodeDeploy Deployment to Prod
         id: deploy
         run: |
           aws deploy create-deployment \
-            --application-name GDHI-Backend-v2 \
-            --deployment-group-name GDHI-Backend-v2-Prod \
+            --application-name ${{ secrets.AWS_APPLICATION_NAME }} \
+            --deployment-group-name ${{ secrets.AWS_PROD_DEPLOYMENT_GROUP }} \
             --deployment-config-name CodeDeployDefault.OneAtATime \
             --github-location repository=${{ github.repository }},commitId=${{ github.sha }} \
             --ignore-application-stop-failures
