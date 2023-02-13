@@ -8,7 +8,7 @@ plugins {
 
 def jenkinsBuild = System.getenv("BUILD_NUMBER") ?: "0"
 
-group = 'gdhi-service'
+group = 'gdhi-service-v2'
 version = '1.0-SNAPSHOT'
 sourceCompatibility = '17'
 
@@ -97,3 +97,9 @@ tasks.named('test') {
 	}
 }
 
+shadowJar {
+	baseName = 'gdhi-service'
+	manifest {
+		attributes 'Main-Class': 'it.gdhi.GdhiServiceApplication'
+	}
+}
