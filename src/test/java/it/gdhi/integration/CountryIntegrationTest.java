@@ -138,6 +138,44 @@ public class CountryIntegrationTest extends BaseIntegrationTest {
     }
 
     @Test
+    public void shouldGetHealthIndicatorForACountryInPortuguese() throws Exception {
+        String countryId = INDIA_ID;
+        String status = "PUBLISHED";
+        String alpha2Code = "IN";
+
+        Integer categoryId1 = 1;
+        Integer categoryId2 = 2;
+        Integer categoryId3 = 3;
+        Integer indicatorId1_1 = 1;
+        Integer indicatorId1_2 = 2;
+        Integer indicatorId2_1 = 3;
+        Integer indicatorId2_2 = 4;
+        Integer indicatorId3_1 = 5;
+        Integer indicatorId3_2 = 6;
+
+        addCountrySummary(countryId, "India", status, alpha2Code, INDIA_UUID, "04-04-2018",new ArrayList<>());
+
+        List<HealthIndicatorDto> healthIndicatorDtos = asList(
+                HealthIndicatorDto.builder().categoryId(categoryId1).indicatorId(indicatorId1_1).status(status).score(1).supportingText("sp1").build(),
+                HealthIndicatorDto.builder().categoryId(categoryId1).indicatorId(indicatorId1_2).status(status).score(2).supportingText("sp1").build(),
+                HealthIndicatorDto.builder().categoryId(categoryId2).indicatorId(indicatorId2_1).status(status).score(3).supportingText("sp1").build(),
+                HealthIndicatorDto.builder().categoryId(categoryId2).indicatorId(indicatorId2_2).status(status).score(null).supportingText("sp1").build(),
+                HealthIndicatorDto.builder().categoryId(categoryId3).indicatorId(indicatorId3_1).status(status).score(null).supportingText("sp1").build(),
+                HealthIndicatorDto.builder().categoryId(categoryId3).indicatorId(indicatorId3_2).status(status).score(null).supportingText("sp1").build());
+
+        setupHealthIndicatorsForCountry(countryId, healthIndicatorDtos);
+        setUpCountryPhase(countryId, 2);
+
+        Response response = given()
+                .contentType("application/json")
+                .header(USER_LANGUAGE, "pt")
+                .when()
+                .get("http://localhost:" + port + "/countries/IND/health_indicators");
+
+        assertResponse(response.asString(), "health_indicators_pt.json");
+    }
+
+    @Test
     public void shouldGetHealthIndicatorForACountryInSpanish() throws Exception {
         String countryId = INDIA_ID;
         String status = "PUBLISHED";
@@ -233,17 +271,9 @@ public class CountryIntegrationTest extends BaseIntegrationTest {
                 HealthIndicatorDto.builder().categoryId(7).indicatorId(17).status(status).score(1).supportingText("blah@blah.com").build(),
                 HealthIndicatorDto.builder().categoryId(7).indicatorId(18).status(status).score(1).supportingText("blah@blah.com").build(),
                 HealthIndicatorDto.builder().categoryId(7).indicatorId(19).status(status).score(1).supportingText("blah@blah.com").build(),
-                HealthIndicatorDto.builder().categoryId(4).indicatorId(20).status(status).score(1).supportingText("blah@blah.com").build(),
-                HealthIndicatorDto.builder().categoryId(4).indicatorId(21).status(status).score(1).supportingText("blah@blah.com").build(),
-                HealthIndicatorDto.builder().categoryId(4).indicatorId(22).status(status).score(1).supportingText("blah@blah.com").build(),
-                HealthIndicatorDto.builder().categoryId(4).indicatorId(23).status(status).score(1).supportingText("blah@blah.com").build(),
-                HealthIndicatorDto.builder().categoryId(4).indicatorId(24).status(status).score(1).supportingText("blah@blah.com").build(),
-                HealthIndicatorDto.builder().categoryId(4).indicatorId(25).status(status).score(1).supportingText("blah@blah.com").build(),
-                HealthIndicatorDto.builder().categoryId(4).indicatorId(26).status(status).score(1).supportingText("blah@blah.com").build(),
                 HealthIndicatorDto.builder().categoryId(7).indicatorId(27).status(status).score(1).supportingText("blah@blah.com").build(),
                 HealthIndicatorDto.builder().categoryId(7).indicatorId(28).status(status).score(1).supportingText("blah@blah.com").build(),
-                HealthIndicatorDto.builder().categoryId(7).indicatorId(29).status(status).score(1).supportingText("blah@blah.com").build(),
-                HealthIndicatorDto.builder().categoryId(7).indicatorId(30).status(status).score(1).supportingText("blah@blah.com").build());
+                HealthIndicatorDto.builder().categoryId(7).indicatorId(29).status(status).score(1).supportingText("blah@blah.com").build());
 
 
         setupHealthIndicatorsForCountry(countryId, healthIndicatorDtos);

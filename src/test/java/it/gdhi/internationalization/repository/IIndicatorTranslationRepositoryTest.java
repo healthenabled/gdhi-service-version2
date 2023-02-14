@@ -45,7 +45,7 @@ public class IIndicatorTranslationRepositoryTest {
 
         List<IndicatorTranslation> translatedIndicator = repository.findByLanguageId(fr);
 
-        assertEquals(30, translatedIndicator.size());
+        assertEquals(22, translatedIndicator.size());
         assertEquals(Integer.valueOf(1), translatedIndicator.get(0).getIndicatorId());
         assertEquals(name, translatedIndicator.get(0).getName());
         assertEquals(definition, translatedIndicator.get(0).getDefinition());

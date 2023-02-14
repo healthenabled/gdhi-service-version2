@@ -1,0 +1,87 @@
+{
+  "countryId": "IND",
+  "countryName": "Índia",
+  "countryAlpha2Code": "IN",
+  "categories": [
+    {
+      "id": 1,
+      "name": "Liderança e Governação",
+      "overallScore": 1.5,
+      "phase": 2,
+      "indicators": [
+        {
+          "id": 1,
+          "code": "1",
+          "name": "Saúde digital priorizada a nível nacional através de órgãos/mecanismos dedicados à governação",
+          "indicatorDescription": "O país tem um departamento / agência / grupo de trabalho nacional separado para a saúde digital?",
+          "score": 1,
+          "supportingText": "sp1",
+          "scoreDescription": "Não existe nenhum órgão de coordenação e/ou a estrutura emergente de governança para a saúde digital é constituída caso a caso."
+        },
+        {
+          "id": 2,
+          "code": "2",
+          "name": "Saúde Digital priorizada em nível nacional através do planeamento",
+          "indicatorDescription": "A saúde digital está incluída e orçada na saúde nacional ou nas estratégias e/ou planos nacionais relevantes? Nota: O foco deste indicador é a inclusão da saúde digital ou eHealth na estratégia nacional de saúde.",
+          "score": 2,
+          "supportingText": "sp1",
+          "scoreDescription": "Há alguma discussão sobre a inclusão da saúde digital na saúde nacional ou em outras estratégias ou planos nacionais relevantes. A linguagem proposta para a inclusão da saúde digital na saúde nacional ou em estratégias e/ou planos nacionais relevantes já foi elaborada e está sendo revisada."
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Estratégia e Investimento",
+      "overallScore": 2.0,
+      "phase": 2,
+      "indicators": [
+        {
+          "id": 3,
+          "code": "3",
+          "name": "Estratégia ou quadro nacional de eSaúde/Estratégia ou quadro de saúde digital",
+          "indicatorDescription": "O país dispõe de uma estratégia ou estrutura de saúde digital ou de eSaúde e de um plano de saúde digital orçamentado?",
+          "score": 3,
+          "supportingText": "sp1",
+          "scoreDescription": "Plano nacional de saúde digital orçamentado desenvolvido e aprovado."
+        },
+        {
+          "id": 4,
+          "code": "4",
+          "name": "Financiamento público da saúde digital",
+          "indicatorDescription": "O financiamento público (incluindo empréstimos) para saúde digital é suficiente para as estratégias de saúde digital, prioridades (necessidades) ou plano custeado do país?",
+          "score": null,
+          "supportingText": "sp1",
+          "scoreDescription": "Not Available"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Legislação, Política e Conformidade",
+      "overallScore": 1.0,
+      "phase": 1,
+      "indicators": [
+        {
+          "id": 5,
+          "code": "5",
+          "name": "Quadro jurídico da protecção de dados (segurança)",
+          "indicatorDescription": "Existe uma lei sobre segurança de dados (em todo o ciclo de vida dos dados, por exemplo, coleta, processamento, armazenamento, transmissão, uso e destruição) que seja relevante para a saúde digital?",
+          "score": null,
+          "supportingText": "sp1",
+          "scoreDescription": "Not Available"
+        },
+        {
+          "id": 6,
+          "code": "6",
+          "name": "Leis ou regulamentos para privacidade, consentimento, confidencialidade e acesso a informações de saúde (Privacidade)",
+          "indicatorDescription": "Existe uma lei para proteger a privacidade individual, regendo a propriedade, consentimento, acesso e compartilhamento de dados de saúde digitais identificáveis individualmente?",
+          "score": null,
+          "supportingText": "sp1",
+          "scoreDescription": "Not Available"
+        }
+      ]
+    }
+  ],
+  "countryPhase": 2,
+  "collectedDate": "April 2018"
+}

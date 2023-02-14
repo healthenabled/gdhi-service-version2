@@ -2,7 +2,6 @@ package it.gdhi.integration;
 
 import io.restassured.response.Response;
 import it.gdhi.GdhiServiceApplication;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Value;
@@ -38,7 +37,6 @@ public class MetaDataIntegrationTest extends BaseIntegrationTest{
     }
 
     @Test
-    @Disabled("Only for local")
     public void shouldReturnHealthIndicatorOptions() throws IOException {
         Response response = given()
                 .contentType("application/json")
@@ -51,7 +49,6 @@ public class MetaDataIntegrationTest extends BaseIntegrationTest{
     }
 
     @Test
-    @Disabled("Only for local")
     public void shouldReturnHealthIndicatorOptionsInFrench() throws IOException {
         Response response = given()
                 .contentType("application/json")
@@ -61,6 +58,29 @@ public class MetaDataIntegrationTest extends BaseIntegrationTest{
 
         assertEquals(200, response.getStatusCode());
         assertResponse(response.asString(), "health_indicator_options_fr.json");
+    }
+    @Test
+    public void shouldReturnHealthIndicatorOptionsInArabic() throws IOException {
+        Response response = given()
+                .contentType("application/json")
+                .header(USER_LANGUAGE, "ar")
+                .when()
+                .get("http://localhost:" + port + "/health_indicator_options");
+
+        assertEquals(200, response.getStatusCode());
+        assertResponse(response.asString(), "health_indicator_options_ar.json");
+    }
+
+    @Test
+    public void shouldReturnHealthIndicatorOptionsInPortuguese() throws IOException {
+        Response response = given()
+                .contentType("application/json")
+                .header(USER_LANGUAGE, "pt")
+                .when()
+                .get("http://localhost:" + port + "/health_indicator_options");
+
+        assertEquals(200, response.getStatusCode());
+        assertResponse(response.asString(), "health_indicator_options_pt.json");
     }
 
     @Override
