@@ -40,7 +40,6 @@ jobs:
 
   deploy-to-qa:
     runs-on: ubuntu-latest
-    environment: QA
     needs: [ continuous-integration ]
     if: github.ref == 'refs/heads/main'
     steps:
