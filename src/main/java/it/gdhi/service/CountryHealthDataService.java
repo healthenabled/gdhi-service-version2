@@ -151,7 +151,7 @@ public class CountryHealthDataService {
                 .findByCountryIdAndStatus(countryId, status));
         Double overallScore = countryHealthIndicators.getOverallScore();
         Integer countryPhase = new Score(overallScore).convertToPhase();
-        iCountryPhaseRepository.save(new CountryPhase(countryId, countryPhase));
+        iCountryPhaseRepository.save(new CountryPhase(countryId, countryPhase, "Version1"));
     }
 
     private void removeEntriesWithStatus(String countryId, String currentStatus) {
