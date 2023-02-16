@@ -22,7 +22,7 @@
           "id": 2,
           "code": "2",
           "name": "Priorización de la salud digital a nivel nacional a través de la planificación",
-          "indicatorDescription": "¿Se incluye y presupuesta la salud digital en las estrategias y/o planes nacionales de salud o en las estrategias y/o planes nacionales pertinentes? Nota: Este indicador se centra en la inclusión de la salud digital o la salud electrónica en la estrategia nacional de salud.",
+          "indicatorDescription": "¿La salud digital está incluida y presupuestada en la estrategia de salud nacional  y/o planes nacionales pertinentes? Nota: El enfoque de este indicador está en la inclusión de la salud digital o eSalud en la estrategia nacional de salud.",
           "score": 2,
           "supportingText": "sp1",
           "scoreDescription": "Se está debatiendo la inclusión de la salud digital en las estrategias o planes nacionales de salud u otras estrategias o planes nacionales pertinentes. Se ha propuesto un lenguaje para la inclusión de la salud digital en las estrategias y/o planes nacionales de salud o en las estrategias y/o planes nacionales pertinentes, y se está revisando."
@@ -32,8 +32,8 @@
     {
       "id": 2,
       "name": "Estrategia e inversión",
-      "overallScore": 2.0,
-      "phase": 2,
+      "overallScore": 3.5,
+      "phase": 4,
       "indicators": [
         {
           "id": 3,
@@ -48,10 +48,10 @@
           "id": 4,
           "code": "4",
           "name": "Financiación pública para la salud digital",
-          "indicatorDescription": "¿Cuál es el porcentaje estimado (%) del gasto público anual en salud comprometido con la salud digital?",
-          "score": null,
+          "indicatorDescription": "¿La financiación pública (incluidos los préstamos) para la salud digital es suficiente para la estrategia de salud digital, las prioridades (necesidades) o el plan presupuestario del país?",
+          "score": 4,
           "supportingText": "sp1",
-          "scoreDescription": "Not Available"
+          "scoreDescription": "Existe una partida presupuestaria estructurada y sistemática para la salud digital, pero es moderadamente insuficiente (más del 50 % de la necesidad) para satisfacer las necesidades de salud digital del país."
         }
       ]
     },
@@ -65,7 +65,7 @@
           "id": 5,
           "code": "5",
           "name": "Marco Legal para la Protección de Datos (Seguridad)",
-          "indicatorDescription": "¿Existe una ley sobre seguridad de datos (almacenamiento, transmisión, uso) que sea relevante para la salud digital?",
+          "indicatorDescription": "¿Existe una ley sobre la seguridad de los datos (a lo largo de todo el ciclo de vida de los datos, por ejemplo, recopilación, procesamiento, almacenamiento, transmisión, uso y destrucción) que sea relevante para la salud digital?",
           "score": null,
           "supportingText": "sp1",
           "scoreDescription": "Not Available"
@@ -73,8 +73,8 @@
         {
           "id": 6,
           "code": "6",
-          "name": "Leyes o reglamentos para la privacidad, confidencialidad y acceso a la información de salud (Privacidad)",
-          "indicatorDescription": "¿Existe una ley que proteja la privacidad de las personas, que regule la propiedad, el acceso y el intercambio de datos sanitarios digitales identificables individualmente?",
+          "name": "Leyes o Reglamentos de privacidad, consentimiento, confidencialidad y acceso a la información de salud (Privacidad)",
+          "indicatorDescription": "¿Existe una ley para proteger la privacidad individual, que rija la propiedad, el consentimiento, el acceso y el intercambio de datos de salud digitales identificables individualmente?",
           "score": null,
           "supportingText": "sp1",
           "scoreDescription": "Not Available"

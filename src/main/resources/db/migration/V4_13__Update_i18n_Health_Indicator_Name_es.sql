@@ -1,0 +1,2 @@
+UPDATE i18n.health_indicator SET name='Leyes o Reglamentos de privacidad, consentimiento, confidencialidad y acceso a la información de salud (Privacidad)' where indicator_id=6 and language_id='es';
+UPDATE i18n.health_indicator SET name='Protocolo para regular o certificar dispositivos y/o servicios de salud, incluidas disposiciones para IA y algoritmos (en etapas más altas de madurez)' where indicator_id=7 and language_id='es';
