@@ -1,3 +1,2 @@
 CREATE SCHEMA master;
 CREATE SCHEMA validated_config;
-CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
