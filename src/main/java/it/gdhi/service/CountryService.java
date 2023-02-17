@@ -6,14 +6,17 @@ import it.gdhi.dto.HealthIndicatorDto;
 import it.gdhi.internationalization.service.CountryNameTranslator;
 import it.gdhi.model.Country;
 import it.gdhi.model.CountryHealthIndicator;
+import it.gdhi.model.CountryPhase;
 import it.gdhi.model.CountrySummary;
 import it.gdhi.repository.ICountryHealthIndicatorRepository;
+import it.gdhi.repository.ICountryPhaseRepository;
 import it.gdhi.repository.ICountryRepository;
 import it.gdhi.repository.ICountrySummaryRepository;
 import it.gdhi.utils.LanguageCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.Year;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -30,16 +33,19 @@ public class CountryService {
 
     private final ICountryRepository iCountryRepository;
     private final ICountrySummaryRepository iCountrySummaryRepository;
+
+    private final ICountryPhaseRepository iCountryPhaseRepository;
     private final ICountryHealthIndicatorRepository iCountryHealthIndicatorRepository;
     private final CountryNameTranslator translator;
 
     @Autowired
     public CountryService(ICountryRepository iCountryRepository,
                           ICountrySummaryRepository iCountrySummaryRepository,
-                          ICountryHealthIndicatorRepository iCountryHealthIndicatorRepository,
+                          ICountryPhaseRepository iCountryPhaseRepository, ICountryHealthIndicatorRepository iCountryHealthIndicatorRepository,
                           CountryNameTranslator translator) {
         this.iCountryRepository = iCountryRepository;
         this.iCountrySummaryRepository = iCountrySummaryRepository;
+        this.iCountryPhaseRepository = iCountryPhaseRepository;
         this.iCountryHealthIndicatorRepository = iCountryHealthIndicatorRepository;
         this.translator = translator;
     }
@@ -108,5 +114,10 @@ public class CountryService {
         gdhiQuestionnaire = new GdhiQuestionnaire(countryId, countrySummary.getCountrySummaryId().getStatus(),
                 countrySummaryDto, healthIndicatorDtos);
         return gdhiQuestionnaire;
+    }
+
+    public List<String> fetchPublishCountriesDistinctYears() {
+        List<CountryPhase> countryPhases = iCountryPhaseRepository.findAll();
+        return countryPhases.stream().map(CountryPhase::getYear).distinct().sorted(Comparator.reverseOrder()).collect(Collectors.toList());
     }
 }
