@@ -163,4 +163,9 @@ public class CountryController {
     public void handleIOException() {
         log.error("User language requested not found");
     }
+
+    @GetMapping("/countries/published/distinct_years")
+    public List<String> getPublishedCountriesDistinctYears() {
+        return countryService.fetchPublishCountriesDistinctYears();
+    }
 }

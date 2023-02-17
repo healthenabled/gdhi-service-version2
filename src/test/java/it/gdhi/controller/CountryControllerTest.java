@@ -111,7 +111,7 @@ public class CountryControllerTest {
     @Test
     public void shouldSaveCorrectedHealthIndicators() {
         GdhiQuestionnaire mock = mock(GdhiQuestionnaire.class);
-        doNothing().when(countryHealthDataService).saveCorrection(mock);                    //Test change submit() - saveCorrection()
+        doNothing().when(countryHealthDataService).saveCorrection(mock);
         countryController.saveCorrectionsFor(mock);
         verify(countryHealthDataService).saveCorrection(mock);
     }
@@ -230,5 +230,11 @@ public class CountryControllerTest {
         doNothing().when(countryHealthDataService).calculatePhaseForAllCountries();
         countryController.calculateCountryPhase();
         verify(countryHealthDataService).calculatePhaseForAllCountries();
+    }
+
+    @Test
+    public void shouldGetPublishedCountriesDistinctYears(){
+        countryController.getPublishedCountriesDistinctYears();
+        verify(countryService).fetchPublishCountriesDistinctYears();
     }
 }
