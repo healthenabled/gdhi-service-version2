@@ -1,7 +1,7 @@
 name: CI/CD Pipeline
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main","cicd" ]
   pull_request:
     branches: [ "main" ]
 jobs:
@@ -35,7 +35,7 @@ jobs:
 
       - name: Upload Artifact to s3
         working-directory: ${{ secrets.JAR_LOCATION }}
-        run: aws s3 cp *-all.jar s3://${{ secrets.AWS_S3_BUCKET_NAME }}/
+        run: aws s3 cp *-all.jar s3://${{ secrets.AWS_S3_BUCKET_NAME }}/${{ secrets.AWS_S3_FOLDER }}
 
 
   deploy-to-qa:
@@ -59,7 +59,6 @@ jobs:
             --deployment-config-name CodeDeployDefault.OneAtATime \
             --github-location repository=${{ github.repository }},commitId=${{ github.sha }} \
             --ignore-application-stop-failures
-            
 
   deploy-to-showcase:
     runs-on: ubuntu-latest
@@ -67,7 +66,6 @@ jobs:
     needs: [ deploy-to-qa ]
     if: github.ref == 'refs/heads/main'
     steps:
-
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1-node16
         with:
@@ -91,7 +89,6 @@ jobs:
     needs: [ deploy-to-showcase ]
     if: github.ref == 'refs/heads/main'
     steps:
-
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1-node16
         with:
