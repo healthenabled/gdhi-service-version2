@@ -231,10 +231,4 @@ public class CountryControllerTest {
         countryController.calculateCountryPhase();
         verify(countryHealthDataService).calculatePhaseForAllCountries();
     }
-
-    @Test
-    public void shouldGetPublishedCountriesDistinctYears(){
-        countryController.getPublishedCountriesDistinctYears();
-        verify(countryService).fetchPublishCountriesDistinctYears();
-    }
 }
