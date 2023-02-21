@@ -1,9 +1,11 @@
 package it.gdhi.service;
 import it.gdhi.dto.YearDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class BffService {
     private CountryService countryService;
 

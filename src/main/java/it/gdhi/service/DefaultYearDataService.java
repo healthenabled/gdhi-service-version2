@@ -1,13 +1,14 @@
 package it.gdhi.service;
 
-import it.gdhi.model.CountryPhase;
 import it.gdhi.model.DefaultYearData;
 import it.gdhi.repository.IDefaultYearData;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Service
 public class DefaultYearDataService {
 
     private IDefaultYearData iDefaultYearData;
