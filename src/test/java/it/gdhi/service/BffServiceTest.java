@@ -29,10 +29,10 @@ public class BffServiceTest {
         when(countryService.fetchPublishCountriesDistinctYears()).thenReturn(asList("Version1","2023"));
         when(defaultYearDataService.fetchDefaultYear()).thenReturn("2023");
 
-        YearDto ExpectedYearData = YearDto.builder().years(asList("Version1","2023")).defaultYear("2023").build();
-        YearDto ActualYearData = bffService.fetchDistinctYears();
+        YearDto expectedYearData = YearDto.builder().years(asList("Version1","2023")).defaultYear("2023").build();
+        YearDto actualYearData = bffService.fetchDistinctYears();
 
-        assertThat(ExpectedYearData.getDefaultYear(), equalTo(ActualYearData.getDefaultYear()));
-        assertThat(ExpectedYearData.getYears(), equalTo(ActualYearData.getYears()));
+        assertThat(expectedYearData.getDefaultYear(), equalTo(actualYearData.getDefaultYear()));
+        assertThat(expectedYearData.getYears(), equalTo(actualYearData.getYears()));
     }
 }

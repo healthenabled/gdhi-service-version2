@@ -27,7 +27,7 @@ public class DefaultYearDataServiceTest {
    private DefaultYearDataService defaultYearDataService;
 
    @Test
-   public void shouldReturnYears(){
+   public void shouldReturnAllYears(){
        DefaultYearData year2021 = DefaultYearData.builder().year("2021").build();
        DefaultYearData year2020 = DefaultYearData.builder().year("2020").build();
 
@@ -49,7 +49,7 @@ public class DefaultYearDataServiceTest {
 //       verify(iDefaultYearData).save(mock);
 //   }
     @Test
-    public void shouldReturnDefaultYear() {
+    public void shouldReturnLatestDefaultYear() {
         DefaultYearData year2021 = DefaultYearData.builder().year("2021").build();
 
         when(iDefaultYearData.findFirstByOrderByCreatedAtDesc()).thenReturn(year2021);
