@@ -4,6 +4,8 @@ import it.gdhi.service.DefaultYearDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.util.List;
+
 public class DefaultYearDataController {
 
     private DefaultYearDataService defaultYearDataService;
@@ -14,7 +16,7 @@ public class DefaultYearDataController {
     }
 
     @GetMapping("/years")
-    public void getAllYears() {
-        defaultYearDataService.fetchYears();
+    public List<String> getAllYears() {
+        return defaultYearDataService.fetchYears();
     }
 }

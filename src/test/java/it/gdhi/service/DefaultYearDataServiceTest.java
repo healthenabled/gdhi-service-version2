@@ -41,11 +41,21 @@ public class DefaultYearDataServiceTest {
 //   @Test
 //    public void shouldSaveYear(){
 //       String year = "2022";
-//       DefaultYearData year2022 = DefaultYearData.builder().year("2022").build();
+//       DefaultYearData mock = mock(DefaultYearData.class);
 //
-//       doNothing().when(iDefaultYearData).save(year2022);
-//       defaultYearDataService.saveNewYear(year);
+//       doNothing().when(iDefaultYearData).save(mock);
+//       defaultYearDataService.saveNewYear(mock.getYear());
 //
-//       verify(iDefaultYearData).save(year2022);
+//       verify(iDefaultYearData).save(mock);
 //   }
+    @Test
+    public void shouldReturnDefaultYear() {
+        DefaultYearData year2021 = DefaultYearData.builder().year("2021").build();
+
+        when(iDefaultYearData.findFirstByOrderByCreatedAtDesc()).thenReturn(year2021);
+        String expectedDefaultYear = "2021";
+        String actualDefaultYear = defaultYearDataService.fetchDefaultYear();
+
+        assertEquals(expectedDefaultYear,actualDefaultYear);
+    }
 }

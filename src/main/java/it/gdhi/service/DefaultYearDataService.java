@@ -1,5 +1,6 @@
 package it.gdhi.service;
 
+import it.gdhi.model.CountryPhase;
 import it.gdhi.model.DefaultYearData;
 import it.gdhi.repository.IDefaultYearData;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,5 +25,10 @@ public class DefaultYearDataService {
     public void saveNewYear(String Year) {
         DefaultYearData year = DefaultYearData.builder().year(Year).build();
         iDefaultYearData.save(year);
+    }
+
+    public String fetchDefaultYear() {
+        DefaultYearData defaultYearData = iDefaultYearData.findFirstByOrderByCreatedAtDesc();
+        return defaultYearData.getYear();
     }
 }
