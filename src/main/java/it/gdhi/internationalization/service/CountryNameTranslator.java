@@ -14,6 +14,7 @@ import static java.util.stream.Collectors.toList;
 @Component
 public class CountryNameTranslator {
 
+    @Autowired
     private final ICountryTranslationRepository translationRepository;
 
     @Autowired
