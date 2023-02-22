@@ -16,7 +16,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaDialect;
@@ -38,6 +40,8 @@ import java.util.List;
 import java.util.Properties;
 
 @SpringBootApplication
+@Configuration
+@EnableJpaRepositories(basePackages = "it.gdhi")
 @ComponentScan(basePackageClasses = {GdhiServiceApplication.class})
 @EnableAsync
 @EnableSwagger2
