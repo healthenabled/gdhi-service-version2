@@ -1,11 +1,15 @@
 package it.gdhi.controller;
 
+import it.gdhi.service.CountryService;
 import it.gdhi.service.DefaultYearDataService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -16,9 +20,12 @@ public class DefaultYearDataController {
 
     private DefaultYearDataService defaultYearDataService;
 
+    private CountryService countryService;
+
     @Autowired
-    public DefaultYearDataController(DefaultYearDataService defaultYearDataService) {
+    public DefaultYearDataController(DefaultYearDataService defaultYearDataService, CountryService countryService) {
         this.defaultYearDataService = defaultYearDataService;
+        this.countryService = countryService;
     }
 
     @GetMapping("/years")
@@ -27,8 +34,15 @@ public class DefaultYearDataController {
     }
 
     @PostMapping("/default_year/submit")
-    public void saveDefaultYear(@RequestBody String defaultYear) {
-        defaultYearDataService.saveNewYear(defaultYear);
+    @ResponseBody
+    public ResponseEntity saveDefaultYear(@RequestBody String defaultYear) {
+        Boolean isValid = countryService.validateDefaultYear(defaultYear);
+        if(isValid) {
+            defaultYearDataService.saveNewYear(defaultYear);
+            return ResponseEntity.status(HttpStatus.CREATED).body(null);
+        }
+        else {
+            return ResponseEntity.badRequest().body(null);
+        }
     }
-
 }
