@@ -24,7 +24,7 @@ jobs:
         run: ./gradlew clean build -DincludeIntegrationTestAndRepositoryTest=false
 
       - name: Create fat jar for GDHI-Backend-v2
-        run: ./gradlew shadowJar
+        run: ./gradlew clean bootJar
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1-node16
