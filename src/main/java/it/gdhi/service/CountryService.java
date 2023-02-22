@@ -120,4 +120,9 @@ public class CountryService {
         List<CountryPhase> countryPhases = iCountryPhaseRepository.findAll();
         return countryPhases.stream().map(CountryPhase::getYear).distinct().sorted(Comparator.reverseOrder()).collect(Collectors.toList());
     }
+
+    public Boolean validateDefaultYear(String year) {
+        List<String> distinctYears = this.fetchPublishCountriesDistinctYears();
+        return distinctYears.contains(year);
+    }
 }
