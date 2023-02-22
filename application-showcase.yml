@@ -64,7 +64,7 @@ logging:
     root: info
   path: logs
   file: gdhi.log
-  config: logback-spring.xml
+  config: ${LOGBACK_FILE_LOCATION}
   pattern:
     file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
     console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
