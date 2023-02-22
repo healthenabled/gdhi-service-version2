@@ -15,10 +15,11 @@ import java.util.Date;
 @NoArgsConstructor
 @Builder
 public class DefaultYearData {
-    @Id
+
     private String year;
 
-    @Column(insertable = false, updatable = false)
+    @Id
+    @Column(updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
 }
