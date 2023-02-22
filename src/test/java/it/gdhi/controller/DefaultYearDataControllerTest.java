@@ -20,9 +20,17 @@ public class DefaultYearDataControllerTest {
     private DefaultYearDataController defaultYearDataController;
 
     @Test
-    public void shouldGetAllYears(){
+    public void shouldGetAllYears() {
         defaultYearDataController.getAllYears();
         verify(defaultYearDataService).fetchYears();
+    }
+
+    @Test
+    public void shouldSaveDefaultYear() {
+        String year = "2022";
+        doNothing().when(defaultYearDataService).saveNewYear(year);
+        defaultYearDataController.saveDefaultYear(year);
+        verify(defaultYearDataService).saveNewYear(year);
     }
 
 }
