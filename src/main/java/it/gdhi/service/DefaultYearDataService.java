@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import java.sql.Timestamp;
+import java.util.Date;
 
 @Service
 public class DefaultYearDataService {
@@ -24,7 +26,9 @@ public class DefaultYearDataService {
     }
 
     public void saveNewYear(String Year) {
-        DefaultYearData year = DefaultYearData.builder().year(Year).build();
+        Date date = new Date();
+        Timestamp timestamp = new Timestamp(date.getTime());
+        DefaultYearData year = DefaultYearData.builder().year(Year).createdAt(timestamp).build();
         iDefaultYearData.save(year);
     }
 
