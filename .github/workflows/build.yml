@@ -26,6 +26,8 @@ jobs:
       - name: Create fat jar for GDHI-Backend-v2
         run: ./gradlew clean bootJar -PappVersion=${{ secrets.APPLICATION_VERSION }}
 
+      - run: echo "pwd;ls;"
+
       - name: Update the version number
         uses: gliech/create-github-secret-action@v1
         with:
