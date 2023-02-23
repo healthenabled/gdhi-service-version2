@@ -16,6 +16,6 @@ then
 fi
 
 echo -n $"Starting ${APPLICATION_NAME}: "
-nohup java -jar $APPLICATION_NAME --spring.config.location=${SPRING_CONFIG_LOCATION} > /opt/logs/gdhi_stdout.txt 2> /opt/logs/gdhi_stderr.txt < /dev/null &
+nohup java -jar $CURRENT_DIR/$APPLICATION_NAME --spring.config.location=${SPRING_CONFIG_LOCATION} > /opt/logs/gdhi_stdout.txt 2> /opt/logs/gdhi_stderr.txt < /dev/null &
 PID="$!"
 echo "Started, pid: $PID"
