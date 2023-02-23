@@ -9,11 +9,11 @@ plugins {
 def jenkinsBuild = System.getenv("BUILD_NUMBER") ?: "0"
 
 group = 'gdhi-service'
-version = '2.0-'
+version = '2.0'
 sourceCompatibility = '17'
 
 bootJar {
-	archiveBaseName.set(group)
+	archiveBaseName.set('gdhi-service')
 	archiveVersion.set(version+appVersion)
 }
 task setUpGitHooks(type: Exec){
