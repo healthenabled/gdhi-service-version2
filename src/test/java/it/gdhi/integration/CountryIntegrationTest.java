@@ -519,7 +519,7 @@ public class CountryIntegrationTest extends BaseIntegrationTest {
     }
 
     private void setUpCountryPhase(String countryId, Integer countryPhaseValue) {
-        CountryPhase countryPhase = CountryPhase.builder().countryId(countryId).countryOverallPhase(countryPhaseValue).build();
+        CountryPhase countryPhase = CountryPhase.builder().countryId(countryId).countryOverallPhase(countryPhaseValue).year("Version1").build();
         countryPhaseRepository.save(countryPhase);
     }
 

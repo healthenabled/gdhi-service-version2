@@ -1,0 +1,1 @@
+INSERT INTO master.default_year_data(year) VALUES('Version1');

@@ -66,7 +66,7 @@ public class ScoreAggregationIntegrationTest extends BaseIntegrationTest {
     }
 
     private void addCountryPhase(String countryId, Integer phase) {
-        CountryPhase countryPhase = CountryPhase.builder().countryId(countryId).countryOverallPhase(phase).build();
+        CountryPhase countryPhase = CountryPhase.builder().countryId(countryId).countryOverallPhase(phase).year("Version1").build();
         iCountryPhaseRepository.save(countryPhase);
     }
 

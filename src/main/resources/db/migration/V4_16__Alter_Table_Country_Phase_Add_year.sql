@@ -1,0 +1,1 @@
+ALTER TABLE country_health_data.country_phase ADD year VARCHAR DEFAULT 'Version1';

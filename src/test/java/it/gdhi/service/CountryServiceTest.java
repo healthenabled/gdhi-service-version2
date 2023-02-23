@@ -10,6 +10,7 @@ import it.gdhi.model.id.CountryHealthIndicatorId;
 import it.gdhi.model.id.CountryResourceLinkId;
 import it.gdhi.model.id.CountrySummaryId;
 import it.gdhi.repository.ICountryHealthIndicatorRepository;
+import it.gdhi.repository.ICountryPhaseRepository;
 import it.gdhi.repository.ICountryRepository;
 import it.gdhi.repository.ICountrySummaryRepository;
 import it.gdhi.utils.LanguageCode;
@@ -51,6 +52,8 @@ public class CountryServiceTest {
     private ICountryHealthIndicatorRepository iCountryHealthIndicatorRepository;
     @Mock
     private CountryNameTranslator translator;
+    @Mock
+    private ICountryPhaseRepository iCountryPhaseRepository;
 
     @Test
     public void shouldInsertTestData() {
@@ -324,6 +327,18 @@ public class CountryServiceTest {
         GdhiQuestionnaire details = countryService.getDetails(countryUUID, LanguageCode.en, false);
 
         assertNull(details);
+    }
+    @Test
+    public void shouldGetPublishedCountriesDistinctYears(){
+        CountryPhase countryPhaseInd = CountryPhase.builder().countryId("IND").countryOverallPhase(1).year("Version1").build();
+        CountryPhase countryPhaseAus = CountryPhase.builder().countryId("AUS").countryOverallPhase(2).year("2023").build();
+        CountryPhase countryPhasePak = CountryPhase.builder().countryId("PAK").countryOverallPhase(3).year("2023").build();
+
+        when(iCountryPhaseRepository.findAll()).thenReturn(asList(countryPhasePak,countryPhaseAus,countryPhaseInd));
+        List<String> expectedDistinctYears = asList("Version1", "2023");
+        List<String> actualDistinctYears = countryService.fetchPublishCountriesDistinctYears();
+
+        assertEquals(expectedDistinctYears,actualDistinctYears);
     }
 
     private void assertIndicators(List<CountryHealthIndicator> expectedCountryHealthIndicators, List<HealthIndicatorDto> actualHealthIndicators) {

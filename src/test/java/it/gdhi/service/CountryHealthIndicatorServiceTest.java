@@ -843,7 +843,7 @@ public class CountryHealthIndicatorServiceTest {
     }
 
     private CountryPhase buildCountryPhase(String countryId, Integer countryPhase) {
-        return CountryPhase.builder().countryId(countryId).countryOverallPhase(countryPhase).build();
+        return CountryPhase.builder().countryId(countryId).countryOverallPhase(countryPhase).year("Version!").build();
     }
 
     @Test
