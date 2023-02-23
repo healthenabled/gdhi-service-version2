@@ -12,16 +12,9 @@ group = 'gdhi-service'
 version = '2.0-'
 sourceCompatibility = '17'
 
-jar {
-	archiveBaseName = 'gdhi'
-	archiveVersion = '1.0.' + jenkinsBuild
-	enabled = false
-}
-
 bootJar {
 	archiveBaseName.set(appName)
-	archiveVersion.set('1.0')
-
+	archiveVersion.set(appVersion)
 }
 task setUpGitHooks(type: Exec){
 	commandLine './utils/set-up-git-hooks.sh'
