@@ -5,15 +5,15 @@ import it.gdhi.repository.IDefaultYearData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.stream.Collectors;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class DefaultYearDataService {
 
-    private IDefaultYearData iDefaultYearData;
+    private final IDefaultYearData iDefaultYearData;
 
     @Autowired
     public DefaultYearDataService(IDefaultYearData iDefaultYearData) {
@@ -21,15 +21,15 @@ public class DefaultYearDataService {
     }
 
     public List<String> fetchYears() {
-         List<DefaultYearData> years = iDefaultYearData.findAll();
-         return years.stream().map(DefaultYearData::getYear).collect(Collectors.toList());
+        List<DefaultYearData> defaultYears = iDefaultYearData.findAll();
+        return defaultYears.stream().map(DefaultYearData::getYear).collect(Collectors.toList());
     }
 
-    public void saveNewYear(String Year) {
+    public void saveDefaultYear(String year) {
         Date date = new Date();
         Timestamp timestamp = new Timestamp(date.getTime());
-        DefaultYearData year = DefaultYearData.builder().year(Year).createdAt(timestamp).build();
-        iDefaultYearData.save(year);
+        DefaultYearData defaultYearData = DefaultYearData.builder().year(year).createdAt(timestamp).build();
+        iDefaultYearData.save(defaultYearData);
     }
 
     public String fetchDefaultYear() {

@@ -9,10 +9,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -36,17 +34,18 @@ public class DefaultYearDataControllerTest {
     @Test
     public void shouldSaveDefaultYear() {
         String year = "Version1";
-        doNothing().when(defaultYearDataService).saveNewYear(year);
+        doNothing().when(defaultYearDataService).saveDefaultYear(year);
         when(countryService.validateDefaultYear(year)).thenReturn(true);
         defaultYearDataController.saveDefaultYear(year);
-        verify(defaultYearDataService).saveNewYear(year);
+        verify(defaultYearDataService).saveDefaultYear(year);
     }
+
     @Test
     public void shouldNotSaveDefaultYearWhenYearIsNotValid() {
         String year = "2002";
         when(countryService.validateDefaultYear(year)).thenReturn(false);
         defaultYearDataController.saveDefaultYear(year);
-        verify(defaultYearDataService, times(0)).saveNewYear(year);
+        verify(defaultYearDataService, times(0)).saveDefaultYear(year);
     }
 
 }

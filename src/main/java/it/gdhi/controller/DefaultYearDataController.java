@@ -37,11 +37,10 @@ public class DefaultYearDataController {
     @ResponseBody
     public ResponseEntity saveDefaultYear(@RequestBody String defaultYear) {
         Boolean isValid = countryService.validateDefaultYear(defaultYear);
-        if(isValid) {
-            defaultYearDataService.saveNewYear(defaultYear);
+        if (isValid) {
+            defaultYearDataService.saveDefaultYear(defaultYear);
             return ResponseEntity.status(HttpStatus.CREATED).body(null);
-        }
-        else {
+        } else {
             return ResponseEntity.badRequest().body(null);
         }
     }

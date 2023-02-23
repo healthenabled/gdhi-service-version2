@@ -19,7 +19,7 @@ public class BffControllerTest {
     private BffService bffService;
 
     @Test
-    public void shouldGetDistinctYears(){
+    public void shouldGetDistinctYears() {
         bffController.getDistinctYears();
         verify(bffService).fetchDistinctYears();
     }

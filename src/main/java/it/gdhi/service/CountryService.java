@@ -16,7 +16,6 @@ import it.gdhi.utils.LanguageCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.Year;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -33,7 +32,6 @@ public class CountryService {
 
     private final ICountryRepository iCountryRepository;
     private final ICountrySummaryRepository iCountrySummaryRepository;
-
     private final ICountryPhaseRepository iCountryPhaseRepository;
     private final ICountryHealthIndicatorRepository iCountryHealthIndicatorRepository;
     private final CountryNameTranslator translator;
@@ -66,10 +64,11 @@ public class CountryService {
         GdhiQuestionnaire gdhiQuestionnaire = null;
         List<CountrySummary> countrySummaries;
 
-        if (!publishedOnly)
+        if (!publishedOnly) {
             countrySummaries = iCountrySummaryRepository.findAll(countryId);
-        else
+        } else {
             countrySummaries = asList(iCountrySummaryRepository.findByCountryAndStatus(countryId, PUBLISHED.name()));
+        }
 
         if (countrySummaries != null) {
             CountrySummary countrySummary = countrySummaries.size() > 1 ?
