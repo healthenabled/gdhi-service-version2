@@ -24,7 +24,15 @@ jobs:
         run: ./gradlew clean build -DincludeIntegrationTestAndRepositoryTest=false
 
       - name: Create fat jar for GDHI-Backend-v2
-        run: ./gradlew clean bootJar
+        run: ./gradlew clean bootJar -PappName=${{ secrets.APPLICATION_NAME }} -PappVersion=${{ secrets.APPLICATION_VERSION }}
+
+      - name: Update the version number
+        uses: gliech/create-github-secret-action@v1
+        with:
+          name: APPLICATION_VERSION
+          value: $((${{ secrets.APPLICATION_VERSION }} + 1))
+          pa_token: ${{ secrets.PA_TOKEN }}
+
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1-node16
