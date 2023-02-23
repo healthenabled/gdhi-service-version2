@@ -19,7 +19,6 @@ jar {
 }
 
 bootJar {
-
 	archiveBaseName.set(appName)
 	archiveVersion.set(appVersion)
 }
