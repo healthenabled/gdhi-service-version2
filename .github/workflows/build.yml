@@ -22,7 +22,7 @@ jobs:
       - run: echo "./gradlew clean bootJar -PappName=${{ secrets.APPLICATION_NAME }} -PappVersion=${{ secrets.APPLICATION_VERSION }}"
 
       - name: Run tests without integration and repository tests
-        run: ./gradlew clean build -DincludeIntegrationTestAndRepositoryTest=false -PappName=${{ secrets.APPLICATION_NAME }} -PappVersion=${{ secrets.APPLICATION_VERSION }}
+        run: ./gradlew clean build -DincludeIntegrationTestAndRepositoryTest=false -PappName=${{ secrets.APPLICATION_NAME }}
 
       - name: Create fat jar for GDHI-Backend-v2
         run: ./gradlew clean bootJar -PappName=${{ secrets.APPLICATION_NAME }} -PappVersion=${{ secrets.APPLICATION_VERSION }}
