@@ -13,8 +13,8 @@ version = '2.0-'
 sourceCompatibility = '17'
 
 bootJar {
-	archiveBaseName.set(appName)
-	archiveVersion.set(appVersion)
+	archiveBaseName.set(group)
+	archiveVersion.set(version+appVersion)
 }
 task setUpGitHooks(type: Exec){
 	commandLine './utils/set-up-git-hooks.sh'
