@@ -25,4 +25,6 @@ public class CountryPhase {
     @Column(name = "country_overall_phase")
     private Integer countryOverallPhase;
 
+    private String year;
+
 }

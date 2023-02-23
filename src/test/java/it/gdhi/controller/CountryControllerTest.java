@@ -111,7 +111,7 @@ public class CountryControllerTest {
     @Test
     public void shouldSaveCorrectedHealthIndicators() {
         GdhiQuestionnaire mock = mock(GdhiQuestionnaire.class);
-        doNothing().when(countryHealthDataService).saveCorrection(mock);                    //Test change submit() - saveCorrection()
+        doNothing().when(countryHealthDataService).saveCorrection(mock);
         countryController.saveCorrectionsFor(mock);
         verify(countryHealthDataService).saveCorrection(mock);
     }
