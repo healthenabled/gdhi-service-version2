@@ -11,7 +11,8 @@ def jenkinsBuild = System.getenv("BUILD_NUMBER") ?: "0"
 group = 'gdhi-service'
 version = '2.0-'
 sourceCompatibility = '17'
-
+appName='gdhi'
+appVersion='1.0'
 jar {
 	archiveBaseName = 'gdhi'
 	archiveVersion = '1.0.' + jenkinsBuild
