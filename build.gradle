@@ -113,22 +113,3 @@ tasks.named('test') {
 				'**/*RepositoryTest.class'
 	}
 }
-
-shadowJar {
-	def versionPropsFile = file('version.properties')
-	if (versionPropsFile.canRead()) {
-		Properties versionProps = new Properties()
-		versionProps.load(new FileInputStream(versionPropsFile))
-		def name = versionProps['VERSION_NAME']
-		def code = versionProps['VERSION_CODE'].toInteger() + 1
-		versionProps['VERSION_CODE'] = code.toString()
-		versionProps.store(versionPropsFile.newWriter(), null)
-
-		archiveBaseName.set(name)
-		archiveVersion.set("2.0"+code.toString())
-
-	}
-	manifest {
-		attributes 'Main-Class': 'it.gdhi.GdhiServiceApplication'
-	}
-}
