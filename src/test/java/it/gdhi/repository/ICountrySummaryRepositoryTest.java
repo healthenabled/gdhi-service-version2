@@ -41,8 +41,9 @@ public class ICountrySummaryRepositoryTest {
 
     private void addCountrySummary(String countryId, String countryName, String alpha2code, String summary,
                                    List<CountryResourceLink> countryResourceLinkList, String status) {
+        String year = "Version1";
         CountrySummary countrySummary = CountrySummary.builder()
-                .countrySummaryId(new CountrySummaryId(countryId, status))
+                .countrySummaryId(new CountrySummaryId(countryId, status, year))
                 .summary(summary)
                 .country(new Country(countryId, countryName, UUID.randomUUID(), alpha2code))
                 .contactName("Contact Name")
@@ -63,7 +64,7 @@ public class ICountrySummaryRepositoryTest {
 
     @Test
     public void shouldFetchPopulationGivenCountryCode() {
-        addCountrySummary("NZL", "New Zealand", "NZ","NZL summary",
+        addCountrySummary("NZL", "New Zealand", "NZ", "NZL summary",
                 new ArrayList<>(), PUBLISHED.toString());
         CountrySummary actual = iCountrySummaryRepository.findOne("NZL");
         assertThat(actual.getCountrySummaryId().getCountryId(), is("NZL"));
@@ -75,7 +76,7 @@ public class ICountrySummaryRepositoryTest {
 
     @Test
     public void shouldFetchCountryCodeCaseInsensitive() {
-        addCountrySummary("NZL", "New Zealand", "NZ","NZL summary",
+        addCountrySummary("NZL", "New Zealand", "NZ", "NZL summary",
                 new ArrayList<>(), PUBLISHED.toString());
         CountrySummary actual = iCountrySummaryRepository.findOne("nzl");
         assertThat(actual.getCountrySummaryId().getCountryId(), is("NZL"));
@@ -92,11 +93,12 @@ public class ICountrySummaryRepositoryTest {
         String summary = "NZL summary 1";
         String countryName = "New Zealand";
         String alpha2code = "NZ";
+        String year = "Version1";
         CountryResourceLink countryResourceLinkList = new CountryResourceLink(new CountryResourceLinkId(countryId, "www.google.com",
-                PUBLISHED.toString()), new Date(), null);
+                PUBLISHED.toString(), year), new Date(), null);
 
         CountrySummary countrySummary = CountrySummary.builder()
-                .countrySummaryId(new CountrySummaryId(countryId, status))
+                .countrySummaryId(new CountrySummaryId(countryId, status, year))
                 .summary(summary)
                 .country(new Country(countryId, countryName, UUID.randomUUID(), alpha2code))
                 .contactName("Contact Name")
@@ -123,7 +125,7 @@ public class ICountrySummaryRepositoryTest {
         assertThat(nzl1.getCountryResourceLinks().get(0).getCountryResourceLinkId().getLink(), is("www.google.com"));
 
         CountrySummary countrySummary2 = CountrySummary.builder()
-                .countrySummaryId(new CountrySummaryId(countryId, status))
+                .countrySummaryId(new CountrySummaryId(countryId, status, year))
                 .summary("NZL summary 2")
                 .country(new Country(countryId, countryName, UUID.randomUUID(), alpha2code))
                 .contactName("Contact Name")
@@ -152,29 +154,29 @@ public class ICountrySummaryRepositoryTest {
 
         List<String> allStatus = iCountrySummaryRepository.getAllStatus(countryId);
         assertNotNull(allStatus);
-        assert(allStatus.isEmpty());
+        assert (allStatus.isEmpty());
     }
 
     @Test
     public void shouldGetAllTheCountrySummaryStatusesForExistingData() {
         String countryId = "NZL";
         addCountrySummary(countryId, "New Zealand",
-                "NZ","NZL summary", new ArrayList<>(), PUBLISHED.toString());
+                "NZ", "NZL summary", new ArrayList<>(), PUBLISHED.toString());
         addCountrySummary(countryId, "New Zealand",
-                "NZ","NZL summary", new ArrayList<>(), NEW.toString());
+                "NZ", "NZL summary", new ArrayList<>(), NEW.toString());
         List<String> allStatus = iCountrySummaryRepository.getAllStatus(countryId);
-        assert(allStatus.contains(PUBLISHED.toString()));
-        assert(allStatus.contains(NEW.toString()));
+        assert (allStatus.contains(PUBLISHED.toString()));
+        assert (allStatus.contains(NEW.toString()));
     }
 
     @Test
     public void shouldGetAllTheCountrySummaryData() {
         String countryId = "IND";
         addCountrySummary(countryId, "INDIA",
-                "IN","IND summary", new ArrayList<>(), PUBLISHED.toString());
+                "IN", "IND summary", new ArrayList<>(), PUBLISHED.toString());
         addCountrySummary(countryId, "INDIA",
-                "IN","IND summary", new ArrayList<>(), NEW.toString());
+                "IN", "IND summary", new ArrayList<>(), NEW.toString());
         List<CountrySummary> countrySummaries = iCountrySummaryRepository.findAllByOrderByUpdatedAtDesc();
-        assertEquals(countrySummaries.size(),2);
+        assertEquals(countrySummaries.size(), 2);
     }
 }

@@ -44,9 +44,10 @@ public class ICountryHealthIndicatorFilterRepositoryTest {
         String status = "PUBLISHED";
 
         String countryId1 = "IND";
+        String year = "Version1";
         CountrySummary countrySummaryIndia = CountrySummary.builder()
 
-                .countrySummaryId(new CountrySummaryId(countryId1, status))
+                .countrySummaryId(new CountrySummaryId(countryId1, status, year))
                 .summary("summary")
                 .country(new Country(countryId1, "India", UUID.randomUUID(), "IN"))
                 .contactName("contactName")
@@ -65,7 +66,7 @@ public class ICountryHealthIndicatorFilterRepositoryTest {
 
         String countryId2 = "ARG";
         CountrySummary countrySummaryARG = CountrySummary.builder()
-                .countrySummaryId(new CountrySummaryId(countryId2, status))
+                .countrySummaryId(new CountrySummaryId(countryId2, status, year))
                 .summary("summary")
                 .country(new Country(countryId2, "Argentina", UUID.randomUUID(), "AR"))
                 .contactName("contactName")
@@ -80,20 +81,20 @@ public class ICountryHealthIndicatorFilterRepositoryTest {
         countrySummaryRepository.save(countrySummaryARG);
 
         Integer indicatorId1 = 1;
-        CountryHealthIndicatorId countryHealthIndicatorId1 = new CountryHealthIndicatorId(countryId1,categoryId1, indicatorId1,status);
+        CountryHealthIndicatorId countryHealthIndicatorId1 = new CountryHealthIndicatorId(countryId1, categoryId1, indicatorId1, status, year);
         Integer indicatorScore1 = 1;
         CountryHealthIndicator countryHealthIndicatorSetupData1 = new CountryHealthIndicator(countryHealthIndicatorId1, indicatorScore1);
 
-        CountryHealthIndicatorId countryHealthIndicatorId4 = new CountryHealthIndicatorId(countryId1,2,4,status);
+        CountryHealthIndicatorId countryHealthIndicatorId4 = new CountryHealthIndicatorId(countryId1, 2, 4, status, year);
         Integer indicatorScore2 = 3;
         CountryHealthIndicator countryHealthIndicatorSetupData4 = new CountryHealthIndicator(countryHealthIndicatorId4, indicatorScore2);
 
         Integer indicatorId2 = 2;
-        CountryHealthIndicatorId countryHealthIndicatorId2 = new CountryHealthIndicatorId(countryId2,categoryId1, indicatorId2,status);
+        CountryHealthIndicatorId countryHealthIndicatorId2 = new CountryHealthIndicatorId(countryId2, categoryId1, indicatorId2, status, year);
         CountryHealthIndicator countryHealthIndicatorSetupData2 = new CountryHealthIndicator(countryHealthIndicatorId2, indicatorScore1);
 
         Integer indicatorId3 = 3;
-        CountryHealthIndicatorId countryHealthIndicatorId3 = new CountryHealthIndicatorId(countryId2,categoryId1, indicatorId3,status);
+        CountryHealthIndicatorId countryHealthIndicatorId3 = new CountryHealthIndicatorId(countryId2, categoryId1, indicatorId3, status, year);
         Integer indicatorScore3 = 4;
         CountryHealthIndicator countryHealthIndicatorSetupData3 = new CountryHealthIndicator(countryHealthIndicatorId3, indicatorScore3);
 

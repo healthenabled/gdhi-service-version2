@@ -41,8 +41,9 @@ public class ICountryResourceLinkRepositoryTest {
 
     private void addCountrySummary(String countryId, String countryName, String alpha2code) {
         String status = "PUBLISHED";
+        String year = "Version1";
         CountrySummary countrySummary = CountrySummary.builder()
-                .countrySummaryId(new CountrySummaryId(countryId, status))
+                .countrySummaryId(new CountrySummaryId(countryId, status, year))
                 .summary("summary")
                 .country(new Country(countryId, countryName, UUID.randomUUID(), alpha2code))
                 .contactName("contactName")
@@ -66,11 +67,11 @@ public class ICountryResourceLinkRepositoryTest {
         addCountrySummary("NZL", "New Zealand", "NZ");
         addCountrySummary("AUS", "Australia", "AU");
         CountryResourceLink countryResourceLink1 = new CountryResourceLink(new CountryResourceLinkId("NZL", "Res " +
-                "1","PUBLISHED"),new Date(), null);
+                "1", "PUBLISHED", "Version1"), new Date(), null);
         CountryResourceLink countryResourceLink2 = new CountryResourceLink(new CountryResourceLinkId("AUS", "Res " +
-                "2","PUBLISHED"),new Date(), null);
+                "2", "PUBLISHED", "Version1"), new Date(), null);
         CountryResourceLink countryResourceLink3 = new CountryResourceLink(new CountryResourceLinkId("NZL", "Res " +
-                "3","PUBLISHED"),new Date(), null);
+                "3", "PUBLISHED", "Version1"), new Date(), null);
         entityManager.persist(countryResourceLink1);
         entityManager.persist(countryResourceLink2);
         entityManager.persist(countryResourceLink3);
@@ -86,11 +87,11 @@ public class ICountryResourceLinkRepositoryTest {
         addCountrySummary("NZL", "New Zealand", "NZ");
         addCountrySummary("AUS", "Australia", "AU");
         CountryResourceLink countryResourceLink1 = new CountryResourceLink(new CountryResourceLinkId("NZL", "Res " +
-                "1","PUBLISHED"),new Date(), null);
+                "1", "PUBLISHED", "Version1"), new Date(), null);
         CountryResourceLink countryResourceLink2 = new CountryResourceLink(new CountryResourceLinkId("AUS", "Res " +
-                "2","PUBLISHED"),new Date(), null);
+                "2", "PUBLISHED", "Version1"), new Date(), null);
         CountryResourceLink countryResourceLink3 = new CountryResourceLink(new CountryResourceLinkId("NZL", "Res " +
-                "3","PUBLISHED"),new Date(), null);
+                "3", "PUBLISHED", "Version1"), new Date(), null);
         entityManager.persist(countryResourceLink1);
         entityManager.persist(countryResourceLink2);
         entityManager.persist(countryResourceLink3);

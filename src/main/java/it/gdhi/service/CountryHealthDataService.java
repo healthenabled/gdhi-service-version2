@@ -71,7 +71,7 @@ public class CountryHealthDataService {
         String currentStatus = getStatusOfCountrySummary(countryId);
 
         if (isNull(currentStatus) || currentStatus.equalsIgnoreCase(PUBLISHED.toString())) {
-            CountrySummary countrySummary = new CountrySummary(new CountrySummaryId(countryId, NEW.toString()),
+            CountrySummary countrySummary = new CountrySummary(new CountrySummaryId(countryId, NEW.toString(), "Version1"),
                     new CountrySummaryDto());
             iCountrySummaryRepository.save(countrySummary);
             statusDto = new CountryUrlGenerationStatusDto(countryId, true, isNull(currentStatus) ? null :
@@ -138,11 +138,19 @@ public class CountryHealthDataService {
     private List<CountryHealthIndicator> transformToHealthIndicator(String countryId,
                                                                     String status,
                                                                     List<HealthIndicatorDto> healthIndicatorDto) {
+        String year = getCurrentYear();
         return healthIndicatorDto.stream().map(dto -> {
             CountryHealthIndicatorId countryHealthIndicatorId = new CountryHealthIndicatorId(countryId,
-                    dto.getCategoryId(), dto.getIndicatorId(), status);
+                    dto.getCategoryId(), dto.getIndicatorId(), status, year);
             return new CountryHealthIndicator(countryHealthIndicatorId, dto.getScore(), dto.getSupportingText());
         }).collect(toList());
+    }
+
+    private String getCurrentYear() {
+        Date date = new Date();
+        Integer yearInInteger = date.getYear() + 1900;
+        String year = new String(String.valueOf(yearInInteger));
+        return year;
     }
 
 
@@ -170,7 +178,8 @@ public class CountryHealthDataService {
 
     private void saveCountryContactInfo(String countryId, String status,
                                         CountrySummaryDto countrySummaryDetailDto) {
-        CountrySummary countrySummary = new CountrySummary(new CountrySummaryId(countryId, status),
+        String year = getCurrentYear();
+        CountrySummary countrySummary = new CountrySummary(new CountrySummaryId(countryId, status, year),
                 countrySummaryDetailDto);
         iCountryResourceLinkRepository.deleteResources(countryId, status);
         iCountrySummaryRepository.save(countrySummary);
@@ -202,20 +211,20 @@ public class CountryHealthDataService {
     }
 
     private boolean verifyIndicators(List<HealthIndicatorDto> healthIndicators) {
-       int count = categoryIndicatorService.getHealthIndicatorCount();
+        int count = categoryIndicatorService.getHealthIndicatorCount();
 
         return (healthIndicators != null)
                 && (count == healthIndicators.size())
                 && healthIndicators.stream().noneMatch(healthIndicatorDto
                 -> healthIndicatorDto == null
-                    ||healthIndicatorDto.getScore() == null
-                    || (ObjectUtils.isEmpty(healthIndicatorDto.getSupportingText())
-                    || healthIndicatorDto.getScore() < -1)
-                );
+                || healthIndicatorDto.getScore() == null
+                || (ObjectUtils.isEmpty(healthIndicatorDto.getSupportingText())
+                || healthIndicatorDto.getScore() < -1)
+        );
     }
 
     private boolean verifyResources(List<String> resources) {
-        return (resources!=null && !resources.isEmpty());
+        return (resources != null && !resources.isEmpty());
     }
 
     private boolean verifyFields(CountrySummaryDto countrySummary) {
@@ -241,5 +250,6 @@ public class CountryHealthDataService {
         Date today = new GregorianCalendar().getTime();
         return (collectedDate.equals(today)) || (collectedDate.before(today) && collectedDate.after(backDate));
     }
+
 
 }

@@ -40,12 +40,13 @@ public class ScoreAggregationIntegrationTest extends BaseIntegrationTest {
     @Autowired
     private ICountryPhaseRepository iCountryPhaseRepository;
 
-    private void addCountrySummary(String countryId, String countryName, String alpha2code) throws  Exception{
+    private void addCountrySummary(String countryId, String countryName, String alpha2code) throws Exception {
         String status = "PUBLISHED";
         SimpleDateFormat fmt = new SimpleDateFormat("dd-MM-yyyy");
         Date date = fmt.parse("04-04-2018");
+        String year = "Version1";
         CountrySummary countrySummary = CountrySummary.builder()
-                .countrySummaryId(new CountrySummaryId(countryId, status))
+                .countrySummaryId(new CountrySummaryId(countryId, status, year))
                 .summary("summary")
                 .country(new Country(countryId, countryName, UUID.randomUUID(), alpha2code))
                 .contactName("contactName")
@@ -201,7 +202,7 @@ public class ScoreAggregationIntegrationTest extends BaseIntegrationTest {
                 .contentType("application/json")
                 .header(USER_LANGUAGE, "en")
                 .when()
-                .get("http://localhost:" + port + "/global_health_indicators?categoryId="+categoryId1+"&phase=1");
+                .get("http://localhost:" + port + "/global_health_indicators?categoryId=" + categoryId1 + "&phase=1");
 
         assertResponse(response.asString(), "filtered_global_indicators.json");
 
@@ -269,7 +270,7 @@ public class ScoreAggregationIntegrationTest extends BaseIntegrationTest {
                 .contentType("application/json")
                 .header(USER_LANGUAGE, "en")
                 .when()
-                .get("http://localhost:" + port + "/global_health_indicators?categoryId="+categoryId1);
+                .get("http://localhost:" + port + "/global_health_indicators?categoryId=" + categoryId1);
 
         assertResponse(response.asString(), "global_indicators_filtered_by_category.json");
 
@@ -462,7 +463,7 @@ public class ScoreAggregationIntegrationTest extends BaseIntegrationTest {
                 .contentType("application/json")
                 .header(USER_LANGUAGE, "en")
                 .when()
-                .get("http://localhost:" + port + "/countries_health_indicator_scores?categoryId="+categoryId1+"&phase=2");
+                .get("http://localhost:" + port + "/countries_health_indicator_scores?categoryId=" + categoryId1 + "&phase=2");
 
         assertResponse(response.asString(), "filtered_countries_health_indicators.json");
     }
@@ -524,7 +525,7 @@ public class ScoreAggregationIntegrationTest extends BaseIntegrationTest {
                 .contentType("application/json")
                 .header(USER_LANGUAGE, "en")
                 .when()
-                .get("http://localhost:" + port + "/countries_health_indicator_scores?categoryId="+categoryId1);
+                .get("http://localhost:" + port + "/countries_health_indicator_scores?categoryId=" + categoryId1);
 
         assertResponse(response.asString(), "countries_health_indicators_filter_by_category.json");
     }
@@ -652,6 +653,7 @@ public class ScoreAggregationIntegrationTest extends BaseIntegrationTest {
 
         assertResponse(response.asString(), "countries_health_indicators_fr.json");
     }
+
     @Test
     public void shouldNotCalculateSubIndicatorsScoreForOverallScore() throws Exception {
         String india = "IND";

@@ -16,7 +16,9 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -46,8 +48,9 @@ public class ICountryHealthIndicatorRepositoryTest {
 
     private void addCountrySummary(String countryId, String countryName, String alpha2code) {
         String status = "PUBLISHED";
+        String year = "Version1";
         CountrySummary countrySummary = CountrySummary.builder()
-                .countrySummaryId(new CountrySummaryId(countryId, status))
+                .countrySummaryId(new CountrySummaryId(countryId, status, year))
                 .summary("summary")
                 .country(new Country(countryId, countryName, UUID.randomUUID(), alpha2code))
                 .contactName("contactName")
@@ -68,15 +71,15 @@ public class ICountryHealthIndicatorRepositoryTest {
 
     @Test
     public void shouldFetchCountryCategoryIndicatorDetailsOnHealthIndicatorScoreFetchForCountry() {
-
         String countryId = "IND";
         Integer categoryId = 1;
         Integer indicatorId = 2;
         Integer indicatorScore = 3;
         String status = "PUBLISHED";
+        String year = "Version1";
 
         addCountrySummary(countryId, status, "IN");
-        CountryHealthIndicatorId countryHealthIndicatorId = new CountryHealthIndicatorId(countryId,categoryId,indicatorId,status);
+        CountryHealthIndicatorId countryHealthIndicatorId = new CountryHealthIndicatorId(countryId, categoryId, indicatorId, status, year);
         CountryHealthIndicator countryHealthIndicatorSetupData = new CountryHealthIndicator(countryHealthIndicatorId, indicatorScore);
 
         entityManager.persist(countryHealthIndicatorSetupData);
@@ -99,11 +102,12 @@ public class ICountryHealthIndicatorRepositoryTest {
         Integer indicatorId = 2;
         Integer indicatorScore = 3;
         String status = "PUBLISHED";
+        String year = "Version1";
 
         addCountrySummary(countryId, status, "IN");
 
 
-        CountryHealthIndicatorId countryHealthIndicatorId = new CountryHealthIndicatorId(countryId,categoryId,indicatorId,status);
+        CountryHealthIndicatorId countryHealthIndicatorId = new CountryHealthIndicatorId(countryId, categoryId, indicatorId, status, year);
         CountryHealthIndicator countryHealthIndicatorSetupData = new CountryHealthIndicator(countryHealthIndicatorId, indicatorScore);
 
         iCountryHealthIndicatorRepository.save(countryHealthIndicatorSetupData);
@@ -125,11 +129,12 @@ public class ICountryHealthIndicatorRepositoryTest {
         Integer indicatorId = 13;
         Integer score = 3;
         String status = "PUBLISHED";
+        String year = "Version1";
 
         addCountrySummary(countryId, status, "IN");
 
 
-        CountryHealthIndicatorId countryHealthIndicatorId = new CountryHealthIndicatorId(countryId,categoryId,indicatorId,status);
+        CountryHealthIndicatorId countryHealthIndicatorId = new CountryHealthIndicatorId(countryId, categoryId, indicatorId, status, year);
         CountryHealthIndicator countryHealthIndicatorSetupData = new CountryHealthIndicator(countryHealthIndicatorId, score);
         entityManager.persist(countryHealthIndicatorSetupData);
         entityManager.flush();
@@ -154,12 +159,13 @@ public class ICountryHealthIndicatorRepositoryTest {
         Integer categoryId = 7;
         Integer indicatorId = 13;
         Integer score = null;
-        String status="PUBLISHED";
+        String status = "PUBLISHED";
+        String year = "Version1";
 
         addCountrySummary(countryId, status, "IN");
 
 
-        CountryHealthIndicatorId countryHealthIndicatorId = new CountryHealthIndicatorId(countryId,categoryId,indicatorId,status);
+        CountryHealthIndicatorId countryHealthIndicatorId = new CountryHealthIndicatorId(countryId, categoryId, indicatorId, status, year);
         CountryHealthIndicator countryHealthIndicatorSetupData = new CountryHealthIndicator(countryHealthIndicatorId, score);
         entityManager.persist(countryHealthIndicatorSetupData);
         entityManager.flush();
@@ -186,27 +192,28 @@ public class ICountryHealthIndicatorRepositoryTest {
         Integer indicatorId = 1;
         Integer indicatorId2 = 2;
         Integer indicatorId3 = 3;
-        String status="PUBLISHED";
+        String status = "PUBLISHED";
+        String year = "Version1";
 
         addCountrySummary(countryId, "India", "IN");
         addCountrySummary("PAK", "Pakistan", "PK");
 
 
-        CountryHealthIndicatorId countryHealthIndicatorId = new CountryHealthIndicatorId(countryId,categoryId,indicatorId,status);
+        CountryHealthIndicatorId countryHealthIndicatorId = new CountryHealthIndicatorId(countryId, categoryId, indicatorId, status, year);
         CountryHealthIndicator countryHealthIndicatorSetupData = new CountryHealthIndicator(countryHealthIndicatorId, 3);
-        CountryHealthIndicatorId countryHealthIndicatorId1 = new CountryHealthIndicatorId(countryId,categoryId,indicatorId2,status);
+        CountryHealthIndicatorId countryHealthIndicatorId1 = new CountryHealthIndicatorId(countryId, categoryId, indicatorId2, status, year);
         CountryHealthIndicator countryHealthIndicatorSetupData1 = new CountryHealthIndicator(countryHealthIndicatorId1, 2);
-        CountryHealthIndicatorId countryHealthIndicatorId2 = new CountryHealthIndicatorId(countryId,categoryId,indicatorId3,status);
+        CountryHealthIndicatorId countryHealthIndicatorId2 = new CountryHealthIndicatorId(countryId, categoryId, indicatorId3, status, year);
         CountryHealthIndicator countryHealthIndicatorSetupData2 = new CountryHealthIndicator(countryHealthIndicatorId2, 1);
         entityManager.persist(countryHealthIndicatorSetupData);
         entityManager.persist(countryHealthIndicatorSetupData1);
         entityManager.persist(countryHealthIndicatorSetupData2);
 
-        CountryHealthIndicatorId countryHealthIndicatorIdPAK = new CountryHealthIndicatorId(pakistan,categoryId,indicatorId,status);
+        CountryHealthIndicatorId countryHealthIndicatorIdPAK = new CountryHealthIndicatorId(pakistan, categoryId, indicatorId, status, year);
         CountryHealthIndicator countryHealthIndicatorSetupDataPAK = new CountryHealthIndicator(countryHealthIndicatorIdPAK, 4);
-        CountryHealthIndicatorId countryHealthIndicatorIdPAK1 = new CountryHealthIndicatorId(pakistan,categoryId,indicatorId2,status);
+        CountryHealthIndicatorId countryHealthIndicatorIdPAK1 = new CountryHealthIndicatorId(pakistan, categoryId, indicatorId2, status, year);
         CountryHealthIndicator countryHealthIndicatorSetupDataPAK1 = new CountryHealthIndicator(countryHealthIndicatorIdPAK1, -1);
-        CountryHealthIndicatorId countryHealthIndicatorIdPAK2 = new CountryHealthIndicatorId(pakistan,categoryId,indicatorId3,status);
+        CountryHealthIndicatorId countryHealthIndicatorIdPAK2 = new CountryHealthIndicatorId(pakistan, categoryId, indicatorId3, status, year);
         CountryHealthIndicator countryHealthIndicatorSetupDataPAK2 = new CountryHealthIndicator(countryHealthIndicatorIdPAK2, 1);
         entityManager.persist(countryHealthIndicatorSetupDataPAK);
         entityManager.persist(countryHealthIndicatorSetupDataPAK1);
@@ -231,26 +238,27 @@ public class ICountryHealthIndicatorRepositoryTest {
         Integer indicatorId = 1;
         Integer indicatorId2 = 2;
         Integer indicatorId3 = 3;
-        String status="PUBLISHED";
+        String status = "PUBLISHED";
+        String year = "Version1";
 
         addCountrySummary(countryId, "India", "IN");
         addCountrySummary("PAK", "Pakistan", "PK");
 
 
-        CountryHealthIndicatorId countryHealthIndicatorId = new CountryHealthIndicatorId(countryId,categoryId,indicatorId,status);
+        CountryHealthIndicatorId countryHealthIndicatorId = new CountryHealthIndicatorId(countryId, categoryId, indicatorId, status, year);
         CountryHealthIndicator countryHealthIndicatorSetupData = new CountryHealthIndicator(countryHealthIndicatorId, 3);
-        CountryHealthIndicatorId countryHealthIndicatorId1 = new CountryHealthIndicatorId(countryId,categoryId,indicatorId2,status);
+        CountryHealthIndicatorId countryHealthIndicatorId1 = new CountryHealthIndicatorId(countryId, categoryId, indicatorId2, status, year);
         CountryHealthIndicator countryHealthIndicatorSetupData1 = new CountryHealthIndicator(countryHealthIndicatorId1, 2);
 
         entityManager.persist(countryHealthIndicatorSetupData);
         entityManager.persist(countryHealthIndicatorSetupData1);
 
 
-        CountryHealthIndicatorId countryHealthIndicatorIdPAK = new CountryHealthIndicatorId(pakistan,categoryId,indicatorId,status);
+        CountryHealthIndicatorId countryHealthIndicatorIdPAK = new CountryHealthIndicatorId(pakistan, categoryId, indicatorId, status, year);
         CountryHealthIndicator countryHealthIndicatorSetupDataPAK = new CountryHealthIndicator(countryHealthIndicatorIdPAK, 4);
-        CountryHealthIndicatorId countryHealthIndicatorIdPAK1 = new CountryHealthIndicatorId(pakistan,categoryId,indicatorId2,status);
+        CountryHealthIndicatorId countryHealthIndicatorIdPAK1 = new CountryHealthIndicatorId(pakistan, categoryId, indicatorId2, status, year);
         CountryHealthIndicator countryHealthIndicatorSetupDataPAK1 = new CountryHealthIndicator(countryHealthIndicatorIdPAK1, -1);
-        CountryHealthIndicatorId countryHealthIndicatorIdPAK2 = new CountryHealthIndicatorId(pakistan,categoryId,indicatorId3,status);
+        CountryHealthIndicatorId countryHealthIndicatorIdPAK2 = new CountryHealthIndicatorId(pakistan, categoryId, indicatorId3, status, year);
         CountryHealthIndicator countryHealthIndicatorSetupDataPAK2 = new CountryHealthIndicator(countryHealthIndicatorIdPAK2, 1);
         entityManager.persist(countryHealthIndicatorSetupDataPAK);
         entityManager.persist(countryHealthIndicatorSetupDataPAK1);
@@ -268,8 +276,8 @@ public class ICountryHealthIndicatorRepositoryTest {
         assertFor(countryHealthIndicators, pakistan);
     }
 
-    private void assertFor(List<CountryHealthIndicator> countryHealthIndicators, String countryId){
-        for(CountryHealthIndicator countryHealthIndicator : countryHealthIndicators){
+    private void assertFor(List<CountryHealthIndicator> countryHealthIndicators, String countryId) {
+        for (CountryHealthIndicator countryHealthIndicator : countryHealthIndicators) {
             assertThat(countryHealthIndicator.getCountry().getId(), is(countryId));
         }
     }
@@ -280,17 +288,18 @@ public class ICountryHealthIndicatorRepositoryTest {
         String pakistan = "PAK";
         Integer categoryId = 7;
         Integer indicatorId = 1;
-        String status="PUBLISHED";
+        String status = "PUBLISHED";
+        String year = "Version1";
 
         addCountrySummary(countryId, "India", "IN");
         addCountrySummary("PAK", "Pakistan", "PK");
 
 
-        CountryHealthIndicatorId countryHealthIndicatorId = new CountryHealthIndicatorId(countryId,categoryId,indicatorId,status);
+        CountryHealthIndicatorId countryHealthIndicatorId = new CountryHealthIndicatorId(countryId, categoryId, indicatorId, status, year);
         CountryHealthIndicator countryHealthIndicatorSetupData = new CountryHealthIndicator(countryHealthIndicatorId, -1);
         entityManager.persist(countryHealthIndicatorSetupData);
 
-        CountryHealthIndicatorId countryHealthIndicatorIdPAK = new CountryHealthIndicatorId(pakistan,categoryId,indicatorId,status);
+        CountryHealthIndicatorId countryHealthIndicatorIdPAK = new CountryHealthIndicatorId(pakistan, categoryId, indicatorId, status, year);
         CountryHealthIndicator countryHealthIndicatorSetupDataPAK = new CountryHealthIndicator(countryHealthIndicatorIdPAK, -1);
         entityManager.persist(countryHealthIndicatorSetupDataPAK);
 
@@ -330,16 +339,17 @@ public class ICountryHealthIndicatorRepositoryTest {
         Integer indicatorId3 = 1;
         String status3 = "DRAFT";
         Integer indicatorScore3 = 4;
+        String year = "Version1";
 
-        addCountrySummary(countryId3, status3,"AR");
+        addCountrySummary(countryId3, status3, "AR");
 
-        CountryHealthIndicatorId countryHealthIndicatorId1 = new CountryHealthIndicatorId(countryId1,categoryId1,indicatorId1,status1);
+        CountryHealthIndicatorId countryHealthIndicatorId1 = new CountryHealthIndicatorId(countryId1, categoryId1, indicatorId1, status1, year);
         CountryHealthIndicator countryHealthIndicatorSetupData1 = new CountryHealthIndicator(countryHealthIndicatorId1, indicatorScore1);
 
-        CountryHealthIndicatorId countryHealthIndicatorId2 = new CountryHealthIndicatorId(countryId2,categoryId2,indicatorId2,status2);
+        CountryHealthIndicatorId countryHealthIndicatorId2 = new CountryHealthIndicatorId(countryId2, categoryId2, indicatorId2, status2, year);
         CountryHealthIndicator countryHealthIndicatorSetupData2 = new CountryHealthIndicator(countryHealthIndicatorId2, indicatorScore2);
 
-        CountryHealthIndicatorId countryHealthIndicatorId3 = new CountryHealthIndicatorId(countryId3,categoryId3,indicatorId3,status3);
+        CountryHealthIndicatorId countryHealthIndicatorId3 = new CountryHealthIndicatorId(countryId3, categoryId3, indicatorId3, status3, year);
         CountryHealthIndicator countryHealthIndicatorSetupData3 = new CountryHealthIndicator(countryHealthIndicatorId3, indicatorScore3);
 
         entityManager.persist(countryHealthIndicatorSetupData1);
@@ -353,6 +363,7 @@ public class ICountryHealthIndicatorRepositoryTest {
         assertThat(countries.size(), is(2));
         assertThat(countries, is(containsInAnyOrder("ARG", "IND")));
     }
+
     private void setUpCountryPhase(String countryId, Integer countryPhaseValue) {
         CountryPhase countryPhase = CountryPhase.builder().countryId(countryId).countryOverallPhase(countryPhaseValue).year("Version1").build();
         countryPhaseRepository.save(countryPhase);

@@ -26,4 +26,6 @@ public class CountryHealthIndicatorId implements Serializable {
     @Column(name = "status")
     private String status;
 
+    private String year;
+
 }

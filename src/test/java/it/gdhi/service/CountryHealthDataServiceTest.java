@@ -236,17 +236,17 @@ public class CountryHealthDataServiceTest {
 
     @Test
     public void shouldGetAdminViewFormDetails() {
-        CountrySummary countrySummaryIND = getCountrySummary("IND","PUBLISHED","INDIA",
-                "IN","Contact Name 1","con1@gdhi.com");
-        CountrySummary countrySummaryARG = getCountrySummary("ARG","REVIEW_PENDING",
-                "ARGENTINA", "AR","Contact Name 1","con1@gdhi.com");
-        CountrySummary countrySummaryALG = getCountrySummary("ALG","NEW","ALGERIA",
-                "AL","Contact Name 2","con2@gdhi.com");
-        CountrySummary countrySummaryINDNEW = getCountrySummary("IND","NEW","INDIA",
-                "IN","Contact Name 1","con1@gdhi.com");
+        CountrySummary countrySummaryIND = getCountrySummary("IND", "PUBLISHED", "INDIA",
+                "IN", "Contact Name 1", "con1@gdhi.com");
+        CountrySummary countrySummaryARG = getCountrySummary("ARG", "REVIEW_PENDING",
+                "ARGENTINA", "AR", "Contact Name 1", "con1@gdhi.com");
+        CountrySummary countrySummaryALG = getCountrySummary("ALG", "NEW", "ALGERIA",
+                "AL", "Contact Name 2", "con2@gdhi.com");
+        CountrySummary countrySummaryINDNEW = getCountrySummary("IND", "NEW", "INDIA",
+                "IN", "Contact Name 1", "con1@gdhi.com");
 
-        when(iCountrySummaryRepository.findAllByOrderByUpdatedAtDesc()).thenReturn(asList(countrySummaryIND,countrySummaryARG,
-                countrySummaryALG,countrySummaryINDNEW));
+        when(iCountrySummaryRepository.findAllByOrderByUpdatedAtDesc()).thenReturn(asList(countrySummaryIND, countrySummaryARG,
+                countrySummaryALG, countrySummaryINDNEW));
         Map<String, List<CountrySummaryStatusDto>> adminViewFormDetails = countryHealthDataService.getAllCountryStatusSummaries();
         assertEquals(adminViewFormDetails.get("NEW").size(), 2);
         assertEquals(adminViewFormDetails.get("REVIEW_PENDING").size(), 1);
@@ -434,7 +434,8 @@ public class CountryHealthDataServiceTest {
 
         assertFalse(countryHealthDataService.validateRequiredFields(gdhiQuestionnaire));
 
-        List<HealthIndicatorDto> healthIndicatorDtosWithInvalidSupportingText = getHealthIndicatorDto(2, "");;
+        List<HealthIndicatorDto> healthIndicatorDtosWithInvalidSupportingText = getHealthIndicatorDto(2, "");
+        ;
 
         GdhiQuestionnaire gdhiQuestionnaire1 = GdhiQuestionnaire.builder().countryId(countryId)
                 .countrySummary(countrySummaryDetailDto)
@@ -442,8 +443,8 @@ public class CountryHealthDataServiceTest {
 
         assertFalse(countryHealthDataService.validateRequiredFields(gdhiQuestionnaire1));
 
-        List<HealthIndicatorDto> healthIndicatorDtoWithNull =  new ArrayList<>();
-        for(int i=0;i<30;i++){
+        List<HealthIndicatorDto> healthIndicatorDtoWithNull = new ArrayList<>();
+        for (int i = 0; i < 30; i++) {
             healthIndicatorDtoList.add(null);
         }
 
@@ -510,7 +511,7 @@ public class CountryHealthDataServiceTest {
     }
 
     @Test
-    public void ShouldCalculatePhaseForAllCountries(){
+    public void ShouldCalculatePhaseForAllCountries() {
         String publishedStatus = "PUBLISHED";
         when(iCountrySummaryRepository.findAllByStatus(publishedStatus)).thenReturn(asList("IND"));
 
@@ -531,16 +532,17 @@ public class CountryHealthDataServiceTest {
 
         ArgumentCaptor<CountryPhase> phaseDetailsCaptor = ArgumentCaptor.forClass(CountryPhase.class);
         inOrder.verify(iCountryPhaseRepository, times(1)).save(phaseDetailsCaptor.capture());
-        assertThat( phaseDetailsCaptor.getValue().getCountryId(),is("IND"));
-        assertThat(phaseDetailsCaptor.getValue().getCountryOverallPhase(), is (2));
+        assertThat(phaseDetailsCaptor.getValue().getCountryId(), is("IND"));
+        assertThat(phaseDetailsCaptor.getValue().getCountryOverallPhase(), is(2));
     }
 
-    private CountrySummary getCountrySummary(String countryId , String statusValue , String countryName ,
-                                             String alpha2code, String contactName  , String contactEmail) {
+    private CountrySummary getCountrySummary(String countryId, String statusValue, String countryName,
+                                             String alpha2code, String contactName, String contactEmail) {
         UUID countryUUID = UUID.randomUUID();
         Country country = new Country(countryId, countryName, countryUUID, alpha2code);
+        String year = "Version1";
         return CountrySummary.builder()
-                .countrySummaryId(new CountrySummaryId(countryId, statusValue))
+                .countrySummaryId(new CountrySummaryId(countryId, statusValue, year))
                 .country(country)
                 .contactName(contactName)
                 .contactEmail(contactEmail)
@@ -549,8 +551,8 @@ public class CountryHealthDataServiceTest {
     }
 
     private List<HealthIndicatorDto> getHealthIndicatorDto(Integer score, String supportText) {
-        List<HealthIndicatorDto> healthIndicatorDtoList =  new ArrayList<>();
-        for(int i=0;i<30;i++){
+        List<HealthIndicatorDto> healthIndicatorDtoList = new ArrayList<>();
+        for (int i = 0; i < 30; i++) {
             healthIndicatorDtoList.add(new HealthIndicatorDto(1, 1, "PUBLISHED", score, supportText));
         }
         return healthIndicatorDtoList;

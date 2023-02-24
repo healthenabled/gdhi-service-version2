@@ -25,4 +25,7 @@ public class CountryResourceLinkId implements Serializable {
     @Column(name = "status")
     private String status;
 
+    @Column(name = "year")
+    private String year;
+
 }
