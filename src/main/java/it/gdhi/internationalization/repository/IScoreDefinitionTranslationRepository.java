@@ -2,11 +2,12 @@ package it.gdhi.internationalization.repository;
 
 import it.gdhi.internationalization.model.ScoreDefinitionTranslation;
 import it.gdhi.utils.LanguageCode;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.Repository;
 import org.springframework.data.repository.query.Param;
-
-public interface IScoreDefinitionTranslationRepository extends Repository<ScoreDefinitionTranslation, Long> {
+import org.springframework.stereotype.Repository;
+@Repository
+public interface IScoreDefinitionTranslationRepository extends JpaRepository<ScoreDefinitionTranslation, Long> {
 
     @Query("SELECT t.definition FROM ScoreDefinitionTranslation t " +
             "WHERE t.id.languageId = :languageId " +
