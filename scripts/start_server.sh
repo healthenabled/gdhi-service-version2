@@ -2,7 +2,8 @@
 set -xe
 pwd
 source /opt/scripts/export_aws_vars.sh
-rm -rf *.jar
+echo -n "Remove existing jars"
+rm -rf $CURRENT_DIR/*.jar
 FILE=`/usr/local/bin/aws s3 ls $AWS_S3_BUCKET_NAME/$AWS_S3_FOLDER_BACKEND --recursive | sort | tail -n 1 | awk '{print $4}'`
 /usr/local/bin/aws s3 cp "s3://$AWS_S3_BUCKET_NAME/$FILE" $CURRENT_DIR/
 chmod +x $CURRENT_DIR/gdhi-*.jar;
