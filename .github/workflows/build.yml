@@ -49,7 +49,7 @@ jobs:
   deploy-to-qa:
     runs-on: ubuntu-latest
     needs: [ continuous-integration ]
-    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/cicd' || github.ref == 'refs/heads/cicd'
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/cicd'
     steps:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1-node16
