@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -66,8 +67,12 @@ public class CountryController {
     }
 
     @GetMapping("/countries/{id}/country_summary")
-    public CountrySummaryDto fetchCountrySummary(@PathVariable("id") String countryId) {
-        return countryService.fetchCountrySummary(countryId);
+    public CountrySummaryDto fetchCountrySummary(@PathVariable("id") String countryId,
+                                                 @RequestParam(value = "year", required = false) String year) {
+        if (year == null) {
+            year = defaultYearDataService.fetchDefaultYear();
+        }
+        return countryService.fetchCountrySummary(countryId, year);
     }
 
     @PostMapping("/countries/save")

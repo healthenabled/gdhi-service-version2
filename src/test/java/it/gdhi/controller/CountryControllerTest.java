@@ -19,6 +19,7 @@ import org.springframework.mock.web.MockHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.HashMap;
@@ -141,8 +142,9 @@ public class CountryControllerTest {
     public void shouldFetchCountrySummary() {
         CountrySummaryDto countrySummary = mock(CountrySummaryDto.class);
         String countryId = "IND";
-        when(countryService.fetchCountrySummary(countryId)).thenReturn(countrySummary);
-        CountrySummaryDto actualCountrySummary = countryController.fetchCountrySummary(countryId);
+        String year = "Version1";
+        when(countryService.fetchCountrySummary(countryId, year)).thenReturn(countrySummary);
+        CountrySummaryDto actualCountrySummary = countryController.fetchCountrySummary(countryId, year);
         assertThat(actualCountrySummary, is(countrySummary));
     }
 

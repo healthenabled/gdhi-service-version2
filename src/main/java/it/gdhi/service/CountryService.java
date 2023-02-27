@@ -53,8 +53,8 @@ public class CountryService {
         return translator.translate(countries, languageCode);
     }
 
-    public CountrySummaryDto fetchCountrySummary(String countryId) {
-        CountrySummary countrySummary = iCountrySummaryRepository.findByCountryAndStatus(countryId, PUBLISHED.name());
+    public CountrySummaryDto fetchCountrySummary(String countryId, String year) {
+        CountrySummary countrySummary = iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdStatusAndCountrySummaryIdYear(countryId, PUBLISHED.name(), year);
         return Optional.ofNullable(countrySummary).map(CountrySummaryDto::new).orElse(new CountrySummaryDto());
     }
 
@@ -91,7 +91,7 @@ public class CountryService {
                         countrySummary.getCountrySummaryId().getStatus());
 
         return countryHealthIndicators.stream().sorted(
-                Comparator.comparing(o -> o.getIndicator().getRank()))
+                        Comparator.comparing(o -> o.getIndicator().getRank()))
                 .collect(Collectors.toList());
     }
 
