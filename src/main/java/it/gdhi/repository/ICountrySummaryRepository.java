@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+
 @Repository
 public interface ICountrySummaryRepository extends JpaRepository<CountrySummary, String> {
 
@@ -41,5 +42,5 @@ public interface ICountrySummaryRepository extends JpaRepository<CountrySummary,
 
     List<CountrySummary> findAllByOrderByUpdatedAtDesc();
 
-    CountrySummary findByCountrySummaryIdCountryIdAndCountrySummaryIdStatusAndCountrySummaryIdYear(String countryId, String currentStatus, String year);
+    //  CountrySummary findByCountrySummaryIdCountryIdAndCountrySummaryIdStatusAndCountrySummaryIdYear(String countryId, String currentStatus, String year);
 }

@@ -90,7 +90,7 @@ public class CountryHealthDataServiceTest {
         ArgumentCaptor<CountryPhase> phaseDetailsCaptor = ArgumentCaptor.forClass(CountryPhase.class);
         inOrder.verify(iCountryPhaseRepository).save(phaseDetailsCaptor.capture());
         assertThat(phaseDetailsCaptor.getValue().getCountryOverallPhase(), is(2));
-        assertThat(phaseDetailsCaptor.getValue().getCountryId(), is(countryId));
+        assertThat(phaseDetailsCaptor.getValue().getCountryPhaseId().getCountryId(), is(countryId));
 
     }
 
@@ -532,7 +532,7 @@ public class CountryHealthDataServiceTest {
 
         ArgumentCaptor<CountryPhase> phaseDetailsCaptor = ArgumentCaptor.forClass(CountryPhase.class);
         inOrder.verify(iCountryPhaseRepository, times(1)).save(phaseDetailsCaptor.capture());
-        assertThat(phaseDetailsCaptor.getValue().getCountryId(), is("IND"));
+        assertThat(phaseDetailsCaptor.getValue().getCountryPhaseId().getCountryId(), is("IND"));
         assertThat(phaseDetailsCaptor.getValue().getCountryOverallPhase(), is(2));
     }
 

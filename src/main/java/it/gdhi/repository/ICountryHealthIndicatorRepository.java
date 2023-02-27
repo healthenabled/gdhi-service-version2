@@ -16,7 +16,7 @@ public interface ICountryHealthIndicatorRepository extends JpaRepository<Country
     List<CountryHealthIndicator> findByCountryIdAndStatus(String countryId, String status);
 
     @Query("SELECT h FROM CountryHealthIndicator h, CountryPhase ph WHERE " +
-            "h.countryHealthIndicatorId.countryId = ph.countryId and " +
+            "h.countryHealthIndicatorId.countryId = ph.countryPhaseId.countryId and " +
             "h.countryHealthIndicatorId.status=?1 and " +
             "ph.countryOverallPhase = CASE WHEN (?2 = -1) THEN ph.countryOverallPhase ELSE ?2 END")
     List<CountryHealthIndicator> findByStatusAndPhase(String status, Integer countryPhase);

@@ -7,6 +7,7 @@ import it.gdhi.dto.HealthIndicatorDto;
 import it.gdhi.internationalization.service.CountryNameTranslator;
 import it.gdhi.model.*;
 import it.gdhi.model.id.CountryHealthIndicatorId;
+import it.gdhi.model.id.CountryPhaseId;
 import it.gdhi.model.id.CountryResourceLinkId;
 import it.gdhi.model.id.CountrySummaryId;
 import it.gdhi.repository.ICountryHealthIndicatorRepository;
@@ -336,9 +337,12 @@ public class CountryServiceTest {
 
     @Test
     public void shouldGetPublishedCountriesDistinctYears() {
-        CountryPhase countryPhaseInd = CountryPhase.builder().countryId("IND").countryOverallPhase(1).year("Version1").build();
-        CountryPhase countryPhaseAus = CountryPhase.builder().countryId("AUS").countryOverallPhase(2).year("2023").build();
-        CountryPhase countryPhasePak = CountryPhase.builder().countryId("PAK").countryOverallPhase(3).year("2023").build();
+        CountryPhaseId countryPhaseId1 = new CountryPhaseId("IND", "Version1");
+        CountryPhaseId countryPhaseId2 = new CountryPhaseId("AUS", "2023");
+        CountryPhaseId countryPhaseId3 = new CountryPhaseId("PAK", "2023");
+        CountryPhase countryPhaseInd = CountryPhase.builder().countryPhaseId(countryPhaseId1).countryOverallPhase(1).build();
+        CountryPhase countryPhaseAus = CountryPhase.builder().countryPhaseId(countryPhaseId2).countryOverallPhase(2).build();
+        CountryPhase countryPhasePak = CountryPhase.builder().countryPhaseId(countryPhaseId3).countryOverallPhase(3).build();
 
         when(iCountryPhaseRepository.findAll()).thenReturn(asList(countryPhasePak, countryPhaseAus, countryPhaseInd));
         List<String> expectedDistinctYears = asList("Version1", "2023");

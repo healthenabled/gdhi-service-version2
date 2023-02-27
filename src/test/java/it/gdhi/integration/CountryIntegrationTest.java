@@ -7,6 +7,7 @@ import it.gdhi.model.Country;
 import it.gdhi.model.CountryPhase;
 import it.gdhi.model.CountryResourceLink;
 import it.gdhi.model.CountrySummary;
+import it.gdhi.model.id.CountryPhaseId;
 import it.gdhi.model.id.CountryResourceLinkId;
 import it.gdhi.model.id.CountrySummaryId;
 import it.gdhi.repository.ICountryPhaseRepository;
@@ -525,7 +526,8 @@ public class CountryIntegrationTest extends BaseIntegrationTest {
     }
 
     private void setUpCountryPhase(String countryId, Integer countryPhaseValue) {
-        CountryPhase countryPhase = CountryPhase.builder().countryId(countryId).countryOverallPhase(countryPhaseValue).year("Version1").build();
+        CountryPhaseId countryPhaseId = new CountryPhaseId(countryId, "Version1");
+        CountryPhase countryPhase = CountryPhase.builder().countryPhaseId(countryPhaseId).countryOverallPhase(countryPhaseValue).build();
         countryPhaseRepository.save(countryPhase);
     }
 

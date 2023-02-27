@@ -5,6 +5,7 @@ import it.gdhi.model.CountryHealthIndicator;
 import it.gdhi.model.CountryPhase;
 import it.gdhi.model.CountrySummary;
 import it.gdhi.model.id.CountryHealthIndicatorId;
+import it.gdhi.model.id.CountryPhaseId;
 import it.gdhi.model.id.CountrySummaryId;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -365,7 +366,8 @@ public class ICountryHealthIndicatorRepositoryTest {
     }
 
     private void setUpCountryPhase(String countryId, Integer countryPhaseValue) {
-        CountryPhase countryPhase = CountryPhase.builder().countryId(countryId).countryOverallPhase(countryPhaseValue).year("Version1").build();
+        CountryPhaseId countryPhaseId = new CountryPhaseId(countryId, "Version1");
+        CountryPhase countryPhase = CountryPhase.builder().countryPhaseId(countryPhaseId).countryOverallPhase(countryPhaseValue).build();
         countryPhaseRepository.save(countryPhase);
     }
 }

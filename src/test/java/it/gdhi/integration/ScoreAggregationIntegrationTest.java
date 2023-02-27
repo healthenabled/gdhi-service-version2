@@ -6,6 +6,7 @@ import it.gdhi.dto.HealthIndicatorDto;
 import it.gdhi.model.Country;
 import it.gdhi.model.CountryPhase;
 import it.gdhi.model.CountrySummary;
+import it.gdhi.model.id.CountryPhaseId;
 import it.gdhi.model.id.CountrySummaryId;
 import it.gdhi.repository.ICountryPhaseRepository;
 import it.gdhi.repository.ICountrySummaryRepository;
@@ -67,7 +68,8 @@ public class ScoreAggregationIntegrationTest extends BaseIntegrationTest {
     }
 
     private void addCountryPhase(String countryId, Integer phase) {
-        CountryPhase countryPhase = CountryPhase.builder().countryId(countryId).countryOverallPhase(phase).year("Version1").build();
+        CountryPhaseId countryPhaseId = new CountryPhaseId(countryId, "Version1");
+        CountryPhase countryPhase = CountryPhase.builder().countryPhaseId(countryPhaseId).countryOverallPhase(phase).build();
         iCountryPhaseRepository.save(countryPhase);
     }
 
