@@ -5,11 +5,11 @@ import it.gdhi.model.id.CountryPhaseId;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
-
 @Repository
 public interface ICountryPhaseRepository extends JpaRepository<CountryPhase, CountryPhaseId> {
 
 
     CountryPhase findByCountryPhaseIdCountryId(String countryId);
+
+    CountryPhase findByCountryPhaseIdYearAndCountryPhaseIdCountryId(String year , String countryId);
 }

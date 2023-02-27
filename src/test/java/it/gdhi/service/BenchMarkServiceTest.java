@@ -35,6 +35,7 @@ public class BenchMarkServiceTest {
         Integer indicatorId1 = 1;
         Integer indicatorId2 = 2;
         Integer indicatorId3 = 3;
+        String year = "Version1";
 
         CountryHealthIndicator countryHealthIndicator1 = buildCountryHealthIndicator(indicatorId1, "PAK", 2);
         CountryHealthIndicator countryHealthIndicator2 = buildCountryHealthIndicator(indicatorId2, "AFG", 1);
@@ -44,7 +45,7 @@ public class BenchMarkServiceTest {
         CountryHealthIndicator countryHealthIndicatorForInd2 = buildCountryHealthIndicator(indicatorId2, countryId, 1);
         CountryHealthIndicator countryHealthIndicatorForInd3 = buildCountryHealthIndicator(indicatorId3, countryId, 3);
 
-        when(iCountryHealthIndicatorRepository.findByStatusAndPhase(PUBLISHED.name(), benchmarkType))
+        when(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdStatusAndCountryHealthIndicatorIdYear(PUBLISHED.name(), year))
                 .thenReturn(Arrays.asList(countryHealthIndicator1, countryHealthIndicator2, countryHealthIndicator3,
                         countryHealthIndicatorForInd1, countryHealthIndicatorForInd2, countryHealthIndicatorForInd3));
 
@@ -58,7 +59,7 @@ public class BenchMarkServiceTest {
         expectedBenchMark.put(indicatorId2, new BenchmarkDto(1, BenchMarkService.BENCHMARK_AT_PAR_VALUE));
         expectedBenchMark.put(indicatorId3, new BenchmarkDto(2, BenchMarkService.BENCHMARK_ABOVE_PAR_VALUE));
 
-        Map<Integer, BenchmarkDto> benchmarkFor = benchMarkService.getBenchmarkFor(countryId, benchmarkType);
+        Map<Integer, BenchmarkDto> benchmarkFor = benchMarkService.getBenchmarkFor(countryId, benchmarkType, year);
 
         assertThat(expectedBenchMark.get(indicatorId1)).usingRecursiveComparison().isEqualTo(benchmarkFor.get(indicatorId1));
         assertThat(expectedBenchMark.get(indicatorId2)).usingRecursiveComparison().isEqualTo(benchmarkFor.get(indicatorId2));
@@ -72,6 +73,7 @@ public class BenchMarkServiceTest {
         Integer indicatorId1 = 1;
         Integer indicatorId2 = 2;
         Integer indicatorId3 = 3;
+        String year = "Version1";
 
         CountryHealthIndicator countryHealthIndicator1 = buildCountryHealthIndicator(indicatorId1, "PAK", -1);
         CountryHealthIndicator countryHealthIndicator2 = buildCountryHealthIndicator(indicatorId2, "AFG", 1);
@@ -89,7 +91,7 @@ public class BenchMarkServiceTest {
                         Arrays.asList(countryHealthIndicatorForInd1, countryHealthIndicatorForInd2
                         ));
 
-        Map<Integer, BenchmarkDto> benchmarkFor = benchMarkService.getBenchmarkFor(countryId, benchmarkType);
+        Map<Integer, BenchmarkDto> benchmarkFor = benchMarkService.getBenchmarkFor(countryId, benchmarkType, year);
 
         assertEquals(benchmarkFor.size(),2);
 
@@ -102,6 +104,7 @@ public class BenchMarkServiceTest {
         Integer indicatorId1 = 1;
         Integer indicatorId2 = 2;
         Integer indicatorId3 = 3;
+        String year = "Version1";
 
         CountryHealthIndicator countryHealthIndicator2 = buildCountryHealthIndicator(indicatorId2, "AFG", 1);
 
@@ -128,7 +131,7 @@ public class BenchMarkServiceTest {
         expectedBenchMark.put(indicatorId1, new BenchmarkDto(1, BenchMarkService.BENCHMARK_AT_PAR_VALUE));
         expectedBenchMark.put(indicatorId2, new BenchmarkDto(1, BenchMarkService.BENCHMARK_AT_PAR_VALUE));
 
-        Map<Integer, BenchmarkDto> benchmarkFor = benchMarkService.getBenchmarkFor(countryId, benchmarkType);
+        Map<Integer, BenchmarkDto> benchmarkFor = benchMarkService.getBenchmarkFor(countryId, benchmarkType, year);
 
         assertThat(expectedBenchMark.get(indicatorId1)).usingRecursiveComparison().isEqualTo(benchmarkFor.get(indicatorId1));
         assertThat(expectedBenchMark.get(indicatorId2)).usingRecursiveComparison().isEqualTo(benchmarkFor.get(indicatorId2));
@@ -141,6 +144,7 @@ public class BenchMarkServiceTest {
         Integer indicatorId1 = 1;
         Integer indicatorId2 = 2;
         Integer indicatorId3 = 3;
+        String year = "Version1";
 
         CountryHealthIndicator countryHealthIndicator1 = buildCountryHealthIndicator(indicatorId1, "PAK", 2);
         CountryHealthIndicator countryHealthIndicator3 = buildCountryHealthIndicator(indicatorId3, "PAK", 1);
@@ -163,7 +167,7 @@ public class BenchMarkServiceTest {
         expectedBenchMark.put(indicatorId2, new BenchmarkDto(1, BenchMarkService.BENCHMARK_AT_PAR_VALUE));
         expectedBenchMark.put(indicatorId3, new BenchmarkDto(2, BenchMarkService.BENCHMARK_ABOVE_PAR_VALUE));
 
-        Map<Integer, BenchmarkDto> benchmarkFor = benchMarkService.getBenchmarkFor(countryId, benchmarkType);
+        Map<Integer, BenchmarkDto> benchmarkFor = benchMarkService.getBenchmarkFor(countryId, benchmarkType, year);
 
         assertThat(expectedBenchMark.get(indicatorId1)).usingRecursiveComparison().isEqualTo(benchmarkFor.get(indicatorId1));
         assertThat(expectedBenchMark.get(indicatorId2)).usingRecursiveComparison().isEqualTo(benchmarkFor.get(indicatorId2));

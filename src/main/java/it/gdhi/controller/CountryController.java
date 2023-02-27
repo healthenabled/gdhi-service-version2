@@ -174,8 +174,12 @@ public class CountryController {
 
     @GetMapping("/countries/{id}/benchmark/{type}")
     public Map<Integer, BenchmarkDto> getBenchmarkDetailsFor(@PathVariable("id") String countryId,
-                                                             @PathVariable("type") Integer benchmarkType) {
-        return countryHealthDataService.getBenchmarkDetailsFor(countryId, benchmarkType);
+                                                             @PathVariable("type") Integer benchmarkType,
+                                                             @RequestParam(value = "year", required = false) String year) {
+        if (year == null) {
+            year = defaultYearDataService.fetchDefaultYear();
+        }
+        return countryHealthDataService.getBenchmarkDetailsFor(countryId, benchmarkType , year);
     }
 
     @GetMapping("/admin/countries/calculate_phase")

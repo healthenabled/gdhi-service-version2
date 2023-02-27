@@ -124,8 +124,8 @@ public class CountryHealthDataService {
                 .collect(groupingBy(CountrySummaryStatusDto::getStatus));
     }
 
-    public Map<Integer, BenchmarkDto> getBenchmarkDetailsFor(String countryId, Integer benchmarkType) {
-        return benchmarkService.getBenchmarkFor(countryId, benchmarkType);
+    public Map<Integer, BenchmarkDto> getBenchmarkDetailsFor(String countryId, Integer benchmarkType , String year) {
+        return benchmarkService.getBenchmarkFor(countryId, benchmarkType, year);
     }
 
     public boolean validateRequiredFields(GdhiQuestionnaire gdhiQuestionnaire) {
