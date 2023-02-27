@@ -4,6 +4,7 @@ import it.gdhi.dto.CountriesHealthScoreDto;
 import it.gdhi.dto.CountryHealthScoreDto;
 import it.gdhi.dto.GlobalHealthScoreDto;
 import it.gdhi.service.CountryHealthIndicatorService;
+import it.gdhi.service.DefaultYearDataService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -25,6 +26,9 @@ public class HealthIndicatorControllerTest {
 
     @Mock
     private CountryHealthIndicatorService countryHealthIndicatorService;
+
+    @Mock
+    private DefaultYearDataService defaultYearDataService;
 
     @Test
     public void shouldInvokeGetGlobalHealthIndicator() {
@@ -76,5 +80,19 @@ public class HealthIndicatorControllerTest {
         healthIndicatorController.getCountriesHealthIndicatorScores(request, null, 2, "Version1");
 
         verify(countryHealthIndicatorService).fetchCountriesHealthScores(null, 2, pt, "Version1");
+    }
+
+    @Test
+    public void shouldFetchDefaultYearWhenYearIsNull() {
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        request.addHeader("USER_LANGUAGE", "en");
+
+        when(defaultYearDataService.fetchDefaultYear()).thenReturn("Version1");
+
+        healthIndicatorController.getCountriesHealthIndicatorScores(request, null, 2, null);
+        healthIndicatorController.getGlobalHealthIndicator(request, null, 2, null);
+
+        verify(countryHealthIndicatorService).fetchCountriesHealthScores(null, 2, en, "Version1");
+        verify(countryHealthIndicatorService).getGlobalHealthIndicator(null, 2, en, "Version1");
     }
 }
