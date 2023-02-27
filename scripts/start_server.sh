@@ -15,6 +15,10 @@ if [ "$DEPLOYMENT_GROUP_NAME" == "GDHI-Backend-v2-Showcase" ]
 then
     source /opt/scripts/export_Showcase_env.sh
 fi
+if [ "$DEPLOYMENT_GROUP_NAME" == "GDHI-Backend-v2-Prod" ]
+then
+    source /opt/scripts/export_Prod_env.sh
+fi
 
 echo -n $"Starting $FILE: "
 nohup java -jar $CURRENT_DIR/gdhi-*.jar --spring.config.location=${SPRING_CONFIG_LOCATION} > /opt/logs/gdhi_stdout.txt 2> /opt/logs/gdhi_stderr.txt < /dev/null &
