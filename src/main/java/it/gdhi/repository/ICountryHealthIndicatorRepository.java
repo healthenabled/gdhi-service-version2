@@ -26,7 +26,7 @@ public interface ICountryHealthIndicatorRepository extends JpaRepository<Country
 
     CountryHealthIndicator save(CountryHealthIndicator countryHealthIndicatorSetupData);
 
-    @Query("SELECT h FROM CountryHealthIndicator h WHERE (?1 is null or h.category.id = ?1) "+
+    @Query("SELECT h FROM CountryHealthIndicator h WHERE (?1 is null or h.category.id = ?1) " +
             "and h.countryHealthIndicatorId.status=?2")
     List<CountryHealthIndicator> findByCategoryAndStatus(Integer categoryId, String currentStatus);
 
@@ -34,5 +34,9 @@ public interface ICountryHealthIndicatorRepository extends JpaRepository<Country
     @Query("DELETE FROM CountryHealthIndicator h WHERE " +
             "h.countryHealthIndicatorId.countryId = ?1 and h.countryHealthIndicatorId.status=?2")
     void removeHealthIndicatorsBy(String countryId, String currentStatus);
+
+    List<CountryHealthIndicator> findByCountryHealthIndicatorIdStatusAndCountryHealthIndicatorIdYear(String currentStatus, String year);
+
+    List<CountryHealthIndicator> findByCountryHealthIndicatorIdCategoryIdAndCountryHealthIndicatorIdStatusAndCountryHealthIndicatorIdYear(Integer categoryId, String currentStatus, String year);
 }
 

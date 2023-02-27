@@ -134,7 +134,7 @@ public class ScoreAggregationIntegrationTest extends BaseIntegrationTest {
                 .contentType("application/json")
                 .header(USER_LANGUAGE, "en")
                 .when()
-                .get("http://localhost:" + port + "/global_health_indicators");
+                .get("http://localhost:" + port + "/global_health_indicators?year=Version1");
 
         assertResponse(response.asString(), "global_indicators.json");
 
@@ -202,7 +202,7 @@ public class ScoreAggregationIntegrationTest extends BaseIntegrationTest {
                 .contentType("application/json")
                 .header(USER_LANGUAGE, "en")
                 .when()
-                .get("http://localhost:" + port + "/global_health_indicators?categoryId=" + categoryId1 + "&phase=1");
+                .get("http://localhost:" + port + "/global_health_indicators?categoryId=" + categoryId1 + "&phase=1" + "&year=Version1");
 
         assertResponse(response.asString(), "filtered_global_indicators.json");
 
@@ -270,7 +270,7 @@ public class ScoreAggregationIntegrationTest extends BaseIntegrationTest {
                 .contentType("application/json")
                 .header(USER_LANGUAGE, "en")
                 .when()
-                .get("http://localhost:" + port + "/global_health_indicators?categoryId=" + categoryId1);
+                .get("http://localhost:" + port + "/global_health_indicators?categoryId=" + categoryId1 + "&year=Version1");
 
         assertResponse(response.asString(), "global_indicators_filtered_by_category.json");
 
@@ -338,7 +338,7 @@ public class ScoreAggregationIntegrationTest extends BaseIntegrationTest {
                 .contentType("application/json")
                 .header(USER_LANGUAGE, "en")
                 .when()
-                .get("http://localhost:" + port + "/global_health_indicators?phase=4");
+                .get("http://localhost:" + port + "/global_health_indicators?phase=4" + "&year=Version1");
 
         assertResponse(response.asString(), "global_indicators_filtered_by_phase.json");
 
@@ -401,7 +401,7 @@ public class ScoreAggregationIntegrationTest extends BaseIntegrationTest {
                 .contentType("application/json")
                 .header(USER_LANGUAGE, "en")
                 .when()
-                .get("http://localhost:" + port + "/countries_health_indicator_scores");
+                .get("http://localhost:" + port + "/countries_health_indicator_scores?year=Version1");
 
         assertResponse(response.asString(), "countries_health_indicators.json");
     }
@@ -463,7 +463,7 @@ public class ScoreAggregationIntegrationTest extends BaseIntegrationTest {
                 .contentType("application/json")
                 .header(USER_LANGUAGE, "en")
                 .when()
-                .get("http://localhost:" + port + "/countries_health_indicator_scores?categoryId=" + categoryId1 + "&phase=2");
+                .get("http://localhost:" + port + "/countries_health_indicator_scores?categoryId=" + categoryId1 + "&phase=2" + "&year=Version1");
 
         assertResponse(response.asString(), "filtered_countries_health_indicators.json");
     }
@@ -525,7 +525,7 @@ public class ScoreAggregationIntegrationTest extends BaseIntegrationTest {
                 .contentType("application/json")
                 .header(USER_LANGUAGE, "en")
                 .when()
-                .get("http://localhost:" + port + "/countries_health_indicator_scores?categoryId=" + categoryId1);
+                .get("http://localhost:" + port + "/countries_health_indicator_scores?categoryId=" + categoryId1 + "&year=Version1");
 
         assertResponse(response.asString(), "countries_health_indicators_filter_by_category.json");
     }
@@ -587,7 +587,7 @@ public class ScoreAggregationIntegrationTest extends BaseIntegrationTest {
                 .contentType("application/json")
                 .header(USER_LANGUAGE, "en")
                 .when()
-                .get("http://localhost:" + port + "/countries_health_indicator_scores?phase=3");
+                .get("http://localhost:" + port + "/countries_health_indicator_scores?phase=3" + "&year=Version1");
 
         assertResponse(response.asString(), "countries_health_indicators_filter_by_phase.json");
     }
@@ -649,7 +649,7 @@ public class ScoreAggregationIntegrationTest extends BaseIntegrationTest {
                 .contentType("application/json")
                 .header(USER_LANGUAGE, "fr")
                 .when()
-                .get("http://localhost:" + port + "/countries_health_indicator_scores");
+                .get("http://localhost:" + port + "/countries_health_indicator_scores?year=Version1");
 
         assertResponse(response.asString(), "countries_health_indicators_fr.json");
     }
@@ -700,7 +700,7 @@ public class ScoreAggregationIntegrationTest extends BaseIntegrationTest {
                 .contentType("application/json")
                 .header(USER_LANGUAGE, "en")
                 .when()
-                .get("http://localhost:" + port + "/countries_health_indicator_scores");
+                .get("http://localhost:" + port + "/countries_health_indicator_scores?year=Version1");
         assertResponse(response.asString(), "countries_health_indicators_sub_indicator_score.json");
 
     }

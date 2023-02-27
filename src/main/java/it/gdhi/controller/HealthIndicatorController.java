@@ -25,18 +25,20 @@ public class HealthIndicatorController {
     public GlobalHealthScoreDto getGlobalHealthIndicator(
                                             HttpServletRequest request,
                                             @RequestParam(value = "categoryId", required = false) Integer categoryId,
-                                            @RequestParam(value = "phase", required = false) Integer score) {
+                                            @RequestParam(value = "phase", required = false) Integer score,
+                                            @RequestParam(value = "year", required = false) String year) {
         LanguageCode languageCode = getLanguageCode(request);
-        return countryHealthIndicatorService.getGlobalHealthIndicator(categoryId, score, languageCode);
+        return countryHealthIndicatorService.getGlobalHealthIndicator(categoryId, score, languageCode, year);
     }
 
     @GetMapping("/countries_health_indicator_scores")
     public CountriesHealthScoreDto getCountriesHealthIndicatorScores(
                                             HttpServletRequest request,
                                             @RequestParam(value = "categoryId", required = false) Integer categoryId,
-                                            @RequestParam(value = "phase", required = false) Integer score) {
+                                            @RequestParam(value = "phase", required = false) Integer score,
+                                            @RequestParam(value = "year", required = false) String year) {
         LanguageCode languageCode = getLanguageCode(request);
-        return countryHealthIndicatorService.fetchCountriesHealthScores(categoryId, score, languageCode);
+        return countryHealthIndicatorService.fetchCountriesHealthScores(categoryId, score, languageCode, year);
     }
 
     private LanguageCode getLanguageCode(HttpServletRequest request) {
