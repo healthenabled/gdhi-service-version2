@@ -167,8 +167,9 @@ public class CountryControllerTest {
     public void shouldExportGlobalData() throws Exception {
         HttpServletRequest request = mock(HttpServletRequest.class);
         HttpServletResponse response = mock(HttpServletResponse.class);
-        countryController.exportGlobalData(request, response);
-        verify(countryHealthIndicatorService).createGlobalHealthIndicatorInExcel(request, response);
+        String year = "Version1";
+        countryController.exportGlobalData(request, response, year);
+        verify(countryHealthIndicatorService).createGlobalHealthIndicatorInExcel(request, response, year);
     }
 
     @Test

@@ -18,6 +18,7 @@ import org.mockito.quality.Strictness;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -869,8 +870,8 @@ public class CountryHealthIndicatorServiceTest {
     public void shouldInvokeConvertExcelOnGlobalExport() throws IOException {
         HttpServletRequest request = mock(HttpServletRequest.class);
         HttpServletResponse response = mock(HttpServletResponse.class);
-
-        countryHealthIndicatorService.createGlobalHealthIndicatorInExcel(request, response);
+        String year = "Version1";
+        countryHealthIndicatorService.createGlobalHealthIndicatorInExcel(request, response, year);
 
         verify(excelUtilService).convertListToExcel(anyList(), any());
         verify(excelUtilService).downloadFile(request, response);
@@ -904,7 +905,7 @@ public class CountryHealthIndicatorServiceTest {
 
         when(request.getParameter(USER_LANGUAGE)).thenReturn("fr");
 
-        countryHealthIndicatorService.createGlobalHealthIndicatorInExcel(request, response);
+        countryHealthIndicatorService.createGlobalHealthIndicatorInExcel(request, response, year);
 
         verify(indicatorTranslator).translateCountryHealthScores(fr, countryHealthScore);
     }

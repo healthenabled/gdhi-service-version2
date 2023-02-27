@@ -135,9 +135,13 @@ public class CountryController {
 
     @GetMapping("/export_global_data")
     public void exportGlobalData(HttpServletRequest request,
-                                 HttpServletResponse response) throws IOException {
+                                 HttpServletResponse response,
+                                 @RequestParam(value = "year", required = false) String year) throws IOException {
         log.info("Entered export global data end point");
-        countryHealthIndicatorService.createGlobalHealthIndicatorInExcel(request, response);
+        if (year == null) {
+            year = defaultYearDataService.fetchDefaultYear();
+        }
+        countryHealthIndicatorService.createGlobalHealthIndicatorInExcel(request, response, year);
     }
 
     @GetMapping("/export_country_data/{id}")
