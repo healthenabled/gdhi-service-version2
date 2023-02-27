@@ -175,7 +175,7 @@ public class CountryServiceTest {
         List<CountryHealthIndicator> countryHealthIndicators = asList(indicator1, indicator2);
         when(iCountryHealthIndicatorRepository.findByCountryIdAndStatus(countryId, statusValue)).thenReturn(countryHealthIndicators);
 
-        GdhiQuestionnaire details = countryService.getDetails(countryUUID, LanguageCode.en, false);
+        GdhiQuestionnaire details = countryService.getDetails(countryUUID, LanguageCode.en, false, year);
 
         assertSummary(countrySummary, details.getCountrySummary());
         assertIndicators(countryHealthIndicators, details.getHealthIndicators());
@@ -245,7 +245,7 @@ public class CountryServiceTest {
         List<CountryHealthIndicator> countryHealthIndicators = asList(indicator1, indicator2);
         when(iCountryHealthIndicatorRepository.findByCountryIdAndStatus(countryIdInd, statusValueInd)).thenReturn(countryHealthIndicators);
 
-        GdhiQuestionnaire details = countryService.getDetails(countryUUIDInd, LanguageCode.en, false);
+        GdhiQuestionnaire details = countryService.getDetails(countryUUIDInd, LanguageCode.en, false, year);
 
         assertSummary(countrySummaryInd, details.getCountrySummary());
         assertIndicators(countryHealthIndicators, details.getHealthIndicators());
@@ -296,7 +296,7 @@ public class CountryServiceTest {
         List<CountryHealthIndicator> countryHealthIndicators = asList(indicator1, indicator2);
         when(iCountryHealthIndicatorRepository.findByCountryIdAndStatus(countryId, statusValue)).thenReturn(countryHealthIndicators);
 
-        GdhiQuestionnaire details = countryService.getDetails(countryUUID, LanguageCode.ar, false);
+        GdhiQuestionnaire details = countryService.getDetails(countryUUID, LanguageCode.ar, false, year);
 
         CountrySummary expectedCountrySummary = CountrySummary.builder()
                 .countrySummaryId(new CountrySummaryId(countryId, statusValue, year))
@@ -328,10 +328,10 @@ public class CountryServiceTest {
 
         when(iCountrySummaryRepository.findAll(countryId)).thenReturn(null);
 
-        when(iCountryHealthIndicatorRepository.findByCountryIdAndStatus(countryId, null)).thenReturn(Collections.emptyList());
+        when(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdStatusAndCountryHealthIndicatorIdYear(countryId, null, "Version1")).thenReturn(Collections.emptyList());
 
         when(countryDetailRepository.findByUniqueId(countryUUID)).thenReturn(country);
-        GdhiQuestionnaire details = countryService.getDetails(countryUUID, LanguageCode.en, false);
+        GdhiQuestionnaire details = countryService.getDetails(countryUUID, LanguageCode.en, false, "Version1");
 
         assertNull(details);
     }

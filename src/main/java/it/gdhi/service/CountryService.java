@@ -3,6 +3,7 @@ package it.gdhi.service;
 import it.gdhi.dto.CountrySummaryDto;
 import it.gdhi.dto.GdhiQuestionnaire;
 import it.gdhi.dto.HealthIndicatorDto;
+import it.gdhi.dto.YearDto;
 import it.gdhi.internationalization.service.CountryNameTranslator;
 import it.gdhi.model.Country;
 import it.gdhi.model.CountryHealthIndicator;
@@ -58,7 +59,7 @@ public class CountryService {
         return Optional.ofNullable(countrySummary).map(CountrySummaryDto::new).orElse(new CountrySummaryDto());
     }
 
-    public GdhiQuestionnaire getDetails(UUID countryUUID, LanguageCode languageCode, boolean publishedOnly) {
+    public GdhiQuestionnaire getDetails(UUID countryUUID, LanguageCode languageCode, boolean publishedOnly, String year) {
         String countryId = iCountryRepository.findByUniqueId(countryUUID).getId();
 
         GdhiQuestionnaire gdhiQuestionnaire = null;
@@ -67,7 +68,7 @@ public class CountryService {
         if (!publishedOnly) {
             countrySummaries = iCountrySummaryRepository.findAll(countryId);
         } else {
-            countrySummaries = asList(iCountrySummaryRepository.findByCountryAndStatus(countryId, PUBLISHED.name()));
+            countrySummaries = asList(iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdStatusAndCountrySummaryIdYear(countryId, PUBLISHED.name(), year));
         }
 
         if (countrySummaries != null) {

@@ -113,16 +113,24 @@ public class CountryController {
 
     @GetMapping("/countries/{uuid}")
     public GdhiQuestionnaire getQuestionnaireForCountry(HttpServletRequest request,
-                                                        @PathVariable("uuid") UUID countryUIID) {
+                                                        @PathVariable("uuid") UUID countryUIID,
+                                                        @RequestParam(value = "year", required = false) String year) {
         LanguageCode languageCode = LanguageCode.getValueFor(request.getHeader(USER_LANGUAGE));
-        return countryService.getDetails(countryUIID, languageCode, false);
+        if (year == null) {
+            year = defaultYearDataService.fetchDefaultYear();
+        }
+        return countryService.getDetails(countryUIID, languageCode, false, year);
     }
 
     @GetMapping("/countries/viewPublish/{uuid}")
     public GdhiQuestionnaire getQuestionnaireForPublishedCountry(HttpServletRequest request,
-                                                                 @PathVariable("uuid") UUID countryUIID) {
+                                                                 @PathVariable("uuid") UUID countryUIID,
+                                                                 @RequestParam(value = "year", required = false) String year) {
         LanguageCode languageCode = LanguageCode.getValueFor(request.getHeader(USER_LANGUAGE));
-        return countryService.getDetails(countryUIID, languageCode, true);
+        if (year == null) {
+            year = defaultYearDataService.fetchDefaultYear();
+        }
+        return countryService.getDetails(countryUIID, languageCode, true, year);
     }
 
     @GetMapping("/export_global_data")

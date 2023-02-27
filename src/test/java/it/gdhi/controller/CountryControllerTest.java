@@ -215,11 +215,12 @@ public class CountryControllerTest {
         GdhiQuestionnaire gdhiQuestionnaire = mock(GdhiQuestionnaire.class);
         MockHttpServletRequest request = new MockHttpServletRequest();
         request.addHeader("USER_LANGUAGE", "en");
-        when(countryService.getDetails(countryUUID, LanguageCode.en, true)).thenReturn(gdhiQuestionnaire);
+        String year = "Version1";
+        when(countryService.getDetails(countryUUID, LanguageCode.en, true, year)).thenReturn(gdhiQuestionnaire);
 
-        countryController.getQuestionnaireForPublishedCountry(request, countryUUID);
+        countryController.getQuestionnaireForPublishedCountry(request, countryUUID, year);
 
-        verify(countryService).getDetails(countryUUID, LanguageCode.en, true);
+        verify(countryService).getDetails(countryUUID, LanguageCode.en, true, year);
     }
 
 
