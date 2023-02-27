@@ -50,9 +50,9 @@ public class CountryHealthIndicatorService {
     @Autowired
     private HealthIndicatorTranslator healthIndicatorTranslator;
 
-    public CountryHealthScoreDto fetchCountryHealthScore(String countryId, LanguageCode languageCode) {
+    public CountryHealthScoreDto fetchCountryHealthScore(String countryId, LanguageCode languageCode, String year) {
         CountryHealthIndicators countryHealthIndicators = new CountryHealthIndicators(iCountryHealthIndicatorRepository
-                .findByCountryIdAndStatus(countryId, PUBLISHED.name()));
+                .findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdStatusAndCountryHealthIndicatorIdYear(countryId, PUBLISHED.name(), year));
         CountryHealthScoreDto countryHealthScoreDto = constructCountryHealthScore(countryId, countryHealthIndicators,
                 getCategoryPhaseFilter(null, null));
         return healthIndicatorTranslator.translateCountryHealthScores(languageCode, countryHealthScoreDto);
@@ -131,11 +131,11 @@ public class CountryHealthIndicatorService {
 
     public void createHealthIndicatorInExcelFor(String countryId,
                                                 HttpServletRequest request,
-                                                HttpServletResponse response) throws IOException {
+                                                HttpServletResponse response, String year) throws IOException {
         LanguageCode languageCode = LanguageCode.getValueFor(request.getParameter(USER_LANGUAGE));
         List countryHealthScoreDtoAsList = new ArrayList<CountryHealthScoreDto>();
 
-        countryHealthScoreDtoAsList.add(fetchCountryHealthScore(countryId, languageCode));
+        countryHealthScoreDtoAsList.add(fetchCountryHealthScore(countryId, languageCode, year));
         excelUtilService.convertListToExcel(countryHealthScoreDtoAsList, languageCode);
         excelUtilService.downloadFile(request, response);
     }

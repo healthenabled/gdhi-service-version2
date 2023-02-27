@@ -38,5 +38,7 @@ public interface ICountryHealthIndicatorRepository extends JpaRepository<Country
     List<CountryHealthIndicator> findByCountryHealthIndicatorIdStatusAndCountryHealthIndicatorIdYear(String currentStatus, String year);
 
     List<CountryHealthIndicator> findByCountryHealthIndicatorIdCategoryIdAndCountryHealthIndicatorIdStatusAndCountryHealthIndicatorIdYear(Integer categoryId, String currentStatus, String year);
+
+    List<CountryHealthIndicator> findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdStatusAndCountryHealthIndicatorIdYear(String countryId, String currentStatus, String year);
 }
 

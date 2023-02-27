@@ -78,13 +78,14 @@ public class CountryControllerTest {
         CountryHealthScoreDto countryHealthScoreMock = mock(CountryHealthScoreDto.class);
         MockHttpServletRequest request = new MockHttpServletRequest();
         request.addHeader("USER_LANGUAGE", "en");
+        String year = "Version1";
 
-        when(countryHealthIndicatorService.fetchCountryHealthScore(countryId, LanguageCode.en)).thenReturn(countryHealthScoreMock);
+        when(countryHealthIndicatorService.fetchCountryHealthScore(countryId, LanguageCode.en, year)).thenReturn(countryHealthScoreMock);
 
-        CountryHealthScoreDto healthIndicatorForGivenCountryCode = countryController.getHealthIndicatorForGivenCountryCode(request, countryId);
+        CountryHealthScoreDto healthIndicatorForGivenCountryCode = countryController.getHealthIndicatorForGivenCountryCode(request, countryId, year);
 
         assertThat(healthIndicatorForGivenCountryCode, is(countryHealthScoreMock));
-        verify(countryHealthIndicatorService).fetchCountryHealthScore(countryId, LanguageCode.en);
+        verify(countryHealthIndicatorService).fetchCountryHealthScore(countryId, LanguageCode.en, year);
     }
 
     @Test
@@ -93,12 +94,13 @@ public class CountryControllerTest {
         CountryHealthScoreDto countryHealthScoreMock = mock(CountryHealthScoreDto.class);
         MockHttpServletRequest request = new MockHttpServletRequest();
         request.addHeader("USER_LANGUAGE", "ar");
+        String year = "Version1";
 
-        when(countryHealthIndicatorService.fetchCountryHealthScore(countryId, LanguageCode.ar)).thenReturn(countryHealthScoreMock);
+        when(countryHealthIndicatorService.fetchCountryHealthScore(countryId, LanguageCode.ar, year)).thenReturn(countryHealthScoreMock);
 
-        countryController.getHealthIndicatorForGivenCountryCode(request, countryId);
+        countryController.getHealthIndicatorForGivenCountryCode(request, countryId, year);
 
-        verify(countryHealthIndicatorService).fetchCountryHealthScore(countryId, LanguageCode.ar);
+        verify(countryHealthIndicatorService).fetchCountryHealthScore(countryId, LanguageCode.ar, year);
     }
 
     @Test
@@ -171,8 +173,9 @@ public class CountryControllerTest {
     public void shouldExportDataForAGivenCountry() throws Exception {
         HttpServletRequest request = mock(HttpServletRequest.class);
         HttpServletResponse response = mock(HttpServletResponse.class);
-        countryController.exportCountryDetails(request, response, "IND");
-        verify(countryHealthIndicatorService).createHealthIndicatorInExcelFor("IND", request, response);
+        String year = "Version1";
+        countryController.exportCountryDetails(request, response, "IND", year);
+        verify(countryHealthIndicatorService).createHealthIndicatorInExcelFor("IND", request, response, year);
     }
 
     @Test

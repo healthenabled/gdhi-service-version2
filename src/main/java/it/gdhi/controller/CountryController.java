@@ -4,10 +4,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 import it.gdhi.dto.*;
 import it.gdhi.model.Country;
 import it.gdhi.model.DevelopmentIndicator;
-import it.gdhi.service.CountryHealthDataService;
-import it.gdhi.service.CountryHealthIndicatorService;
-import it.gdhi.service.CountryService;
-import it.gdhi.service.DevelopmentIndicatorService;
+import it.gdhi.service.*;
 import it.gdhi.utils.LanguageCode;
 import it.gdhi.view.DevelopmentIndicatorView;
 import lombok.extern.slf4j.Slf4j;
@@ -42,6 +39,9 @@ public class CountryController {
     @Autowired
     private DevelopmentIndicatorService developmentIndicatorService;
 
+    @Autowired
+    private DefaultYearDataService defaultYearDataService;
+
     @GetMapping("/countries")
     public List<Country> getCountries(HttpServletRequest request) {
         LanguageCode languageCode = LanguageCode.getValueFor(request.getHeader(USER_LANGUAGE));
@@ -56,9 +56,13 @@ public class CountryController {
 
     @GetMapping("/countries/{id}/health_indicators")
     public CountryHealthScoreDto getHealthIndicatorForGivenCountryCode(HttpServletRequest request,
-                                                                       @PathVariable("id") String countryId) {
+                                                                       @PathVariable("id") String countryId,
+                                                                       @RequestParam(value = "year", required = false) String year) {
         LanguageCode languageCode = LanguageCode.getValueFor(request.getHeader(USER_LANGUAGE));
-        return countryHealthIndicatorService.fetchCountryHealthScore(countryId, languageCode);
+        if (year == null) {
+            year = defaultYearDataService.fetchDefaultYear();
+        }
+        return countryHealthIndicatorService.fetchCountryHealthScore(countryId, languageCode, year);
     }
 
     @GetMapping("/countries/{id}/country_summary")
@@ -126,8 +130,12 @@ public class CountryController {
     @GetMapping("/export_country_data/{id}")
     public void exportCountryDetails(HttpServletRequest request,
                                      HttpServletResponse response,
-                                     @PathVariable("id") String countryId) throws IOException {
-        countryHealthIndicatorService.createHealthIndicatorInExcelFor(countryId, request, response);
+                                     @PathVariable("id") String countryId,
+                                     @RequestParam(value = "year", required = false) String year) throws IOException {
+        if (year == null) {
+            year = defaultYearDataService.fetchDefaultYear();
+        }
+        countryHealthIndicatorService.createHealthIndicatorInExcelFor(countryId, request, response, year);
     }
 
     //TODO: add integration test for this endpoint
