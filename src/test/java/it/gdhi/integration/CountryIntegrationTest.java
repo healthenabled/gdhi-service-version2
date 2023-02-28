@@ -26,6 +26,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.text.SimpleDateFormat;
+import java.time.Year;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -105,6 +106,7 @@ public class CountryIntegrationTest extends BaseIntegrationTest {
         String countryId = INDIA_ID;
         String status = "PUBLISHED";
         String alpha2Code = "IN";
+        String year = "2023";
 
         Integer categoryId1 = 1;
         Integer categoryId2 = 2;
@@ -116,7 +118,7 @@ public class CountryIntegrationTest extends BaseIntegrationTest {
         Integer indicatorId3_1 = 5;
         Integer indicatorId3_2 = 6;
 
-        addCountrySummary(countryId, "India", status, alpha2Code, INDIA_UUID, "04-04-2018", new ArrayList<>());
+        addCountrySummary(countryId, "India", status, alpha2Code, INDIA_UUID, "04-04-2018", new ArrayList<>(), year);
 
         List<HealthIndicatorDto> healthIndicatorDtos = asList(
                 HealthIndicatorDto.builder().categoryId(categoryId1).indicatorId(indicatorId1_1).status(status).score(1).supportingText("sp1").build(),
@@ -126,14 +128,14 @@ public class CountryIntegrationTest extends BaseIntegrationTest {
                 HealthIndicatorDto.builder().categoryId(categoryId3).indicatorId(indicatorId3_1).status(status).score(null).supportingText("sp1").build(),
                 HealthIndicatorDto.builder().categoryId(categoryId3).indicatorId(indicatorId3_2).status(status).score(null).supportingText("sp1").build());
 
-        setupHealthIndicatorsForCountry(countryId, healthIndicatorDtos);
-        setUpCountryPhase(countryId, 2);
+        setupHealthIndicatorsForCountry(countryId, healthIndicatorDtos, year);
+        setUpCountryPhase(countryId, 2, year);
 
         Response response = given()
                 .contentType("application/json")
                 .header(USER_LANGUAGE, "en")
                 .when()
-                .get("http://localhost:" + port + "/countries/IND/health_indicators");
+                .get("http://localhost:" + port + "/countries/IND/health_indicators?year=" + year);
 
         assertResponse(response.asString(), "health_indicators.json");
     }
@@ -143,6 +145,7 @@ public class CountryIntegrationTest extends BaseIntegrationTest {
         String countryId = INDIA_ID;
         String status = "PUBLISHED";
         String alpha2Code = "IN";
+        String year = "2023";
 
         Integer categoryId1 = 1;
         Integer categoryId2 = 2;
@@ -154,7 +157,7 @@ public class CountryIntegrationTest extends BaseIntegrationTest {
         Integer indicatorId3_1 = 5;
         Integer indicatorId3_2 = 6;
 
-        addCountrySummary(countryId, "India", status, alpha2Code, INDIA_UUID, "04-04-2018", new ArrayList<>());
+        addCountrySummary(countryId, "India", status, alpha2Code, INDIA_UUID, "04-04-2018", new ArrayList<>(), year);
 
         List<HealthIndicatorDto> healthIndicatorDtos = asList(
                 HealthIndicatorDto.builder().categoryId(categoryId1).indicatorId(indicatorId1_1).status(status).score(1).supportingText("sp1").build(),
@@ -164,14 +167,14 @@ public class CountryIntegrationTest extends BaseIntegrationTest {
                 HealthIndicatorDto.builder().categoryId(categoryId3).indicatorId(indicatorId3_1).status(status).score(null).supportingText("sp1").build(),
                 HealthIndicatorDto.builder().categoryId(categoryId3).indicatorId(indicatorId3_2).status(status).score(null).supportingText("sp1").build());
 
-        setupHealthIndicatorsForCountry(countryId, healthIndicatorDtos);
-        setUpCountryPhase(countryId, 2);
+        setupHealthIndicatorsForCountry(countryId, healthIndicatorDtos, year);
+        setUpCountryPhase(countryId, 2, year);
 
         Response response = given()
                 .contentType("application/json")
                 .header(USER_LANGUAGE, "pt")
                 .when()
-                .get("http://localhost:" + port + "/countries/IND/health_indicators");
+                .get("http://localhost:" + port + "/countries/IND/health_indicators?year=" + year);
 
         assertResponse(response.asString(), "health_indicators_pt.json");
     }
@@ -181,6 +184,7 @@ public class CountryIntegrationTest extends BaseIntegrationTest {
         String countryId = INDIA_ID;
         String status = "PUBLISHED";
         String alpha2Code = "IN";
+        String year = "2023";
 
         Integer categoryId1 = 1;
         Integer categoryId2 = 2;
@@ -192,7 +196,7 @@ public class CountryIntegrationTest extends BaseIntegrationTest {
         Integer indicatorId3_1 = 5;
         Integer indicatorId3_2 = 6;
 
-        addCountrySummary(countryId, "India", status, alpha2Code, INDIA_UUID, "04-04-2018", new ArrayList<>());
+        addCountrySummary(countryId, "India", status, alpha2Code, INDIA_UUID, "04-04-2018", new ArrayList<>(), year);
 
         List<HealthIndicatorDto> healthIndicatorDtos = asList(
                 HealthIndicatorDto.builder().categoryId(categoryId1).indicatorId(indicatorId1_1).status(status).score(1).supportingText("sp1").build(),
@@ -202,14 +206,14 @@ public class CountryIntegrationTest extends BaseIntegrationTest {
                 HealthIndicatorDto.builder().categoryId(categoryId3).indicatorId(indicatorId3_1).status(status).score(null).supportingText("sp1").build(),
                 HealthIndicatorDto.builder().categoryId(categoryId3).indicatorId(indicatorId3_2).status(status).score(null).supportingText("sp1").build());
 
-        setupHealthIndicatorsForCountry(countryId, healthIndicatorDtos);
-        setUpCountryPhase(countryId, 2);
+        setupHealthIndicatorsForCountry(countryId, healthIndicatorDtos, year);
+        setUpCountryPhase(countryId, 2, year);
 
         Response response = given()
                 .contentType("application/json")
                 .header(USER_LANGUAGE, "es")
                 .when()
-                .get("http://localhost:" + port + "/countries/IND/health_indicators");
+                .get("http://localhost:" + port + "/countries/IND/health_indicators?year=" + year);
 
         assertResponse(response.asString(), "health_indicators_es.json");
     }
@@ -229,7 +233,7 @@ public class CountryIntegrationTest extends BaseIntegrationTest {
 
         List<CountryResourceLink> countryResourceLinks = asList(countryResourceLink1, countryResourceLink2);
 
-        addCountrySummary(countryId, "India", status, alpha2code, INDIA_UUID, "04-04-2018", countryResourceLinks);
+        addCountrySummary(countryId, "India", status, alpha2code, INDIA_UUID, "04-04-2018", countryResourceLinks, "Version1");
 
         Response response = given()
                 .contentType("application/json")
@@ -252,7 +256,7 @@ public class CountryIntegrationTest extends BaseIntegrationTest {
                 "link2", status, year), new Date(), null);
         List<CountryResourceLink> countryResourceLinks = asList(countryResourceLink1, countryResourceLink2);
 
-        addCountrySummary(countryId, "India", status, alpha2code, INDIA_UUID, "04-04-2018", countryResourceLinks);
+        addCountrySummary(countryId, "India", status, alpha2code, INDIA_UUID, "04-04-2018", countryResourceLinks, year);
 
         List<HealthIndicatorDto> healthIndicatorDtos = asList(
                 HealthIndicatorDto.builder().categoryId(1).indicatorId(1).status(status).score(1).supportingText("blah@blah.com").build(),
@@ -279,7 +283,7 @@ public class CountryIntegrationTest extends BaseIntegrationTest {
                 HealthIndicatorDto.builder().categoryId(7).indicatorId(29).status(status).score(1).supportingText("blah@blah.com").build());
 
 
-        setupHealthIndicatorsForCountry(countryId, healthIndicatorDtos);
+        setupHealthIndicatorsForCountry(countryId, healthIndicatorDtos, year);
 
         Response response = given()
                 .contentType("application/json")
@@ -291,7 +295,7 @@ public class CountryIntegrationTest extends BaseIntegrationTest {
 
     @Test
     public void shouldSaveCountryDetailsWhenNoDateIsProvided() throws Exception {
-        addCountrySummary(INDIA_ID, "India", "NEW", "IN", UUID.randomUUID(), "04-04-2018", new ArrayList<>());
+        addCountrySummary(INDIA_ID, "India", "NEW", "IN", UUID.randomUUID(), "04-04-2018", new ArrayList<>(), "Version1");
 
         Response response = given()
                 .contentType("application/json")
@@ -304,7 +308,7 @@ public class CountryIntegrationTest extends BaseIntegrationTest {
 
     @Test
     public void shouldSaveCountryDetailsWhenNullResourceIsProvided() throws Exception {
-        addCountrySummary(INDIA_ID, "India", "NEW", "IN", UUID.randomUUID(), "04-04-2018", new ArrayList<>());
+        addCountrySummary(INDIA_ID, "India", "NEW", "IN", UUID.randomUUID(), "04-04-2018", new ArrayList<>(), "Version1");
         mailerService = mock(MailerService.class);
         doNothing().when(mailerService).send(any(Country.class), anyString(), anyString(), anyString());
 
@@ -319,7 +323,7 @@ public class CountryIntegrationTest extends BaseIntegrationTest {
 
     @Test
     public void shouldSaveAndEditCountryDetails() throws Exception {
-        addCountrySummary(INDIA_ID, "India", "NEW", "IN", UUID.randomUUID(), "04-04-2018", new ArrayList<>());
+        addCountrySummary(INDIA_ID, "India", "NEW", "IN", UUID.randomUUID(), "04-04-2018", new ArrayList<>(), "Version1");
         mailerService = mock(MailerService.class);
         doNothing().when(mailerService).send(any(Country.class), anyString(), anyString(), anyString());
 
@@ -356,7 +360,7 @@ public class CountryIntegrationTest extends BaseIntegrationTest {
 
     @Test
     public void shouldSubmitCountryDetails() throws Exception {
-        addCountrySummary(INDIA_ID, "India", "NEW", "IN", UUID.randomUUID(), "2018-04-04", new ArrayList<>());
+        addCountrySummary(INDIA_ID, "India", "NEW", "IN", UUID.randomUUID(), "2018-04-04", new ArrayList<>(), "Version1");
 
         Response response = given()
                 .contentType("application/json")
@@ -376,7 +380,7 @@ public class CountryIntegrationTest extends BaseIntegrationTest {
 
     @Test
     public void shouldNotSubmitCountryDetailsForInvalidHealthIndicators() throws Exception {
-        addCountrySummary(INDIA_ID, null, "NEW", "IN", UUID.randomUUID(), "2018-04-04", new ArrayList<>());
+        addCountrySummary(INDIA_ID, null, "NEW", "IN", UUID.randomUUID(), "2018-04-04", new ArrayList<>(), "Version1");
 
         Response response = given()
                 .contentType("application/json")
@@ -409,7 +413,7 @@ public class CountryIntegrationTest extends BaseIntegrationTest {
         Integer indicatorId3_2 = 6;
         List<CountryResourceLink> countryResourceLinks = asList(countryResourceLink1, countryResourceLink2);
 
-        addCountrySummary(countryId, "India", status, alpha2code, INDIA_UUID, "2018-04-04", countryResourceLinks);
+        addCountrySummary(countryId, "India", status, alpha2code, INDIA_UUID, "2018-04-04", countryResourceLinks, year);
 
         List<HealthIndicatorDto> healthIndicatorDtos = asList(
                 HealthIndicatorDto.builder().categoryId(categoryId1).indicatorId(indicatorId1_1).status(status).score(1).supportingText("sp1").build(),
@@ -419,7 +423,7 @@ public class CountryIntegrationTest extends BaseIntegrationTest {
                 HealthIndicatorDto.builder().categoryId(categoryId3).indicatorId(indicatorId3_1).status(status).score(null).supportingText("sp1").build(),
                 HealthIndicatorDto.builder().categoryId(categoryId3).indicatorId(indicatorId3_2).status(status).score(null).supportingText("sp1").build());
 
-        setupHealthIndicatorsForCountry(countryId, healthIndicatorDtos);
+        setupHealthIndicatorsForCountry(countryId, healthIndicatorDtos, year);
 
         Response response = given()
                 .contentType("application/json")
@@ -435,12 +439,12 @@ public class CountryIntegrationTest extends BaseIntegrationTest {
         ;
         UUID australiaUUID = iCountryRepository.findById("AUS").getUniqueId();
         ;
-
-        addCountrySummary("AUS", "AUSTRALIA", "NEW", "AU", australiaUUID, "2018-04-04", emptyList());
-        addCountrySummary("AUS", "AUSTRALIA", "DRAFT", "AU", australiaUUID, "2018-04-04", emptyList());
-        addCountrySummary("AUS", "AUSTRALIA", "REVIEW_PENDING", "AU", australiaUUID, "2018-04-04", emptyList());
-        addCountrySummary("AUS", "AUSTRALIA", "PUBLISHED", "AU", australiaUUID, "2018-04-04", emptyList());
-        addCountrySummary(INDIA_ID, "INDIA", "NEW", "IN", indiaUUID, "2018-04-04", emptyList());
+        String currentYear = this.getCurrentYear();
+        addCountrySummary("AUS", "AUSTRALIA", "NEW", "AU", australiaUUID, "2023-04-04", emptyList(), currentYear);
+        addCountrySummary("AUS", "AUSTRALIA", "DRAFT", "AU", australiaUUID, "2023-04-04", emptyList(), currentYear);
+        addCountrySummary("AUS", "AUSTRALIA", "REVIEW_PENDING", "AU", australiaUUID, "2023-04-04", emptyList(), currentYear);
+        addCountrySummary("AUS", "AUSTRALIA", "PUBLISHED", "AU", australiaUUID, "2023-04-04", emptyList(), currentYear);
+        addCountrySummary(INDIA_ID, "INDIA", "NEW", "IN", indiaUUID, "2023-04-04", emptyList(), currentYear);
 
         Response response = given()
                 .contentType("application/json")
@@ -491,42 +495,43 @@ public class CountryIntegrationTest extends BaseIntegrationTest {
         Integer categoryId1 = 1;
         Integer indicatorId1 = 1;
 
-        addCountrySummary(INDIA_ID, "INDIA", "PUBLISHED", "IN", INDIA_UUID, "2018-04-04", emptyList());
-        addCountrySummary("PAK", "PAKISTAN", "PUBLISHED", "PK", UUID.randomUUID(), "2018-04-04", emptyList());
-        addCountrySummary("ARE", "UNITED ARAB EMIRATES", "PUBLISHED", "UE", UUID.randomUUID(), "2018-04-04", emptyList());
-        addCountrySummary("LKA", "SRI LANKA", "DRAFT", "SL", UUID.randomUUID(), "2018-04-04", emptyList());
-        addCountrySummary(INDIA_ID, "INDIA", "NEW", "IN", UUID.randomUUID(), "2018-04-04", emptyList());
+        String year = "2023";
+        addCountrySummary(INDIA_ID, "INDIA", "PUBLISHED", "IN", INDIA_UUID, "2018-04-04", emptyList(), year);
+        addCountrySummary("PAK", "PAKISTAN", "PUBLISHED", "PK", UUID.randomUUID(), "2018-04-04", emptyList(), year);
+        addCountrySummary("ARE", "UNITED ARAB EMIRATES", "PUBLISHED", "UE", UUID.randomUUID(), "2018-04-04", emptyList(), year);
+        addCountrySummary("LKA", "SRI LANKA", "DRAFT", "SL", UUID.randomUUID(), "2018-04-04", emptyList(), year);
+        addCountrySummary(INDIA_ID, "INDIA", "NEW", "IN", UUID.randomUUID(), "2018-04-04", emptyList(), year);
 
 
         List<HealthIndicatorDto> healthIndicatorDto = setUpHealthIndicatorDto(categoryId1, indicatorId1, "PUBLISHED", 1);
-        setupHealthIndicatorsForCountry(INDIA_ID, healthIndicatorDto);
+        setupHealthIndicatorsForCountry(INDIA_ID, healthIndicatorDto, year);
 
         List<HealthIndicatorDto> healthIndicatorDto1 = setUpHealthIndicatorDto(categoryId1, indicatorId1, "PUBLISHED", 2);
-        setupHealthIndicatorsForCountry("PAK", healthIndicatorDto1);
+        setupHealthIndicatorsForCountry("PAK", healthIndicatorDto1, year);
 
         List<HealthIndicatorDto> healthIndicatorDto2 = setUpHealthIndicatorDto(categoryId1, indicatorId1, "PUBLISHED", -1);
-        setupHealthIndicatorsForCountry("ARE", healthIndicatorDto2);
+        setupHealthIndicatorsForCountry("ARE", healthIndicatorDto2, year);
 
         List<HealthIndicatorDto> healthIndicatorDto3 = setUpHealthIndicatorDto(categoryId1, indicatorId1, "DRAFT", 5);
-        setupHealthIndicatorsForCountry("LKA", healthIndicatorDto3);
+        setupHealthIndicatorsForCountry("LKA", healthIndicatorDto3, year);
 
-        setUpCountryPhase(INDIA_ID, 1);
-        setUpCountryPhase("PAK", 2);
-        setUpCountryPhase("ARE", null);
-        setUpCountryPhase("LKA", 5);
+        setUpCountryPhase(INDIA_ID, 1, year);
+        setUpCountryPhase("PAK", 2, year);
+        setUpCountryPhase("ARE", null, year);
+        setUpCountryPhase("LKA", 5, year);
 
         Response response = given()
                 .contentType("application/json")
                 .when()
-                .get("http://localhost:" + port + "/countries/IND/benchmark/-1");
+                .get("http://localhost:" + port + "/countries/IND/benchmark/-1?year=" + year);
 
         assertEquals(200, response.getStatusCode());
 
         assertEquals(response.asString(), "{\"1\":{\"benchmarkScore\":2,\"benchmarkValue\":\"Below\"}}");
     }
 
-    private void setUpCountryPhase(String countryId, Integer countryPhaseValue) {
-        CountryPhaseId countryPhaseId = new CountryPhaseId(countryId, "Version1");
+    private void setUpCountryPhase(String countryId, Integer countryPhaseValue, String year) {
+        CountryPhaseId countryPhaseId = new CountryPhaseId(countryId, year);
         CountryPhase countryPhase = CountryPhase.builder().countryPhaseId(countryPhaseId).countryOverallPhase(countryPhaseValue).build();
         countryPhaseRepository.save(countryPhase);
     }
@@ -543,10 +548,9 @@ public class CountryIntegrationTest extends BaseIntegrationTest {
 
     private void addCountrySummary(String countryId, String countryName, String status, String alpha2Code, UUID
             countryUUID, String collectedDate,
-                                   List<CountryResourceLink> countryResourceLinks) throws Exception {
+                                   List<CountryResourceLink> countryResourceLinks, String year) throws Exception {
         SimpleDateFormat fmt = new SimpleDateFormat("dd-MM-yyyy");
         Date date = fmt.parse(collectedDate);
-        String year = "Version1";
         CountrySummary countrySummary = CountrySummary.builder()
                 .countrySummaryId(new CountrySummaryId(countryId, status, year))
                 .summary("summary")
@@ -577,6 +581,12 @@ public class CountryIntegrationTest extends BaseIntegrationTest {
                 })
                 .sorted(Comparator.naturalOrder())
                 .collect(Collectors.toList());
+    }
+
+    private String getCurrentYear() {
+        int currentYear = Year.now().getValue();
+        String year = new String(String.valueOf(currentYear));
+        return year;
     }
 
 }

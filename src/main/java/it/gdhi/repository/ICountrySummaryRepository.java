@@ -40,7 +40,10 @@ public interface ICountrySummaryRepository extends JpaRepository<CountrySummary,
             "c.countrySummaryId.countryId = UPPER(?1)")
     List<String> getAllStatus(String countryId);
 
+    List<CountrySummary> findByCountrySummaryIdYearOrderByUpdatedAtDesc(String currentYear);
+
     List<CountrySummary> findAllByOrderByUpdatedAtDesc();
 
     CountrySummary findByCountrySummaryIdCountryIdAndCountrySummaryIdStatusAndCountrySummaryIdYear(String countryId, String currentStatus, String year);
+
 }

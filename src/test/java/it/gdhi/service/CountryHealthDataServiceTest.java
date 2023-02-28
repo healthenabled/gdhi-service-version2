@@ -239,18 +239,18 @@ public class CountryHealthDataServiceTest {
     @Test
     public void shouldGetAdminViewFormDetails() {
         CountrySummary countrySummaryIND = getCountrySummary("IND", "PUBLISHED", "INDIA",
-                "IN", "Contact Name 1", "con1@gdhi.com");
+                "IN", "Contact Name 1", "con1@gdhi.com", "Version1");
         CountrySummary countrySummaryARG = getCountrySummary("ARG", "REVIEW_PENDING",
-                "ARGENTINA", "AR", "Contact Name 1", "con1@gdhi.com");
+                "ARGENTINA", "AR", "Contact Name 1", "con1@gdhi.com", "2023");
         CountrySummary countrySummaryALG = getCountrySummary("ALG", "NEW", "ALGERIA",
-                "AL", "Contact Name 2", "con2@gdhi.com");
+                "AL", "Contact Name 2", "con2@gdhi.com", "Version1");
         CountrySummary countrySummaryINDNEW = getCountrySummary("IND", "NEW", "INDIA",
-                "IN", "Contact Name 1", "con1@gdhi.com");
+                "IN", "Contact Name 1", "con1@gdhi.com", "2023");
 
-        when(iCountrySummaryRepository.findAllByOrderByUpdatedAtDesc()).thenReturn(asList(countrySummaryIND, countrySummaryARG,
-                countrySummaryALG, countrySummaryINDNEW));
+        when(iCountrySummaryRepository.findByCountrySummaryIdYearOrderByUpdatedAtDesc("2023")).thenReturn(asList(countrySummaryARG,
+                countrySummaryINDNEW));
         Map<String, List<CountrySummaryStatusDto>> adminViewFormDetails = countryHealthDataService.getAllCountryStatusSummaries();
-        assertEquals(adminViewFormDetails.get("NEW").size(), 2);
+        assertEquals(adminViewFormDetails.get("NEW").size(), 1);
         assertEquals(adminViewFormDetails.get("REVIEW_PENDING").size(), 1);
 
         CountrySummaryStatusDto countrySummaryStatusDto = adminViewFormDetails.get("REVIEW_PENDING").stream().findFirst().get();
@@ -540,10 +540,9 @@ public class CountryHealthDataServiceTest {
     }
 
     private CountrySummary getCountrySummary(String countryId, String statusValue, String countryName,
-                                             String alpha2code, String contactName, String contactEmail) {
+                                             String alpha2code, String contactName, String contactEmail, String year) {
         UUID countryUUID = UUID.randomUUID();
         Country country = new Country(countryId, countryName, countryUUID, alpha2code);
-        String year = "Version1";
         return CountrySummary.builder()
                 .countrySummaryId(new CountrySummaryId(countryId, statusValue, year))
                 .country(country)
