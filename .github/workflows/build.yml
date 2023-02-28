@@ -92,7 +92,7 @@ jobs:
   deploy-to-prod:
     runs-on: ubuntu-latest
     environment: PROD
-    needs: [continuous-integration]
+    needs: [deploy-to-showcase]
     if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/cicd'
     steps:
       - name: Configure AWS credentials
