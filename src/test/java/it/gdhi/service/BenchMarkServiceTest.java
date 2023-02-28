@@ -167,9 +167,9 @@ public class BenchMarkServiceTest {
         CountryPhaseId countryPhaseId1 = new CountryPhaseId("PAK" , year);
         CountryPhase countryPhase1 = CountryPhase.builder().countryPhaseId(countryPhaseId1).countryOverallPhase(2).build();
         CountryPhaseId countryPhaseId2 = new CountryPhaseId("PAK", year);
-        CountryPhase countryPhase2 = CountryPhase.builder().countryPhaseId(countryPhaseId2).countryOverallPhase(1).build();
+        CountryPhase countryPhase2 = CountryPhase.builder().countryPhaseId(countryPhaseId2).countryOverallPhase(2).build();
         CountryPhaseId countryPhaseId3 = new CountryPhaseId("IND", year);
-        CountryPhase countryPhase3 = CountryPhase.builder().countryPhaseId(countryPhaseId3).countryOverallPhase(1).build();
+        CountryPhase countryPhase3 = CountryPhase.builder().countryPhaseId(countryPhaseId3).countryOverallPhase(2).build();
         CountryPhaseId countryPhaseId4 = new CountryPhaseId("IND", year);
         CountryPhase countryPhase4 = CountryPhase.builder().countryPhaseId(countryPhaseId4).countryOverallPhase(2).build();
         CountryPhaseId countryPhaseId5 = new CountryPhaseId("IND", year);
