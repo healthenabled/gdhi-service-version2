@@ -179,12 +179,15 @@ public class CountryController {
         if (year == null) {
             year = defaultYearDataService.fetchDefaultYear();
         }
-        return countryHealthDataService.getBenchmarkDetailsFor(countryId, benchmarkType , year);
+        return countryHealthDataService.getBenchmarkDetailsFor(countryId, benchmarkType, year);
     }
 
     @GetMapping("/admin/countries/calculate_phase")
-    public void calculateCountryPhase() {
-        countryHealthDataService.calculatePhaseForAllCountries();
+    public void calculateCountryPhase(@RequestParam(value = "year", required = false) String year) {
+        if (year == null) {
+            year = defaultYearDataService.fetchDefaultYear();
+        }
+        countryHealthDataService.calculatePhaseForAllCountries(year);
     }
 
     @ResponseStatus(value = HttpStatus.NOT_ACCEPTABLE, reason = "User language requested not found")

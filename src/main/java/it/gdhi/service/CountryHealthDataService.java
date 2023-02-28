@@ -13,6 +13,7 @@ import org.springframework.util.StringUtils;
 
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
+
 import java.util.*;
 
 import static it.gdhi.utils.FormStatus.*;
@@ -85,7 +86,7 @@ public class CountryHealthDataService {
     @Transactional
     public void publish(GdhiQuestionnaire gdhiQuestionnaire) {
         save(gdhiQuestionnaire, PUBLISHED.name());
-        calculateAndSaveCountryPhase(gdhiQuestionnaire.getCountryId(), PUBLISHED.name());
+        calculateAndSaveCountryPhase(gdhiQuestionnaire.getCountryId(), PUBLISHED.name(), "Version1");
     }
 
     @Transactional
@@ -109,9 +110,9 @@ public class CountryHealthDataService {
     }
 
     @Transactional
-    public void calculatePhaseForAllCountries() {
+    public void calculatePhaseForAllCountries(String year) {
         List<String> publishedCountries = iCountrySummaryRepository.findAllByStatus(PUBLISHED.name());
-        publishedCountries.stream().forEach(country -> calculateAndSaveCountryPhase(country, PUBLISHED.name()));
+        publishedCountries.stream().forEach(country -> calculateAndSaveCountryPhase(country, PUBLISHED.name(), year));
     }
 
     public Map<String, List<CountrySummaryStatusDto>> getAllCountryStatusSummaries() {
@@ -124,7 +125,7 @@ public class CountryHealthDataService {
                 .collect(groupingBy(CountrySummaryStatusDto::getStatus));
     }
 
-    public Map<Integer, BenchmarkDto> getBenchmarkDetailsFor(String countryId, Integer benchmarkType , String year) {
+    public Map<Integer, BenchmarkDto> getBenchmarkDetailsFor(String countryId, Integer benchmarkType, String year) {
         return benchmarkService.getBenchmarkFor(countryId, benchmarkType, year);
     }
 
@@ -154,12 +155,12 @@ public class CountryHealthDataService {
     }
 
 
-    private void calculateAndSaveCountryPhase(String countryId, String status) {
+    private void calculateAndSaveCountryPhase(String countryId, String status, String year) {
         CountryHealthIndicators countryHealthIndicators = new CountryHealthIndicators(iCountryHealthIndicatorRepository
-                .findByCountryIdAndStatus(countryId, status));
+                .findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdStatusAndCountryHealthIndicatorIdYear(countryId, status, year));
         Double overallScore = countryHealthIndicators.getOverallScore();
         Integer countryPhase = new Score(overallScore).convertToPhase();
-        iCountryPhaseRepository.save(new CountryPhase(countryId, countryPhase, "Version1"));
+        iCountryPhaseRepository.save(new CountryPhase(countryId, countryPhase, year));
     }
 
     private void removeEntriesWithStatus(String countryId, String currentStatus) {

@@ -237,8 +237,9 @@ public class CountryControllerTest {
 
     @Test
     public void shouldCalculatePhaseForAllCountries() {
-        doNothing().when(countryHealthDataService).calculatePhaseForAllCountries();
-        countryController.calculateCountryPhase();
-        verify(countryHealthDataService).calculatePhaseForAllCountries();
+        String year = "Version1";
+        doNothing().when(countryHealthDataService).calculatePhaseForAllCountries(year);
+        countryController.calculateCountryPhase(year);
+        verify(countryHealthDataService).calculatePhaseForAllCountries(year);
     }
 }

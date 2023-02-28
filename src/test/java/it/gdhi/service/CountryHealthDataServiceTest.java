@@ -15,6 +15,7 @@ import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
 
 import javax.persistence.EntityManager;
+
 import java.util.*;
 
 import static it.gdhi.utils.FormStatus.*;
@@ -56,6 +57,7 @@ public class CountryHealthDataServiceTest {
         CountrySummaryDto countrySummaryDetailDto = CountrySummaryDto.builder().summary("Summary 1")
                 .resources(resourceLinks).build();
         String status = PUBLISHED.name();
+        String year = "Version1";
         List<HealthIndicatorDto> healthIndicatorDtos = asList(new HealthIndicatorDto(1, 1, status, 2, "Text"));
         String countryId = "ARG";
         GdhiQuestionnaire gdhiQuestionnaire = GdhiQuestionnaire.builder().countryId(countryId)
@@ -70,7 +72,7 @@ public class CountryHealthDataServiceTest {
                 .build();
 
 
-        when(iCountryHealthIndicatorRepository.findByCountryIdAndStatus(countryId, status))
+        when(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdStatusAndCountryHealthIndicatorIdYear(countryId, status, year))
                 .thenReturn(asList(countryHealthIndicator1));
         when(iCountrySummaryRepository.getCountrySummaryStatus(countryId)).thenReturn(status);
         countryHealthDataService.publish(gdhiQuestionnaire);
@@ -513,6 +515,7 @@ public class CountryHealthDataServiceTest {
     @Test
     public void ShouldCalculatePhaseForAllCountries() {
         String publishedStatus = "PUBLISHED";
+        String year = null;
         when(iCountrySummaryRepository.findAllByStatus(publishedStatus)).thenReturn(asList("IND"));
 
         Indicator indicator = Indicator.builder().indicatorId(1).parentId(null).build();
@@ -522,10 +525,10 @@ public class CountryHealthDataServiceTest {
                 .category(Category.builder().id(1).indicators(asList(indicator)).build())
                 .build();
 
-        when(iCountryHealthIndicatorRepository.findByCountryIdAndStatus("IND", publishedStatus))
+        when(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdStatusAndCountryHealthIndicatorIdYear("IND", publishedStatus, year))
                 .thenReturn(asList(countryHealthIndicator));
 
-        countryHealthDataService.calculatePhaseForAllCountries();
+        countryHealthDataService.calculatePhaseForAllCountries(year);
 
         InOrder inOrder = inOrder(iCountryPhaseRepository);
 
