@@ -12,20 +12,20 @@
         {
           "id": 1,
           "code": "1",
-          "name": "Priorización de la salud digital a nivel nacional a través de organismos y mecanismos dedicados a la gobernanza.",
-          "indicatorDescription": "¿Tiene el país un departamento / agencia / grupo de trabajo nacional separado para la salud digital?",
+          "name": "Salud digital priorizada a nivel nacional a través de organismos / mecanismos dedicados para la gobernanza",
+          "indicatorDescription": "¿Tiene el país un departamento/agencia/grupo de trabajo nacional separado para la salud digital?",
           "score": 1,
           "supportingText": "sp1",
-          "scoreDescription": "No existe ningún órgano de coordinación y/o la estructura de gobernanza naciente para la salud digital, se constituye caso por caso."
+          "scoreDescription": "No existe un organismo de coordinación y/o una estructura de gobernanza incipiente para la salud digital se constituye caso por caso."
         },
         {
           "id": 2,
           "code": "2",
-          "name": "Priorización de la salud digital a nivel nacional a través de la planificación",
+          "name": "Salud digital priorizada a nivel nacional a través de la planificación",
           "indicatorDescription": "¿La salud digital está incluida y presupuestada en la estrategia de salud nacional  y/o planes nacionales pertinentes? Nota: El enfoque de este indicador está en la inclusión de la salud digital o eSalud en la estrategia nacional de salud.",
           "score": 2,
           "supportingText": "sp1",
-          "scoreDescription": "Se está debatiendo la inclusión de la salud digital en las estrategias o planes nacionales de salud u otras estrategias o planes nacionales pertinentes. Se ha propuesto un lenguaje para la inclusión de la salud digital en las estrategias y/o planes nacionales de salud o en las estrategias y/o planes nacionales pertinentes, y se está revisando."
+          "scoreDescription": "Existe cierta discusión sobre la inclusión de la salud digital en la salud nacional u otras estrategias o planes nacionales relevantes. El texto propuesto para la inclusión de la salud digital en la estrategia de salud nacional y/o planes nacionales relevantes se ha elaborado y está bajo revisión."
         }
       ]
     },
@@ -38,16 +38,16 @@
         {
           "id": 3,
           "code": "3",
-          "name": "Marco o estrategia nacional de salud electrónica y salud digital",
-          "indicatorDescription": "¿Dispone el país de una estrategia o marco de salud digital o eHealth y de un plan de salud digital presupuestado?",
+          "name": "Protocolo para regular o certificar dispositivos y/o servicios de salud, incluidas disposiciones para IA y algoritmos (en etapas más altas de madurez)",
+          "indicatorDescription": "¿Cuenta el país con una estrategia o marco de eSalud o salud digital y un plan de salud digital presupuestado?",
           "score": 3,
           "supportingText": "sp1",
-          "scoreDescription": "Elaboración y aprobación de un plan nacional de salud digital con cálculo de costos."
+          "scoreDescription": "Plan presupuestario nacional de salud digital desarrollado y aprobado."
         },
         {
           "id": 4,
           "code": "4",
-          "name": "Financiación pública para la salud digital",
+          "name": "Salud digital integrada en la salud y la formación previa al servicio profesional relacionada (antes de la implementación)",
           "indicatorDescription": "¿La financiación pública (incluidos los préstamos) para la salud digital es suficiente para la estrategia de salud digital, las prioridades (necesidades) o el plan presupuestario del país?",
           "score": 4,
           "supportingText": "sp1",
@@ -64,7 +64,7 @@
         {
           "id": 5,
           "code": "5",
-          "name": "Marco Legal para la Protección de Datos (Seguridad)",
+          "name": "Formación en salud digital del recurso humano",
           "indicatorDescription": "¿Existe una ley sobre la seguridad de los datos (a lo largo de todo el ciclo de vida de los datos, por ejemplo, recopilación, procesamiento, almacenamiento, transmisión, uso y destrucción) que sea relevante para la salud digital?",
           "score": null,
           "supportingText": "sp1",
@@ -73,7 +73,7 @@
         {
           "id": 6,
           "code": "6",
-          "name": "Leyes o Reglamentos de privacidad, consentimiento, confidencialidad y acceso a la información de salud (Privacidad)",
+          "name": "Madurez de las carreras profesionales de salud digital del sector público",
           "indicatorDescription": "¿Existe una ley para proteger la privacidad individual, que rija la propiedad, el consentimiento, el acceso y el intercambio de datos de salud digitales identificables individualmente?",
           "score": null,
           "supportingText": "sp1",
