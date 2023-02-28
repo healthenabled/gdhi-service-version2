@@ -116,15 +116,19 @@ public class CountryHealthDataService {
         publishedCountries.stream().forEach(country -> calculateAndSaveCountryPhase(country, PUBLISHED.name(), year));
     }
 
-    public Map<String, List<CountrySummaryStatusDto>> getAllCountryStatusSummaries() {
+    public CountrySummaryStatusYearDto getAllCountryStatusSummaries() {
         String currentYear = this.getCurrentYear();
         List<CountrySummary> countrySummaries = iCountrySummaryRepository.findByCountrySummaryIdYearOrderByUpdatedAtDesc(currentYear);
 
         List<CountrySummaryStatusDto> countrySummaryStatusDtos = countrySummaries
                 .stream().map(CountrySummaryStatusDto::new).collect(toList());
 
-        return countrySummaryStatusDtos.stream()
+        Map<String, List<CountrySummaryStatusDto>> groupByCountrySummaryStatus = countrySummaryStatusDtos.stream()
                 .collect(groupingBy(CountrySummaryStatusDto::getStatus));
+
+        CountrySummaryStatusYearDto countrySummaryStatusYearDto = new CountrySummaryStatusYearDto(currentYear, groupByCountrySummaryStatus);
+
+        return countrySummaryStatusYearDto;
     }
 
     public Map<Integer, BenchmarkDto> getBenchmarkDetailsFor(String countryId, Integer benchmarkType, String year) {

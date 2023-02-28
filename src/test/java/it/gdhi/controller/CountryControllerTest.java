@@ -1,9 +1,6 @@
 package it.gdhi.controller;
 
-import it.gdhi.dto.CountryHealthScoreDto;
-import it.gdhi.dto.CountrySummaryDto;
-import it.gdhi.dto.CountryUrlGenerationStatusDto;
-import it.gdhi.dto.GdhiQuestionnaire;
+import it.gdhi.dto.*;
 import it.gdhi.model.DevelopmentIndicator;
 import it.gdhi.service.CountryHealthDataService;
 import it.gdhi.service.CountryHealthIndicatorService;
@@ -21,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import java.sql.Timestamp;
+import java.time.Year;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.UUID;
@@ -205,7 +203,8 @@ public class CountryControllerTest {
 
     @Test
     public void shouldGetAllCountryStatusSummaries() {
-        when(countryHealthDataService.getAllCountryStatusSummaries()).thenReturn(emptyMap());
+        CountrySummaryStatusYearDto countrySummaryStatusYearDto = new CountrySummaryStatusYearDto(this.getCurrentYear(), emptyMap());
+        when(countryHealthDataService.getAllCountryStatusSummaries()).thenReturn(countrySummaryStatusYearDto);
         countryController.getAllCountryStatusSummaries();
         verify(countryHealthDataService).getAllCountryStatusSummaries();
     }
@@ -241,5 +240,11 @@ public class CountryControllerTest {
         doNothing().when(countryHealthDataService).calculatePhaseForAllCountries(year);
         countryController.calculateCountryPhase(year);
         verify(countryHealthDataService).calculatePhaseForAllCountries(year);
+    }
+
+    private String getCurrentYear() {
+        int currentYear = Year.now().getValue();
+        String year = new String(String.valueOf(currentYear));
+        return year;
     }
 }

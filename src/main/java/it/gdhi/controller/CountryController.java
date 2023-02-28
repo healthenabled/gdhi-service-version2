@@ -168,7 +168,7 @@ public class CountryController {
     }
 
     @GetMapping("/countries/country_status_summaries")
-    public Map<String, List<CountrySummaryStatusDto>> getAllCountryStatusSummaries() {
+    public CountrySummaryStatusYearDto getAllCountryStatusSummaries() {
         return countryHealthDataService.getAllCountryStatusSummaries();
     }
 
