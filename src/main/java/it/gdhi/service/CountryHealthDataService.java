@@ -14,6 +14,7 @@ import org.springframework.util.StringUtils;
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 
+import java.time.Year;
 import java.util.*;
 
 import static it.gdhi.utils.FormStatus.*;
@@ -148,9 +149,8 @@ public class CountryHealthDataService {
     }
 
     private String getCurrentYear() {
-        Date date = new Date();
-        Integer yearInInteger = date.getYear() + 1900;
-        String year = new String(String.valueOf(yearInInteger));
+        int currentYear = Year.now().getValue();
+        String year = new String(String.valueOf(currentYear));
         return year;
     }
 
