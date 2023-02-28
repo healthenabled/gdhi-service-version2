@@ -54,7 +54,7 @@ public class CountryHealthIndicatorService {
         CountryHealthIndicators countryHealthIndicators = new CountryHealthIndicators(iCountryHealthIndicatorRepository
                 .findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdStatusAndCountryHealthIndicatorIdYear(countryId, PUBLISHED.name(), year));
         CountryHealthScoreDto countryHealthScoreDto = constructCountryHealthScore(countryId, countryHealthIndicators,
-                getCategoryPhaseFilter(null, null));
+                getCategoryPhaseFilter(null, null), year);
         return healthIndicatorTranslator.translateCountryHealthScores(languageCode, countryHealthScoreDto);
     }
 
@@ -68,7 +68,7 @@ public class CountryHealthIndicatorService {
                 .stream()
                 .map(entry -> constructCountryHealthScore(entry.getKey(),
                         new CountryHealthIndicators(entry.getValue()),
-                        getCategoryPhaseFilter(categoryId, phase)))
+                        getCategoryPhaseFilter(categoryId, phase), year))
                 .filter(getCountryPhaseFilter(categoryId, phase))
                 .filter(CountryHealthScoreDto::hasCategories)
                 .sorted(comparing(CountryHealthScoreDto::getCountryName, nullsLast(Comparator.naturalOrder())))
@@ -172,11 +172,11 @@ public class CountryHealthIndicatorService {
 
     private CountryHealthScoreDto constructCountryHealthScore(String countryId,
                                                               CountryHealthIndicators countryHealthIndicators,
-                                                              Predicate<? super CategoryHealthScoreDto> phaseFilter) {
+                                                              Predicate<? super CategoryHealthScoreDto> phaseFilter, String year) {
         List<CategoryHealthScoreDto> categoryDtos = getCategoriesWithIndicators(countryHealthIndicators, phaseFilter);
-        CountryPhase countryPhase = iCountryPhaseRepository.findByCountryPhaseIdCountryId(countryId);
+        CountryPhase countryPhase = iCountryPhaseRepository.findByCountryPhaseIdYearAndCountryPhaseIdCountryId(year, countryId);
         CountrySummary countrySummary = iCountrySummaryRepository.
-                findByCountryAndStatus(countryId, PUBLISHED.name());
+                findByCountrySummaryIdCountryIdAndCountrySummaryIdStatusAndCountrySummaryIdYear(countryId, PUBLISHED.name(), year);
         String collectedDateStr = countrySummary != null && countrySummary.getCollectedDate() != null ?
                 new SimpleDateFormat("MMMM yyyy").format(countrySummary.getCollectedDate()) : "";
         return new CountryHealthScoreDto(countryId, countryHealthIndicators.getCountryName(),
