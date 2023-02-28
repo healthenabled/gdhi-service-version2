@@ -249,11 +249,11 @@ public class CountryHealthDataServiceTest {
 
         when(iCountrySummaryRepository.findByCountrySummaryIdYearOrderByUpdatedAtDesc("2023")).thenReturn(asList(countrySummaryARG,
                 countrySummaryINDNEW));
-        Map<String, List<CountrySummaryStatusDto>> adminViewFormDetails = countryHealthDataService.getAllCountryStatusSummaries();
-        assertEquals(adminViewFormDetails.get("NEW").size(), 1);
-        assertEquals(adminViewFormDetails.get("REVIEW_PENDING").size(), 1);
+        CountrySummaryStatusYearDto adminViewFormDetails = countryHealthDataService.getAllCountryStatusSummaries();
+        assertEquals(adminViewFormDetails.getCountrySummaryStatusDtos().get("NEW").size(), 1);
+        assertEquals(adminViewFormDetails.getCountrySummaryStatusDtos().get("REVIEW_PENDING").size(), 1);
 
-        CountrySummaryStatusDto countrySummaryStatusDto = adminViewFormDetails.get("REVIEW_PENDING").stream().findFirst().get();
+        CountrySummaryStatusDto countrySummaryStatusDto = adminViewFormDetails.getCountrySummaryStatusDtos().get("REVIEW_PENDING").stream().findFirst().get();
 
         assertEquals(countrySummaryStatusDto.getContactName(), "Contact Name 1");
         assertEquals(countrySummaryStatusDto.getContactEmail(), "con1@gdhi.com");

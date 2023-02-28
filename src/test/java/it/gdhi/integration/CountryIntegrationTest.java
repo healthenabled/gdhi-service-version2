@@ -451,7 +451,8 @@ public class CountryIntegrationTest extends BaseIntegrationTest {
                 .when()
                 .get("http://localhost:" + port + "/countries/country_status_summaries");
 
-        String expectedJson = "{\n" +
+        String expectedJson = "{\"year\": \"2023\",\n" +
+                "\"countrySummaryStatusDtos\": {\n" +
                 "  \"NEW\": [{\n" +
                 "    \"countryName\": \"India\",\n" +
                 "    \"countryUUID\": \"" + indiaUUID.toString() + "\",\n" +
@@ -486,6 +487,7 @@ public class CountryIntegrationTest extends BaseIntegrationTest {
                 "    \"contactName\": \"contactName\",\n" +
                 "    \"contactEmail\": \"email\"\n" +
                 "  }]\n" +
+                "}\n" +
                 "}";
         assertStringResponse(response.asString(), expectedJson);
     }
