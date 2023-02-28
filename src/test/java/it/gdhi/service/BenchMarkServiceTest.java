@@ -1,11 +1,10 @@
 package it.gdhi.service;
 
 import it.gdhi.dto.BenchmarkDto;
-import it.gdhi.model.Country;
-import it.gdhi.model.CountryHealthIndicator;
-import it.gdhi.model.Indicator;
-import it.gdhi.model.IndicatorScore;
+import it.gdhi.model.*;
+import it.gdhi.model.id.CountryPhaseId;
 import it.gdhi.repository.ICountryHealthIndicatorRepository;
+import it.gdhi.repository.ICountryPhaseRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -17,13 +16,16 @@ import java.util.*;
 import static it.gdhi.utils.FormStatus.PUBLISHED;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class BenchMarkServiceTest {
 
     @Mock
     ICountryHealthIndicatorRepository iCountryHealthIndicatorRepository;
+
+    @Mock
+    ICountryPhaseRepository iCountryPhaseRepository;
 
     @InjectMocks
     BenchMarkService benchMarkService;
@@ -49,7 +51,7 @@ public class BenchMarkServiceTest {
                 .thenReturn(Arrays.asList(countryHealthIndicator1, countryHealthIndicator2, countryHealthIndicator3,
                         countryHealthIndicatorForInd1, countryHealthIndicatorForInd2, countryHealthIndicatorForInd3));
 
-        when(iCountryHealthIndicatorRepository.findByCountryIdAndStatus(countryId, PUBLISHED.name()))
+        when(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdStatusAndCountryHealthIndicatorIdYear(countryId, PUBLISHED.name() , year))
                 .thenReturn(
                         Arrays.asList(countryHealthIndicatorForInd1, countryHealthIndicatorForInd2, countryHealthIndicatorForInd3
                         ));
@@ -82,11 +84,11 @@ public class BenchMarkServiceTest {
         CountryHealthIndicator countryHealthIndicatorForInd1 = buildCountryHealthIndicator(indicatorId1, countryId, -1);
         CountryHealthIndicator countryHealthIndicatorForInd2 = buildCountryHealthIndicator(indicatorId2, countryId, -1);
 
-        when(iCountryHealthIndicatorRepository.findByStatusAndPhase(PUBLISHED.name(), benchmarkType))
+        when(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdStatusAndCountryHealthIndicatorIdYear(PUBLISHED.name(), year))
                 .thenReturn(Arrays.asList(countryHealthIndicator1, countryHealthIndicator2,
                         countryHealthIndicatorForInd1, countryHealthIndicatorForInd2, countryHealthIndicator3));
 
-        when(iCountryHealthIndicatorRepository.findByCountryIdAndStatus(countryId, PUBLISHED.name()))
+        when(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdStatusAndCountryHealthIndicatorIdYear(countryId, PUBLISHED.name() , year))
                 .thenReturn(
                         Arrays.asList(countryHealthIndicatorForInd1, countryHealthIndicatorForInd2
                         ));
@@ -118,11 +120,11 @@ public class BenchMarkServiceTest {
                 .score(1).build();
 
 
-        when(iCountryHealthIndicatorRepository.findByStatusAndPhase(PUBLISHED.name(), benchmarkType))
+        when(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdStatusAndCountryHealthIndicatorIdYear(PUBLISHED.name(), year))
                 .thenReturn(Arrays.asList(countryHealthIndicatorForInd3, countryHealthIndicator2,
                         countryHealthIndicatorForInd1, countryHealthIndicatorForInd2));
 
-        when(iCountryHealthIndicatorRepository.findByCountryIdAndStatus(countryId, PUBLISHED.name()))
+        when(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdStatusAndCountryHealthIndicatorIdYear(countryId, PUBLISHED.name() , year))
                 .thenReturn(
                         Arrays.asList(countryHealthIndicatorForInd1, countryHealthIndicatorForInd2
                         ));
@@ -153,14 +155,33 @@ public class BenchMarkServiceTest {
         CountryHealthIndicator countryHealthIndicatorForInd2 = buildCountryHealthIndicator(indicatorId2, countryId, 1);
         CountryHealthIndicator countryHealthIndicatorForInd3 = buildCountryHealthIndicator(indicatorId3, countryId, 3);
 
-        when(iCountryHealthIndicatorRepository.findByStatusAndPhase(PUBLISHED.name(), benchmarkType))
+        when(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdStatusAndCountryHealthIndicatorIdYear(PUBLISHED.name(), year))
                 .thenReturn(Arrays.asList(countryHealthIndicator1, countryHealthIndicator3,
                         countryHealthIndicatorForInd1, countryHealthIndicatorForInd2, countryHealthIndicatorForInd3));
 
-        when(iCountryHealthIndicatorRepository.findByCountryIdAndStatus(countryId, PUBLISHED.name()))
+        when(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdStatusAndCountryHealthIndicatorIdYear(countryId, PUBLISHED.name() , year))
                 .thenReturn(
                         Arrays.asList(countryHealthIndicatorForInd1, countryHealthIndicatorForInd2, countryHealthIndicatorForInd3
                         ));
+
+        CountryPhaseId countryPhaseId1 = new CountryPhaseId("PAK" , year);
+        CountryPhase countryPhase1 = CountryPhase.builder().countryPhaseId(countryPhaseId1).countryOverallPhase(2).build();
+        CountryPhaseId countryPhaseId2 = new CountryPhaseId("PAK", year);
+        CountryPhase countryPhase2 = CountryPhase.builder().countryPhaseId(countryPhaseId2).countryOverallPhase(2).build();
+        CountryPhaseId countryPhaseId3 = new CountryPhaseId("IND", year);
+        CountryPhase countryPhase3 = CountryPhase.builder().countryPhaseId(countryPhaseId3).countryOverallPhase(2).build();
+        CountryPhaseId countryPhaseId4 = new CountryPhaseId("IND", year);
+        CountryPhase countryPhase4 = CountryPhase.builder().countryPhaseId(countryPhaseId4).countryOverallPhase(2).build();
+        CountryPhaseId countryPhaseId5 = new CountryPhaseId("IND", year);
+        CountryPhase countryPhase5 = CountryPhase.builder().countryPhaseId(countryPhaseId5).countryOverallPhase(2).build();
+
+        when(iCountryPhaseRepository.findByCountryPhaseIdYearAndCountryPhaseIdCountryId(year , "PAK")).
+                thenReturn(countryPhase1).thenReturn(countryPhase2);
+
+        when(iCountryPhaseRepository.findByCountryPhaseIdYearAndCountryPhaseIdCountryId(year , countryId)).
+                thenReturn(countryPhase3).thenReturn(countryPhase4).thenReturn(countryPhase5);
+
+
 
         Map<Integer, BenchmarkDto> expectedBenchMark = new HashMap<>();
         expectedBenchMark.put(indicatorId1, new BenchmarkDto(2, BenchMarkService.BENCHMARK_BELOW_PAR_VALUE));
@@ -181,4 +202,5 @@ public class BenchMarkServiceTest {
                 .country(new Country(countryId, "Some Country", UUID.randomUUID(), "SC"))
                 .score(score).build();
     }
+
 }
