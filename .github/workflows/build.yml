@@ -44,7 +44,7 @@ jobs:
         working-directory: ${{ secrets.JAR_LOCATION }}
         run: aws s3 cp gdhi-*.jar s3://${{ secrets.AWS_S3_BUCKET_NAME }}/${{ secrets.AWS_S3_FOLDER }}
 
-   deploy-to-qa:
+  deploy-to-qa:
      runs-on: ubuntu-latest
      needs: [ continuous-integration ]
      if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/cicd'
@@ -66,7 +66,7 @@ jobs:
              --github-location repository=${{ github.repository }},commitId=${{ github.sha }} \
              --ignore-application-stop-failures
 
-   deploy-to-showcase:
+  deploy-to-showcase:
      runs-on: ubuntu-latest
      environment: SHOWCASE
      needs: [ deploy-to-qa ]
