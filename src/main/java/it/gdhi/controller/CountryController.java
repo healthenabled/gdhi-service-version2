@@ -128,7 +128,7 @@ public class CountryController {
                                                                  @RequestParam(value = "year", required = false) String year) {
         LanguageCode languageCode = LanguageCode.getValueFor(request.getHeader(USER_LANGUAGE));
         if (year == null) {
-            year = defaultYearDataService.fetchDefaultYear();
+            year = countryHealthDataService.getCurrentYear();
         }
         return countryService.getDetails(countryUIID, languageCode, true, year);
     }
@@ -185,7 +185,7 @@ public class CountryController {
     @GetMapping("/admin/countries/calculate_phase")
     public void calculateCountryPhase(@RequestParam(value = "year", required = false) String year) {
         if (year == null) {
-            year = defaultYearDataService.fetchDefaultYear();
+            year = countryHealthDataService.getCurrentYear();
         }
         countryHealthDataService.calculatePhaseForAllCountries(year);
     }
