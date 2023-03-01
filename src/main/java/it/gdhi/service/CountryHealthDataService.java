@@ -16,6 +16,7 @@ import javax.transaction.Transactional;
 
 import java.time.Year;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static it.gdhi.utils.FormStatus.*;
 import static java.util.Objects.isNull;
@@ -68,13 +69,14 @@ public class CountryHealthDataService {
     @Transactional
     public CountryUrlGenerationStatusDto saveNewCountrySummary(UUID countryUUID) {
         String countryId = iCountryRepository.findByUniqueId(countryUUID).getId();
+        String currentYear = this.getCurrentYear();
 
         CountryUrlGenerationStatusDto statusDto;
 
-        String currentStatus = getStatusOfCountrySummary(countryId);
+        String currentStatus = getStatusOfCountrySummary(countryId , currentYear);
 
         if (isNull(currentStatus) || currentStatus.equalsIgnoreCase(PUBLISHED.toString())) {
-            CountrySummary countrySummary = new CountrySummary(new CountrySummaryId(countryId, NEW.toString(), "Version1"),
+            CountrySummary countrySummary = new CountrySummary(new CountrySummaryId(countryId, NEW.toString(), currentYear),
                     new CountrySummaryDto());
             iCountrySummaryRepository.save(countrySummary);
             statusDto = new CountryUrlGenerationStatusDto(countryId, true, isNull(currentStatus) ? null :
@@ -206,9 +208,10 @@ public class CountryHealthDataService {
         }
     }
 
-    private String getStatusOfCountrySummary(String countryId) {
+    private String getStatusOfCountrySummary(String countryId , String currentYear) {
         String currentStatus = null;
-        List<String> countrySummaryStatuses = iCountrySummaryRepository.getAllStatus(countryId);
+        List<CountrySummary> countrySummary = iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdYear(countryId , currentYear);
+        List<String> countrySummaryStatuses = countrySummary.stream().map(CountrySummary::getStatus).collect(toList());
         if (!countrySummaryStatuses.isEmpty()) {
             currentStatus = countrySummaryStatuses.size() > 1 ?
                     countrySummaryStatuses.stream()
