@@ -6,8 +6,8 @@
       {
         "indicatorId": 1,
         "indicatorCode": "1",
-        "indicatorName": "Saúde digital priorizada a nível nacional através de órgãos/mecanismos dedicados à governação",
-        "indicatorDefinition": "O país tem um departamento / agência / grupo de trabalho nacional separado para a saúde digital?",
+        "indicatorName": "Saúde digital priorizada em nível nacional por meio de órgãos/mecanismos de governança dedicados",
+        "indicatorDefinition": "O país tem um departamento/agência/grupo de trabalho nacional separado para saúde digital?",
         "scores": [
           {
             "scoreId": 1,
@@ -17,17 +17,17 @@
           {
             "scoreId": 3,
             "score": 1,
-            "scoreDefinition": "Não existe nenhum órgão de coordenação e/ou a estrutura emergente de governança para a saúde digital é constituída caso a caso."
+            "scoreDefinition": "Não existe nenhum órgão coordenador e/ou uma estrutura de governança nascente para a saúde digital é constituída caso a caso."
           },
           {
             "scoreId": 4,
             "score": 2,
-            "scoreDefinition": "A estrutura de governação é formalmente constituída, embora não totalmente funcional, ou reúne-se regularmente."
+            "scoreDefinition": "A estrutura de governança é formalmente constituída, embora não seja totalmente funcional ou se reúna regularmente."
           },
           {
             "scoreId": 5,
             "score": 3,
-            "scoreDefinition": "A estrutura de governança e quaisquer grupos de trabalho relacionados têm um âmbito de trabalho (SOW) e realizam reuniões regulares com a participação e/ou consulta das partes interessadas."
+            "scoreDefinition": "A estrutura de governança e quaisquer grupos de trabalho relacionados têm um escopo de trabalho (SOW) e realizam reuniões regulares com a participação e/ou consulta das partes interessadas."
           },
           {
             "scoreId": 6,
@@ -44,7 +44,7 @@
       {
         "indicatorId": 2,
         "indicatorCode": "2",
-        "indicatorName": "Saúde Digital priorizada em nível nacional através do planeamento",
+        "indicatorName": "Saúde digital priorizada em nível nacional por meio do planejamento",
         "indicatorDefinition": "A saúde digital está incluída e orçada na saúde nacional ou nas estratégias e/ou planos nacionais relevantes? Nota: O foco deste indicador é a inclusão da saúde digital ou eHealth na estratégia nacional de saúde.",
         "scores": [
           {
@@ -55,12 +55,12 @@
           {
             "scoreId": 10,
             "score": 1,
-            "scoreDefinition": "A saúde digital não está incluída na estratégia nacional de saúde. É implementada de forma ad hoc em programas de saúde."
+            "scoreDefinition": "A saúde digital não está incluída na estratégia nacional de saúde. Está sendo implementado de forma ad hoc em programas de saúde."
           },
           {
             "scoreId": 11,
             "score": 2,
-            "scoreDefinition": "Há alguma discussão sobre a inclusão da saúde digital na saúde nacional ou em outras estratégias ou planos nacionais relevantes. A linguagem proposta para a inclusão da saúde digital na saúde nacional ou em estratégias e/ou planos nacionais relevantes já foi elaborada e está sendo revisada."
+            "scoreDefinition": "Há alguma discussão sobre a inclusão da saúde digital na saúde nacional ou outras estratégias ou planos nacionais relevantes. A linguagem proposta para a inclusão da saúde digital na saúde nacional ou nas estratégias e/ou planos nacionais relevantes foi elaborada e está em revisão."
           },
           {
             "scoreId": 12,
@@ -70,12 +70,12 @@
           {
             "scoreId": 13,
             "score": 4,
-            "scoreDefinition": "A saúde digital está a ser implementada como parte integrante das estratégias e/ou planos nacionais de saúde ou de outras estratégias e/ou planos nacionais relevantes."
+            "scoreDefinition": "A saúde digital está sendo implementada como parte da saúde nacional ou outras estratégias e/ou planos nacionais relevantes."
           },
           {
             "scoreId": 14,
             "score": 5,
-            "scoreDefinition": "A saúde digital é implementada e periodicamente avaliada e otimizada na saúde nacional ou em outras estratégias e/ou planos nacionais relevantes."
+            "scoreDefinition": "A saúde digital é implementada e periodicamente avaliada e otimizada na saúde nacional ou outras estratégias e/ou planos nacionais relevantes."
           }
         ]
       }
@@ -88,8 +88,8 @@
       {
         "indicatorId": 3,
         "indicatorCode": "3",
-        "indicatorName": "Estratégia ou quadro nacional de eSaúde/Estratégia ou quadro de saúde digital",
-        "indicatorDefinition": "O país dispõe de uma estratégia ou estrutura de saúde digital ou de eSaúde e de um plano de saúde digital orçamentado?",
+        "indicatorName": "Estratégia ou Estrutura Nacional de eSaúde/Saúde Digital",
+        "indicatorDefinition": "O país tem uma estratégia ou estrutura de eSaúde ou saúde digital e um plano de saúde digital custeado?",
         "scores": [
           {
             "scoreId": 15,
@@ -99,22 +99,22 @@
           {
             "scoreId": 17,
             "score": 1,
-            "scoreDefinition": "Não existe uma estratégia ou quadro de saúde digital. Projeto de estratégia ou estrutura de saúde digital desenvolvido, mas não revisto oficialmente."
+            "scoreDefinition": "Não existe uma estratégia ou estrutura de saúde digital. Projeto de estratégia ou estrutura de saúde digital desenvolvido, mas não revisado oficialmente."
           },
           {
             "scoreId": 18,
             "score": 2,
-            "scoreDefinition": "Estratégia ou quadro nacional de saúde digital aprovado."
+            "scoreDefinition": "Estratégia ou estrutura nacional de saúde digital aprovada."
           },
           {
             "scoreId": 19,
             "score": 3,
-            "scoreDefinition": "Plano nacional de saúde digital orçamentado desenvolvido e aprovado."
+            "scoreDefinition": "Plano nacional custeado de saúde digital desenvolvido e aprovado."
           },
           {
             "scoreId": 20,
             "score": 4,
-            "scoreDefinition": "Estratégia nacional de saúde digital e plano orçamentado parcialmente implementado com recursos para assegurar a sua plena implementação."
+            "scoreDefinition": "Estratégia nacional de saúde digital e plano custeado parcialmente implementado com recursos para garantir a implementação total."
           },
           {
             "scoreId": 21,
@@ -126,7 +126,7 @@
       {
         "indicatorId": 4,
         "indicatorCode": "4",
-        "indicatorName": "Financiamento público da saúde digital",
+        "indicatorName": "Financiamento público para saúde digital",
         "indicatorDefinition": "O financiamento público (incluindo empréstimos) para saúde digital é suficiente para as estratégias de saúde digital, prioridades (necessidades) ou plano custeado do país?",
         "scores": [
           {
@@ -170,7 +170,7 @@
       {
         "indicatorId": 5,
         "indicatorCode": "5",
-        "indicatorName": "Quadro jurídico da protecção de dados (segurança)",
+        "indicatorName": "Marco Legal para Proteção de Dados (Segurança/ Cibersegurança)",
         "indicatorDefinition": "Existe uma lei sobre segurança de dados (em todo o ciclo de vida dos dados, por exemplo, coleta, processamento, armazenamento, transmissão, uso e destruição) que seja relevante para a saúde digital?",
         "scores": [
           {
@@ -262,12 +262,12 @@
           {
             "scoreId": 46,
             "score": 2,
-            "scoreDefinition": "Foram propostos e estão a ser analisados protocolos, políticas, quadros ou processos aceites que regem a utilização de dispositivos médicos conectados e de serviços de saúde digitais (por exemplo, telemedicina, aplicações), especialmente em relação à segurança, integridade dos dados e qualidade dos cuidados de saúde."
+            "scoreDefinition": "Protocolos, políticas, estruturas ou processos aceitos que regem o uso clínico e de atendimento ao paciente de dispositivos médicos conectados e serviços digitais de saúde (por exemplo, telemedicina, aplicativos), particularmente em relação à segurança, integridade dos dados e qualidade do atendimento, foram propostos e estão sob revisão."
           },
           {
             "scoreId": 47,
             "score": 3,
-            "scoreDefinition": "Foram aprovados protocolos, políticas, quadros ou processos aceites que regem a utilização de dispositivos médicos conectados e de serviços digitais de saúde (por exemplo, telemedicina, aplicações), especialmente em relação à segurança, integridade dos dados e qualidade dos cuidados, mas que não são plenamente implementados."
+            "scoreDefinition": "Protocolos, políticas, estruturas ou processos aceitos que regem o uso clínico e de atendimento ao paciente de dispositivos médicos conectados e serviços digitais de saúde (por exemplo, telemedicina, aplicativos), particularmente em relação à segurança, integridade de dados e qualidade do atendimento, foram aprovados, mas não são totalmente implementado."
           },
           {
             "scoreId": 48,
@@ -284,7 +284,7 @@
       {
         "indicatorId": 8,
         "indicatorCode": "8",
-        "indicatorName": "Segurança e partilha de dados transfronteiriços",
+        "indicatorName": "Segurança e compartilhamento de dados transfronteiriços",
         "indicatorDefinition": "Existem protocolos, políticas, estruturas ou processos aceitos em vigor para oferecer suporte à troca e armazenamento seguro de dados transfronteiriços para apoiar as metas de saúde pública e, ao mesmo tempo, proteger a privacidade individual? Nota: Isso inclui dados relacionados à saúde entrando em um país, saindo de um país e/ou sendo usados em um país relacionado a um indivíduo de outro país.",
         "scores": [
           {
@@ -328,8 +328,8 @@
       {
         "indicatorId": 9,
         "indicatorCode": "9",
-        "indicatorName": "Saúde digital integrada na saúde e na formação profissional conexa antes da implementação (antes da implementação)   ",
-        "indicatorDefinition": "A saúde digital faz parte do currículo dos profissionais de saúde e de apoio à saúde em formação, em geral?                                                                                                                                                                                                         ",
+        "indicatorName": "Saúde digital integrada na saúde e treinamento profissional pré-serviço relacionado (antes da implantação)",
+        "indicatorDefinition": "A saúde digital faz parte do currículo dos profissionais de saúde e de apoio à saúde em formação, em geral?",
         "scores": [
           {
             "scoreId": 57,
@@ -339,12 +339,12 @@
           {
             "scoreId": 59,
             "score": 1,
-            "scoreDefinition": "Não existe um currículo digital de saúde para os profissionais de saúde como parte dos requisitos de formação pré-serviço."
+            "scoreDefinition": "Não há currículo de saúde digital para profissionais de saúde como parte dos requisitos de treinamento pré-serviço."
           },
           {
             "scoreId": 60,
             "score": 2,
-            "scoreDefinition": "Currículo de saúde digital proposto e em revisão como parte dos requisitos de formação pré-serviço."
+            "scoreDefinition": "Currículo de saúde digital proposto e em revisão como parte dos requisitos de treinamento pré-serviço."
           },
           {
             "scoreId": 61,
@@ -354,20 +354,20 @@
           {
             "scoreId": 62,
             "score": 4,
-            "scoreDefinition": "Saúde digital ensinada em instituições relevantes com uma estimativa de 50-75% de profissionais de saúde em formação pré-serviço."
+            "scoreDefinition": "A saúde digital é ensinada em instituições relevantes, com cerca de 50 a 75% de profissionais de saúde recebendo treinamento pré-serviço."
           },
           {
             "scoreId": 63,
             "score": 5,
-            "scoreDefinition": "Saúde digital ensinada em instituições relevantes com >75% dos profissionais de saúde em formação pré-serviço."
+            "scoreDefinition": "Saúde digital ensinada em instituições relevantes com mais de 75% dos profissionais de saúde recebendo treinamento pré-serviço."
           }
         ]
       },
       {
         "indicatorId": 10,
         "indicatorCode": "10",
-        "indicatorName": "Saúde digital integrada na saúde e formação profissional em serviço (após a implantação)",
-        "indicatorDefinition": "Especificamente, a saúde digital faz parte do currículo dos profissionais de saúde e de apoio à saúde na força de trabalho em geral? [Definido como trabalhadores comunitários de saúde, enfermeiros, médicos, aliados da saúde, gestores/administradores de saúde e técnicos]",
+        "indicatorName": "Saúde digital integrada na saúde e treinamento profissional em serviço relacionado (após a implantação)",
+        "indicatorDefinition": "Especificamente, a saúde digital faz parte do currículo para profissionais de saúde e de suporte relacionados à saúde na força de trabalho em geral? [Definido como agentes comunitários de saúde, enfermeiros, médicos, profissionais de saúde, gerentes/administradores de saúde e tecnólogos]",
         "scores": [
           {
             "scoreId": 64,
@@ -377,12 +377,12 @@
           {
             "scoreId": 66,
             "score": 1,
-            "scoreDefinition": "Não existe um currículo de saúde digital como parte da formação em serviço (educação contínua) para os profissionais de saúde na força de trabalho."
+            "scoreDefinition": "Não há currículo de saúde digital como parte do treinamento em serviço (educação continuada) para profissionais de saúde na força de trabalho."
           },
           {
             "scoreId": 67,
             "score": 2,
-            "scoreDefinition": "Currículo de saúde digital proposto e em revisão como parte da formação em serviço (educação contínua) para profissionais de saúde na força de trabalho."
+            "scoreDefinition": "Currículo de saúde digital proposto e em revisão como parte do treinamento em serviço (educação continuada) para profissionais de saúde no mercado de trabalho."
           },
           {
             "scoreId": 68,
@@ -392,20 +392,20 @@
           {
             "scoreId": 69,
             "score": 4,
-            "scoreDefinition": "O currículo de saúde digital é implementado como parte do treino em serviço (educação continuada) para 50-75% dos profissionais de saúde na força de trabalho. "
+            "scoreDefinition": "O currículo de saúde digital é implementado como parte do treinamento em serviço (educação continuada) para 50-75% dos profissionais de saúde da força de trabalho."
           },
           {
             "scoreId": 70,
             "score": 5,
-            "scoreDefinition": "O currículo de saúde digital é implementado como parte do treino em serviço (educação continuada) para >75% dos profissionais de saúde na força de trabalho. "
+            "scoreDefinition": "O currículo de saúde digital é implementado como parte do treinamento em serviço (educação continuada) para mais de 75% dos profissionais de saúde da força de trabalho."
           }
         ]
       },
       {
         "indicatorId": 11,
         "indicatorCode": "11",
-        "indicatorName": "Formação dos profissionais de saúde digitais",
-        "indicatorDefinition": "Em geral, a formação em saúde digital / informática em saúde / sistemas de informação em saúde / programas de graduação em informática biomédica (em instituições públicas ou privadas) produz trabalhadores de saúde digitais treinados? ",
+        "indicatorName": "Treinamento da força de trabalho digital em saúde",
+        "indicatorDefinition": "Em geral, o treinamento em programas de graduação em saúde digital/informática em saúde/sistemas de informação em saúde/informática biomédica (em instituições públicas ou privadas) está produzindo profissionais de saúde digital treinados?",
         "scores": [
           {
             "scoreId": 71,
@@ -415,34 +415,34 @@
           {
             "scoreId": 73,
             "score": 1,
-            "scoreDefinition": "Não há treino disponível para a força de trabalho de saúde digital disponível no país."
+            "scoreDefinition": "Não há treinamento disponível para força de trabalho em saúde digital disponível no país."
           },
           {
             "scoreId": 74,
             "score": 2,
-            "scoreDefinition": "Avaliação das necessidades de mão-de-obra no sector da saúde digital, identificação de lacunas e desenvolvimento de opções de formação. "
+            "scoreDefinition": "Necessidades de força de trabalho de saúde digital avaliadas, lacunas identificadas e opções de treinamento em desenvolvimento"
           },
           {
             "scoreId": 75,
             "score": 3,
-            "scoreDefinition": "A formação profissional está disponível, mas os graduados ainda não estão implementados."
+            "scoreDefinition": "O treinamento profissional está disponível, mas os graduados ainda não foram implantados"
           },
           {
             "scoreId": 76,
             "score": 4,
-            "scoreDefinition": "Profissionais de saúde digitais treinados disponíveis e implementados, mas mantêm-se lacunas essenciais de pessoal."
+            "scoreDefinition": "Profissionais de saúde digital treinados disponíveis e implantados, mas ainda há lacunas essenciais de pessoal"
           },
           {
             "scoreId": 77,
             "score": 5,
-            "scoreDefinition": "Número suficiente de profissionais de saúde digitais treinados disponíveis para apoiar as necessidades nacionais de saúde digital."
+            "scoreDefinition": "Número suficiente de profissionais de saúde digital treinados disponíveis para atender às necessidades nacionais de saúde digital"
           }
         ]
       },
       {
         "indicatorId": 12,
         "indicatorCode": "12",
-        "indicatorName": "Maturidade das carreiras profissionais digitais de saúde no setor público",
+        "indicatorName": "Maturidade das carreiras profissionais de saúde digital do setor público",
         "indicatorDefinition": "Existem títulos profissionais do setor público e planos de carreira em saúde digital?",
         "scores": [
           {
@@ -453,27 +453,27 @@
           {
             "scoreId": 80,
             "score": 1,
-            "scoreDefinition": "Nenhuma estratégia, política ou guia da força de trabalho que reconheça a saúde digital está em vigor. A distribuição da força de trabalho de saúde digital é ad hoc."
+            "scoreDefinition": "Nenhuma estratégia, política ou guia de força de trabalho que reconheça a saúde digital está em vigor. A distribuição da força de trabalho de saúde digital é ad hoc"
           },
           {
             "scoreId": 81,
             "score": 2,
-            "scoreDefinition": "Uma avaliação das necessidades nacionais mostra o número e os tipos de competências necessárias para apoiar a saúde digital, com um enfoque explícito na formação de quadros de profissionais de saúde do sexo feminino. "
+            "scoreDefinition": "Uma avaliação nacional das necessidades mostra o número e os tipos de habilidades necessárias para apoiar a saúde digital com foco explícito no treinamento de profissionais de saúde do sexo feminino"
           },
           {
             "scoreId": 82,
             "score": 3,
-            "scoreDefinition": "Os papéis e responsabilidades do pessoal de saúde digital são mapeados para a força de trabalho e esquemas de carreira do governo e 25-50% da força de trabalho do setor público necessária para a saúde digital no local. "
+            "scoreDefinition": "As funções e responsabilidades da equipe de saúde digital são mapeadas para a força de trabalho e esquemas de carreira do governo e 25-50% da força de trabalho de saúde digital necessária do setor público está em vigor."
           },
           {
             "scoreId": 83,
             "score": 4,
-            "scoreDefinition": "Os papéis e responsabilidades do pessoal de saúde digital são mapeados para a força de trabalho e esquemas de carreira do governo e 25-50% da força de trabalho do setor público necessária para a saúde digital no local. "
+            "scoreDefinition": "Existe uma política de RH e um plano estratégico que identifica as habilidades e funções necessárias para apoiar a saúde digital com foco explícito no treinamento de profissionais de saúde do sexo feminino e uma estimativa de 50 a 75% da força de trabalho de saúde digital do setor público"
           },
           {
             "scoreId": 84,
             "score": 5,
-            "scoreDefinition": "Existe um plano a longo prazo para aumentar e manter o pessoal com as competências necessárias para sustentar a saúde digital a nível nacional e subnacional, com um enfoque explícito na formação de quadros de profissionais de saúde do sexo feminino com uma estimativa de >75% dos cargos necessários preenchidos. Existem sistemas de gestão do desempenho para garantir o crescimento e a sustentabilidade da força de trabalho digital no setor da saúde, com uma oferta suficiente para satisfazer as necessidades de saúde digital e pouca rotatividade de pessoal."
+            "scoreDefinition": "Existe um plano de longo prazo para aumentar e manter a equipe com as habilidades necessárias para sustentar a saúde digital nos níveis nacional e subnacional, com foco explícito no treinamento de quadros de trabalhadoras de saúde do sexo feminino com um número estimado de mais de 75% dos cargos necessários preenchidos. Os sistemas de gestão de desempenho estão em vigor para garantir o crescimento e a sustentabilidade da força de trabalho de saúde digital com oferta suficiente para atender às necessidades de saúde digital e pouca rotatividade de pessoal"
           }
         ]
       }
@@ -486,8 +486,8 @@
       {
         "indicatorId": 13,
         "indicatorCode": "13",
-        "indicatorName": "Arquitectura digital nacional em matéria de saúde e/ou intercâmbio de informações sobre saúde",
-        "indicatorDefinition": "Existe um quadro de arquitetura nacional para a saúde digital (eSaúde) e/ou intercâmbio de informações de saúde (HIE) estabelecido?",
+        "indicatorName": "Arquitetura digital nacional de saúde e/ou troca de informações de saúde",
+        "indicatorDefinition": "Existe uma estrutura arquitetônica nacional de saúde digital (eHealth) e/ou troca de informações de saúde (HIE) estabelecida?",
         "scores": [
           {
             "scoreId": 85,
@@ -497,35 +497,35 @@
           {
             "scoreId": 87,
             "score": 1,
-            "scoreDefinition": "Não existe um quadro de arquitetura nacional para a saúde digital (eSaúde) e/ou intercâmbio de informações de saúde (HIE) estabelecido. "
+            "scoreDefinition": "Não existe uma estrutura arquitetônica nacional de saúde digital (eHealth) e/ou troca de informações de saúde (HIE) estabelecida"
           },
           {
             "scoreId": 88,
             "score": 2,
-            "scoreDefinition": "Foi proposta, mas não aprovada, uma arquitetura digital nacional de saúde e/ou intercâmbio de informações de saúde (HIE), incluindo camadas semânticas, sintáticas e organizacionais."
+            "scoreDefinition": "Uma arquitetura digital de saúde nacional e/ou troca de informações de saúde (HIE) foi proposta, mas não aprovada, incluindo camadas semânticas, sintáticas e organizacionais"
           },
           {
             "scoreId": 89,
             "score": 3,
-            "scoreDefinition": "A arquitectura digital nacional de saúde e/ou o intercâmbio de informações de saúde (HIE) é operacional e proporciona funções essenciais, como a autenticação, a tradução, o armazenamento e a função de armazenamento, o guia sobre os dados disponíveis e como aceder aos mesmos e a interpretação dos dados."
+            "scoreDefinition": "A arquitetura digital de saúde nacional e/ou troca de informações de saúde (HIE) é operável e fornece funções essenciais, como autenticação, tradução, armazenamento e função de armazenamento, guia para quais dados estão disponíveis e como acessá-los e interpretação de dados"
           },
           {
             "scoreId": 90,
             "score": 4,
-            "scoreDefinition": "O governo lidera, gerencia e fiscaliza a implementação da arquitetura digital nacional de saúde e/ou o intercâmbio de informações de saúde (HIE), que são totalmente implementados de acordo com os padrões da indústria."
+            "scoreDefinition": "O governo lidera, gerencia e reforça a implementação da arquitetura digital de saúde nacional e/ou a troca de informações de saúde (HIE), que são totalmente implementadas de acordo com os padrões da indústria"
           },
           {
             "scoreId": 91,
             "score": 5,
-            "scoreDefinition": "A arquitetura digital nacional de saúde e/ou o intercâmbio de informações de saúde (HIE) proporciona funções centrais de intercâmbio de dados e é periodicamente revista e atualizada para satisfazer as necessidades da arquitetura digital de saúde em mutação. Há uma aprendizagem contínua, inovação e controle de qualidade. Os dados são ativamente utilizados para a planificação e orçamentação estratégica nacional da saúde."
+            "scoreDefinition": "A arquitetura digital de saúde nacional e/ou troca de informações de saúde (HIE) fornece funções básicas de troca de dados e é revisada e atualizada periodicamente para atender às necessidades da arquitetura digital de saúde em constante mudança. Há aprendizado contínuo, inovação e controle de qualidade. Os dados são usados ativamente para planejamento e orçamento estratégico nacional de saúde."
           }
         ]
       },
       {
         "indicatorId": 14,
         "indicatorCode": "14",
-        "indicatorName": "Normas de informação sanitária",
-        "indicatorDefinition": "Existem padrões digitais de informação sobre saúde/saúde para troca de dados, transmissão, mensagens, segurança, privacidade e hardware?",
+        "indicatorName": "Padrões de informação em saúde",
+        "indicatorDefinition": "Existem padrões digitais de saúde/informações de saúde para troca de dados, transmissão, mensagens, segurança, privacidade e hardware?",
         "scores": [
           {
             "scoreId": 92,
@@ -535,17 +535,17 @@
           {
             "scoreId": 94,
             "score": 1,
-            "scoreDefinition": "Não existem normas digitais de informação sobre saúde/saúde para a troca de dados, transmissão, mensagens, segurança, privacidade e hardware. "
+            "scoreDefinition": "Não há padrões digitais de saúde/informações de saúde para troca de dados, transmissão, mensagens, segurança, privacidade e hardware."
           },
           {
             "scoreId": 95,
             "score": 2,
-            "scoreDefinition": "Existem algumas normas digitais de informação sobre saúde/saúde para intercâmbio de dados, transmissão, mensagens, segurança, privacidade e hardware que foram adoptadas e/ou são utilizadas."
+            "scoreDefinition": "Existem alguns padrões digitais de saúde/informações de saúde para troca de dados, transmissão, mensagens, segurança, privacidade e hardware que foram adotados e/ou são usados."
           },
           {
             "scoreId": 96,
             "score": 3,
-            "scoreDefinition": "Foram publicados e divulgados no país, sob a liderança do governo, padrões digitais de informação sobre saúde/saúde para intercâmbio de dados, transmissão, mensagens, segurança, privacidade e hardware."
+            "scoreDefinition": "Padrões digitais de saúde/informações de saúde para troca de dados, transmissão, mensagens, segurança, privacidade e hardware foram publicados e divulgados no país sob a liderança do governo."
           },
           {
             "scoreId": 97,
@@ -555,7 +555,7 @@
           {
             "scoreId": 98,
             "score": 5,
-            "scoreDefinition": "Os padrões de dados são regularmente actualizados e os dados são activamente utilizados para a monitorização e avaliação do sistema de saúde e para o planeamento estratégico e orçamentação da saúde nacional."
+            "scoreDefinition": "Os padrões de dados são atualizados rotineiramente e os dados são usados ativamente para monitorar e avaliar o sistema de saúde e para planejamento e orçamento estratégico nacional de saúde."
           }
         ]
       }
@@ -568,7 +568,7 @@
       {
         "indicatorId": 15,
         "indicatorCode": "15",
-        "indicatorName": "Prontidão da rede",
+        "indicatorName": "prontidão da rede",
         "indicatorDefinition": "Extraia o pilar de tecnologia do Instituto Portuland da pontuação do índice de prontidão de rede (https://networkreadinessindex.org )",
         "scores": [
           {
@@ -606,7 +606,7 @@
       {
         "indicatorId": 16,
         "indicatorCode": "16",
-        "indicatorName": "Planeamento e suporte para a manutenção contínua da infraestrutura de saúde digital",
+        "indicatorName": "Planejamento e suporte para manutenção contínua da infraestrutura de saúde digital",
         "indicatorDefinition": "Existe um plano articulado para apoiar a expansão da infraestrutura de saúde digital (incluindo equipamentos- computadores/tablets/telefones, suprimentos, software, dispositivos, etc.) fornecimento e manutenção para todas as unidades de saúde pública?",
         "scores": [
           {
@@ -617,12 +617,12 @@
           {
             "scoreId": 108,
             "score": 1,
-            "scoreDefinition": "Não existe um plano articulado de apoio à infra-estrutura de saúde digital (incluindo equipamentos - computadores/tablets/telefones, materiais, software, dispositivos, etc.) provisão e manutenção. "
+            "scoreDefinition": "Não existe um plano articulado para apoiar a provisão e manutenção da infraestrutura digital de saúde (incluindo equipamentos- computadores/tablets/telefones, suprimentos, software, dispositivos, etc.)."
           },
           {
             "scoreId": 109,
             "score": 2,
-            "scoreDefinition": "Foi desenvolvido, mas não implementado, um plano de apoio às infra-estruturas digitais de saúde (incluindo equipamento - computadores/tabelas/telefones, fornecimentos, software, dispositivos, etc.), fornecimento e manutenção. "
+            "scoreDefinition": "Foi desenvolvido, mas não implementado, um plano para apoiar a infraestrutura digital de saúde (incluindo equipamentos - computadores/tablets/telefones, suprimentos, software, dispositivos, etc.), provisão e manutenção."
           },
           {
             "scoreId": 110,
@@ -632,7 +632,7 @@
           {
             "scoreId": 111,
             "score": 4,
-            "scoreDefinition": "Foi implementado um plano de apoio às infra-estruturas digitais de saúde (incluindo equipamento - computadores/tabelas/telefones, fornecimentos, software, dispositivos, etc.) e à manutenção, em parte e de forma coerente com as estimativas de 25-50% das infra-estruturas digitais de saúde necessárias no sector dos serviços públicos de saúde disponíveis e em utilização."
+            "scoreDefinition": "Um plano para apoiar a infraestrutura digital de saúde (incluindo equipamentos - computadores / tablets / telefones, suprimentos, software, dispositivos, etc.) foi implementado parcial e consistentemente com estimativa de 25-50% da infraestrutura de saúde digital necessária necessária na saúde pública setor de serviços disponível e em uso."
           },
           {
             "scoreId": 112,
@@ -650,8 +650,8 @@
       {
         "indicatorId": 17,
         "indicatorCode": "17",
-        "indicatorName": "Sistemas de saúde digitais com escala nacional",
-        "indicatorDefinition": "As prioridades do setor público são apoiadas por sistemas digitais de saúde em escala nacional",
+        "indicatorName": "Sistemas digitais de saúde em escala nacional",
+        "indicatorDefinition": "As prioridades do setor público são apoiadas por sistemas digitais de saúde em escala naciona l",
         "scores": [
           {
             "scoreId": 113,
@@ -661,34 +661,34 @@
           {
             "scoreId": 115,
             "score": 1,
-            "scoreDefinition": "As áreas prioritárias nacionais não são apoiadas pela saúde digital em nenhuma escala. "
+            "scoreDefinition": "As áreas prioritárias nacionais não são apoiadas pela saúde digital em nenhuma escala."
           },
           {
             "scoreId": 116,
             "score": 2,
-            "scoreDefinition": "Poucas áreas prioritárias nacionais são apoiadas pela saúde digital, e a implementação foi iniciada (< 25% de áreas prioritárias). "
+            "scoreDefinition": "Poucas áreas prioritárias nacionais são apoiadas pela saúde digital e a implementação iniciada (< 25% das áreas prioritárias)."
           },
           {
             "scoreId": 117,
             "score": 3,
-            "scoreDefinition": "Alguns domínios prioritários nacionais apoiados por sistemas de saúde digitais à escala (25-50% dos domínios prioritários)."
+            "scoreDefinition": "Algumas áreas prioritárias nacionais apoiadas por sistemas de saúde digital em escala (25-50% das áreas prioritárias)."
           },
           {
             "scoreId": 118,
             "score": 4,
-            "scoreDefinition": "A maioria, mas não todas as áreas prioritárias nacionais (50-75% das áreas prioritárias) são apoiadas por sistemas digitais de saúde em escala."
+            "scoreDefinition": "A maioria, mas não todas as áreas prioritárias nacionais (50-75% das áreas prioritárias) são apoiadas por sistemas de saúde digital em escala."
           },
           {
             "scoreId": 119,
             "score": 5,
-            "scoreDefinition": "Todas as áreas priorizadas a nível nacional apoiadas por sistemas digitais de saúde de escala nacional (>75%) com sistemas de monitorização e avaliação e resultados."
+            "scoreDefinition": "Todas as áreas priorizadas nacionalmente apoiadas por sistemas digitais de saúde em escala nacional (>75%) com sistemas e resultados de monitoramento e avaliação."
           }
         ]
       },
       {
         "indicatorId": 18,
         "indicatorCode": "18",
-        "indicatorName": "Gestão da identidade digital dos prestadores de serviços, administradores e instalações para a saúde digital, incluindo dados de localização para mapeamento SIG ",
+        "indicatorName": "Gerenciamento de identidade digital de provedores de serviços, administradores e instalações para saúde digital, incluindo dados de localização para mapeamento GIS",
         "indicatorDefinition": "Os registros do sistema de saúde de provedores, administradores e estabelecimentos públicos (e privados, se aplicável) identificáveis de forma única estão disponíveis, acessíveis e atualizados? Os dados são marcados geograficamente para permitir o mapeamento GIS com protocolos em vigor para proteger conjuntos de dados confidenciais?",
         "scores": [
           {
@@ -699,22 +699,22 @@
           {
             "scoreId": 122,
             "score": 1,
-            "scoreDefinition": "Os registros de sistemas de saúde de provedores, administradores e instalações públicas (e privadas, se aplicável) identificáveis de forma única não estão disponíveis, acessíveis e atualizados."
+            "scoreDefinition": "Os registros do sistema de saúde de provedores, administradores e estabelecimentos públicos (e privados, se aplicável) identificáveis exclusivamente não estão disponíveis, acessíveis e atualizados."
           },
           {
             "scoreId": 123,
             "score": 2,
-            "scoreDefinition": "Estão a ser desenvolvidos registos de sistemas de saúde de prestadores, administradores e instalações públicas (e privadas, se aplicável) identificáveis de forma única, mas que não estão disponíveis para utilização."
+            "scoreDefinition": "Registros do sistema de saúde de fornecedores, administradores e estabelecimentos públicos (e privados, se aplicável) identificáveis de maneira única estão sendo desenvolvidos, mas não estão disponíveis para uso."
           },
           {
             "scoreId": 124,
             "score": 3,
-            "scoreDefinition": "Registros de sistemas de saúde de provedores, administradores e instalações públicas (e privadas, se aplicável) identificáveis de forma única estão disponíveis para uso, mas incompletos, parcialmente disponíveis, usados esporadicamente e mantidos irregularmente."
+            "scoreDefinition": "Registros do sistema de saúde de fornecedores, administradores e estabelecimentos públicos (e privados, se aplicável) identificáveis estão disponíveis para uso, mas incompletos, parcialmente disponíveis, usados esporadicamente e mantidos irregularmente."
           },
           {
             "scoreId": 125,
             "score": 4,
-            "scoreDefinition": "Os registos dos sistemas de saúde de prestadores, administradores e instalações públicas (e privadas, se aplicável) identificáveis de forma única estão disponíveis, são utilizados e regularmente actualizados e mantidos. Os dados são georreferenciados para permitir o mapeamento GIS."
+            "scoreDefinition": "Registros do sistema de saúde de provedores, administradores e estabelecimentos públicos (e privados, se aplicável) identificáveis de forma única estão disponíveis, usados e atualizados e mantidos regularmente. Os dados são marcados geograficamente para permitir o mapeamento GIS."
           },
           {
             "scoreId": 126,
@@ -737,12 +737,12 @@
           {
             "scoreId": 129,
             "score": 1,
-            "scoreDefinition": "Não existe nenhum registro seguro ou índice mestre de pacientes. "
+            "scoreDefinition": "Não existe nenhum registro seguro ou índice mestre de pacientes."
           },
           {
             "scoreId": 130,
             "score": 2,
-            "scoreDefinition": "Um registro seguro existe, mas está incompleto / parcialmente disponível, usado e mantido irregularmente. "
+            "scoreDefinition": "Existe um registro seguro, mas está incompleto/parcialmente disponível, usado e mantido irregularmente."
           },
           {
             "scoreId": 131,
@@ -752,7 +752,7 @@
           {
             "scoreId": 132,
             "score": 4,
-            "scoreDefinition": "Existe um registo seguro, está disponível e em uso activo e inclui 25-50% da população relevante. "
+            "scoreDefinition": "Um registro seguro existe, está disponível e em uso ativo e inclui 25-50% da população relevante."
           },
           {
             "scoreId": 133,
@@ -765,7 +765,7 @@
         "indicatorId": 27,
         "indicatorCode": "19a",
         "indicatorName": "Gestão da identidade digital dos indivíduos para a saúde",
-        "indicatorDefinition": "Especificamente, existe um índice mestre de pacientes seguro de indivíduos identificáveis de forma única, disponível, acessível e atual para uso para fins relacionados à saúde? ",
+        "indicatorDefinition": "Especificamente, existe um índice mestre de pacientes seguro de indivíduos exclusivamente identificáveis disponível, acessível e atual para uso para fins relacionados à saúde?",
         "scores": [
           {
             "scoreId": 176,
@@ -775,22 +775,22 @@
           {
             "scoreId": 177,
             "score": 1,
-            "scoreDefinition": "Não existe nenhum índice de paciente mestre seguro."
+            "scoreDefinition": "Não existe um índice mestre seguro de pacientes."
           },
           {
             "scoreId": 178,
             "score": 2,
-            "scoreDefinition": "Existe um índice de pacientes mestre, mas está incompleto / parcialmente disponível, usado e mantido de forma irregular. "
+            "scoreDefinition": "Existe um índice mestre de pacientes, mas está incompleto/parcialmente disponível, usado e mantido de forma irregular."
           },
           {
             "scoreId": 179,
             "score": 3,
-            "scoreDefinition": "Existe um índice de pacientes mestre, está disponível e em uso ativo e inclui <25% da população relevante."
+            "scoreDefinition": "Existe um índice mestre de pacientes, está disponível e em uso ativo e inclui <25% da população relevante."
           },
           {
             "scoreId": 180,
             "score": 4,
-            "scoreDefinition": "Existe um índice de pacientes mestre, está disponível e em uso ativo e inclui 25-50% da população relevante. "
+            "scoreDefinition": "Existe um índice mestre de pacientes, está disponível e em uso ativo e inclui 25-50% da população relevante."
           },
           {
             "scoreId": 181,
@@ -803,7 +803,7 @@
         "indicatorId": 28,
         "indicatorCode": "19b",
         "indicatorName": "Gestão da identidade digital dos indivíduos para a saúde",
-        "indicatorDefinition": "Especificamente, existe um registo de nascimento seguro de indivíduos identificáveis de forma única, disponível, acessível e atual para uso para fins relacionados com a saúde? ",
+        "indicatorDefinition": "Especificamente, existe um registro de nascimento seguro de indivíduos identificáveis de forma única disponível, acessível e atual para uso para fins relacionados à saúde?",
         "scores": [
           {
             "scoreId": 182,
@@ -813,22 +813,22 @@
           {
             "scoreId": 183,
             "score": 1,
-            "scoreDefinition": "Não existe registo de nascimento seguro. "
+            "scoreDefinition": "Não existe registro seguro de nascimento."
           },
           {
             "scoreId": 184,
             "score": 2,
-            "scoreDefinition": "Existe um registo de nascimento seguro, mas está incompleto / parcialmente disponível, utilizado e mantido de forma irregular. "
+            "scoreDefinition": "Existe um registro de nascimento seguro, mas está incompleto/parcialmente disponível, usado e mantido de forma irregular."
           },
           {
             "scoreId": 185,
             "score": 3,
-            "scoreDefinition": "Existe um registo de nascimento seguro, está disponível e em uso activo e inclui <25% da população relevante."
+            "scoreDefinition": "Um registro de nascimento seguro existe, está disponível e em uso ativo e inclui <25% da população relevante."
           },
           {
             "scoreId": 186,
             "score": 4,
-            "scoreDefinition": "Existe um registo de nascimento seguro, está disponível e em uso activo e inclui 25-50% da população relevante. "
+            "scoreDefinition": "Um registro de nascimento seguro existe, está disponível e em uso ativo e inclui 25-50% da população relevante."
           },
           {
             "scoreId": 187,
@@ -841,7 +841,7 @@
         "indicatorId": 29,
         "indicatorCode": "19c",
         "indicatorName": "Gestão da identidade digital dos indivíduos para a saúde",
-        "indicatorDefinition": "Especificamente, existe um registro seguro de óbitos de indivíduos identificáveis de forma única disponível, acessível e atual para uso com fins relacionados à saúde? ",
+        "indicatorDefinition": "Especificamente, existe um registro seguro de óbitos de indivíduos identificáveis de forma única disponível, acessível e atual para uso para fins relacionados à saúde?",
         "scores": [
           {
             "scoreId": 188,
@@ -851,22 +851,22 @@
           {
             "scoreId": 189,
             "score": 1,
-            "scoreDefinition": "Não existe um registo de óbito seguro. "
+            "scoreDefinition": "Não existe registro seguro de morte."
           },
           {
             "scoreId": 190,
             "score": 2,
-            "scoreDefinition": "Existe um registro de óbito seguro, mas está incompleto / parcialmente disponível, usado e mantido irregularmente. "
+            "scoreDefinition": "Existe um registro seguro de óbitos, mas está incompleto/parcialmente disponível, usado e mantido de forma irregular."
           },
           {
             "scoreId": 191,
             "score": 3,
-            "scoreDefinition": "Existe um registo de óbito seguro, está disponível e em uso activo e inclui <25% da população relevante."
+            "scoreDefinition": "Existe um registro seguro de óbitos, está disponível e em uso ativo e inclui <25% da população relevante."
           },
           {
             "scoreId": 192,
             "score": 4,
-            "scoreDefinition": "Existe um registo de óbitos seguro, está disponível e em uso activo e inclui 25-50% da população relevante. "
+            "scoreDefinition": "Existe um registro seguro de óbitos, está disponível e em uso ativo e inclui 25-50% da população relevante."
           },
           {
             "scoreId": 193,
