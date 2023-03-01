@@ -162,7 +162,7 @@ public class CountryController {
         return countryHealthDataService.saveNewCountrySummary(countryUIID);
     }
 
-    @DeleteMapping("/countries/{uuid}/delete/{year}")
+    @DeleteMapping("/countries/{uuid}/delete")
     public void deleteCountryData(@PathVariable("uuid") UUID countryUIID) throws Exception {
         countryHealthDataService.deleteCountryData(countryUIID);
     }
