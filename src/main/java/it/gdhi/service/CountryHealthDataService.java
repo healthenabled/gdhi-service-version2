@@ -155,7 +155,7 @@ public class CountryHealthDataService {
         }).collect(toList());
     }
 
-    private String getCurrentYear() {
+    public String getCurrentYear() {
         int currentYear = Year.now().getValue();
         String year = new String(String.valueOf(currentYear));
         return year;
