@@ -400,7 +400,7 @@ public class CountryIntegrationTest extends BaseIntegrationTest {
         String countryId = INDIA_ID;
         String status = "REVIEW_PENDING";
         String alpha2code = "IN";
-        String year = "Version1";
+        String year = "2020";
 
         CountryResourceLink countryResourceLink1 = new CountryResourceLink(new CountryResourceLinkId(countryId,
                 "link1", status, year), new Date(), null);
@@ -432,7 +432,7 @@ public class CountryIntegrationTest extends BaseIntegrationTest {
         Response response = given()
                 .contentType("application/json")
                 .when()
-                .delete("http://localhost:" + port + "/countries/" + INDIA_UUID.toString() + "/delete");
+                .delete("http://localhost:" + port + "/countries/" + INDIA_UUID.toString() + "/delete/year?=" + year );
 
         assertEquals(200, response.getStatusCode());
     }

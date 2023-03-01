@@ -107,11 +107,11 @@ public class CountryHealthDataService {
     }
 
     @Transactional
-    public void deleteCountryData(UUID countryUUID) {
+    public void deleteCountryData(UUID countryUUID , String year) {
         String countryId = iCountryRepository.findByUniqueId(countryUUID).getId();
-        iCountryHealthIndicatorRepository.removeHealthIndicatorsBy(countryId, REVIEW_PENDING.name());
-        iCountryResourceLinkRepository.deleteResources(countryId, REVIEW_PENDING.name());
-        iCountrySummaryRepository.removeCountrySummary(countryId, REVIEW_PENDING.name());
+        iCountryHealthIndicatorRepository.deleteByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdStatusAndCountryHealthIndicatorIdYear(countryId, REVIEW_PENDING.name(), year);
+        iCountryResourceLinkRepository.deleteByCountryResourceLinkIdCountryIdAndCountryResourceLinkIdStatusAndCountryResourceLinkIdYear(countryId, REVIEW_PENDING.name(), year);
+        iCountrySummaryRepository.deleteByCountrySummaryIdCountryIdAndCountrySummaryIdStatusAndCountrySummaryIdYear(countryId, REVIEW_PENDING.name(), year);
     }
 
     @Transactional

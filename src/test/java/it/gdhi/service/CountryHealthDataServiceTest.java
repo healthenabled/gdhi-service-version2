@@ -252,14 +252,15 @@ public class CountryHealthDataServiceTest {
         String countryId = "AFG";
         String status = REVIEW_PENDING.name();
         UUID countryUUID = UUID.randomUUID();
+        String year = "2020";
         Country country = new Country(countryId, "Argentina", countryUUID, "AR");
         when(countryDetailRepository.findByUniqueId(countryUUID)).thenReturn(country);
 
-        countryHealthDataService.deleteCountryData(countryUUID);
+        countryHealthDataService.deleteCountryData(countryUUID , year);
 
-        verify(iCountrySummaryRepository).removeCountrySummary(countryId, status);
-        verify(iCountryHealthIndicatorRepository).removeHealthIndicatorsBy(countryId, status);
-        verify(iCountryResourceLinkRepository).deleteResources(countryId, status);
+        verify(iCountrySummaryRepository).deleteByCountrySummaryIdCountryIdAndCountrySummaryIdStatusAndCountrySummaryIdYear(countryId, status , year);
+        verify(iCountryHealthIndicatorRepository).deleteByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdStatusAndCountryHealthIndicatorIdYear(countryId, status , year);
+        verify(iCountryResourceLinkRepository).deleteByCountryResourceLinkIdCountryIdAndCountryResourceLinkIdStatusAndCountryResourceLinkIdYear(countryId, status , year);
     }
 
     @Test

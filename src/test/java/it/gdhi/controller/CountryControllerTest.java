@@ -195,11 +195,12 @@ public class CountryControllerTest {
     @Test
     public void shouldDeleteCountryData() throws Exception {
         UUID countryUUID = UUID.randomUUID();
-        doNothing().when(countryHealthDataService).deleteCountryData(countryUUID);
+        String currentYear = "2020";
+        doNothing().when(countryHealthDataService).deleteCountryData(countryUUID , currentYear);
 
-        countryController.deleteCountryData(countryUUID);
+        countryController.deleteCountryData(countryUUID , currentYear);
 
-        verify(countryHealthDataService).deleteCountryData(countryUUID);
+        verify(countryHealthDataService).deleteCountryData(countryUUID , currentYear);
     }
 
     @Test
