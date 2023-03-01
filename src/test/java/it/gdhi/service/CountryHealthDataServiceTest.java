@@ -250,10 +250,10 @@ public class CountryHealthDataServiceTest {
         when(iCountrySummaryRepository.findByCountrySummaryIdYearOrderByUpdatedAtDesc("2023")).thenReturn(asList(countrySummaryARG,
                 countrySummaryINDNEW));
         CountrySummaryStatusYearDto adminViewFormDetails = countryHealthDataService.getAllCountryStatusSummaries();
-        assertEquals(adminViewFormDetails.getCountrySummaryStatusDtos().get("NEW").size(), 1);
-        assertEquals(adminViewFormDetails.getCountrySummaryStatusDtos().get("REVIEW_PENDING").size(), 1);
+        assertEquals(adminViewFormDetails.getNewStatus().size(), 1);
+        assertEquals(adminViewFormDetails.getReviewPendingStatus().size(), 1);
 
-        CountrySummaryStatusDto countrySummaryStatusDto = adminViewFormDetails.getCountrySummaryStatusDtos().get("REVIEW_PENDING").stream().findFirst().get();
+        CountrySummaryStatusDto countrySummaryStatusDto = adminViewFormDetails.getReviewPendingStatus().stream().findFirst().get();
 
         assertEquals(countrySummaryStatusDto.getContactName(), "Contact Name 1");
         assertEquals(countrySummaryStatusDto.getContactEmail(), "con1@gdhi.com");
