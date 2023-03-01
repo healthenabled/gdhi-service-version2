@@ -26,6 +26,7 @@ import java.util.UUID;
 import static it.gdhi.utils.FormStatus.DRAFT;
 import static it.gdhi.utils.LanguageCode.en;
 import static it.gdhi.utils.LanguageCode.fr;
+import static java.util.Collections.emptyList;
 import static java.util.Collections.emptyMap;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -203,7 +204,7 @@ public class CountryControllerTest {
 
     @Test
     public void shouldGetAllCountryStatusSummaries() {
-        CountrySummaryStatusYearDto countrySummaryStatusYearDto = new CountrySummaryStatusYearDto(this.getCurrentYear(), emptyMap());
+        CountrySummaryStatusYearDto countrySummaryStatusYearDto = new CountrySummaryStatusYearDto(this.getCurrentYear(), emptyList(), emptyList(), emptyList(), emptyList());
         when(countryHealthDataService.getAllCountryStatusSummaries()).thenReturn(countrySummaryStatusYearDto);
         countryController.getAllCountryStatusSummaries();
         verify(countryHealthDataService).getAllCountryStatusSummaries();
