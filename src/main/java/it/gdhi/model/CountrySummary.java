@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.util.ObjectUtils;
 
 import javax.persistence.*;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -81,6 +82,10 @@ public class CountrySummary implements Serializable {
                         link ->
                                 new CountryResourceLink(new CountryResourceLinkId(countryId, link, status, year), new Date(), null))
                 .collect(toList());
+    }
+
+    public String getStatus() {
+        return this.countrySummaryId.getStatus();
     }
 
     @PreUpdate

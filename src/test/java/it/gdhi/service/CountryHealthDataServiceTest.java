@@ -56,13 +56,17 @@ public class CountryHealthDataServiceTest {
         List<String> resourceLinks = asList("Res 1");
         CountrySummaryDto countrySummaryDetailDto = CountrySummaryDto.builder().summary("Summary 1")
                 .resources(resourceLinks).build();
+
         String status = PUBLISHED.name();
-        String year = "Version1";
+        String currentYear = countryHealthDataService.getCurrentYear();
         List<HealthIndicatorDto> healthIndicatorDtos = asList(new HealthIndicatorDto(1, 1, status, 2, "Text"));
         String countryId = "ARG";
         GdhiQuestionnaire gdhiQuestionnaire = GdhiQuestionnaire.builder().countryId(countryId)
                 .countrySummary(countrySummaryDetailDto)
                 .healthIndicators(healthIndicatorDtos).build();
+
+        CountrySummaryId countrySummaryId = CountrySummaryId.builder().countryId(countryId).status(status).year(currentYear).build();
+        CountrySummary countrySummary = CountrySummary.builder().summary("Summary 1").countrySummaryId(countrySummaryId).build();
 
         Indicator indicator1 = Indicator.builder().indicatorId(1).parentId(null).build();
         CountryHealthIndicator countryHealthIndicator1 = CountryHealthIndicator.builder()
@@ -72,16 +76,15 @@ public class CountryHealthDataServiceTest {
                 .build();
 
 
-        when(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdStatusAndCountryHealthIndicatorIdYear(countryId, status, year))
+        when(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdStatusAndCountryHealthIndicatorIdYear(countryId, status, currentYear))
                 .thenReturn(asList(countryHealthIndicator1));
-        when(iCountrySummaryRepository.getCountrySummaryStatus(countryId)).thenReturn(status);
+        when(iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdStatusNotAndCountrySummaryIdYear(countryId, PUBLISHED.name(), currentYear)).thenReturn(countrySummary);
         countryHealthDataService.publish(gdhiQuestionnaire);
-
         ArgumentCaptor<CountrySummary> summaryCaptor = ArgumentCaptor.forClass(CountrySummary.class);
         ArgumentCaptor<CountryHealthIndicator> healthIndicatorsCaptorList = ArgumentCaptor.forClass(CountryHealthIndicator.class);
         InOrder inOrder = inOrder(iCountryResourceLinkRepository, iCountrySummaryRepository,
                 iCountryHealthIndicatorRepository, iCountryPhaseRepository);
-        inOrder.verify(iCountryResourceLinkRepository).deleteResources(countryId, status);
+        inOrder.verify(iCountryResourceLinkRepository).deleteByCountryResourceLinkIdCountryIdAndCountryResourceLinkIdStatusAndCountryResourceLinkIdYear(countryId, status, currentYear);
         inOrder.verify(iCountrySummaryRepository).save(summaryCaptor.capture());
         inOrder.verify(iCountryHealthIndicatorRepository).save(healthIndicatorsCaptorList.capture());
         CountrySummary summaryCaptorValue = summaryCaptor.getValue();
@@ -104,6 +107,7 @@ public class CountryHealthDataServiceTest {
         String feeder = "feeder";
         String feederRole = "feeder role";
         String contactEmail = "contact@test.com";
+        String currentYear = countryHealthDataService.getCurrentYear();
         CountrySummaryDto countrySummaryDetailDto = CountrySummaryDto.builder().summary("Summary 1")
                 .dataFeederName(feeder)
                 .dataFeederRole(feederRole)
@@ -115,10 +119,13 @@ public class CountryHealthDataServiceTest {
                 .countrySummary(countrySummaryDetailDto)
                 .healthIndicators(healthIndicatorDtos).build();
 
+        CountrySummaryId countrySummaryId = CountrySummaryId.builder().countryId(countryId).status(DRAFT.name()).year(currentYear).build();
+        CountrySummary countrySummary = CountrySummary.builder().summary("Summary 1").countrySummaryId(countrySummaryId).build();
+
         when(iCountrySummaryRepository.save(any(CountrySummary.class))).thenReturn(CountrySummary.builder().build());
         when(iCountryHealthIndicatorRepository.save(any(CountryHealthIndicator.class))).thenReturn(CountryHealthIndicator.builder().build());
         when(countryDetailRepository.findById(countryId)).thenReturn(country);
-        when(iCountrySummaryRepository.getCountrySummaryStatus(countryId)).thenReturn("DRAFT");
+        when(iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdStatusNotAndCountrySummaryIdYear(countryId, PUBLISHED.name(), currentYear)).thenReturn(countrySummary);
         countryHealthDataService.submit(gdhiQuestionnaire);
 
         verify(mailerService).send(country, feeder, feederRole, contactEmail);

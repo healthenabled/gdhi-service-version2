@@ -54,14 +54,15 @@ public class CountryHealthDataService {
 
     @Transactional
     public void save(GdhiQuestionnaire gdhiQuestionnaire, String nextStatus) {
-        String currentStatus = iCountrySummaryRepository.getCountrySummaryStatus(gdhiQuestionnaire.getCountryId());
+        String currentYear = getCurrentYear();
+        String currentStatus = iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdStatusNotAndCountrySummaryIdYear(gdhiQuestionnaire.getCountryId(), PUBLISHED.name(), currentYear).getStatus();
         if (!nextStatus.equals(currentStatus)) {
-            removeEntriesWithStatus(gdhiQuestionnaire.getCountryId(), currentStatus);
+            removeEntriesWithStatus(gdhiQuestionnaire.getCountryId(), currentStatus, currentYear);
         }
         saveCountryContactInfo(gdhiQuestionnaire.getCountryId(),
-                nextStatus, gdhiQuestionnaire.getCountrySummary());
+                nextStatus, gdhiQuestionnaire.getCountrySummary(), currentYear);
         saveHealthIndicators(gdhiQuestionnaire.getCountryId(),
-                nextStatus, gdhiQuestionnaire.getHealthIndicators());
+                nextStatus, gdhiQuestionnaire.getHealthIndicators(), currentYear);
     }
 
     @Transactional
@@ -87,7 +88,8 @@ public class CountryHealthDataService {
     @Transactional
     public void publish(GdhiQuestionnaire gdhiQuestionnaire) {
         save(gdhiQuestionnaire, PUBLISHED.name());
-        calculateAndSaveCountryPhase(gdhiQuestionnaire.getCountryId(), PUBLISHED.name(), "Version1");
+        String currentYear = getCurrentYear();
+        calculateAndSaveCountryPhase(gdhiQuestionnaire.getCountryId(), PUBLISHED.name(), currentYear);
     }
 
     @Transactional
@@ -116,7 +118,7 @@ public class CountryHealthDataService {
         publishedCountries.stream().forEach(country -> calculateAndSaveCountryPhase(country, PUBLISHED.name(), year));
     }
 
-    public  CountrySummaryStatusYearDto getAllCountryStatusSummaries() {
+    public CountrySummaryStatusYearDto getAllCountryStatusSummaries() {
         String currentYear = this.getCurrentYear();
         List<CountrySummary> countrySummaries = iCountrySummaryRepository.findByCountrySummaryIdYearOrderByUpdatedAtDesc(currentYear);
 
@@ -126,8 +128,8 @@ public class CountryHealthDataService {
         Map<String, List<CountrySummaryStatusDto>> groupByCountrySummaryStatus = countrySummaryStatusDtos.stream()
                 .collect(groupingBy(CountrySummaryStatusDto::getStatus));
 
-        CountrySummaryStatusYearDto  countrySummaryStatusYearDto = new CountrySummaryStatusYearDto(currentYear , groupByCountrySummaryStatus.get(NEW.name()) ,
-                    groupByCountrySummaryStatus.get(DRAFT.name()) , groupByCountrySummaryStatus.get(PUBLISHED.name()) , groupByCountrySummaryStatus.get(REVIEW_PENDING.name()));
+        CountrySummaryStatusYearDto countrySummaryStatusYearDto = new CountrySummaryStatusYearDto(currentYear, groupByCountrySummaryStatus.get(NEW.name()),
+                groupByCountrySummaryStatus.get(DRAFT.name()), groupByCountrySummaryStatus.get(PUBLISHED.name()), groupByCountrySummaryStatus.get(REVIEW_PENDING.name()));
 
 
         return countrySummaryStatusYearDto;
@@ -146,8 +148,7 @@ public class CountryHealthDataService {
 
     private List<CountryHealthIndicator> transformToHealthIndicator(String countryId,
                                                                     String status,
-                                                                    List<HealthIndicatorDto> healthIndicatorDto) {
-        String year = getCurrentYear();
+                                                                    List<HealthIndicatorDto> healthIndicatorDto, String year) {
         return healthIndicatorDto.stream().map(dto -> {
             CountryHealthIndicatorId countryHealthIndicatorId = new CountryHealthIndicatorId(countryId,
                     dto.getCategoryId(), dto.getIndicatorId(), status, year);
@@ -170,12 +171,12 @@ public class CountryHealthDataService {
         iCountryPhaseRepository.save(new CountryPhase(countryId, countryPhase, year));
     }
 
-    private void removeEntriesWithStatus(String countryId, String currentStatus) {
+    private void removeEntriesWithStatus(String countryId, String currentStatus, String currentYear) {
         if (!currentStatus.equals(NEW.name())) {
-            iCountryHealthIndicatorRepository.removeHealthIndicatorsBy(countryId, currentStatus);
+            iCountryHealthIndicatorRepository.deleteByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdStatusAndCountryHealthIndicatorIdYear(countryId, currentStatus, currentYear);
         }
-        iCountryResourceLinkRepository.deleteResources(countryId, currentStatus);
-        iCountrySummaryRepository.removeCountrySummary(countryId, currentStatus);
+        iCountryResourceLinkRepository.deleteByCountryResourceLinkIdCountryIdAndCountryResourceLinkIdStatusAndCountryResourceLinkIdYear(countryId, currentStatus, currentYear);
+        iCountrySummaryRepository.deleteByCountrySummaryIdCountryIdAndCountrySummaryIdStatusAndCountrySummaryIdYear(countryId, currentStatus, currentYear);
     }
 
     private void sendMail(String feederName, String feederRole, String contactEmail, String countryId) {
@@ -185,18 +186,17 @@ public class CountryHealthDataService {
     }
 
     private void saveCountryContactInfo(String countryId, String status,
-                                        CountrySummaryDto countrySummaryDetailDto) {
-        String year = getCurrentYear();
+                                        CountrySummaryDto countrySummaryDetailDto, String year) {
         CountrySummary countrySummary = new CountrySummary(new CountrySummaryId(countryId, status, year),
                 countrySummaryDetailDto);
-        iCountryResourceLinkRepository.deleteResources(countryId, status);
+        iCountryResourceLinkRepository.deleteByCountryResourceLinkIdCountryIdAndCountryResourceLinkIdStatusAndCountryResourceLinkIdYear(countryId, status, year);
         iCountrySummaryRepository.save(countrySummary);
     }
 
     private void saveHealthIndicators(String countryId, String status,
-                                      List<HealthIndicatorDto> healthIndicatorDto) {
+                                      List<HealthIndicatorDto> healthIndicatorDto, String year) {
         List<CountryHealthIndicator> countryHealthIndicators = transformToHealthIndicator(countryId, status,
-                healthIndicatorDto);
+                healthIndicatorDto, year);
         if (countryHealthIndicators != null) {
             countryHealthIndicators.forEach(health -> {
                 CountryHealthIndicator countryHealthIndicator = iCountryHealthIndicatorRepository.save(health);

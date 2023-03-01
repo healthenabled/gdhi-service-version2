@@ -295,7 +295,8 @@ public class CountryIntegrationTest extends BaseIntegrationTest {
 
     @Test
     public void shouldSaveCountryDetailsWhenNoDateIsProvided() throws Exception {
-        addCountrySummary(INDIA_ID, "India", "NEW", "IN", UUID.randomUUID(), "04-04-2018", new ArrayList<>(), "Version1");
+        String currentYear = getCurrentYear();
+        addCountrySummary(INDIA_ID, "India", "NEW", "IN", UUID.randomUUID(), "04-04-2018", new ArrayList<>(), currentYear);
 
         Response response = given()
                 .contentType("application/json")
@@ -308,7 +309,8 @@ public class CountryIntegrationTest extends BaseIntegrationTest {
 
     @Test
     public void shouldSaveCountryDetailsWhenNullResourceIsProvided() throws Exception {
-        addCountrySummary(INDIA_ID, "India", "NEW", "IN", UUID.randomUUID(), "04-04-2018", new ArrayList<>(), "Version1");
+        String currentYear = getCurrentYear();
+        addCountrySummary(INDIA_ID, "India", "NEW", "IN", UUID.randomUUID(), "04-04-2018", new ArrayList<>(), currentYear);
         mailerService = mock(MailerService.class);
         doNothing().when(mailerService).send(any(Country.class), anyString(), anyString(), anyString());
 
@@ -323,7 +325,8 @@ public class CountryIntegrationTest extends BaseIntegrationTest {
 
     @Test
     public void shouldSaveAndEditCountryDetails() throws Exception {
-        addCountrySummary(INDIA_ID, "India", "NEW", "IN", UUID.randomUUID(), "04-04-2018", new ArrayList<>(), "Version1");
+        String currentYear = getCurrentYear();
+        addCountrySummary(INDIA_ID, "India", "NEW", "IN", UUID.randomUUID(), "04-04-2018", new ArrayList<>(), currentYear);
         mailerService = mock(MailerService.class);
         doNothing().when(mailerService).send(any(Country.class), anyString(), anyString(), anyString());
 
@@ -360,7 +363,8 @@ public class CountryIntegrationTest extends BaseIntegrationTest {
 
     @Test
     public void shouldSubmitCountryDetails() throws Exception {
-        addCountrySummary(INDIA_ID, "India", "NEW", "IN", UUID.randomUUID(), "2018-04-04", new ArrayList<>(), "Version1");
+        String currentYear = getCurrentYear();
+        addCountrySummary(INDIA_ID, "India", "NEW", "IN", UUID.randomUUID(), "2018-04-04", new ArrayList<>(), currentYear);
 
         Response response = given()
                 .contentType("application/json")
