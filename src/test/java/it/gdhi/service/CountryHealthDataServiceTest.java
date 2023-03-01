@@ -154,7 +154,7 @@ public class CountryHealthDataServiceTest {
 
 
     @Test
-    public void shouldSaveAsNewStatusWhenCountryHasPublishedData() throws Exception {
+    public void shouldNotSaveAsNewStatusWhenCountryHasPublishedData() throws Exception {
         String countryId = "ARG";
         String currentYear = countryHealthDataService.getCurrentYear();
         UUID countryUUID = UUID.randomUUID();
@@ -168,13 +168,10 @@ public class CountryHealthDataServiceTest {
         when(iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdYear(anyString(), anyString())).thenReturn(asList(countrySummary));
         CountryUrlGenerationStatusDto countryUrlGenerationStatusDto = countryHealthDataService
                 .saveNewCountrySummary(countryUUID);
-        assert (countryUrlGenerationStatusDto.isSuccess());
+        assert (!countryUrlGenerationStatusDto.isSuccess());
         assertEquals(PUBLISHED, countryUrlGenerationStatusDto.getExistingStatus());
 
-        verify(iCountrySummaryRepository).save(summaryCaptor.capture());
-        CountrySummary summaryCaptorValue = summaryCaptor.getValue();
-        assertEquals(countryId, summaryCaptorValue.getCountrySummaryId().getCountryId());
-        assertEquals(NEW.toString(), summaryCaptorValue.getCountrySummaryId().getStatus());
+        verify(iCountrySummaryRepository, times(0)).save(summaryCaptor.capture());
     }
 
     @Test
@@ -256,11 +253,11 @@ public class CountryHealthDataServiceTest {
         Country country = new Country(countryId, "Argentina", countryUUID, "AR");
         when(countryDetailRepository.findByUniqueId(countryUUID)).thenReturn(country);
 
-        countryHealthDataService.deleteCountryData(countryUUID , year);
+        countryHealthDataService.deleteCountryData(countryUUID, year);
 
-        verify(iCountrySummaryRepository).deleteByCountrySummaryIdCountryIdAndCountrySummaryIdStatusAndCountrySummaryIdYear(countryId, status , year);
-        verify(iCountryHealthIndicatorRepository).deleteByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdStatusAndCountryHealthIndicatorIdYear(countryId, status , year);
-        verify(iCountryResourceLinkRepository).deleteByCountryResourceLinkIdCountryIdAndCountryResourceLinkIdStatusAndCountryResourceLinkIdYear(countryId, status , year);
+        verify(iCountrySummaryRepository).deleteByCountrySummaryIdCountryIdAndCountrySummaryIdStatusAndCountrySummaryIdYear(countryId, status, year);
+        verify(iCountryHealthIndicatorRepository).deleteByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdStatusAndCountryHealthIndicatorIdYear(countryId, status, year);
+        verify(iCountryResourceLinkRepository).deleteByCountryResourceLinkIdCountryIdAndCountryResourceLinkIdStatusAndCountryResourceLinkIdYear(countryId, status, year);
     }
 
     @Test

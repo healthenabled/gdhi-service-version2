@@ -73,14 +73,13 @@ public class CountryHealthDataService {
 
         CountryUrlGenerationStatusDto statusDto;
 
-        String currentStatus = getStatusOfCountrySummary(countryId , currentYear);
+        String currentStatus = getStatusOfCountrySummary(countryId, currentYear);
 
-        if (isNull(currentStatus) || currentStatus.equalsIgnoreCase(PUBLISHED.toString())) {
+        if (isNull(currentStatus)) {
             CountrySummary countrySummary = new CountrySummary(new CountrySummaryId(countryId, NEW.toString(), currentYear),
                     new CountrySummaryDto());
             iCountrySummaryRepository.save(countrySummary);
-            statusDto = new CountryUrlGenerationStatusDto(countryId, true, isNull(currentStatus) ? null :
-                    FormStatus.valueOf(currentStatus));
+            statusDto = new CountryUrlGenerationStatusDto(countryId, true, null);
         } else {
             statusDto = new CountryUrlGenerationStatusDto(countryId, false, FormStatus.valueOf(currentStatus));
         }
@@ -107,7 +106,7 @@ public class CountryHealthDataService {
     }
 
     @Transactional
-    public void deleteCountryData(UUID countryUUID , String year) {
+    public void deleteCountryData(UUID countryUUID, String year) {
         String countryId = iCountryRepository.findByUniqueId(countryUUID).getId();
         iCountryHealthIndicatorRepository.deleteByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdStatusAndCountryHealthIndicatorIdYear(countryId, REVIEW_PENDING.name(), year);
         iCountryResourceLinkRepository.deleteByCountryResourceLinkIdCountryIdAndCountryResourceLinkIdStatusAndCountryResourceLinkIdYear(countryId, REVIEW_PENDING.name(), year);
@@ -208,9 +207,9 @@ public class CountryHealthDataService {
         }
     }
 
-    private String getStatusOfCountrySummary(String countryId , String currentYear) {
+    private String getStatusOfCountrySummary(String countryId, String currentYear) {
         String currentStatus = null;
-        List<CountrySummary> countrySummary = iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdYear(countryId , currentYear);
+        List<CountrySummary> countrySummary = iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdYear(countryId, currentYear);
         List<String> countrySummaryStatuses = countrySummary.stream().map(CountrySummary::getStatus).collect(toList());
         if (!countrySummaryStatuses.isEmpty()) {
             currentStatus = countrySummaryStatuses.size() > 1 ?
