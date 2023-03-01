@@ -160,7 +160,7 @@ public class CountryHealthDataServiceTest {
 
         when(countryDetailRepository.findByUniqueId(countryUUID)).thenReturn(country);
 
-        when(iCountrySummaryRepository.getAllStatus(anyString())).thenReturn(asList(PUBLISHED.toString()));
+        when(iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdYear(anyString() , anyString())).thenReturn(asList(PUBLISHED.toString()));
         CountryUrlGenerationStatusDto countryUrlGenerationStatusDto = countryHealthDataService
                 .saveNewCountrySummary(countryUUID);
         assert (countryUrlGenerationStatusDto.isSuccess());
@@ -180,7 +180,7 @@ public class CountryHealthDataServiceTest {
 
         when(countryDetailRepository.findByUniqueId(countryUUID)).thenReturn(country);
 
-        when(iCountrySummaryRepository.getAllStatus(anyString())).thenReturn(asList(NEW.toString()));
+        when(iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdYear(anyString(), anyString())).thenReturn(asList(NEW.toString()));
 
         CountryUrlGenerationStatusDto countryUrlGenerationStatusDto = countryHealthDataService
                 .saveNewCountrySummary(countryUUID);
@@ -198,7 +198,7 @@ public class CountryHealthDataServiceTest {
 
         when(countryDetailRepository.findByUniqueId(countryUUID)).thenReturn(country);
 
-        when(iCountrySummaryRepository.getAllStatus(anyString()))
+        when(iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdYear(anyString() , anyString()))
                 .thenReturn(asList(PUBLISHED.toString(), DRAFT.toString()));
 
         CountryUrlGenerationStatusDto countryUrlGenerationStatusDto = countryHealthDataService
@@ -213,11 +213,12 @@ public class CountryHealthDataServiceTest {
     public void shouldNotSaveNewCountrySummaryWhenItAlreadyHasBothPublishedAndNewData() throws Exception {
         String countryId = "ARG";
         UUID countryUUID = UUID.randomUUID();
+        String currentYear = countryHealthDataService.getCurrentYear();
         Country country = new Country(countryId, "Argentina", countryUUID, "AR");
 
         when(countryDetailRepository.findByUniqueId(countryUUID)).thenReturn(country);
 
-        when(iCountrySummaryRepository.getAllStatus(anyString()))
+        when(iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdYear(anyString() , anyString()))
                 .thenReturn(asList(PUBLISHED.toString(), NEW.toString()));
 
         CountryUrlGenerationStatusDto countryUrlGenerationStatusDto = countryHealthDataService
