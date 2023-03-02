@@ -62,9 +62,7 @@ mailer:
 logging:
   level:
     root: info
-  path: logs
-  file: gdhi.log
-  config: ${LOGBACK_FILE_LOCATION}
+  config: logback-spring.xml
   pattern:
     file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
     console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
