@@ -248,15 +248,15 @@ public class CountryIntegrationTest extends BaseIntegrationTest {
         String countryId = INDIA_ID;
         String status = "DRAFT";
         String alpha2code = "IN";
-        String year = "Version1";
+        String currentYear = getCurrentYear();
 
         CountryResourceLink countryResourceLink1 = new CountryResourceLink(new CountryResourceLinkId(countryId,
-                "link1", status, year), new Date(), null);
+                "link1", status, currentYear), new Date(), null);
         CountryResourceLink countryResourceLink2 = new CountryResourceLink(new CountryResourceLinkId(countryId,
-                "link2", status, year), new Date(), null);
+                "link2", status, currentYear), new Date(), null);
         List<CountryResourceLink> countryResourceLinks = asList(countryResourceLink1, countryResourceLink2);
 
-        addCountrySummary(countryId, "India", status, alpha2code, INDIA_UUID, "04-04-2018", countryResourceLinks, year);
+        addCountrySummary(countryId, "India", status, alpha2code, INDIA_UUID, "04-04-2018", countryResourceLinks, currentYear);
 
         List<HealthIndicatorDto> healthIndicatorDtos = asList(
                 HealthIndicatorDto.builder().categoryId(1).indicatorId(1).status(status).score(1).supportingText("blah@blah.com").build(),
@@ -283,7 +283,7 @@ public class CountryIntegrationTest extends BaseIntegrationTest {
                 HealthIndicatorDto.builder().categoryId(7).indicatorId(29).status(status).score(1).supportingText("blah@blah.com").build());
 
 
-        setupHealthIndicatorsForCountry(countryId, healthIndicatorDtos, year);
+        setupHealthIndicatorsForCountry(countryId, healthIndicatorDtos, currentYear);
 
         Response response = given()
                 .contentType("application/json")
