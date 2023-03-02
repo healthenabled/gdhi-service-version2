@@ -122,14 +122,11 @@ public class CountryController {
         return countryService.getDetails(countryUIID, languageCode, false, year);
     }
 
-    @GetMapping("/countries/viewPublish/{uuid}")
+    @GetMapping("/countries/viewPublish/{uuid}/{year}")
     public GdhiQuestionnaire getQuestionnaireForPublishedCountry(HttpServletRequest request,
                                                                  @PathVariable("uuid") UUID countryUIID,
-                                                                 @RequestParam(value = "year", required = false) String year) {
+                                                                 @PathVariable("year") String year) {
         LanguageCode languageCode = LanguageCode.getValueFor(request.getHeader(USER_LANGUAGE));
-        if (year == null) {
-            year = countryHealthDataService.getCurrentYear();
-        }
         return countryService.getDetails(countryUIID, languageCode, true, year);
     }
 
