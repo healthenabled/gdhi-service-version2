@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 import org.springframework.util.ObjectUtils;
 
 import javax.persistence.*;
@@ -48,7 +50,7 @@ public class CountrySummary implements Serializable {
     private Date createdAt;
     private Date updatedAt;
 
-    @OneToMany(cascade = CascadeType.REFRESH)
+    @OneToMany(cascade = CascadeType.ALL , fetch = FetchType.LAZY)
     @JoinColumns({
             @JoinColumn(name = "country_id", referencedColumnName = "country_id", insertable = false, updatable = false),
             @JoinColumn(name = "status", referencedColumnName = "status", insertable = false, updatable = false),
