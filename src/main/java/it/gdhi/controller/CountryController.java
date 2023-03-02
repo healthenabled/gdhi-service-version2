@@ -98,13 +98,13 @@ public class CountryController {
         countryHealthDataService.saveCorrection(gdhiQuestionnaire);
     }
 
-    @PostMapping("/countries/publish")
+    @PostMapping("/countries/publish/{year}")
     @ResponseBody
-    public ResponseEntity publishHealthIndicatorsFor(@RequestBody GdhiQuestionnaire gdhiQuestionnaire) {
+    public ResponseEntity publishHealthIndicatorsFor(@RequestBody GdhiQuestionnaire gdhiQuestionnaire , @PathVariable("year") String year) {
         boolean isValid;
         isValid = countryHealthDataService.validateRequiredFields(gdhiQuestionnaire);
         if (isValid) {
-            countryHealthDataService.publish(gdhiQuestionnaire);
+            countryHealthDataService.publish(gdhiQuestionnaire , year);
             return ResponseEntity.status(HttpStatus.CREATED).body(null);
         } else {
             return ResponseEntity.badRequest().body(null);

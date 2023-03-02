@@ -80,7 +80,7 @@ public class CountryHealthDataServiceTest {
         when(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdStatusAndCountryHealthIndicatorIdYear(countryId, status, currentYear))
                 .thenReturn(asList(countryHealthIndicator1));
         when(iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdStatusNotAndCountrySummaryIdYear(countryId, PUBLISHED.name(), currentYear)).thenReturn(countrySummary);
-        countryHealthDataService.publish(gdhiQuestionnaire);
+        countryHealthDataService.publish(gdhiQuestionnaire , currentYear);
         ArgumentCaptor<CountrySummary> summaryCaptor = ArgumentCaptor.forClass(CountrySummary.class);
         ArgumentCaptor<CountryHealthIndicator> healthIndicatorsCaptorList = ArgumentCaptor.forClass(CountryHealthIndicator.class);
         InOrder inOrder = inOrder(iCountryResourceLinkRepository, iCountrySummaryRepository,

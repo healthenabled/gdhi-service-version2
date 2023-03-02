@@ -131,10 +131,11 @@ public class CountryControllerTest {
     @Test
     public void shouldPublishHealthIndicators() {
         GdhiQuestionnaire mock = mock(GdhiQuestionnaire.class);
-        doNothing().when(countryHealthDataService).publish(mock);
+        String year = getCurrentYear();
+        doNothing().when(countryHealthDataService).publish(mock , year);
         when(countryHealthDataService.validateRequiredFields(mock)).thenReturn(true);
-        countryController.publishHealthIndicatorsFor(mock);
-        verify(countryHealthDataService).publish(mock);
+        countryController.publishHealthIndicatorsFor(mock , year);
+        verify(countryHealthDataService).publish(mock , year);
     }
 
     @Test
