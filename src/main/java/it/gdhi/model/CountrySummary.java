@@ -48,7 +48,7 @@ public class CountrySummary implements Serializable {
     private Date createdAt;
     private Date updatedAt;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.REFRESH)
     @JoinColumns({
             @JoinColumn(name = "country_id", referencedColumnName = "country_id", insertable = false, updatable = false),
             @JoinColumn(name = "status", referencedColumnName = "status", insertable = false, updatable = false),
