@@ -86,7 +86,7 @@ public class ICountryHealthIndicatorRepositoryTest {
         List<CountryHealthIndicator> countryHealthIndicator = iCountryHealthIndicatorRepository.findByCountryIdAndStatus("IND", status);
 
         assertThat(countryHealthIndicator.size(), is(1));
-        assertThat(countryHealthIndicator.get(0).getCategory().getName(), is("Leadership and Governance"));
+        assertThat(countryHealthIndicator.get(0).getCategory().getName(), is("Leadership & Governance"));
         assertThat(countryHealthIndicator.get(0).getCountry().getName(), is("India"));
         assertThat(countryHealthIndicator.get(0).getIndicator().getName(), is("Digital Health prioritized at the national level through planning"));
     }
@@ -113,7 +113,7 @@ public class ICountryHealthIndicatorRepositoryTest {
         List<CountryHealthIndicator> countryHealthIndicator = iCountryHealthIndicatorRepository.findByCountryIdAndStatus("IND", status);
 
         assertThat(countryHealthIndicator.size(), is(1));
-        assertThat(countryHealthIndicator.get(0).getCategory().getName(), is("Leadership and Governance"));
+        assertThat(countryHealthIndicator.get(0).getCategory().getName(), is("Leadership & Governance"));
         assertThat(countryHealthIndicator.get(0).getCountry().getName(), is("India"));
         assertThat(countryHealthIndicator.get(0).getIndicator().getName(), is("Digital Health prioritized at the national level through planning"));
     }
@@ -140,7 +140,7 @@ public class ICountryHealthIndicatorRepositoryTest {
         assertEquals(1, countryHealthIndicators.size());
         CountryHealthIndicator countryHealthIndicator = countryHealthIndicators.get(0);
         assertThat(countryHealthIndicator.getCategory().getId(), is(categoryId));
-        assertThat(countryHealthIndicator.getCategory().getName(), is("Services and Applications"));
+        assertThat(countryHealthIndicator.getCategory().getName(), is("Services & Applications"));
         assertThat(countryHealthIndicator.getIndicator().getIndicatorId(), is(indicatorId));
         assertThat(countryHealthIndicator.getIndicator().getName(), is("National digital health architecture and/or health information exchange"));
         assertThat(countryHealthIndicator.getIndicator().getDefinition(), is("Is there a national digital health (eHealth) architectural framework and/or health information exchange (HIE) established?"));
@@ -170,7 +170,7 @@ public class ICountryHealthIndicatorRepositoryTest {
         assertEquals(1, countryHealthIndicators.size());
         CountryHealthIndicator countryHealthIndicator = countryHealthIndicators.get(0);
         assertThat(countryHealthIndicator.getCategory().getId(), is(categoryId));
-        assertThat(countryHealthIndicator.getCategory().getName(), is("Services and Applications"));
+        assertThat(countryHealthIndicator.getCategory().getName(), is("Services & Applications"));
         assertThat(countryHealthIndicator.getIndicator().getIndicatorId(), is(indicatorId));
         assertThat(countryHealthIndicator.getIndicator().getName(), is("National digital health architecture and/or health information exchange"));
         assertThat(countryHealthIndicator.getIndicator().getDefinition(), is("Is there a national digital health (eHealth) architectural framework and/or health information exchange (HIE) established?"));
