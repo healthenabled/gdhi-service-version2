@@ -24,6 +24,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
 
+import java.time.Year;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -139,7 +140,7 @@ public class CountryServiceTest {
         String countryId = "IND";
         String statusValue = "PUBLISHED";
         UUID countryUUID = randomUUID();
-        String year = "Version1";
+        String year = getCurrentYear();
         Country country = new Country(countryId, "India", countryUUID, "IN");
         CountrySummary countrySummary = CountrySummary.builder()
                 .countrySummaryId(new CountrySummaryId(countryId, statusValue, year))
@@ -160,7 +161,7 @@ public class CountryServiceTest {
                         statusValue, year), new Date(), null)))
                 .build();
 
-        when(iCountrySummaryRepository.findAll(countryId)).thenReturn(asList(countrySummary));
+        when(iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdStatusNotAndCountrySummaryIdYear(countryId, statusValue, year)).thenReturn(countrySummary);
         when(countryDetailRepository.findByUniqueId(countryUUID)).thenReturn(country);
         CountryHealthIndicator indicator1 = CountryHealthIndicator.builder()
                 .countryHealthIndicatorId(new CountryHealthIndicatorId(countryId, 1, 2, statusValue, year))
@@ -173,7 +174,7 @@ public class CountryServiceTest {
                 .score(4)
                 .build();
         List<CountryHealthIndicator> countryHealthIndicators = asList(indicator1, indicator2);
-        when(iCountryHealthIndicatorRepository.findByCountryIdAndStatus(countryId, statusValue)).thenReturn(countryHealthIndicators);
+        when(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdStatusAndCountryHealthIndicatorIdYear(countryId, statusValue, year)).thenReturn(countryHealthIndicators);
 
         GdhiQuestionnaire details = countryService.getDetails(countryUUID, LanguageCode.en, false, year);
 
@@ -186,7 +187,7 @@ public class CountryServiceTest {
         String countryIdInd = "IND";
         String statusValueInd = "REVIEW_PENDING";
         UUID countryUUIDInd = randomUUID();
-        String year = "Version1";
+        String year = getCurrentYear();
         Country countryInd = new Country(countryIdInd, "India", countryUUIDInd, "IN");
         CountrySummary countrySummaryInd = CountrySummary.builder()
                 .countrySummaryId(new CountrySummaryId(countryIdInd, statusValueInd, year))
@@ -229,8 +230,8 @@ public class CountryServiceTest {
                         statusValueInd, year), new Date(), null)))
                 .build();
 
-        when(iCountrySummaryRepository.findAll(countryIdInd)).thenReturn(asList(countrySummaryInd, countrySummaryArg));
-        when(iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdStatusAndCountrySummaryIdYear(countryIdInd, statusValueInd, year)).thenReturn(countrySummaryInd);
+        when(iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdStatusNotAndCountrySummaryIdYear(countryIdInd, "PUBLISHED", year)).thenReturn(countrySummaryInd);
+        when(iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdStatusAndCountrySummaryIdYear(countryIdArg, statusValueInd, year)).thenReturn(countrySummaryArg);
         when(countryDetailRepository.findByUniqueId(countryUUIDInd)).thenReturn(countryInd);
         CountryHealthIndicator indicator1 = CountryHealthIndicator.builder()
                 .countryHealthIndicatorId(new CountryHealthIndicatorId(countryIdInd, 1, 2, statusValueInd, year))
@@ -243,7 +244,7 @@ public class CountryServiceTest {
                 .score(4)
                 .build();
         List<CountryHealthIndicator> countryHealthIndicators = asList(indicator1, indicator2);
-        when(iCountryHealthIndicatorRepository.findByCountryIdAndStatus(countryIdInd, statusValueInd)).thenReturn(countryHealthIndicators);
+        when(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdStatusAndCountryHealthIndicatorIdYear(countryIdInd, statusValueInd, year)).thenReturn(countryHealthIndicators);
 
         GdhiQuestionnaire details = countryService.getDetails(countryUUIDInd, LanguageCode.en, false, year);
 
@@ -260,7 +261,7 @@ public class CountryServiceTest {
         String indiaAlpha2Code = "IN";
         Country country = new Country(countryId, "India", countryUUID, indiaAlpha2Code);
         Date collectedDate = new Date();
-        String year = "Version1";
+        String year = getCurrentYear();
         CountrySummary countrySummary = CountrySummary.builder()
                 .countrySummaryId(new CountrySummaryId(countryId, statusValue, year))
                 .country(country)
@@ -280,7 +281,7 @@ public class CountryServiceTest {
                         statusValue, year), collectedDate, null)))
                 .build();
 
-        when(iCountrySummaryRepository.findAll(countryId)).thenReturn(asList(countrySummary));
+        when(iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdStatusNotAndCountrySummaryIdYear(countryId, statusValue, year)).thenReturn(countrySummary);
         when(translator.getCountryTranslationForLanguage(ar, countryId)).thenReturn(indiaInArabic);
         when(countryDetailRepository.findByUniqueId(countryUUID)).thenReturn(country);
         CountryHealthIndicator indicator1 = CountryHealthIndicator.builder()
@@ -294,7 +295,7 @@ public class CountryServiceTest {
                 .score(4)
                 .build();
         List<CountryHealthIndicator> countryHealthIndicators = asList(indicator1, indicator2);
-        when(iCountryHealthIndicatorRepository.findByCountryIdAndStatus(countryId, statusValue)).thenReturn(countryHealthIndicators);
+        when(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdStatusAndCountryHealthIndicatorIdYear(countryId, statusValue, year)).thenReturn(countryHealthIndicators);
 
         GdhiQuestionnaire details = countryService.getDetails(countryUUID, LanguageCode.ar, false, year);
 
@@ -324,14 +325,15 @@ public class CountryServiceTest {
     public void shouldHandleCountriesNotAvailable() throws Exception {
         String countryId = "IND";
         UUID countryUUID = randomUUID();
+        String currentYear = getCurrentYear();
         Country country = new Country(countryId, "India", countryUUID, "IN");
 
-        when(iCountrySummaryRepository.findAll(countryId)).thenReturn(null);
+        when(iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdStatusNotAndCountrySummaryIdYear(countryId, "PUBLISHED", currentYear)).thenReturn(null);
 
-        when(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdStatusAndCountryHealthIndicatorIdYear(countryId, null, "Version1")).thenReturn(Collections.emptyList());
+        when(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdStatusAndCountryHealthIndicatorIdYear(countryId, null, currentYear)).thenReturn(Collections.emptyList());
 
         when(countryDetailRepository.findByUniqueId(countryUUID)).thenReturn(country);
-        GdhiQuestionnaire details = countryService.getDetails(countryUUID, LanguageCode.en, false, "Version1");
+        GdhiQuestionnaire details = countryService.getDetails(countryUUID, LanguageCode.en, false, currentYear);
 
         assertNull(details);
     }
@@ -380,5 +382,11 @@ public class CountryServiceTest {
         assertEquals(expectedCountrySummary.getCollectedDate(), actualCountrySummary.getCollectedDate());
         assertEquals(expectedCountrySummary.getCountryResourceLinks().stream().map(CountryResourceLink::getLink).collect(Collectors.toList()),
                 actualCountrySummary.getResources());
+    }
+
+    public String getCurrentYear() {
+        int currentYear = Year.now().getValue();
+        String year = new String(String.valueOf(currentYear));
+        return year;
     }
 }

@@ -66,7 +66,7 @@ public class CountryService {
         List<CountrySummary> countrySummaries;
 
         if (!publishedOnly) {
-            countrySummaries = iCountrySummaryRepository.findAll(countryId);
+            countrySummaries = getCountrySummariesForNotPublished(year, countryId);
         } else {
             countrySummaries = asList(iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdStatusAndCountrySummaryIdYear(countryId, PUBLISHED.name(), year));
         }
@@ -76,7 +76,7 @@ public class CountryService {
                     getUnPublishedCountrySummary(countrySummaries) :
                     Optional.ofNullable(countrySummaries.get(0)).get();
 
-            List<CountryHealthIndicator> sortedIndicators = getCountryHealthIndicators(countryId, countrySummary);
+            List<CountryHealthIndicator> sortedIndicators = getCountryHealthIndicators(countryId, countrySummary, year);
             gdhiQuestionnaire = constructGdhiQuestionnaire(countryId, countrySummary, sortedIndicators);
             String translatedCountryName =
                     translator.getCountryTranslationForLanguage(languageCode, gdhiQuestionnaire.getCountryId());
@@ -86,10 +86,20 @@ public class CountryService {
         return gdhiQuestionnaire;
     }
 
-    private List<CountryHealthIndicator> getCountryHealthIndicators(String countryId, CountrySummary countrySummary) {
+    private List<CountrySummary> getCountrySummariesForNotPublished(String year, String countryId) {
+        List<CountrySummary> countrySummaries;
+        if (iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdStatusNotAndCountrySummaryIdYear(countryId, PUBLISHED.name(), year) != null) {
+            countrySummaries = asList(iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdStatusNotAndCountrySummaryIdYear(countryId, PUBLISHED.name(), year));
+        } else {
+            countrySummaries = null;
+        }
+        return countrySummaries;
+    }
+
+    private List<CountryHealthIndicator> getCountryHealthIndicators(String countryId, CountrySummary countrySummary, String year) {
         List<CountryHealthIndicator> countryHealthIndicators =
-                iCountryHealthIndicatorRepository.findByCountryIdAndStatus(countryId,
-                        countrySummary.getCountrySummaryId().getStatus());
+                iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdStatusAndCountryHealthIndicatorIdYear(countryId,
+                        countrySummary.getCountrySummaryId().getStatus(), year);
 
         return countryHealthIndicators.stream().sorted(
                         Comparator.comparing(o -> o.getIndicator().getRank()))
