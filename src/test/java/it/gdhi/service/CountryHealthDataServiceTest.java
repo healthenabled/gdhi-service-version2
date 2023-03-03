@@ -1,10 +1,32 @@
 package it.gdhi.service;
 
-import it.gdhi.dto.*;
-import it.gdhi.model.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.List;
+import java.util.UUID;
+
+import javax.persistence.EntityManager;
+
+import it.gdhi.dto.CountrySummaryDto;
+import it.gdhi.dto.CountrySummaryStatusDto;
+import it.gdhi.dto.CountrySummaryStatusYearDto;
+import it.gdhi.dto.CountryUrlGenerationStatusDto;
+import it.gdhi.dto.GdhiQuestionnaire;
+import it.gdhi.dto.HealthIndicatorDto;
+import it.gdhi.model.Category;
+import it.gdhi.model.Country;
+import it.gdhi.model.CountryHealthIndicator;
+import it.gdhi.model.CountryPhase;
+import it.gdhi.model.CountrySummary;
+import it.gdhi.model.Indicator;
 import it.gdhi.model.id.CountrySummaryId;
-import it.gdhi.repository.*;
-import org.junit.jupiter.api.Disabled;
+import it.gdhi.repository.ICountryHealthIndicatorRepository;
+import it.gdhi.repository.ICountryPhaseRepository;
+import it.gdhi.repository.ICountryRepository;
+import it.gdhi.repository.ICountryResourceLinkRepository;
+import it.gdhi.repository.ICountrySummaryRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -15,18 +37,25 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
 
-import javax.persistence.EntityManager;
-
-import java.util.*;
-
-import static it.gdhi.utils.FormStatus.*;
+import static it.gdhi.utils.FormStatus.DRAFT;
+import static it.gdhi.utils.FormStatus.NEW;
+import static it.gdhi.utils.FormStatus.PUBLISHED;
+import static it.gdhi.utils.FormStatus.REVIEW_PENDING;
 import static java.util.Arrays.asList;
 import static java.util.Collections.emptyList;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.anyString;
+import static org.mockito.Mockito.inOrder;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 @MockitoSettings(strictness = Strictness.LENIENT)
@@ -154,7 +183,7 @@ public class CountryHealthDataServiceTest {
 
 
     @Test
-    public void shouldNotSaveAsNewStatusWhenCountryHasPublishedData() throws Exception {
+    public void shouldNotSaveAsNewStatusWhenCountryHasPublishedDataForTheSameYear() throws Exception {
         String countryId = "ARG";
         String currentYear = countryHealthDataService.getCurrentYear();
         UUID countryUUID = UUID.randomUUID();
@@ -175,7 +204,7 @@ public class CountryHealthDataServiceTest {
     }
 
     @Test
-    public void shouldNotSaveNewCountrySummaryWhenItAlreadyHasUnpublishedData() throws Exception {
+    public void shouldNotSaveNewCountrySummaryWhenItAlreadyHasUnpublishedDataForTheSameYear() throws Exception {
         String countryId = "ARG";
         String currentYear = countryHealthDataService.getCurrentYear();
         UUID countryUUID = UUID.randomUUID();
@@ -197,20 +226,18 @@ public class CountryHealthDataServiceTest {
     }
 
     @Test
-    public void shouldNotSaveNewCountrySummaryWhenItAlreadyHasBothPublishedAndDraftData() throws Exception {
+    public void shouldNotSaveNewCountrySummaryWhenItAlreadyHaveDraftData() throws Exception {
         String countryId = "ARG";
         UUID countryUUID = UUID.randomUUID();
         String currentYear = countryHealthDataService.getCurrentYear();
         Country country = new Country(countryId, "Argentina", countryUUID, "AR");
-        CountrySummaryId countrySummaryId1 = CountrySummaryId.builder().countryId(countryId).status(PUBLISHED.name()).year(currentYear).build();
-        CountrySummary countrySummary1 = CountrySummary.builder().countrySummaryId(countrySummaryId1).build();
-        CountrySummaryId countrySummaryId2 = CountrySummaryId.builder().countryId(countryId).status(DRAFT.name()).year(currentYear).build();
-        CountrySummary countrySummary2 = CountrySummary.builder().countrySummaryId(countrySummaryId2).build();
+        CountrySummaryId countrySummaryId = CountrySummaryId.builder().countryId(countryId).status(DRAFT.name()).year(currentYear).build();
+        CountrySummary countrySummary = CountrySummary.builder().countrySummaryId(countrySummaryId).build();
 
         when(countryDetailRepository.findByUniqueId(countryUUID)).thenReturn(country);
 
         when(iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdYear(anyString(), anyString()))
-                .thenReturn(asList(countrySummary1, countrySummary2));
+                .thenReturn(asList(countrySummary));
 
         CountryUrlGenerationStatusDto countryUrlGenerationStatusDto = countryHealthDataService
                 .saveNewCountrySummary(countryUUID);
@@ -221,20 +248,18 @@ public class CountryHealthDataServiceTest {
     }
 
     @Test
-    public void shouldNotSaveNewCountrySummaryWhenItAlreadyHasBothPublishedAndNewData() throws Exception {
+    public void shouldNotSaveNewCountrySummaryWhenItAlreadyHasNewData() throws Exception {
         String countryId = "ARG";
         UUID countryUUID = UUID.randomUUID();
         String currentYear = countryHealthDataService.getCurrentYear();
         Country country = new Country(countryId, "Argentina", countryUUID, "AR");
-        CountrySummaryId countrySummaryId1 = CountrySummaryId.builder().countryId(countryId).status(PUBLISHED.name()).year(currentYear).build();
-        CountrySummary countrySummary1 = CountrySummary.builder().countrySummaryId(countrySummaryId1).build();
-        CountrySummaryId countrySummaryId2 = CountrySummaryId.builder().countryId(countryId).status(NEW.name()).year(currentYear).build();
-        CountrySummary countrySummary2 = CountrySummary.builder().countrySummaryId(countrySummaryId2).build();
+        CountrySummaryId countrySummaryId = CountrySummaryId.builder().countryId(countryId).status(NEW.name()).year(currentYear).build();
+        CountrySummary countrySummary = CountrySummary.builder().countrySummaryId(countrySummaryId).build();
 
         when(countryDetailRepository.findByUniqueId(countryUUID)).thenReturn(country);
 
         when(iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdYear(anyString(), anyString()))
-                .thenReturn(asList(countrySummary1, countrySummary2));
+                .thenReturn(asList(countrySummary));
 
         CountryUrlGenerationStatusDto countryUrlGenerationStatusDto = countryHealthDataService
                 .saveNewCountrySummary(countryUUID);
@@ -261,7 +286,7 @@ public class CountryHealthDataServiceTest {
     }
 
     @Test
-    public void shouldGetAdminViewFormDetails() {
+    public void shouldGetAdminViewFormDetailsForCurrentYear() {
         CountrySummary countrySummaryIND = getCountrySummary("IND", "PUBLISHED", "INDIA",
                 "IN", "Contact Name 1", "con1@gdhi.com", "Version1");
         CountrySummary countrySummaryARG = getCountrySummary("ARG", "REVIEW_PENDING",
@@ -561,6 +586,32 @@ public class CountryHealthDataServiceTest {
         inOrder.verify(iCountryPhaseRepository, times(1)).save(phaseDetailsCaptor.capture());
         assertThat(phaseDetailsCaptor.getValue().getCountryPhaseId().getCountryId(), is("IND"));
         assertThat(phaseDetailsCaptor.getValue().getCountryOverallPhase(), is(2));
+    }
+
+    @Test
+    public void ShouldSaveNewCountrySummaryWhenItIsAlreadyPublishedInADifferentYear() {
+        String countryId = "ARG";
+        UUID countryUUID = UUID.randomUUID();
+        String year = "Version1";
+        String currentYear = countryHealthDataService.getCurrentYear();
+        Country country = new Country(countryId, "Argentina", countryUUID, "AR");
+        CountrySummaryId countrySummaryId1 = CountrySummaryId.builder().countryId(countryId).status(PUBLISHED.name()).year(year).build();
+        CountrySummary countrySummary1 = CountrySummary.builder().countrySummaryId(countrySummaryId1).build();
+        CountrySummaryId countrySummaryId2 = CountrySummaryId.builder().countryId(countryId).status(null).year(currentYear).build();
+        CountrySummary countrySummary2 = CountrySummary.builder().countrySummaryId(countrySummaryId2).build();
+
+        when(countryDetailRepository.findByUniqueId(countryUUID)).thenReturn(country);
+
+        when(iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdYear(countryId, currentYear))
+                .thenReturn(asList(countrySummary2));
+
+        CountryUrlGenerationStatusDto countryUrlGenerationStatusDto = countryHealthDataService
+                .saveNewCountrySummary(countryUUID);
+        assertTrue(countryUrlGenerationStatusDto.isSuccess());
+        assertEquals(null, countryUrlGenerationStatusDto.getExistingStatus());
+
+        verify(iCountrySummaryRepository).save(any());
+
     }
 
     private CountrySummary getCountrySummary(String countryId, String statusValue, String countryName,
