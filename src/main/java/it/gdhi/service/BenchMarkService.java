@@ -56,7 +56,7 @@ public class BenchMarkService {
     }
 
     private boolean validateCountryHealthIndicatorByPhaseAndYear(CountryHealthIndicator countryHealthIndicator, Integer phase, String year) {
-        CountryPhase countryPhase = iCountryPhaseRepository.findByCountryPhaseIdYearAndCountryPhaseIdCountryId(year, countryHealthIndicator.getCountryId());
+        CountryPhase countryPhase = iCountryPhaseRepository.findByCountryPhaseIdCountryIdAndCountryPhaseIdYear(countryHealthIndicator.getCountryId(), year);
         if (countryPhase.getCountryOverallPhase() == phase) {
             return true;
         }

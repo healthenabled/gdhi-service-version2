@@ -174,7 +174,7 @@ public class CountryHealthIndicatorService {
                                                               CountryHealthIndicators countryHealthIndicators,
                                                               Predicate<? super CategoryHealthScoreDto> phaseFilter, String year) {
         List<CategoryHealthScoreDto> categoryDtos = getCategoriesWithIndicators(countryHealthIndicators, phaseFilter);
-        CountryPhase countryPhase = iCountryPhaseRepository.findByCountryPhaseIdYearAndCountryPhaseIdCountryId(year, countryId);
+        CountryPhase countryPhase = iCountryPhaseRepository.findByCountryPhaseIdCountryIdAndCountryPhaseIdYear(countryId, year);
         CountrySummary countrySummary = iCountrySummaryRepository.
                 findByCountrySummaryIdCountryIdAndCountrySummaryIdStatusAndCountrySummaryIdYear(countryId, PUBLISHED.name(), year);
         String collectedDateStr = countrySummary != null && countrySummary.getCollectedDate() != null ?
