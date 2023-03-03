@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
     <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
-    <springProperty name="LOG_PATH" source="/opt/codedeploy-agent/logs" defaultValue="/opt/codedeploy-agent/logs"/>
-    <springProperty name="LOG_FILE" source="gdhi_stdinfo.log" defaultValue="gdhi_stdinfo.log"/>
     <appender name="ROLLING-FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${LOG_PATH}/${LOG_FILE}</file>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
