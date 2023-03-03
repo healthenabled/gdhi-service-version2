@@ -7,7 +7,7 @@
       "categories": [
         {
           "id": 1,
-          "name": "Leadership and Governance",
+          "name": "Leadership & Governance",
           "overallScore": 1.0,
           "phase": 1,
           "indicators": [
@@ -33,7 +33,7 @@
         },
         {
           "id": 2,
-          "name": "Strategy and Investment",
+          "name": "Strategy & Investment",
           "overallScore": 1.0,
           "phase": 1,
           "indicators": [
@@ -50,7 +50,7 @@
         },
         {
           "id": 7,
-          "name": "Services and Applications",
+          "name": "Services & Applications",
           "overallScore": null,
           "phase": null,
           "indicators": [
@@ -94,7 +94,7 @@
       "categories": [
         {
           "id": 1,
-          "name": "Leadership and Governance",
+          "name": "Leadership & Governance",
           "overallScore": 1.0,
           "phase": 1,
           "indicators": [
@@ -120,7 +120,7 @@
         },
         {
           "id": 2,
-          "name": "Strategy and Investment",
+          "name": "Strategy & Investment",
           "overallScore": 1.0,
           "phase": 1,
           "indicators": [
@@ -137,7 +137,7 @@
         },
         {
           "id": 7,
-          "name": "Services and Applications",
+          "name": "Services & Applications",
           "overallScore": null,
           "phase": null,
           "indicators": [

@@ -3,21 +3,21 @@
   "categories": [
     {
       "id": 1,
-      "name": "Leadership and Governance",
+      "name": "Leadership & Governance",
       "overallScore": 3.0,
       "phase": 3,
       "indicators": null
     },
     {
       "id": 2,
-      "name": "Strategy and Investment",
+      "name": "Strategy & Investment",
       "overallScore": 3.0,
       "phase": 3,
       "indicators": null
     },
     {
       "id": 3,
-      "name": "Legislation, Policy, and Compliance",
+      "name": "Legislation, Policy, & Compliance",
       "overallScore": 1.5,
       "phase": 2,
       "indicators": null

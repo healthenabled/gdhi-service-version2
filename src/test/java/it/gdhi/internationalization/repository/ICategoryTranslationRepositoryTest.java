@@ -30,7 +30,7 @@ public class ICategoryTranslationRepositoryTest {
 
     @Test
     public void shouldReturnCategoryNameInArabic() {
-        String category = repository.findTranslationForLanguage(ar, "Services and Applications");
+        String category = repository.findTranslationForLanguage(ar, "Services & Applications");
 
         assertEquals(category, "الخدمات والتطبيقات");
     }
