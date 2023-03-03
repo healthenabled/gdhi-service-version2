@@ -87,7 +87,7 @@ public class CountryHealthDataService {
     }
 
     @Transactional
-    public void publish(GdhiQuestionnaire gdhiQuestionnaire , String currentYear) {
+    public void publish(GdhiQuestionnaire gdhiQuestionnaire, String currentYear) {
         save(gdhiQuestionnaire, PUBLISHED.name());
         calculateAndSaveCountryPhase(gdhiQuestionnaire.getCountryId(), PUBLISHED.name(), currentYear);
     }
@@ -190,6 +190,7 @@ public class CountryHealthDataService {
         CountrySummary countrySummary = new CountrySummary(new CountrySummaryId(countryId, status, year),
                 countrySummaryDetailDto);
         iCountryResourceLinkRepository.deleteByCountryResourceLinkIdCountryIdAndCountryResourceLinkIdStatusAndCountryResourceLinkIdYear(countryId, status, year);
+        entityManager.flush();
         iCountrySummaryRepository.save(countrySummary);
     }
 
