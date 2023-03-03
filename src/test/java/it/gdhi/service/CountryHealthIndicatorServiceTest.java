@@ -92,7 +92,7 @@ public class CountryHealthIndicatorServiceTest {
 
         when(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdStatusAndCountryHealthIndicatorIdYear(countryId1, publishedStatus, year)).thenReturn(countryHealthIndicatorsForCountry);
         CountryPhase countryPhaseIND = buildCountryPhase("IND", 3);
-        when(iCountryPhaseRepository.findByCountryPhaseIdYearAndCountryPhaseIdCountryId(year, "IND")).thenReturn(countryPhaseIND);
+        when(iCountryPhaseRepository.findByCountryPhaseIdCountryIdAndCountryPhaseIdYear("IND", year)).thenReturn(countryPhaseIND);
     }
 
     @Test
@@ -206,7 +206,7 @@ public class CountryHealthIndicatorServiceTest {
 
         when(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdStatusAndCountryHealthIndicatorIdYear(countryId, publishedStatus, year)).thenReturn(countryHealthIndicatorsForCountry);
         CountryPhase countryPhaseIND = buildCountryPhase(countryId, 2);
-        when(iCountryPhaseRepository.findByCountryPhaseIdYearAndCountryPhaseIdCountryId(year, countryId)).thenReturn(countryPhaseIND);
+        when(iCountryPhaseRepository.findByCountryPhaseIdCountryIdAndCountryPhaseIdYear(countryId, year)).thenReturn(countryPhaseIND);
 
         CategoryHealthScoreDto categoryHealthScoreDto1 = new CategoryHealthScoreDto(1, "Leadership and Governance", 1.5, 2, of(
                 new IndicatorScoreDto(1, null, "Indicator 1", "Definition", 1, null, null, "Not Available"),
@@ -260,7 +260,7 @@ public class CountryHealthIndicatorServiceTest {
 
         when(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdStatusAndCountryHealthIndicatorIdYear(countryId1, publishedStatus, year)).thenReturn(countryHealthIndicatorsForCountry);
         CountryPhase countryPhaseIND = buildCountryPhase("IND", 2);
-        when(iCountryPhaseRepository.findByCountryPhaseIdYearAndCountryPhaseIdCountryId(year, "IND")).thenReturn(countryPhaseIND);
+        when(iCountryPhaseRepository.findByCountryPhaseIdCountryIdAndCountryPhaseIdYear("IND", year)).thenReturn(countryPhaseIND);
 
         CategoryHealthScoreDto categoryHealthScoreDto1 = new CategoryHealthScoreDto(1, categoryName, 1.0, 1, of(new IndicatorScoreDto(1, null, "Indicator 1", "Definition", 1, null, "st1", "Not Available")));
         CategoryHealthScoreDto categoryHealthScoreDto2 = new CategoryHealthScoreDto(2, categoryName2, 2.0, 2, of(new IndicatorScoreDto(2, null, "Indicator 1", "Definition", 2, 2, "st2", "Not Available")));
@@ -302,7 +302,7 @@ public class CountryHealthIndicatorServiceTest {
 
         when(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdStatusAndCountryHealthIndicatorIdYear(countryId, publishedStatus, year)).thenReturn(countryHealthIndicatorsForCountry);
         CountryPhase countryPhaseIND = buildCountryPhase(countryId, 2);
-        when(iCountryPhaseRepository.findByCountryPhaseIdYearAndCountryPhaseIdCountryId(year, countryId)).thenReturn(countryPhaseIND);
+        when(iCountryPhaseRepository.findByCountryPhaseIdCountryIdAndCountryPhaseIdYear(countryId, year)).thenReturn(countryPhaseIND);
 
         CategoryHealthScoreDto categoryHealthScoreDto1 = new CategoryHealthScoreDto(1, "Leadership and Governance", 1.0, 1, of(new IndicatorScoreDto(1, null, "Indicator 1", "Definition", 1, null, "st1", "Not Available")));
         CategoryHealthScoreDto categoryHealthScoreDto2 = new CategoryHealthScoreDto(2, "Category2", 2.0, 2, of(new IndicatorScoreDto(2, null, "Indicator 1", "Definition", 2, 2, "st2", "Not Available")));
@@ -355,7 +355,7 @@ public class CountryHealthIndicatorServiceTest {
 
         when(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdStatusAndCountryHealthIndicatorIdYear(countryId, publishedStatus, year)).thenReturn(countryHealthIndicatorsForCountry);
         CountryPhase countryPhaseIND = buildCountryPhase(countryId, null);
-        when(iCountryPhaseRepository.findByCountryPhaseIdYearAndCountryPhaseIdCountryId(year, countryId)).thenReturn(countryPhaseIND);
+        when(iCountryPhaseRepository.findByCountryPhaseIdCountryIdAndCountryPhaseIdYear(countryId, year)).thenReturn(countryPhaseIND);
 
         CategoryHealthScoreDto categoryHealthScoreDto1 = new CategoryHealthScoreDto(1, "Leadership and Governance", 1.0, 1, of(
                 new IndicatorScoreDto(1, null, "Indicator 1", "Definition", 1, null, null, "Not Available"),
@@ -407,7 +407,7 @@ public class CountryHealthIndicatorServiceTest {
 
         when(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdStatusAndCountryHealthIndicatorIdYear(countryId, publishedStatus, year)).thenReturn(countryHealthIndicatorsForCountry);
         CountryPhase countryPhaseIND = buildCountryPhase(countryId, 4);
-        when(iCountryPhaseRepository.findByCountryPhaseIdYearAndCountryPhaseIdCountryId(year, countryId)).thenReturn(countryPhaseIND);
+        when(iCountryPhaseRepository.findByCountryPhaseIdCountryIdAndCountryPhaseIdYear(countryId, year)).thenReturn(countryPhaseIND);
 
         CategoryHealthScoreDto categoryHealthScoreDto1 = new CategoryHealthScoreDto(1, "Leadership and Governance", 3.5, 4, of(
                 new IndicatorScoreDto(1, null, "Indicator 1", "Definition", 1, 3, "st1", "Not Available"),
@@ -471,7 +471,7 @@ public class CountryHealthIndicatorServiceTest {
 
         when(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdStatusAndCountryHealthIndicatorIdYear(countryId1, publishedStatus, year)).thenReturn(countryHealthIndicatorsForCountry);
         CountryPhase countryPhaseIND = buildCountryPhase("IND", 5);
-        when(iCountryPhaseRepository.findByCountryPhaseIdYearAndCountryPhaseIdCountryId(year, "IND")).thenReturn(countryPhaseIND);
+        when(iCountryPhaseRepository.findByCountryPhaseIdCountryIdAndCountryPhaseIdYear("IND", year)).thenReturn(countryPhaseIND);
 
         CategoryHealthScoreDto categoryHealthScoreDto1 = new CategoryHealthScoreDto(1, "Leadership and Governance", 2.3333333333333335, 3, of(
                 new IndicatorScoreDto(1, null, "Indicator 1", "Definition", 1, 5, "st1", "Not Available"),
@@ -522,8 +522,8 @@ public class CountryHealthIndicatorServiceTest {
         when(iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdStatusAndCountrySummaryIdYear(anyString(), anyString(), anyString())).thenReturn(countrySummary);
         CountryPhase countryPhaseIND = buildCountryPhase("IND", 1);
         CountryPhase countryPhaseUSA = buildCountryPhase("USA", 3);
-        when(iCountryPhaseRepository.findByCountryPhaseIdYearAndCountryPhaseIdCountryId(year, "IND")).thenReturn(countryPhaseIND);
-        when(iCountryPhaseRepository.findByCountryPhaseIdYearAndCountryPhaseIdCountryId(year, "USA")).thenReturn(countryPhaseUSA);
+        when(iCountryPhaseRepository.findByCountryPhaseIdCountryIdAndCountryPhaseIdYear("IND", year)).thenReturn(countryPhaseIND);
+        when(iCountryPhaseRepository.findByCountryPhaseIdCountryIdAndCountryPhaseIdYear("USA", year)).thenReturn(countryPhaseUSA);
 
         CategoryHealthScoreDto categoryHealthScoreDto1 = new CategoryHealthScoreDto(9, "Category 1", 1.0, 1, of(new IndicatorScoreDto(1, null, null, null, 1, 1, null, "Not Available")));
         CountryHealthScoreDto countryHealthScoreDtoIN = new CountryHealthScoreDto("IND", "India", "IN", of(categoryHealthScoreDto1), 1, "April 2018");
@@ -577,8 +577,8 @@ public class CountryHealthIndicatorServiceTest {
 
         CountryPhase countryPhaseIND = buildCountryPhase(India, 1);
         CountryPhase countryPhaseUSA = buildCountryPhase(USA, 2);
-        when(iCountryPhaseRepository.findByCountryPhaseIdYearAndCountryPhaseIdCountryId(year, India)).thenReturn(countryPhaseIND);
-        when(iCountryPhaseRepository.findByCountryPhaseIdYearAndCountryPhaseIdCountryId(year, USA)).thenReturn(countryPhaseUSA);
+        when(iCountryPhaseRepository.findByCountryPhaseIdCountryIdAndCountryPhaseIdYear(India, year)).thenReturn(countryPhaseIND);
+        when(iCountryPhaseRepository.findByCountryPhaseIdCountryIdAndCountryPhaseIdYear(USA, year)).thenReturn(countryPhaseUSA);
 
         CountriesHealthScoreDto countriesHealthScoreDto = countryHealthIndicatorService.fetchCountriesHealthScores(1, 5, en, year);
 
@@ -607,8 +607,8 @@ public class CountryHealthIndicatorServiceTest {
 
         CountryPhase countryPhaseIND = buildCountryPhase("IND", 1);
         CountryPhase countryPhaseUSA = buildCountryPhase("USA", 4);
-        when(iCountryPhaseRepository.findByCountryPhaseIdYearAndCountryPhaseIdCountryId(year, "IND")).thenReturn(countryPhaseIND);
-        when(iCountryPhaseRepository.findByCountryPhaseIdYearAndCountryPhaseIdCountryId(year, "USA")).thenReturn(countryPhaseUSA);
+        when(iCountryPhaseRepository.findByCountryPhaseIdCountryIdAndCountryPhaseIdYear("IND" , year)).thenReturn(countryPhaseIND);
+        when(iCountryPhaseRepository.findByCountryPhaseIdCountryIdAndCountryPhaseIdYear( "USA", year)).thenReturn(countryPhaseUSA);
 
         CategoryHealthScoreDto categoryHealthScoreDto2 = new CategoryHealthScoreDto(7, "Category 4", 3.5, 4,
                 of(new IndicatorScoreDto(3, null, null, null, 3, 3, null, "Not Available"),
@@ -655,8 +655,8 @@ public class CountryHealthIndicatorServiceTest {
         when(iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdStatusAndCountrySummaryIdYear(anyString(), anyString(), anyString())).thenReturn(countrySummary);
         CountryPhase countryPhaseIND = buildCountryPhase("IND", 1);
         CountryPhase countryPhaseUSA = buildCountryPhase("USA", 4);
-        when(iCountryPhaseRepository.findByCountryPhaseIdYearAndCountryPhaseIdCountryId(year, "IND")).thenReturn(countryPhaseIND);
-        when(iCountryPhaseRepository.findByCountryPhaseIdYearAndCountryPhaseIdCountryId(year, "USA")).thenReturn(countryPhaseUSA);
+        when(iCountryPhaseRepository.findByCountryPhaseIdCountryIdAndCountryPhaseIdYear( "IND", year)).thenReturn(countryPhaseIND);
+        when(iCountryPhaseRepository.findByCountryPhaseIdCountryIdAndCountryPhaseIdYear("USA", year)).thenReturn(countryPhaseUSA);
 
         CountriesHealthScoreDto countriesHealthScoreDto = countryHealthIndicatorService.fetchCountriesHealthScores(null, 4, en, year);
 
@@ -705,9 +705,9 @@ public class CountryHealthIndicatorServiceTest {
         CountryPhase countryPhaseIND = buildCountryPhase("IND", 4);
         CountryPhase countryPhaseUSA = buildCountryPhase("USA", 2);
         CountryPhase countryPhaseUK = buildCountryPhase("UK", null);
-        when(iCountryPhaseRepository.findByCountryPhaseIdYearAndCountryPhaseIdCountryId(year, "IND")).thenReturn(countryPhaseIND);
-        when(iCountryPhaseRepository.findByCountryPhaseIdYearAndCountryPhaseIdCountryId(year, "USA")).thenReturn(countryPhaseUSA);
-        when(iCountryPhaseRepository.findByCountryPhaseIdYearAndCountryPhaseIdCountryId(year, "UK")).thenReturn(countryPhaseUK);
+        when(iCountryPhaseRepository.findByCountryPhaseIdCountryIdAndCountryPhaseIdYear( "IND", year)).thenReturn(countryPhaseIND);
+        when(iCountryPhaseRepository.findByCountryPhaseIdCountryIdAndCountryPhaseIdYear("USA", year)).thenReturn(countryPhaseUSA);
+        when(iCountryPhaseRepository.findByCountryPhaseIdCountryIdAndCountryPhaseIdYear( "UK", year)).thenReturn(countryPhaseUK);
 
         CategoryHealthScoreDto categoryHealthScoreDto1 = new CategoryHealthScoreDto(3, "Category 2", 2.0, 2, of(new IndicatorScoreDto(1, null, null, null, null, 2, null, "Not Available")));
         CategoryHealthScoreDto categoryHealthScoreDto2 = new CategoryHealthScoreDto(9, "Category 1", 5.0, 5, of(new IndicatorScoreDto(1, null, null, null, null, 5, null, "Not Available")));
@@ -787,8 +787,8 @@ public class CountryHealthIndicatorServiceTest {
 
         CountryPhase countryPhaseIND = buildCountryPhase("IND", 2);
         CountryPhase countryPhaseUSA = buildCountryPhase("USA", null);
-        when(iCountryPhaseRepository.findByCountryPhaseIdYearAndCountryPhaseIdCountryId(year, "IND")).thenReturn(countryPhaseIND);
-        when(iCountryPhaseRepository.findByCountryPhaseIdYearAndCountryPhaseIdCountryId(year, "USA")).thenReturn(countryPhaseUSA);
+        when(iCountryPhaseRepository.findByCountryPhaseIdCountryIdAndCountryPhaseIdYear( "IND", year)).thenReturn(countryPhaseIND);
+        when(iCountryPhaseRepository.findByCountryPhaseIdCountryIdAndCountryPhaseIdYear( "USA", year)).thenReturn(countryPhaseUSA);
 
         CategoryHealthScoreDto categoryHealthScoreDto1 = new CategoryHealthScoreDto(8, "Category 2", 2.0, 2, of(new IndicatorScoreDto(0, null, null, null, 0, 2, null, null)));
         CountryHealthScoreDto countryHealthScoreDtoIN = new CountryHealthScoreDto("IND", null, null, of(categoryHealthScoreDto1), 2, "");
@@ -843,8 +843,8 @@ public class CountryHealthIndicatorServiceTest {
 
         CountryPhase countryPhaseUSA = buildCountryPhase("USA", 2);
         CountryPhase countryPhaseIND = buildCountryPhase("Ind", 4);
-        when(iCountryPhaseRepository.findByCountryPhaseIdYearAndCountryPhaseIdCountryId(year, "USA")).thenReturn(countryPhaseUSA);
-        when(iCountryPhaseRepository.findByCountryPhaseIdYearAndCountryPhaseIdCountryId(year, "Ind")).thenReturn(countryPhaseIND);
+        when(iCountryPhaseRepository.findByCountryPhaseIdCountryIdAndCountryPhaseIdYear( "USA", year)).thenReturn(countryPhaseUSA);
+        when(iCountryPhaseRepository.findByCountryPhaseIdCountryIdAndCountryPhaseIdYear("Ind", year)).thenReturn(countryPhaseIND);
 
         CategoryHealthScoreDto categoryHealthScoreDto = new CategoryHealthScoreDto(9, "Category 1", 1.3333333333333333, 2,
                 of(new IndicatorScoreDto(1, null, null, null, 3, 2, null, "Not Available"),
@@ -891,7 +891,7 @@ public class CountryHealthIndicatorServiceTest {
         CountrySummary countrySummary = CountrySummary.builder().collectedDate(new SimpleDateFormat("dd-MM-yyyy").parse("04-04-2018")).build();
         when(iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdStatusAndCountrySummaryIdYear(anyString(), anyString(), anyString())).thenReturn(countrySummary);
         CountryPhase countryPhaseIND = buildCountryPhase("IND", 1);
-        when(iCountryPhaseRepository.findByCountryPhaseIdYearAndCountryPhaseIdCountryId(year, "IND")).thenReturn(countryPhaseIND);
+        when(iCountryPhaseRepository.findByCountryPhaseIdCountryIdAndCountryPhaseIdYear( "IND", year)).thenReturn(countryPhaseIND);
 
         IndicatorScoreDto indicatorScore = new IndicatorScoreDto(1, null, null, null, 1, 1, null, "Not Available");
         CategoryHealthScoreDto categoryScore = new CategoryHealthScoreDto(9, "Category 1", 1.0, 1, of(indicatorScore));
@@ -931,7 +931,7 @@ public class CountryHealthIndicatorServiceTest {
                 .thenReturn(countryHealthIndicatorsForCountry);
 
         CountryPhase countryPhase = buildCountryPhase(country.getId(), 1);
-        when(iCountryPhaseRepository.findByCountryPhaseIdYearAndCountryPhaseIdCountryId(year, country.getId())).thenReturn(countryPhase);
+        when(iCountryPhaseRepository.findByCountryPhaseIdCountryIdAndCountryPhaseIdYear( country.getId(), year)).thenReturn(countryPhase);
 
         countryHealthIndicatorService.createHealthIndicatorInExcelFor("IND", request, response, year);
         verify(excelUtilService).convertListToExcel(anyList(), any());
@@ -963,7 +963,7 @@ public class CountryHealthIndicatorServiceTest {
         when(request.getParameter(USER_LANGUAGE)).thenReturn("fr");
 
         CountryPhase countryPhase = buildCountryPhase(country.getId(), 1);
-        when(iCountryPhaseRepository.findByCountryPhaseIdYearAndCountryPhaseIdCountryId(year, country.getId())).thenReturn(countryPhase);
+        when(iCountryPhaseRepository.findByCountryPhaseIdCountryIdAndCountryPhaseIdYear( country.getId(), year)).thenReturn(countryPhase);
 
         countryHealthIndicatorService.createHealthIndicatorInExcelFor("IND", request, response, year);
 
@@ -989,7 +989,7 @@ public class CountryHealthIndicatorServiceTest {
 
         when(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdStatusAndCountryHealthIndicatorIdYear(PUBLISHED.name(), year))
                 .thenReturn(countryHealthIndicators);
-        when(iCountryPhaseRepository.findByCountryPhaseIdYearAndCountryPhaseIdCountryId(year, "IND")).thenReturn(countryPhaseIND);
+        when(iCountryPhaseRepository.findByCountryPhaseIdCountryIdAndCountryPhaseIdYear( "IND", year)).thenReturn(countryPhaseIND);
         when(indicatorTranslator.getTranslatedCategory("Legislation, Policy, and Compliance", ar))
                 .thenReturn("التشريعات والسياسات والامتثال");
         when(indicatorTranslator.getTranslatedCategory("Workforce", ar)).thenReturn("الأيدي العاملة");
@@ -1020,7 +1020,7 @@ public class CountryHealthIndicatorServiceTest {
         CountrySummary countrySummary = CountrySummary.builder().collectedDate(new SimpleDateFormat("dd-MM-yyyy").parse("04-04-2018")).build();
         when(iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdStatusAndCountrySummaryIdYear(anyString(), anyString(), anyString())).thenReturn(countrySummary);
         CountryPhase countryPhaseIND = buildCountryPhase("IND", 1);
-        when(iCountryPhaseRepository.findByCountryPhaseIdYearAndCountryPhaseIdCountryId(year, "IND")).thenReturn(countryPhaseIND);
+        when(iCountryPhaseRepository.findByCountryPhaseIdCountryIdAndCountryPhaseIdYear( "IND", year)).thenReturn(countryPhaseIND);
 
         IndicatorScoreDto indicatorScore = new IndicatorScoreDto(1, null, null, null,
                 1, 1, null, "Not Available");

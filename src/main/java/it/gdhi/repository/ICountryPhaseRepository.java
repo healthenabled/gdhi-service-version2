@@ -11,5 +11,5 @@ public interface ICountryPhaseRepository extends JpaRepository<CountryPhase, Cou
 
     CountryPhase findByCountryPhaseIdCountryId(String countryId);
 
-    CountryPhase findByCountryPhaseIdYearAndCountryPhaseIdCountryId(String year , String countryId);
+    CountryPhase findByCountryPhaseIdCountryIdAndCountryPhaseIdYear(String countryId, String year);
 }
