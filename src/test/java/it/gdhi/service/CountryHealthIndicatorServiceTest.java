@@ -1,8 +1,29 @@
 package it.gdhi.service;
 
-import it.gdhi.dto.*;
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.UUID;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import it.gdhi.dto.CategoryHealthScoreDto;
+import it.gdhi.dto.CountriesHealthScoreDto;
+import it.gdhi.dto.CountryHealthScoreDto;
+import it.gdhi.dto.GlobalHealthScoreDto;
+import it.gdhi.dto.IndicatorScoreDto;
 import it.gdhi.internationalization.service.HealthIndicatorTranslator;
-import it.gdhi.model.*;
+import it.gdhi.model.Category;
+import it.gdhi.model.Country;
+import it.gdhi.model.CountryHealthIndicator;
+import it.gdhi.model.CountryPhase;
+import it.gdhi.model.CountrySummary;
+import it.gdhi.model.Indicator;
+import it.gdhi.model.IndicatorScore;
 import it.gdhi.model.id.CountryHealthIndicatorId;
 import it.gdhi.model.id.CountryPhaseId;
 import it.gdhi.repository.ICountryHealthIndicatorRepository;
@@ -16,17 +37,13 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.*;
-
 import static com.google.common.collect.ImmutableList.of;
 import static it.gdhi.utils.FormStatus.PUBLISHED;
-import static it.gdhi.utils.LanguageCode.*;
+import static it.gdhi.utils.LanguageCode.USER_LANGUAGE;
+import static it.gdhi.utils.LanguageCode.ar;
+import static it.gdhi.utils.LanguageCode.en;
+import static it.gdhi.utils.LanguageCode.es;
+import static it.gdhi.utils.LanguageCode.fr;
 import static it.gdhi.utils.ListUtils.findFirst;
 import static java.util.Arrays.asList;
 import static java.util.Comparator.comparing;
@@ -35,7 +52,12 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.anyList;
+import static org.mockito.Mockito.anyString;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 
 @ExtendWith(MockitoExtension.class)
@@ -96,7 +118,7 @@ public class CountryHealthIndicatorServiceTest {
     }
 
     @Test
-    public void shouldReturnCountryHealthScoreGivenCountryIdForDifferentCategory() {
+    public void shouldReturnCountryHealthScoreGivenCountryIdAndYearForDifferentCategory() {
         String countryId = "IND";
         Integer categoryId1 = 1;
         Integer categoryId2 = 2;
@@ -118,7 +140,7 @@ public class CountryHealthIndicatorServiceTest {
     }
 
     @Test
-    public void shouldReturnCountryHealthScoresInSpanishGivenCountryId() {
+    public void shouldReturnCountryHealthScoresInSpanishGivenCountryIdAndYear() {
         String countryId = "IND";
         Integer categoryId1 = 1;
         Integer categoryId2 = 2;
@@ -177,7 +199,7 @@ public class CountryHealthIndicatorServiceTest {
     }
 
     @Test
-    public void shouldReturnCountryHealthScoreGivenCountryIdForDifferentNullIndicatorScoreForSameCategory() {
+    public void shouldReturnCountryHealthScoreGivenCountryIdAndYearForDifferentNullIndicatorScoreForSameCategory() {
         Integer categoryId1 = 1;
         Integer indicatorId1 = 1;
         Integer indicatorId2 = 2;
@@ -230,7 +252,7 @@ public class CountryHealthIndicatorServiceTest {
     }
 
     @Test
-    public void shouldReturnCountryHealthScoreGivenCountryIdForANullCategoryScore() {
+    public void shouldReturnCountryHealthScoreGivenCountryIdAndYearForANullCategoryScore() {
         String countryId = "IND";
         Integer categoryId1 = 1;
         Integer categoryId2 = 2;
@@ -329,7 +351,7 @@ public class CountryHealthIndicatorServiceTest {
     }
 
     @Test
-    public void shouldReturnCountryHealthScoreGivenCountryIdForNullCountryScore() {
+    public void shouldReturnCountryHealthScoreGivenCountryIdAndYearForNullCountryScore() {
         String countryId = "IND";
         Integer categoryId1 = 1;
         Integer indicatorId1 = 1;
@@ -378,7 +400,7 @@ public class CountryHealthIndicatorServiceTest {
     }
 
     @Test
-    public void shouldReturnCountryHealthScoreGivenCountryIdForSameCategory() {
+    public void shouldReturnCountryHealthScoreGivenCountryIdAndYearForSameCategory() {
         String countryId = "IND";
         Integer categoryId1 = 1;
         String categoryName = "Leadership and Governance";
@@ -432,7 +454,7 @@ public class CountryHealthIndicatorServiceTest {
     }
 
     @Test
-    public void shouldReturnCountryHealthScoreGivenCountryIdForSameCategoryCheckingSinglePrecision() {
+    public void shouldReturnCountryHealthScoreGivenCountryIdAndYearForSameCategoryCheckingSinglePrecision() {
         String countryId = "IND";
         Integer categoryId1 = 1;
         String categoryName = "Leadership and Governance";
@@ -868,7 +890,7 @@ public class CountryHealthIndicatorServiceTest {
     }
 
     @Test
-    public void shouldInvokeConvertExcelOnGlobalExport() throws IOException {
+    public void shouldInvokeConvertExcelOnGlobalExportForAGivenYear() throws IOException {
         HttpServletRequest request = mock(HttpServletRequest.class);
         HttpServletResponse response = mock(HttpServletResponse.class);
         String year = "Version1";
@@ -879,7 +901,7 @@ public class CountryHealthIndicatorServiceTest {
     }
 
     @Test
-    public void shouldInvokeConvertExcelOnGlobalExportForFrench() throws IOException, ParseException {
+    public void shouldInvokeConvertExcelOnGlobalExportForFrenchForAGivenYear() throws IOException, ParseException {
         Category category1 = Category.builder().id(9).name("Category 1").build();
         Country country1 = new Country("IND", "India", UUID.randomUUID(), "IN");
         Indicator indicator1 = Indicator.builder().indicatorId(1).rank(1).build();
@@ -912,7 +934,7 @@ public class CountryHealthIndicatorServiceTest {
     }
 
     @Test
-    public void shouldInvokeConvertExcelOnExportOfSingleCountry() throws IOException {
+    public void shouldInvokeConvertExcelOnExportOfSingleCountryForAGivenYear() throws IOException {
         HttpServletRequest request = mock(HttpServletRequest.class);
         HttpServletResponse response = mock(HttpServletResponse.class);
         Country country = new Country("IND", "India", UUID.randomUUID(), "IN");
