@@ -42,6 +42,7 @@ import static it.gdhi.utils.FormStatus.NEW;
 import static it.gdhi.utils.FormStatus.PUBLISHED;
 import static it.gdhi.utils.FormStatus.REVIEW_PENDING;
 import static java.util.Arrays.asList;
+import static java.util.Arrays.stream;
 import static java.util.Collections.emptyList;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
@@ -130,38 +131,6 @@ public class CountryHealthDataServiceTest {
     }
 
     @Test
-    public void shouldSendEmailOnSuccessfulSubmitOfCountryDetailsAndIndicators() throws Exception {
-        String countryId = "ARG";
-        Country country = new Country(countryId, "Argentina", UUID.randomUUID(), "AR");
-        List<String> resourceLinks = asList("Res 1");
-        String feeder = "feeder";
-        String feederRole = "feeder role";
-        String contactEmail = "contact@test.com";
-        String currentYear = countryHealthDataService.getCurrentYear();
-        CountrySummaryDto countrySummaryDetailDto = CountrySummaryDto.builder().summary("Summary 1")
-                .dataFeederName(feeder)
-                .dataFeederRole(feederRole)
-                .contactEmail(contactEmail)
-                .resources(resourceLinks).build();
-
-        List<HealthIndicatorDto> healthIndicatorDtos = asList(new HealthIndicatorDto(1, 1, "PUBLISHED", 2, "Text"));
-        GdhiQuestionnaire gdhiQuestionnaire = GdhiQuestionnaire.builder().countryId(countryId)
-                .countrySummary(countrySummaryDetailDto)
-                .healthIndicators(healthIndicatorDtos).build();
-
-        CountrySummaryId countrySummaryId = CountrySummaryId.builder().countryId(countryId).status(DRAFT.name()).year(currentYear).build();
-        CountrySummary countrySummary = CountrySummary.builder().summary("Summary 1").countrySummaryId(countrySummaryId).build();
-
-        when(iCountrySummaryRepository.save(any(CountrySummary.class))).thenReturn(CountrySummary.builder().build());
-        when(iCountryHealthIndicatorRepository.save(any(CountryHealthIndicator.class))).thenReturn(CountryHealthIndicator.builder().build());
-        when(countryDetailRepository.findById(countryId)).thenReturn(country);
-        when(iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdStatusNotAndCountrySummaryIdYear(countryId, PUBLISHED.name(), currentYear)).thenReturn(countrySummary);
-        countryHealthDataService.submit(gdhiQuestionnaire);
-
-        verify(mailerService).send(country, feeder, feederRole, contactEmail);
-    }
-
-    @Test
     public void shouldSaveAsNewStatusWhenCountryDoesNotHavePublishedDataForCurrentYear() throws Exception {
         String countryId = "ARG";
         UUID countryUUID = UUID.randomUUID();
@@ -182,7 +151,42 @@ public class CountryHealthDataServiceTest {
     }
 
     @Test
-    public void shouldNotSaveAsNewStatusWhenCountryHasPublishedDataFoCurrentYear() throws Exception {
+    public void shouldSendEmailOnSuccessfulSubmit() throws Exception {
+        String countryId = "ARG";
+        Country country = new Country(countryId, "Argentina", UUID.randomUUID(), "AR");
+        List<String> resourceLinks = asList("Res 1");
+        String feeder = "feeder";
+        String feederRole = "feeder role";
+        String contactEmail = "contact@test.com";
+        String currentYear = countryHealthDataService.getCurrentYear();
+        CountrySummaryDto countrySummaryDetailDto = CountrySummaryDto.builder().summary("Summary 1")
+                .dataFeederName(feeder)
+                .dataFeederRole(feederRole)
+                .contactEmail(contactEmail)
+                .resources(resourceLinks).build();
+
+        List<HealthIndicatorDto> healthIndicatorDtos = asList(new HealthIndicatorDto(1, 1, "PUBLISHED", 2, "Text"));
+        GdhiQuestionnaire gdhiQuestionnaire = GdhiQuestionnaire.builder().countryId(countryId)
+                .countrySummary(countrySummaryDetailDto)
+                .healthIndicators(healthIndicatorDtos).build();
+
+        CountrySummaryId countrySummaryId = CountrySummaryId.builder().countryId(countryId).status(DRAFT.name()).year(currentYear).build();
+        CountrySummary countrySummary = CountrySummary.builder().summary("Summary 1").countrySummaryId(countrySummaryId).build();
+        CountrySummaryId countrySummaryId2 = CountrySummaryId.builder().countryId(countryId).status(REVIEW_PENDING.name()).year(currentYear).build();
+        CountrySummary countrySummary2 = CountrySummary.builder().summary("Summary 1").countrySummaryId(countrySummaryId2).build();
+
+        when(iCountrySummaryRepository.save(any(CountrySummary.class))).thenReturn(countrySummary2);
+        when(iCountryHealthIndicatorRepository.save(any(CountryHealthIndicator.class))).thenReturn(CountryHealthIndicator.builder().build());
+        when(countryDetailRepository.findById(countryId)).thenReturn(country);
+        when(iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdStatusNotAndCountrySummaryIdYear(countryId, PUBLISHED.name(), currentYear)).thenReturn(countrySummary);
+        countryHealthDataService.submit(gdhiQuestionnaire);
+
+        verify(mailerService).send(country, feeder, feederRole, contactEmail);
+        assertEquals(REVIEW_PENDING.name() , countrySummary2.getStatus());
+    }
+
+    @Test
+    public void shouldNotSaveAsNewStatusWhenCountryHasPublishedDataForCurrentYear() throws Exception {
         String countryId = "ARG";
         String currentYear = countryHealthDataService.getCurrentYear();
         UUID countryUUID = UUID.randomUUID();
@@ -590,7 +594,7 @@ public class CountryHealthDataServiceTest {
     }
 
     @Test
-    public void ShouldSaveNewCountrySummaryWhenItIsAlreadyPublishedInADifferentYear() {
+    public void shouldSaveNewCountrySummaryWhenItIsAlreadyPublishedInADifferentYear() {
         String countryId = "ARG";
         UUID countryUUID = UUID.randomUUID();
         String year = "Version1";

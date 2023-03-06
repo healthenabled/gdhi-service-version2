@@ -103,4 +103,16 @@ public class HealthIndicatorControllerTest {
         verify(countryHealthIndicatorService).fetchCountriesHealthScores(null, 2, en, "Version1");
         verify(countryHealthIndicatorService).getGlobalHealthIndicator(null, 2, en, "Version1");
     }
+
+    @Test
+    public void shouldFetchGivenYearWhenYearIsPassed() {
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        request.addHeader("USER_LANGUAGE", "en");
+
+        healthIndicatorController.getCountriesHealthIndicatorScores(request, null, 2, "2023");
+        healthIndicatorController.getGlobalHealthIndicator(request, null, 2, "2023");
+
+        verify(countryHealthIndicatorService).fetchCountriesHealthScores(null, 2, en, "2023");
+        verify(countryHealthIndicatorService).getGlobalHealthIndicator(null, 2, en, "2023");
+    }
 }
