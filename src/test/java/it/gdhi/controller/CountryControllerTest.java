@@ -73,7 +73,7 @@ public class CountryControllerTest {
     }
 
     @Test
-    public void shouldInvokeHealthIndicatorServiceCountryScore() {
+    public void shouldInvokeHealthIndicatorServiceCountryScoreForAGivenYear() {
         String countryId = "ARG";
         CountryHealthScoreDto countryHealthScoreMock = mock(CountryHealthScoreDto.class);
         MockHttpServletRequest request = new MockHttpServletRequest();
@@ -104,7 +104,7 @@ public class CountryControllerTest {
     }
 
     @Test
-    public void shouldSubmitHealthIndicators() {
+    public void shouldSubmitHealthIndicatorsForCurrentYear() {
         GdhiQuestionnaire mock = mock(GdhiQuestionnaire.class);
         doNothing().when(countryHealthDataService).submit(mock);
         when(countryHealthDataService.validateRequiredFields(mock)).thenReturn(true);
@@ -113,7 +113,7 @@ public class CountryControllerTest {
     }
 
     @Test
-    public void shouldSaveCorrectedHealthIndicators() {
+    public void shouldSaveCorrectedHealthIndicatorsForCurrentYear() {
         GdhiQuestionnaire mock = mock(GdhiQuestionnaire.class);
         doNothing().when(countryHealthDataService).saveCorrection(mock);
         countryController.saveCorrectionsFor(mock);
@@ -121,7 +121,7 @@ public class CountryControllerTest {
     }
 
     @Test
-    public void shouldSaveHealthIndicators() {
+    public void shouldSaveHealthIndicatorsForCurrentYear() {
         GdhiQuestionnaire mock = mock(GdhiQuestionnaire.class);
         doNothing().when(countryHealthDataService).save(mock, DRAFT.name());
         countryController.saveHealthIndicatorsFor(mock);
@@ -129,7 +129,7 @@ public class CountryControllerTest {
     }
 
     @Test
-    public void shouldPublishHealthIndicators() {
+    public void shouldPublishHealthIndicatorsForCurrentYear() {
         GdhiQuestionnaire mock = mock(GdhiQuestionnaire.class);
         String year = getCurrentYear();
         doNothing().when(countryHealthDataService).publish(mock , year);
@@ -139,7 +139,7 @@ public class CountryControllerTest {
     }
 
     @Test
-    public void shouldFetchCountrySummary() {
+    public void shouldFetchCountrySummaryForAGivenYear() {
         CountrySummaryDto countrySummary = mock(CountrySummaryDto.class);
         String countryId = "IND";
         String year = "Version1";
@@ -164,7 +164,7 @@ public class CountryControllerTest {
     }
 
     @Test
-    public void shouldExportGlobalData() throws Exception {
+    public void shouldExportGlobalDataForAGivenYear() throws Exception {
         HttpServletRequest request = mock(HttpServletRequest.class);
         HttpServletResponse response = mock(HttpServletResponse.class);
         String year = "Version1";
@@ -173,7 +173,7 @@ public class CountryControllerTest {
     }
 
     @Test
-    public void shouldExportDataForAGivenCountry() throws Exception {
+    public void shouldExportDataForAGivenCountryForAGivenYear() throws Exception {
         HttpServletRequest request = mock(HttpServletRequest.class);
         HttpServletResponse response = mock(HttpServletResponse.class);
         String year = "Version1";
@@ -182,7 +182,7 @@ public class CountryControllerTest {
     }
 
     @Test
-    public void shouldSaveCountrySummaryAsNewStatus() throws Exception {
+    public void shouldSaveCountrySummaryAsNewStatusForCurrentYear() throws Exception {
         String countryId = "IND";
         UUID countryUUID = UUID.randomUUID();
         CountryUrlGenerationStatusDto expected = new CountryUrlGenerationStatusDto(countryId, true, null);
@@ -194,7 +194,7 @@ public class CountryControllerTest {
     }
 
     @Test
-    public void shouldDeleteCountryData() throws Exception {
+    public void shouldDeleteCountryDataForAGivenYear() throws Exception {
         UUID countryUUID = UUID.randomUUID();
         String currentYear = "2020";
         doNothing().when(countryHealthDataService).deleteCountryData(countryUUID , currentYear);
@@ -205,7 +205,7 @@ public class CountryControllerTest {
     }
 
     @Test
-    public void shouldGetAllCountryStatusSummaries() {
+    public void shouldGetAllCountryStatusSummariesForCurrentYear() {
         CountrySummaryStatusYearDto countrySummaryStatusYearDto = new CountrySummaryStatusYearDto(this.getCurrentYear(), emptyList(), emptyList(), emptyList(), emptyList());
         when(countryHealthDataService.getAllCountryStatusSummaries()).thenReturn(countrySummaryStatusYearDto);
         countryController.getAllCountryStatusSummaries();
@@ -213,7 +213,7 @@ public class CountryControllerTest {
     }
 
     @Test
-    public void shouldGetQuestionnaireForPublishedCountry() {
+    public void shouldGetQuestionnaireForPublishedCountryForAGivenYear() {
         UUID countryUUID = UUID.randomUUID();
         GdhiQuestionnaire gdhiQuestionnaire = mock(GdhiQuestionnaire.class);
         MockHttpServletRequest request = new MockHttpServletRequest();
@@ -228,7 +228,7 @@ public class CountryControllerTest {
 
 
     @Test
-    public void shouldGetGlobalBenchmarkDetailsFor() {
+    public void shouldGetGlobalBenchmarkDetailsForGivenYear() {
         String countryID = "IND";
         Integer benchmarkType = -1;
         String year = "Version1";
@@ -238,7 +238,7 @@ public class CountryControllerTest {
     }
 
     @Test
-    public void shouldCalculatePhaseForAllCountries() {
+    public void shouldCalculatePhaseForAllCountriesForAGivenYear() {
         String year = "Version1";
         doNothing().when(countryHealthDataService).calculatePhaseForAllCountries(year);
         countryController.calculateCountryPhase(year);
