@@ -114,8 +114,9 @@ public class CountryHealthDataService {
 
     @Transactional
     public void calculatePhaseForAllCountries(String year) {
-        List<String> publishedCountries = iCountrySummaryRepository.findAllByStatus(PUBLISHED.name());
-        publishedCountries.stream().forEach(country -> calculateAndSaveCountryPhase(country, PUBLISHED.name(), year));
+        List<CountrySummary> publishedCountries = iCountrySummaryRepository.findByCountrySummaryIdStatus(PUBLISHED.name());
+
+        publishedCountries.stream().forEach(country -> calculateAndSaveCountryPhase(country.getCountrySummaryId().getCountryId() , PUBLISHED.name(), year));
     }
 
     public CountrySummaryStatusYearDto getAllCountryStatusSummaries() {

@@ -28,6 +28,7 @@ import java.time.Year;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static it.gdhi.utils.FormStatus.PUBLISHED;
 import static it.gdhi.utils.LanguageCode.ar;
 import static it.gdhi.utils.LanguageCode.en;
 import static java.util.Arrays.asList;
@@ -130,7 +131,7 @@ public class CountryServiceTest {
     public void shouldReturnEmptyCountrySummaryObjectWhenNoCountrySummaryPresent() {
         String countryId = "ARG";
         String year = "Version1";
-        when(iCountrySummaryRepository.findOne(countryId)).thenReturn(null);
+        when(iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdStatusAndCountrySummaryIdYear(countryId, PUBLISHED.name() , year)).thenReturn(null);
         CountrySummaryDto countrySummaryDto = countryService.fetchCountrySummary(countryId, year);
         assertNull(countrySummaryDto.getCountryId());
     }

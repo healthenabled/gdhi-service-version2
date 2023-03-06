@@ -12,34 +12,9 @@ import java.util.List;
 @Repository
 public interface ICountrySummaryRepository extends JpaRepository<CountrySummary, CountrySummaryId> {
 
-    @Query("SELECT c FROM CountrySummary c WHERE c.countrySummaryId.countryId = UPPER(?1)")
-    CountrySummary findOne(String countryId);
-
-    @Query("SELECT c.countrySummaryId.countryId  FROM CountrySummary c WHERE c.countrySummaryId.status= UPPER(?1)")
-    List<String> findAllByStatus(String status);
-
-    @Query("SELECT c FROM CountrySummary c WHERE c.countrySummaryId.countryId = UPPER(?1) and" +
-            " c.countrySummaryId.status= UPPER(?2)")
-    CountrySummary findByCountryAndStatus(String countryId, String status);
-
-    @Query("SELECT c FROM CountrySummary c WHERE c.countrySummaryId.countryId = UPPER(?1)")
-    List<CountrySummary> findAll(String countryId);
-
     CountrySummary save(CountrySummary countrySummary);
 
-    @Query("SELECT c.countrySummaryId.status from CountrySummary c where" +
-            " c.countrySummaryId.status <> 'PUBLISHED' and " +
-            "c.countrySummaryId.countryId = UPPER(?1)")
-    String getCountrySummaryStatus(String countryId);
-
-    @Modifying
-    @Query("DELETE FROM CountrySummary c where c.countrySummaryId.countryId = UPPER(?1) " +
-            "and c.countrySummaryId.status = ?2")
-    void removeCountrySummary(String countryId, String currentStatus);
-
-    @Query("SELECT c.countrySummaryId.status from CountrySummary c where " +
-            "c.countrySummaryId.countryId = UPPER(?1)")
-    List<String> getAllStatus(String countryId);
+    List<CountrySummary> findByCountrySummaryIdStatus(String status);
 
     List<CountrySummary> findByCountrySummaryIdCountryIdAndCountrySummaryIdYear(String countryId , String currentYear);
 
@@ -49,7 +24,6 @@ public interface ICountrySummaryRepository extends JpaRepository<CountrySummary,
 
     @Modifying
     void deleteByCountrySummaryIdCountryIdAndCountrySummaryIdStatusAndCountrySummaryIdYear(String countryId, String currentStatus, String currentYear);
-
 
     CountrySummary findByCountrySummaryIdCountryIdAndCountrySummaryIdStatusNotAndCountrySummaryIdYear(String countryId, String currentStatus, String year);
 

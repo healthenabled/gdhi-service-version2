@@ -169,7 +169,7 @@ public class CountryHealthDataServiceTest {
         Country country = new Country(countryId, "Argentina", countryUUID, "AR");
 
         when(countryDetailRepository.findByUniqueId(countryUUID)).thenReturn(country);
-        when(iCountrySummaryRepository.getAllStatus(anyString())).thenReturn(emptyList());
+        when(iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdYear(anyString(), anyString())).thenReturn(emptyList());
         CountryUrlGenerationStatusDto countryUrlGenerationStatusDto = countryHealthDataService
                 .saveNewCountrySummary(countryUUID);
         assert (countryUrlGenerationStatusDto.isSuccess());
@@ -180,7 +180,6 @@ public class CountryHealthDataServiceTest {
         assertEquals(countryId, summaryCaptorValue.getCountrySummaryId().getCountryId());
         assertEquals(NEW.toString(), summaryCaptorValue.getCountrySummaryId().getStatus());
     }
-
 
     @Test
     public void shouldNotSaveAsNewStatusWhenCountryHasPublishedDataForTheSameYear() throws Exception {
@@ -565,7 +564,9 @@ public class CountryHealthDataServiceTest {
     public void ShouldCalculatePhaseForAllCountries() {
         String publishedStatus = "PUBLISHED";
         String year = null;
-        when(iCountrySummaryRepository.findAllByStatus(publishedStatus)).thenReturn(asList("IND"));
+        CountrySummaryId countrySummaryId = CountrySummaryId.builder().countryId("IND").status(PUBLISHED.name()).year(year).build();
+        CountrySummary countrySummary = CountrySummary.builder().countrySummaryId(countrySummaryId).build();
+        when(iCountrySummaryRepository.findByCountrySummaryIdStatus(publishedStatus)).thenReturn(asList(countrySummary));
 
         Indicator indicator = Indicator.builder().indicatorId(1).parentId(null).build();
         CountryHealthIndicator countryHealthIndicator = CountryHealthIndicator.builder()

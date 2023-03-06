@@ -8,8 +8,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ICountryPhaseRepository extends JpaRepository<CountryPhase, CountryPhaseId> {
 
-
-    CountryPhase findByCountryPhaseIdCountryId(String countryId);
-
     CountryPhase findByCountryPhaseIdCountryIdAndCountryPhaseIdYear(String countryId, String year);
 }
