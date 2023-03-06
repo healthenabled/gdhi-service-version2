@@ -12,11 +12,16 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.mock.web.MockHttpServletRequest;
 
-import static it.gdhi.utils.LanguageCode.*;
+import static it.gdhi.utils.LanguageCode.ar;
+import static it.gdhi.utils.LanguageCode.en;
+import static it.gdhi.utils.LanguageCode.fr;
+import static it.gdhi.utils.LanguageCode.pt;
 import static java.util.Collections.singletonList;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class HealthIndicatorControllerTest {
@@ -36,11 +41,13 @@ public class HealthIndicatorControllerTest {
         MockHttpServletRequest request = new MockHttpServletRequest();
         request.addHeader("USER_LANGUAGE", "en");
 
-        when(countryHealthIndicatorService.getGlobalHealthIndicator(null, 2, en, "Version1")).thenReturn(expected);
-        GlobalHealthScoreDto actual = healthIndicatorController.getGlobalHealthIndicator(request, null, 2, "Version1");
+        String year = "Version1";
+
+        when(countryHealthIndicatorService.getGlobalHealthIndicator(null, 2, en, year)).thenReturn(expected);
+        GlobalHealthScoreDto actual = healthIndicatorController.getGlobalHealthIndicator(request, null, 2, year);
 
         assertThat(expected, is(actual));
-        verify(countryHealthIndicatorService).getGlobalHealthIndicator(null, 2, en, "Version1");
+        verify(countryHealthIndicatorService).getGlobalHealthIndicator(null, 2, en, year);
     }
 
     @Test
@@ -62,14 +69,15 @@ public class HealthIndicatorControllerTest {
         CountryHealthScoreDto countryHealthScoreDto = mock(CountryHealthScoreDto.class);
         when(countryHealthScoreDto.getCountryId()).thenReturn("ARG");
         when(mockGlobalHealthScore.getCountryHealthScores()).thenReturn(singletonList(countryHealthScoreDto));
-        when(countryHealthIndicatorService.fetchCountriesHealthScores(4, null, fr, "Version1")).thenReturn(mockGlobalHealthScore);
+        String year = "Version1";
+        when(countryHealthIndicatorService.fetchCountriesHealthScores(4, null, fr, year)).thenReturn(mockGlobalHealthScore);
 
-        CountriesHealthScoreDto globalHealthIndicators = healthIndicatorController.getCountriesHealthIndicatorScores(request, 4, null, "Version1");
+        CountriesHealthScoreDto globalHealthIndicators = healthIndicatorController.getCountriesHealthIndicatorScores(request, 4, null, year);
         int size = globalHealthIndicators.getCountryHealthScores().size();
 
         assertThat(size, is(1));
         assertThat(globalHealthIndicators.getCountryHealthScores().get(0).getCountryId(), is(countryHealthScoreDto.getCountryId()));
-        verify(countryHealthIndicatorService).fetchCountriesHealthScores(4, null, fr, "Version1");
+        verify(countryHealthIndicatorService).fetchCountriesHealthScores(4, null, fr, year);
     }
 
     @Test
