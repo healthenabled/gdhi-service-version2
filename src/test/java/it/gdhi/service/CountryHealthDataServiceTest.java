@@ -82,7 +82,7 @@ public class CountryHealthDataServiceTest {
     CategoryIndicatorService categoryIndicatorService;
 
     @Test
-    public void shouldPublishDetailsForACountry() throws Exception {
+    public void shouldPublishDetailsForACountryForCurrentYear() throws Exception {
         List<String> resourceLinks = asList("Res 1");
         CountrySummaryDto countrySummaryDetailDto = CountrySummaryDto.builder().summary("Summary 1")
                 .resources(resourceLinks).build();
@@ -162,7 +162,7 @@ public class CountryHealthDataServiceTest {
     }
 
     @Test
-    public void shouldSaveAsNewStatusWhenCountryDoesNotHavePublishedData() throws Exception {
+    public void shouldSaveAsNewStatusWhenCountryDoesNotHavePublishedDataForCurrentYear() throws Exception {
         String countryId = "ARG";
         UUID countryUUID = UUID.randomUUID();
         ArgumentCaptor<CountrySummary> summaryCaptor = ArgumentCaptor.forClass(CountrySummary.class);
@@ -182,7 +182,7 @@ public class CountryHealthDataServiceTest {
     }
 
     @Test
-    public void shouldNotSaveAsNewStatusWhenCountryHasPublishedDataForTheSameYear() throws Exception {
+    public void shouldNotSaveAsNewStatusWhenCountryHasPublishedDataFoCurrentYear() throws Exception {
         String countryId = "ARG";
         String currentYear = countryHealthDataService.getCurrentYear();
         UUID countryUUID = UUID.randomUUID();
@@ -203,7 +203,7 @@ public class CountryHealthDataServiceTest {
     }
 
     @Test
-    public void shouldNotSaveNewCountrySummaryWhenItAlreadyHasUnpublishedDataForTheSameYear() throws Exception {
+    public void shouldNotSaveNewCountrySummaryWhenItAlreadyHasUnpublishedDataForCurrentYear() throws Exception {
         String countryId = "ARG";
         String currentYear = countryHealthDataService.getCurrentYear();
         UUID countryUUID = UUID.randomUUID();
@@ -225,7 +225,7 @@ public class CountryHealthDataServiceTest {
     }
 
     @Test
-    public void shouldNotSaveNewCountrySummaryWhenItAlreadyHaveDraftData() throws Exception {
+    public void shouldNotSaveNewCountrySummaryWhenItAlreadyHaveDraftDataForCurrentYear() throws Exception {
         String countryId = "ARG";
         UUID countryUUID = UUID.randomUUID();
         String currentYear = countryHealthDataService.getCurrentYear();
@@ -247,7 +247,7 @@ public class CountryHealthDataServiceTest {
     }
 
     @Test
-    public void shouldNotSaveNewCountrySummaryWhenItAlreadyHasNewData() throws Exception {
+    public void shouldNotSaveNewCountrySummaryWhenItAlreadyHasNewDataForCurrentYear() throws Exception {
         String countryId = "ARG";
         UUID countryUUID = UUID.randomUUID();
         String currentYear = countryHealthDataService.getCurrentYear();
@@ -269,7 +269,7 @@ public class CountryHealthDataServiceTest {
     }
 
     @Test
-    public void shouldDeleteCountryData() {
+    public void shouldDeleteCountryDataForGivenYear() {
         String countryId = "AFG";
         String status = REVIEW_PENDING.name();
         UUID countryUUID = UUID.randomUUID();
@@ -561,7 +561,7 @@ public class CountryHealthDataServiceTest {
     }
 
     @Test
-    public void ShouldCalculatePhaseForAllCountries() {
+    public void ShouldCalculatePhaseForAllCountriesForAGivenYear() {
         String publishedStatus = "PUBLISHED";
         String year = null;
         CountrySummaryId countrySummaryId = CountrySummaryId.builder().countryId("IND").status(PUBLISHED.name()).year(year).build();
