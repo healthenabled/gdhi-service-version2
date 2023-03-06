@@ -75,7 +75,7 @@ public class CountryServiceTest {
     }
 
     @Test
-    public void shouldReturnCountrySummaryDetails() {
+    public void shouldReturnCountrySummaryDetailsForAGivenYear() {
         String countryId = "ARG";
         String summary = "Summary";
         String contactName = "Contact Name";
@@ -128,7 +128,7 @@ public class CountryServiceTest {
     }
 
     @Test
-    public void shouldReturnEmptyCountrySummaryObjectWhenNoCountrySummaryPresent() {
+    public void shouldReturnEmptyCountrySummaryObjectWhenNoCountrySummaryPresentForAGivenYear() {
         String countryId = "ARG";
         String year = "Version1";
         when(iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdStatusAndCountrySummaryIdYear(countryId, PUBLISHED.name() , year)).thenReturn(null);
@@ -137,7 +137,7 @@ public class CountryServiceTest {
     }
 
     @Test
-    public void shouldGetGlobalHealthScoreDto() throws Exception {
+    public void shouldGetGlobalHealthScoreDtoForCurrentYear() throws Exception {
         String countryId = "IND";
         String statusValue = "PUBLISHED";
         UUID countryUUID = randomUUID();
@@ -184,7 +184,7 @@ public class CountryServiceTest {
     }
 
     @Test
-    public void shouldGetGlobalHealthScoreDtoForNotPublished() throws Exception {
+    public void shouldGetGlobalHealthScoreDtoForNotPublishedForCurrentYear() throws Exception {
         String countryIdInd = "IND";
         String statusValueInd = "REVIEW_PENDING";
         UUID countryUUIDInd = randomUUID();
@@ -323,7 +323,7 @@ public class CountryServiceTest {
     }
 
     @Test
-    public void shouldHandleCountriesNotAvailable() throws Exception {
+    public void shouldHandleCountriesNotAvailableForCurrentYear() throws Exception {
         String countryId = "IND";
         UUID countryUUID = randomUUID();
         String currentYear = getCurrentYear();
