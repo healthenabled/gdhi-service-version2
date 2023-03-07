@@ -116,7 +116,7 @@ public class CountryServiceTest {
                 .collectedDate(new Date())
                 .countryResourceLinks(countryResourceLinks)
                 .build();
-        when(iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdStatusAndCountrySummaryIdYear(countryId, status, year)).thenReturn(countrySummary);
+        when(iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdYearAndCountrySummaryIdStatus(countryId, year, status)).thenReturn(countrySummary);
 
         CountrySummaryDto countrySummaryDto = countryService.fetchCountrySummary(countryId, year);
 
@@ -140,7 +140,7 @@ public class CountryServiceTest {
     public void shouldReturnEmptyCountrySummaryObjectWhenNoCountrySummaryPresentForAGivenYear() {
         String countryId = "ARG";
         String year = "Version1";
-        when(iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdStatusAndCountrySummaryIdYear(countryId, PUBLISHED.name(), year)).thenReturn(null);
+        when(iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdYearAndCountrySummaryIdStatus(countryId, year, PUBLISHED.name())).thenReturn(null);
         CountrySummaryDto countrySummaryDto = countryService.fetchCountrySummary(countryId, year);
         assertNull(countrySummaryDto.getCountryId());
     }
@@ -241,7 +241,7 @@ public class CountryServiceTest {
                 .build();
 
         when(iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdStatusNotAndCountrySummaryIdYear(countryIdInd, "PUBLISHED", year)).thenReturn(countrySummaryInd);
-        when(iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdStatusAndCountrySummaryIdYear(countryIdArg, statusValueInd, year)).thenReturn(countrySummaryArg);
+        when(iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdYearAndCountrySummaryIdStatus(countryIdArg, year, statusValueInd)).thenReturn(countrySummaryArg);
         when(countryDetailRepository.findByUniqueId(countryUUIDInd)).thenReturn(countryInd);
         CountryHealthIndicator indicator1 = CountryHealthIndicator.builder()
                 .countryHealthIndicatorId(new CountryHealthIndicatorId(countryIdInd, 1, 2, statusValueInd, year))
