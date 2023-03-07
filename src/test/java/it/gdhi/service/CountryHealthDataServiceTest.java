@@ -42,7 +42,6 @@ import static it.gdhi.utils.FormStatus.NEW;
 import static it.gdhi.utils.FormStatus.PUBLISHED;
 import static it.gdhi.utils.FormStatus.REVIEW_PENDING;
 import static java.util.Arrays.asList;
-import static java.util.Arrays.stream;
 import static java.util.Collections.emptyList;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
@@ -107,10 +106,10 @@ public class CountryHealthDataServiceTest {
                 .build();
 
 
-        when(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdStatusAndCountryHealthIndicatorIdYear(countryId, status, currentYear))
+        when(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdYearAndCountryHealthIndicatorIdStatus(countryId, currentYear, status))
                 .thenReturn(asList(countryHealthIndicator1));
         when(iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdStatusNotAndCountrySummaryIdYear(countryId, PUBLISHED.name(), currentYear)).thenReturn(countrySummary);
-        countryHealthDataService.publish(gdhiQuestionnaire , currentYear);
+        countryHealthDataService.publish(gdhiQuestionnaire, currentYear);
         ArgumentCaptor<CountrySummary> summaryCaptor = ArgumentCaptor.forClass(CountrySummary.class);
         ArgumentCaptor<CountryHealthIndicator> healthIndicatorsCaptorList = ArgumentCaptor.forClass(CountryHealthIndicator.class);
         InOrder inOrder = inOrder(iCountryResourceLinkRepository, iCountrySummaryRepository,
@@ -182,7 +181,7 @@ public class CountryHealthDataServiceTest {
         countryHealthDataService.submit(gdhiQuestionnaire);
 
         verify(mailerService).send(country, feeder, feederRole, contactEmail);
-        assertEquals(REVIEW_PENDING.name() , countrySummary2.getStatus());
+        assertEquals(REVIEW_PENDING.name(), countrySummary2.getStatus());
     }
 
     @Test
@@ -579,7 +578,7 @@ public class CountryHealthDataServiceTest {
                 .category(Category.builder().id(1).indicators(asList(indicator)).build())
                 .build();
 
-        when(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdStatusAndCountryHealthIndicatorIdYear("IND", publishedStatus, year))
+        when(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdYearAndCountryHealthIndicatorIdStatus("IND", year, publishedStatus))
                 .thenReturn(asList(countryHealthIndicator));
 
         countryHealthDataService.calculatePhaseForAllCountries(year);

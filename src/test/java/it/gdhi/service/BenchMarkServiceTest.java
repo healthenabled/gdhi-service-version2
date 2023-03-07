@@ -1,7 +1,17 @@
 package it.gdhi.service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+
 import it.gdhi.dto.BenchmarkDto;
-import it.gdhi.model.*;
+import it.gdhi.model.Country;
+import it.gdhi.model.CountryHealthIndicator;
+import it.gdhi.model.CountryPhase;
+import it.gdhi.model.Indicator;
+import it.gdhi.model.IndicatorScore;
 import it.gdhi.model.id.CountryPhaseId;
 import it.gdhi.repository.ICountryHealthIndicatorRepository;
 import it.gdhi.repository.ICountryPhaseRepository;
@@ -11,12 +21,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.*;
-
 import static it.gdhi.utils.FormStatus.PUBLISHED;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class BenchMarkServiceTest {
@@ -51,7 +59,7 @@ public class BenchMarkServiceTest {
                 .thenReturn(Arrays.asList(countryHealthIndicator1, countryHealthIndicator2, countryHealthIndicator3,
                         countryHealthIndicatorForInd1, countryHealthIndicatorForInd2, countryHealthIndicatorForInd3));
 
-        when(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdStatusAndCountryHealthIndicatorIdYear(countryId, PUBLISHED.name(), year))
+        when(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdYearAndCountryHealthIndicatorIdStatus(countryId, year, PUBLISHED.name()))
                 .thenReturn(
                         Arrays.asList(countryHealthIndicatorForInd1, countryHealthIndicatorForInd2, countryHealthIndicatorForInd3
                         ));
@@ -88,7 +96,7 @@ public class BenchMarkServiceTest {
                 .thenReturn(Arrays.asList(countryHealthIndicator1, countryHealthIndicator2,
                         countryHealthIndicatorForInd1, countryHealthIndicatorForInd2, countryHealthIndicator3));
 
-        when(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdStatusAndCountryHealthIndicatorIdYear(countryId, PUBLISHED.name(), year))
+        when(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdYearAndCountryHealthIndicatorIdStatus(countryId, year, PUBLISHED.name()))
                 .thenReturn(
                         Arrays.asList(countryHealthIndicatorForInd1, countryHealthIndicatorForInd2
                         ));
@@ -124,7 +132,7 @@ public class BenchMarkServiceTest {
                 .thenReturn(Arrays.asList(countryHealthIndicatorForInd3, countryHealthIndicator2,
                         countryHealthIndicatorForInd1, countryHealthIndicatorForInd2));
 
-        when(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdStatusAndCountryHealthIndicatorIdYear(countryId, PUBLISHED.name(), year))
+        when(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdYearAndCountryHealthIndicatorIdStatus(countryId, year, PUBLISHED.name()))
                 .thenReturn(
                         Arrays.asList(countryHealthIndicatorForInd1, countryHealthIndicatorForInd2
                         ));
@@ -159,7 +167,7 @@ public class BenchMarkServiceTest {
                 .thenReturn(Arrays.asList(countryHealthIndicator1, countryHealthIndicator3,
                         countryHealthIndicatorForInd1, countryHealthIndicatorForInd2, countryHealthIndicatorForInd3));
 
-        when(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdStatusAndCountryHealthIndicatorIdYear(countryId, PUBLISHED.name(), year))
+        when(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdYearAndCountryHealthIndicatorIdStatus(countryId, year, PUBLISHED.name()))
                 .thenReturn(
                         Arrays.asList(countryHealthIndicatorForInd1, countryHealthIndicatorForInd2, countryHealthIndicatorForInd3
                         ));

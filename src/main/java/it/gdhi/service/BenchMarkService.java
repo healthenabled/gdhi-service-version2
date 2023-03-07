@@ -1,5 +1,10 @@
 package it.gdhi.service;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 import it.gdhi.dto.BenchmarkDto;
 import it.gdhi.model.CountryHealthIndicator;
 import it.gdhi.model.CountryPhase;
@@ -8,11 +13,6 @@ import it.gdhi.repository.ICountryHealthIndicatorRepository;
 import it.gdhi.repository.ICountryPhaseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 import static it.gdhi.utils.FormStatus.PUBLISHED;
 import static java.util.stream.Collectors.averagingInt;
@@ -67,7 +67,7 @@ public class BenchMarkService {
         Map<Integer, Double> indicatorBenchmarkScores = calculateBenchmarkScoresForIndicators(benchmarkType, year);
 
         List<CountryHealthIndicator> countryHealthIndicator = iCountryHealthIndicatorRepository
-                .findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdStatusAndCountryHealthIndicatorIdYear(countryId, PUBLISHED.name(), year);
+                .findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdYearAndCountryHealthIndicatorIdStatus(countryId, year, PUBLISHED.name());
 
         Map<Integer, BenchmarkDto> benchmarkScoresForCountry = countryHealthIndicator.stream()
                 .filter(indicator -> (indicator.isScoreValid() &&
