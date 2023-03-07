@@ -130,7 +130,7 @@ public class CountryHealthDataService {
     public void deleteCountryData(UUID countryUUID, String year) {
         String countryId = iCountryRepository.findByUniqueId(countryUUID).getId();
         iCountryHealthIndicatorRepository.deleteByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdStatusAndCountryHealthIndicatorIdYear(countryId, REVIEW_PENDING.name(), year);
-        iCountryResourceLinkRepository.deleteByCountryResourceLinkIdCountryIdAndCountryResourceLinkIdStatusAndCountryResourceLinkIdYear(countryId, REVIEW_PENDING.name(), year);
+        iCountryResourceLinkRepository.deleteByCountryResourceLinkIdCountryIdAndCountryResourceLinkIdYearAndCountryResourceLinkIdStatus(countryId, year, REVIEW_PENDING.name());
         iCountrySummaryRepository.deleteByCountrySummaryIdCountryIdAndCountrySummaryIdStatusAndCountrySummaryIdYear(countryId, REVIEW_PENDING.name(), year);
     }
 
@@ -198,7 +198,7 @@ public class CountryHealthDataService {
         if (!currentStatus.equals(NEW.name())) {
             iCountryHealthIndicatorRepository.deleteByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdStatusAndCountryHealthIndicatorIdYear(countryId, currentStatus, currentYear);
         }
-        iCountryResourceLinkRepository.deleteByCountryResourceLinkIdCountryIdAndCountryResourceLinkIdStatusAndCountryResourceLinkIdYear(countryId, currentStatus, currentYear);
+        iCountryResourceLinkRepository.deleteByCountryResourceLinkIdCountryIdAndCountryResourceLinkIdYearAndCountryResourceLinkIdStatus(countryId, currentYear, currentStatus);
         iCountrySummaryRepository.deleteByCountrySummaryIdCountryIdAndCountrySummaryIdStatusAndCountrySummaryIdYear(countryId, currentStatus, currentYear);
     }
 
@@ -212,7 +212,7 @@ public class CountryHealthDataService {
                                         CountrySummaryDto countrySummaryDetailDto, String year) {
         CountrySummary countrySummary = new CountrySummary(new CountrySummaryId(countryId, status, year),
                 countrySummaryDetailDto);
-        iCountryResourceLinkRepository.deleteByCountryResourceLinkIdCountryIdAndCountryResourceLinkIdStatusAndCountryResourceLinkIdYear(countryId, status, year);
+        iCountryResourceLinkRepository.deleteByCountryResourceLinkIdCountryIdAndCountryResourceLinkIdYearAndCountryResourceLinkIdStatus(countryId, year, status);
         entityManager.flush();
         iCountrySummaryRepository.save(countrySummary);
     }
