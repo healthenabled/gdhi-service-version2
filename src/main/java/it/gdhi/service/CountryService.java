@@ -81,8 +81,8 @@ public class CountryService {
 
     private List<CountrySummary> getCountrySummariesForNotPublished(String year, String countryId) {
         List<CountrySummary> countrySummaries;
-        if (iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdStatusNotAndCountrySummaryIdYear(countryId, PUBLISHED.name(), year) != null) {
-            countrySummaries = asList(iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdStatusNotAndCountrySummaryIdYear(countryId, PUBLISHED.name(), year));
+        if (iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdYearAndCountrySummaryIdStatusNot(countryId, year, PUBLISHED.name()) != null) {
+            countrySummaries = asList(iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdYearAndCountrySummaryIdStatusNot(countryId, year, PUBLISHED.name()));
         } else {
             countrySummaries = null;
         }

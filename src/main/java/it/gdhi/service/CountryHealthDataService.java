@@ -78,7 +78,7 @@ public class CountryHealthDataService {
     @Transactional
     public void save(GdhiQuestionnaire gdhiQuestionnaire, String nextStatus) {
         String currentYear = getCurrentYear();
-        String currentStatus = iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdStatusNotAndCountrySummaryIdYear(gdhiQuestionnaire.getCountryId(), PUBLISHED.name(), currentYear).getStatus();
+        String currentStatus = iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdYearAndCountrySummaryIdStatusNot(gdhiQuestionnaire.getCountryId(), currentYear, PUBLISHED.name()).getStatus();
         if (!nextStatus.equals(currentStatus)) {
             removeEntriesWithStatus(gdhiQuestionnaire.getCountryId(), currentStatus, currentYear);
         }
@@ -131,7 +131,7 @@ public class CountryHealthDataService {
         String countryId = iCountryRepository.findByUniqueId(countryUUID).getId();
         iCountryHealthIndicatorRepository.deleteByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdStatusAndCountryHealthIndicatorIdYear(countryId, REVIEW_PENDING.name(), year);
         iCountryResourceLinkRepository.deleteByCountryResourceLinkIdCountryIdAndCountryResourceLinkIdYearAndCountryResourceLinkIdStatus(countryId, year, REVIEW_PENDING.name());
-        iCountrySummaryRepository.deleteByCountrySummaryIdCountryIdAndCountrySummaryIdStatusAndCountrySummaryIdYear(countryId, REVIEW_PENDING.name(), year);
+        iCountrySummaryRepository.deleteByCountrySummaryIdCountryIdAndCountrySummaryIdYearAndCountrySummaryIdStatus(countryId, year, REVIEW_PENDING.name());
     }
 
     @Transactional
@@ -199,7 +199,7 @@ public class CountryHealthDataService {
             iCountryHealthIndicatorRepository.deleteByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdStatusAndCountryHealthIndicatorIdYear(countryId, currentStatus, currentYear);
         }
         iCountryResourceLinkRepository.deleteByCountryResourceLinkIdCountryIdAndCountryResourceLinkIdYearAndCountryResourceLinkIdStatus(countryId, currentYear, currentStatus);
-        iCountrySummaryRepository.deleteByCountrySummaryIdCountryIdAndCountrySummaryIdStatusAndCountrySummaryIdYear(countryId, currentStatus, currentYear);
+        iCountrySummaryRepository.deleteByCountrySummaryIdCountryIdAndCountrySummaryIdYearAndCountrySummaryIdStatus(countryId, currentYear, currentStatus);
     }
 
     private void sendMail(String feederName, String feederRole, String contactEmail, String countryId) {
