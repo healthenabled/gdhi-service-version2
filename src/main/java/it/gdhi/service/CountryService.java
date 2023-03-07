@@ -1,5 +1,6 @@
 package it.gdhi.service;
 
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -59,13 +60,8 @@ public class CountryService {
         String countryId = iCountryRepository.findByUniqueId(countryUUID).getId();
 
         GdhiQuestionnaire gdhiQuestionnaire = null;
-        List<CountrySummary> countrySummaries;
 
-        if (!publishedOnly) {
-            countrySummaries = getCountrySummariesForNotPublished(year, countryId);
-        } else {
-            countrySummaries = asList(iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdYearAndCountrySummaryIdStatus(countryId, year, PUBLISHED.name()));
-        }
+        List<CountrySummary> countrySummaries = (!publishedOnly) ? getCountrySummariesForNotPublished(year, countryId) : Collections.singletonList(iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdYearAndCountrySummaryIdStatus(countryId, year, PUBLISHED.name()));
 
         if (countrySummaries != null) {
             CountrySummary countrySummary = countrySummaries.size() > 1 ? getUnPublishedCountrySummary(countrySummaries) : Optional.ofNullable(countrySummaries.get(0)).get();
@@ -80,13 +76,7 @@ public class CountryService {
     }
 
     private List<CountrySummary> getCountrySummariesForNotPublished(String year, String countryId) {
-        List<CountrySummary> countrySummaries;
-        if (iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdYearAndCountrySummaryIdStatusNot(countryId, year, PUBLISHED.name()) != null) {
-            countrySummaries = asList(iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdYearAndCountrySummaryIdStatusNot(countryId, year, PUBLISHED.name()));
-        } else {
-            countrySummaries = null;
-        }
-        return countrySummaries;
+        return (iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdYearAndCountrySummaryIdStatusNot(countryId, year, PUBLISHED.name()) != null) ? Collections.singletonList(iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdYearAndCountrySummaryIdStatusNot(countryId, year, PUBLISHED.name())) : null;
     }
 
     private List<CountryHealthIndicator> getCountryHealthIndicators(String countryId, CountrySummary countrySummary, String year) {
