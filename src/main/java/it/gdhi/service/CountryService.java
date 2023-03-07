@@ -51,7 +51,7 @@ public class CountryService {
     }
 
     public CountrySummaryDto fetchCountrySummary(String countryId, String year) {
-        CountrySummary countrySummary = iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdStatusAndCountrySummaryIdYear(countryId, PUBLISHED.name(), year);
+        CountrySummary countrySummary = iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdYearAndCountrySummaryIdStatus(countryId, year, PUBLISHED.name());
         return Optional.ofNullable(countrySummary).map(CountrySummaryDto::new).orElse(new CountrySummaryDto());
     }
 
@@ -64,7 +64,7 @@ public class CountryService {
         if (!publishedOnly) {
             countrySummaries = getCountrySummariesForNotPublished(year, countryId);
         } else {
-            countrySummaries = asList(iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdStatusAndCountrySummaryIdYear(countryId, PUBLISHED.name(), year));
+            countrySummaries = asList(iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdYearAndCountrySummaryIdStatus(countryId, year, PUBLISHED.name()));
         }
 
         if (countrySummaries != null) {
