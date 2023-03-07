@@ -1,26 +1,36 @@
 package it.gdhi.service;
 
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.OptionalDouble;
+import java.util.function.Predicate;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import it.gdhi.dto.CategoryHealthScoreDto;
 import it.gdhi.dto.CountriesHealthScoreDto;
 import it.gdhi.dto.CountryHealthScoreDto;
 import it.gdhi.dto.GlobalHealthScoreDto;
 import it.gdhi.internationalization.service.HealthIndicatorTranslator;
-import it.gdhi.model.*;
+import it.gdhi.model.Category;
+import it.gdhi.model.CountryHealthIndicator;
+import it.gdhi.model.CountryHealthIndicators;
+import it.gdhi.model.CountryPhase;
+import it.gdhi.model.CountrySummary;
+import it.gdhi.model.Score;
 import it.gdhi.repository.ICountryHealthIndicatorRepository;
 import it.gdhi.repository.ICountryPhaseRepository;
 import it.gdhi.repository.ICountrySummaryRepository;
 import it.gdhi.utils.LanguageCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.*;
-import java.util.Map.Entry;
-import java.util.function.Predicate;
 
 import static it.gdhi.controller.strategy.FilterStrategy.getCategoryPhaseFilter;
 import static it.gdhi.controller.strategy.FilterStrategy.getCountryPhaseFilter;
@@ -52,7 +62,7 @@ public class CountryHealthIndicatorService {
 
     public CountryHealthScoreDto fetchCountryHealthScore(String countryId, LanguageCode languageCode, String year) {
         CountryHealthIndicators countryHealthIndicators = new CountryHealthIndicators(iCountryHealthIndicatorRepository
-                .findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdStatusAndCountryHealthIndicatorIdYear(countryId, PUBLISHED.name(), year));
+                .findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdYearAndCountryHealthIndicatorIdStatus(countryId, year, PUBLISHED.name()));
         CountryHealthScoreDto countryHealthScoreDto = constructCountryHealthScore(countryId, countryHealthIndicators,
                 getCategoryPhaseFilter(null, null), year);
         return healthIndicatorTranslator.translateCountryHealthScores(languageCode, countryHealthScoreDto);
@@ -83,7 +93,7 @@ public class CountryHealthIndicatorService {
         if (categoryId == null) {
             countryHealthIndicators = iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdStatusAndCountryHealthIndicatorIdYear(PUBLISHED.name(), year);
         } else {
-            countryHealthIndicators = iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCategoryIdAndCountryHealthIndicatorIdStatusAndCountryHealthIndicatorIdYear(categoryId, PUBLISHED.name(), year);
+            countryHealthIndicators = iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCategoryIdAndCountryHealthIndicatorIdYearAndCountryHealthIndicatorIdStatus(categoryId, year, PUBLISHED.name());
         }
         return countryHealthIndicators;
     }

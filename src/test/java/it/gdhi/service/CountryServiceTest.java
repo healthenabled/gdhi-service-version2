@@ -1,11 +1,24 @@
 package it.gdhi.service;
 
+import java.time.Year;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
+import java.util.UUID;
+import java.util.stream.Collectors;
+
 import com.google.common.collect.ImmutableList;
 import it.gdhi.dto.CountrySummaryDto;
 import it.gdhi.dto.GdhiQuestionnaire;
 import it.gdhi.dto.HealthIndicatorDto;
 import it.gdhi.internationalization.service.CountryNameTranslator;
-import it.gdhi.model.*;
+import it.gdhi.model.Country;
+import it.gdhi.model.CountryHealthIndicator;
+import it.gdhi.model.CountryPhase;
+import it.gdhi.model.CountryResourceLink;
+import it.gdhi.model.CountrySummary;
+import it.gdhi.model.Indicator;
 import it.gdhi.model.id.CountryHealthIndicatorId;
 import it.gdhi.model.id.CountryPhaseId;
 import it.gdhi.model.id.CountryResourceLinkId;
@@ -23,10 +36,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
-
-import java.time.Year;
-import java.util.*;
-import java.util.stream.Collectors;
 
 import static it.gdhi.utils.FormStatus.PUBLISHED;
 import static it.gdhi.utils.LanguageCode.ar;
@@ -131,7 +140,7 @@ public class CountryServiceTest {
     public void shouldReturnEmptyCountrySummaryObjectWhenNoCountrySummaryPresentForAGivenYear() {
         String countryId = "ARG";
         String year = "Version1";
-        when(iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdStatusAndCountrySummaryIdYear(countryId, PUBLISHED.name() , year)).thenReturn(null);
+        when(iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdStatusAndCountrySummaryIdYear(countryId, PUBLISHED.name(), year)).thenReturn(null);
         CountrySummaryDto countrySummaryDto = countryService.fetchCountrySummary(countryId, year);
         assertNull(countrySummaryDto.getCountryId());
     }
@@ -175,7 +184,7 @@ public class CountryServiceTest {
                 .score(4)
                 .build();
         List<CountryHealthIndicator> countryHealthIndicators = asList(indicator1, indicator2);
-        when(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdStatusAndCountryHealthIndicatorIdYear(countryId, statusValue, year)).thenReturn(countryHealthIndicators);
+        when(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdYearAndCountryHealthIndicatorIdStatus(countryId, year, statusValue)).thenReturn(countryHealthIndicators);
 
         GdhiQuestionnaire details = countryService.getDetails(countryUUID, LanguageCode.en, false, year);
 
@@ -245,7 +254,7 @@ public class CountryServiceTest {
                 .score(4)
                 .build();
         List<CountryHealthIndicator> countryHealthIndicators = asList(indicator1, indicator2);
-        when(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdStatusAndCountryHealthIndicatorIdYear(countryIdInd, statusValueInd, year)).thenReturn(countryHealthIndicators);
+        when(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdYearAndCountryHealthIndicatorIdStatus(countryIdInd, year, statusValueInd)).thenReturn(countryHealthIndicators);
 
         GdhiQuestionnaire details = countryService.getDetails(countryUUIDInd, LanguageCode.en, false, year);
 
@@ -296,7 +305,7 @@ public class CountryServiceTest {
                 .score(4)
                 .build();
         List<CountryHealthIndicator> countryHealthIndicators = asList(indicator1, indicator2);
-        when(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdStatusAndCountryHealthIndicatorIdYear(countryId, statusValue, year)).thenReturn(countryHealthIndicators);
+        when(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdYearAndCountryHealthIndicatorIdStatus(countryId, year, statusValue)).thenReturn(countryHealthIndicators);
 
         GdhiQuestionnaire details = countryService.getDetails(countryUUID, LanguageCode.ar, false, year);
 
@@ -331,7 +340,7 @@ public class CountryServiceTest {
 
         when(iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdStatusNotAndCountrySummaryIdYear(countryId, "PUBLISHED", currentYear)).thenReturn(null);
 
-        when(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdStatusAndCountryHealthIndicatorIdYear(countryId, null, currentYear)).thenReturn(Collections.emptyList());
+        when(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdYearAndCountryHealthIndicatorIdStatus(countryId, currentYear, null)).thenReturn(Collections.emptyList());
 
         when(countryDetailRepository.findByUniqueId(countryUUID)).thenReturn(country);
         GdhiQuestionnaire details = countryService.getDetails(countryUUID, LanguageCode.en, false, currentYear);

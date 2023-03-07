@@ -1,9 +1,14 @@
 package it.gdhi.service;
 
+import java.util.Comparator;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+import java.util.stream.Collectors;
+
 import it.gdhi.dto.CountrySummaryDto;
 import it.gdhi.dto.GdhiQuestionnaire;
 import it.gdhi.dto.HealthIndicatorDto;
-import it.gdhi.dto.YearDto;
 import it.gdhi.internationalization.service.CountryNameTranslator;
 import it.gdhi.model.Country;
 import it.gdhi.model.CountryHealthIndicator;
@@ -16,12 +21,6 @@ import it.gdhi.repository.ICountrySummaryRepository;
 import it.gdhi.utils.LanguageCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
-import java.util.stream.Collectors;
 
 import static it.gdhi.utils.FormStatus.PUBLISHED;
 import static java.util.Arrays.asList;
@@ -38,10 +37,7 @@ public class CountryService {
     private final CountryNameTranslator translator;
 
     @Autowired
-    public CountryService(ICountryRepository iCountryRepository,
-                          ICountrySummaryRepository iCountrySummaryRepository,
-                          ICountryPhaseRepository iCountryPhaseRepository, ICountryHealthIndicatorRepository iCountryHealthIndicatorRepository,
-                          CountryNameTranslator translator) {
+    public CountryService(ICountryRepository iCountryRepository, ICountrySummaryRepository iCountrySummaryRepository, ICountryPhaseRepository iCountryPhaseRepository, ICountryHealthIndicatorRepository iCountryHealthIndicatorRepository, CountryNameTranslator translator) {
         this.iCountryRepository = iCountryRepository;
         this.iCountrySummaryRepository = iCountrySummaryRepository;
         this.iCountryPhaseRepository = iCountryPhaseRepository;
@@ -72,14 +68,11 @@ public class CountryService {
         }
 
         if (countrySummaries != null) {
-            CountrySummary countrySummary = countrySummaries.size() > 1 ?
-                    getUnPublishedCountrySummary(countrySummaries) :
-                    Optional.ofNullable(countrySummaries.get(0)).get();
+            CountrySummary countrySummary = countrySummaries.size() > 1 ? getUnPublishedCountrySummary(countrySummaries) : Optional.ofNullable(countrySummaries.get(0)).get();
 
             List<CountryHealthIndicator> sortedIndicators = getCountryHealthIndicators(countryId, countrySummary, year);
             gdhiQuestionnaire = constructGdhiQuestionnaire(countryId, countrySummary, sortedIndicators);
-            String translatedCountryName =
-                    translator.getCountryTranslationForLanguage(languageCode, gdhiQuestionnaire.getCountryId());
+            String translatedCountryName = translator.getCountryTranslationForLanguage(languageCode, gdhiQuestionnaire.getCountryId());
             gdhiQuestionnaire.translateCountryName(translatedCountryName);
         }
 
@@ -97,32 +90,20 @@ public class CountryService {
     }
 
     private List<CountryHealthIndicator> getCountryHealthIndicators(String countryId, CountrySummary countrySummary, String year) {
-        List<CountryHealthIndicator> countryHealthIndicators =
-                iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdStatusAndCountryHealthIndicatorIdYear(countryId,
-                        countrySummary.getCountrySummaryId().getStatus(), year);
+        List<CountryHealthIndicator> countryHealthIndicators = iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdYearAndCountryHealthIndicatorIdStatus(countryId, year, countrySummary.getCountrySummaryId().getStatus());
 
-        return countryHealthIndicators.stream().sorted(
-                        Comparator.comparing(o -> o.getIndicator().getRank()))
-                .collect(Collectors.toList());
+        return countryHealthIndicators.stream().sorted(Comparator.comparing(o -> o.getIndicator().getRank())).collect(Collectors.toList());
     }
 
     private CountrySummary getUnPublishedCountrySummary(List<CountrySummary> countrySummaries) {
-        return countrySummaries.stream()
-                .filter(countrySummaryTmp -> !countrySummaryTmp.getCountrySummaryId().getStatus()
-                        .equalsIgnoreCase(PUBLISHED.name())).findFirst().get();
+        return countrySummaries.stream().filter(countrySummaryTmp -> !countrySummaryTmp.getCountrySummaryId().getStatus().equalsIgnoreCase(PUBLISHED.name())).findFirst().get();
     }
 
-    private GdhiQuestionnaire constructGdhiQuestionnaire(String countryId, CountrySummary countrySummary,
-                                                         List<CountryHealthIndicator> sortedIndicators) {
+    private GdhiQuestionnaire constructGdhiQuestionnaire(String countryId, CountrySummary countrySummary, List<CountryHealthIndicator> sortedIndicators) {
         GdhiQuestionnaire gdhiQuestionnaire;
-        CountrySummaryDto countrySummaryDto = Optional.ofNullable(countrySummary)
-                .map(CountrySummaryDto::new)
-                .orElse(null);
-        List<HealthIndicatorDto> healthIndicatorDtos = sortedIndicators.stream()
-                .map(HealthIndicatorDto::new)
-                .collect(toList());
-        gdhiQuestionnaire = new GdhiQuestionnaire(countryId, countrySummary.getCountrySummaryId().getStatus(),
-                countrySummaryDto, healthIndicatorDtos);
+        CountrySummaryDto countrySummaryDto = Optional.ofNullable(countrySummary).map(CountrySummaryDto::new).orElse(null);
+        List<HealthIndicatorDto> healthIndicatorDtos = sortedIndicators.stream().map(HealthIndicatorDto::new).collect(toList());
+        gdhiQuestionnaire = new GdhiQuestionnaire(countryId, countrySummary.getCountrySummaryId().getStatus(), countrySummaryDto, healthIndicatorDtos);
         return gdhiQuestionnaire;
     }
 

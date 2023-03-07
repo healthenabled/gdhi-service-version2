@@ -1,24 +1,46 @@
 package it.gdhi.service;
 
-import it.gdhi.dto.*;
-import it.gdhi.model.*;
+import java.time.Year;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+
+import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
+
+import it.gdhi.dto.BenchmarkDto;
+import it.gdhi.dto.CountrySummaryDto;
+import it.gdhi.dto.CountrySummaryStatusDto;
+import it.gdhi.dto.CountrySummaryStatusYearDto;
+import it.gdhi.dto.CountryUrlGenerationStatusDto;
+import it.gdhi.dto.GdhiQuestionnaire;
+import it.gdhi.dto.HealthIndicatorDto;
+import it.gdhi.model.Country;
+import it.gdhi.model.CountryHealthIndicator;
+import it.gdhi.model.CountryHealthIndicators;
+import it.gdhi.model.CountryPhase;
+import it.gdhi.model.CountrySummary;
+import it.gdhi.model.Score;
 import it.gdhi.model.id.CountryHealthIndicatorId;
 import it.gdhi.model.id.CountrySummaryId;
-import it.gdhi.repository.*;
+import it.gdhi.repository.ICountryHealthIndicatorRepository;
+import it.gdhi.repository.ICountryPhaseRepository;
+import it.gdhi.repository.ICountryRepository;
+import it.gdhi.repository.ICountryResourceLinkRepository;
+import it.gdhi.repository.ICountrySummaryRepository;
 import it.gdhi.utils.FormStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
-import javax.persistence.EntityManager;
-import javax.transaction.Transactional;
-
-import java.time.Year;
-import java.util.*;
-import java.util.stream.Collectors;
-
-import static it.gdhi.utils.FormStatus.*;
+import static it.gdhi.utils.FormStatus.DRAFT;
+import static it.gdhi.utils.FormStatus.NEW;
+import static it.gdhi.utils.FormStatus.PUBLISHED;
+import static it.gdhi.utils.FormStatus.REVIEW_PENDING;
 import static java.util.Objects.isNull;
 import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.toList;
@@ -116,7 +138,7 @@ public class CountryHealthDataService {
     public void calculatePhaseForAllCountries(String year) {
         List<CountrySummary> publishedCountries = iCountrySummaryRepository.findByCountrySummaryIdStatus(PUBLISHED.name());
 
-        publishedCountries.stream().forEach(country -> calculateAndSaveCountryPhase(country.getCountrySummaryId().getCountryId() , PUBLISHED.name(), year));
+        publishedCountries.stream().forEach(country -> calculateAndSaveCountryPhase(country.getCountrySummaryId().getCountryId(), PUBLISHED.name(), year));
     }
 
     public CountrySummaryStatusYearDto getAllCountryStatusSummaries() {
@@ -166,7 +188,7 @@ public class CountryHealthDataService {
 
     private void calculateAndSaveCountryPhase(String countryId, String status, String year) {
         CountryHealthIndicators countryHealthIndicators = new CountryHealthIndicators(iCountryHealthIndicatorRepository
-                .findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdStatusAndCountryHealthIndicatorIdYear(countryId, status, year));
+                .findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdYearAndCountryHealthIndicatorIdStatus(countryId, year, status));
         Double overallScore = countryHealthIndicators.getOverallScore();
         Integer countryPhase = new Score(overallScore).convertToPhase();
         iCountryPhaseRepository.save(new CountryPhase(countryId, countryPhase, year));
