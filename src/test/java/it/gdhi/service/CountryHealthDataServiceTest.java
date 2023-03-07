@@ -108,7 +108,7 @@ public class CountryHealthDataServiceTest {
 
         when(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdYearAndCountryHealthIndicatorIdStatus(countryId, currentYear, status))
                 .thenReturn(asList(countryHealthIndicator1));
-        when(iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdStatusNotAndCountrySummaryIdYear(countryId, PUBLISHED.name(), currentYear)).thenReturn(countrySummary);
+        when(iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdYearAndCountrySummaryIdStatusNot(countryId, currentYear, PUBLISHED.name())).thenReturn(countrySummary);
         countryHealthDataService.publish(gdhiQuestionnaire, currentYear);
         ArgumentCaptor<CountrySummary> summaryCaptor = ArgumentCaptor.forClass(CountrySummary.class);
         ArgumentCaptor<CountryHealthIndicator> healthIndicatorsCaptorList = ArgumentCaptor.forClass(CountryHealthIndicator.class);
@@ -177,7 +177,7 @@ public class CountryHealthDataServiceTest {
         when(iCountrySummaryRepository.save(any(CountrySummary.class))).thenReturn(countrySummary2);
         when(iCountryHealthIndicatorRepository.save(any(CountryHealthIndicator.class))).thenReturn(CountryHealthIndicator.builder().build());
         when(countryDetailRepository.findById(countryId)).thenReturn(country);
-        when(iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdStatusNotAndCountrySummaryIdYear(countryId, PUBLISHED.name(), currentYear)).thenReturn(countrySummary);
+        when(iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdYearAndCountrySummaryIdStatusNot(countryId, currentYear, PUBLISHED.name())).thenReturn(countrySummary);
         countryHealthDataService.submit(gdhiQuestionnaire);
 
         verify(mailerService).send(country, feeder, feederRole, contactEmail);
@@ -282,7 +282,7 @@ public class CountryHealthDataServiceTest {
 
         countryHealthDataService.deleteCountryData(countryUUID, year);
 
-        verify(iCountrySummaryRepository).deleteByCountrySummaryIdCountryIdAndCountrySummaryIdStatusAndCountrySummaryIdYear(countryId, status, year);
+        verify(iCountrySummaryRepository).deleteByCountrySummaryIdCountryIdAndCountrySummaryIdYearAndCountrySummaryIdStatus(countryId, year, status);
         verify(iCountryHealthIndicatorRepository).deleteByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdStatusAndCountryHealthIndicatorIdYear(countryId, status, year);
         verify(iCountryResourceLinkRepository).deleteByCountryResourceLinkIdCountryIdAndCountryResourceLinkIdYearAndCountryResourceLinkIdStatus(countryId, year, status);
     }

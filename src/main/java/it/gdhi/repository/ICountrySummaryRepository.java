@@ -22,9 +22,9 @@ public interface ICountrySummaryRepository extends JpaRepository<CountrySummary,
     List<CountrySummary> findAllByOrderByUpdatedAtDesc();
 
     @Modifying
-    void deleteByCountrySummaryIdCountryIdAndCountrySummaryIdStatusAndCountrySummaryIdYear(String countryId, String currentStatus, String currentYear);
+    void deleteByCountrySummaryIdCountryIdAndCountrySummaryIdYearAndCountrySummaryIdStatus(String countryId, String currentYear, String currentStatus);
 
-    CountrySummary findByCountrySummaryIdCountryIdAndCountrySummaryIdStatusNotAndCountrySummaryIdYear(String countryId, String currentStatus, String year);
+    CountrySummary findByCountrySummaryIdCountryIdAndCountrySummaryIdYearAndCountrySummaryIdStatusNot(String countryId, String year, String currentStatus);
 
     CountrySummary findByCountrySummaryIdCountryIdAndCountrySummaryIdYearAndCountrySummaryIdStatus(String countryId, String year, String currentStatus);
 
