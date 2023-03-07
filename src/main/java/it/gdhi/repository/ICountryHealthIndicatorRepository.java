@@ -13,7 +13,7 @@ public interface ICountryHealthIndicatorRepository extends JpaRepository<Country
     CountryHealthIndicator save(CountryHealthIndicator countryHealthIndicatorSetupData);
 
     @Modifying
-    void deleteByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdStatusAndCountryHealthIndicatorIdYear(String countryId, String currentStatus, String year);
+    void deleteByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdYearAndCountryHealthIndicatorIdStatus(String countryId, String year, String currentStatus);
 
     List<CountryHealthIndicator> findByCountryHealthIndicatorIdStatusAndCountryHealthIndicatorIdYear(String currentStatus, String year);
 
