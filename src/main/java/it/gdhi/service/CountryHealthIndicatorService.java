@@ -127,7 +127,7 @@ public class CountryHealthIndicatorService {
                                                    HttpServletResponse response,
                                                    String year) throws IOException {
         LanguageCode languageCode = LanguageCode.getValueFor(request.getParameter(USER_LANGUAGE));
-        List<CountryHealthScoreDto> countryHealthScores = fetchCountriesHealthScoresForPDF(languageCode, year)
+        List<CountryHealthScoreDto> countryHealthScores = fetchCountriesHealthScoresForExcel(languageCode, year)
                 .getCountryHealthScores();
 
         excelUtilService.convertListToExcel(countryHealthScores, languageCode);
@@ -145,7 +145,7 @@ public class CountryHealthIndicatorService {
         excelUtilService.downloadFile(request, response);
     }
 
-    private CountriesHealthScoreDto fetchCountriesHealthScoresForPDF(LanguageCode languageCode, String year) {
+    private CountriesHealthScoreDto fetchCountriesHealthScoresForExcel(LanguageCode languageCode, String year) {
         return this.fetchCountriesHealthScores(null, null, languageCode, year);
     }
 
