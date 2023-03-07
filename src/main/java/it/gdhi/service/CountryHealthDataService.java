@@ -129,7 +129,7 @@ public class CountryHealthDataService {
     @Transactional
     public void deleteCountryData(UUID countryUUID, String year) {
         String countryId = iCountryRepository.findByUniqueId(countryUUID).getId();
-        iCountryHealthIndicatorRepository.deleteByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdStatusAndCountryHealthIndicatorIdYear(countryId, REVIEW_PENDING.name(), year);
+        iCountryHealthIndicatorRepository.deleteByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdYearAndCountryHealthIndicatorIdStatus(countryId, year, REVIEW_PENDING.name());
         iCountryResourceLinkRepository.deleteByCountryResourceLinkIdCountryIdAndCountryResourceLinkIdYearAndCountryResourceLinkIdStatus(countryId, year, REVIEW_PENDING.name());
         iCountrySummaryRepository.deleteByCountrySummaryIdCountryIdAndCountrySummaryIdYearAndCountrySummaryIdStatus(countryId, year, REVIEW_PENDING.name());
     }
@@ -196,7 +196,7 @@ public class CountryHealthDataService {
 
     private void removeEntriesWithStatus(String countryId, String currentStatus, String currentYear) {
         if (!currentStatus.equals(NEW.name())) {
-            iCountryHealthIndicatorRepository.deleteByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdStatusAndCountryHealthIndicatorIdYear(countryId, currentStatus, currentYear);
+            iCountryHealthIndicatorRepository.deleteByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdYearAndCountryHealthIndicatorIdStatus(countryId, currentYear, currentStatus);
         }
         iCountryResourceLinkRepository.deleteByCountryResourceLinkIdCountryIdAndCountryResourceLinkIdYearAndCountryResourceLinkIdStatus(countryId, currentYear, currentStatus);
         iCountrySummaryRepository.deleteByCountrySummaryIdCountryIdAndCountrySummaryIdYearAndCountrySummaryIdStatus(countryId, currentYear, currentStatus);
