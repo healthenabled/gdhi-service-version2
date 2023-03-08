@@ -31,36 +31,24 @@ public class BenchMarkService {
     @Autowired
     private ICountryPhaseRepository iCountryPhaseRepository;
 
-
     private Map<Integer, Double> calculateBenchmarkScoresForIndicators(Integer benchmarkType, String year) {
         List<CountryHealthIndicator> countryHealthIndicators = iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdStatusAndCountryHealthIndicatorIdYear(PUBLISHED.name(), year);
-        List<CountryHealthIndicator> publishedCountryHealthIndicators = new ArrayList<>();
+        List<CountryHealthIndicator> publishedCountryHealthIndicators = (benchmarkType == -1) ? countryHealthIndicators : countryHealthIndicators.stream().filter(countryHealthIndicator ->
+                validateCountryHealthIndicatorByPhaseAndYear(countryHealthIndicator, benchmarkType, year)).collect(Collectors.toList());
 
-        if (benchmarkType == -1) {
-            publishedCountryHealthIndicators = countryHealthIndicators;
-        } else {
-            publishedCountryHealthIndicators = countryHealthIndicators.stream().filter(countryHealthIndicator ->
-                    validateCountryHealthIndicatorByPhaseAndYear(countryHealthIndicator, benchmarkType, year)).collect(Collectors.toList());
-        }
-
-        Map<Integer, Double> indicatorBenchmarkScores = publishedCountryHealthIndicators.stream()
+        return publishedCountryHealthIndicators.stream()
                 .map(row -> {
                     row.convertNotAvailableToPhase1();
                     return row;
                 })
                 .filter(indicator -> indicator.getIndicator().getParentId() == null)
-                .collect(groupingBy(h -> h.getIndicatorId(),
+                .collect(groupingBy(CountryHealthIndicator::getIndicatorId,
                         averagingInt(CountryHealthIndicator::getScore)));
-
-        return indicatorBenchmarkScores;
     }
 
     private boolean validateCountryHealthIndicatorByPhaseAndYear(CountryHealthIndicator countryHealthIndicator, Integer phase, String year) {
         CountryPhase countryPhase = iCountryPhaseRepository.findByCountryPhaseIdCountryIdAndCountryPhaseIdYear(countryHealthIndicator.getCountryId(), year);
-        if (countryPhase.getCountryOverallPhase() == phase) {
-            return true;
-        }
-        return false;
+        return countryPhase.getCountryOverallPhase().equals(phase);
     }
 
     Map<Integer, BenchmarkDto> getBenchmarkFor(String countryId, Integer benchmarkType, String year) {
@@ -69,16 +57,13 @@ public class BenchMarkService {
         List<CountryHealthIndicator> countryHealthIndicator = iCountryHealthIndicatorRepository
                 .findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdYearAndCountryHealthIndicatorIdStatus(countryId, year, PUBLISHED.name());
 
-        Map<Integer, BenchmarkDto> benchmarkScoresForCountry = countryHealthIndicator.stream()
+        return countryHealthIndicator.stream()
                 .filter(indicator -> (indicator.isScoreValid() &&
                         indicatorBenchmarkScores.containsKey(indicator.getIndicatorId())
                         && indicator.getIndicator().getParentId() == null))
                 .collect(Collectors.toMap(CountryHealthIndicator::getIndicatorId,
                         indicator -> constructBenchMarkDto(indicator.getScore(),
                                 indicatorBenchmarkScores.get(indicator.getIndicatorId()))));
-
-
-        return benchmarkScoresForCountry;
     }
 
     private BenchmarkDto constructBenchMarkDto(Integer indicatorCountryScore, Double indicatorBenchmarkScore) {

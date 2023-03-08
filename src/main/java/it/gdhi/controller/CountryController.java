@@ -100,11 +100,11 @@ public class CountryController {
 
     @PostMapping("/countries/publish/{year}")
     @ResponseBody
-    public ResponseEntity publishHealthIndicatorsFor(@RequestBody GdhiQuestionnaire gdhiQuestionnaire , @PathVariable("year") String year) {
+    public ResponseEntity publishHealthIndicatorsFor(@RequestBody GdhiQuestionnaire gdhiQuestionnaire, @PathVariable("year") String year) {
         boolean isValid;
         isValid = countryHealthDataService.validateRequiredFields(gdhiQuestionnaire);
         if (isValid) {
-            countryHealthDataService.publish(gdhiQuestionnaire , year);
+            countryHealthDataService.publish(gdhiQuestionnaire, year);
             return ResponseEntity.status(HttpStatus.CREATED).body(null);
         } else {
             return ResponseEntity.badRequest().body(null);
@@ -134,7 +134,6 @@ public class CountryController {
     public void exportGlobalData(HttpServletRequest request,
                                  HttpServletResponse response,
                                  @RequestParam(value = "year", required = false) String year) throws IOException {
-        log.info("Entered export global data end point");
         if (year == null) {
             year = defaultYearDataService.fetchDefaultYear();
         }
@@ -160,8 +159,8 @@ public class CountryController {
     }
 
     @DeleteMapping("/countries/{uuid}/delete/{year}")
-    public void deleteCountryData(@PathVariable("uuid") UUID countryUIID , @PathVariable("year") String year) throws Exception {
-        countryHealthDataService.deleteCountryData(countryUIID , year);
+    public void deleteCountryData(@PathVariable("uuid") UUID countryUIID, @PathVariable("year") String year) throws Exception {
+        countryHealthDataService.deleteCountryData(countryUIID, year);
     }
 
     @GetMapping("/countries/country_status_summaries")
