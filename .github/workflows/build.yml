@@ -28,6 +28,18 @@ jobs:
      if: github.ref == 'refs/heads/main'
      needs: [ continuous-integration ]
      steps:
+       - name: check out code
+         uses: actions/checkout@v3
+
+       - name: Set up JDK 17
+         uses: actions/setup-java@v3
+         with:
+           java-version: "17"
+           distribution: "temurin"
+
+       - name: grant permissions
+         run: chmod +x gradlew
+
        - name: Create fat jar for GDHI-Backend-v2
          run: ./gradlew clean bootJar -PappVersion=${{ secrets.APPLICATION_VERSION }}
 
