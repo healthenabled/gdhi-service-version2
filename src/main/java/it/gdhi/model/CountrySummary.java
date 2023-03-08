@@ -44,13 +44,16 @@ public class CountrySummary implements Serializable {
     private String dataApproverName;
     private String dataApproverRole;
     private String dataApproverEmail;
+
+    @Column(name = "govt_approved")
+    private Boolean govtApproved;
     private Date collectedDate;
     @Column(insertable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
     private Date updatedAt;
 
-    @OneToMany(cascade = CascadeType.ALL , fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumns({
             @JoinColumn(name = "country_id", referencedColumnName = "country_id", insertable = false, updatable = false),
             @JoinColumn(name = "status", referencedColumnName = "status", insertable = false, updatable = false),
@@ -71,6 +74,7 @@ public class CountrySummary implements Serializable {
         this.dataApproverName = countrySummaryDetailDto.getDataApproverName();
         this.dataApproverRole = countrySummaryDetailDto.getDataApproverRole();
         this.dataApproverEmail = countrySummaryDetailDto.getDataApproverEmail();
+        this.govtApproved = countrySummaryDetailDto.getGovtApproved();
         this.collectedDate = countrySummaryDetailDto.getCollectedDate();
         this.countryResourceLinks = transformToResourceLinks(countrySummaryId.getCountryId(),
                 countrySummaryId.getStatus(), countrySummaryDetailDto, countrySummaryId.getYear());

@@ -40,6 +40,8 @@ public class CountrySummaryDto {
     private String dataApproverRole;
     private String dataApproverEmail;
 
+    private Boolean govtApproved;
+
     @JsonSerialize(using = JsonDateSerializer.class)
     @JsonDeserialize(using = JsonDateDeserializer.class)
     private Date collectedDate;
@@ -62,6 +64,7 @@ public class CountrySummaryDto {
         this.dataApproverName = countrySummary.getDataApproverName();
         this.dataApproverRole = countrySummary.getDataApproverRole();
         this.dataApproverEmail = countrySummary.getDataApproverEmail();
+        this.govtApproved = countrySummary.getGovtApproved();
         this.collectedDate = countrySummary.getCollectedDate();
         this.resources = transformResourceLinks(countrySummary);
     }
