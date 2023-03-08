@@ -1,7 +1,7 @@
 name: CI/CD Pipeline
 on:
   push:
-    branches: ["main", "cicd"]
+    branches: ["main"]
   pull_request:
     branches: ["main"]
 jobs:
@@ -23,31 +23,36 @@ jobs:
       - name: Run tests without integration and repository tests
         run: ./gradlew clean build -x bootJar -DincludeIntegrationTestAndRepositoryTest=false -PappVersion=${{ secrets.APPLICATION_VERSION }}
 
-      - name: Create fat jar for GDHI-Backend-v2
-        run: ./gradlew clean bootJar -PappVersion=${{ secrets.APPLICATION_VERSION }}
+  upload-artifact-to-s3:
+     runs-on: ubuntu-latest
+     if: github.ref == 'refs/heads/main'
+     needs: [ continuous-integration ]
+     steps:
+       - name: Create fat jar for GDHI-Backend-v2
+         run: ./gradlew clean bootJar -PappVersion=${{ secrets.APPLICATION_VERSION }}
 
-      - name: Update the version number
-        uses: gliech/create-github-secret-action@v1
-        with:
-          name: APPLICATION_VERSION
-          value: $((${{ secrets.APPLICATION_VERSION }} + 1))
-          pa_token: ${{ secrets.PA_TOKEN }}
+       - name: Update the version number
+         uses: gliech/create-github-secret-action@v1
+         with:
+           name: APPLICATION_VERSION
+           value: $((${{ secrets.APPLICATION_VERSION }} + 1))
+           pa_token: ${{ secrets.PA_TOKEN }}
 
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1-node16
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ secrets.AWS_REGION }}
+       - name: Configure AWS credentials
+         uses: aws-actions/configure-aws-credentials@v1-node16
+         with:
+           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+           aws-region: ${{ secrets.AWS_REGION }}
 
-      - name: Upload Artifact to s3
-        working-directory: ${{ secrets.JAR_LOCATION }}
-        run: aws s3 cp gdhi-*.jar s3://${{ secrets.AWS_S3_BUCKET_NAME }}/${{ secrets.AWS_S3_FOLDER }}
+       - name: Upload Fat Jar to s3
+         working-directory: ${{ secrets.JAR_LOCATION }}
+         run: aws s3 cp gdhi-*.jar s3://${{ secrets.AWS_S3_BUCKET_NAME }}/${{ secrets.AWS_S3_FOLDER }}
 
   deploy-to-qa:
      runs-on: ubuntu-latest
-     needs: [ continuous-integration ]
-     if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/cicd'
+     needs: [ upload-artifact-to-s3 ]
+     if: github.ref == 'refs/heads/main'
      steps:
        - name: Configure AWS credentials
          uses: aws-actions/configure-aws-credentials@v1-node16
@@ -70,7 +75,7 @@ jobs:
      runs-on: ubuntu-latest
      environment: SHOWCASE
      needs: [ deploy-to-qa ]
-     if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/cicd'
+     if: github.ref == 'refs/heads/main'
      steps:
        - name: Configure AWS credentials
          uses: aws-actions/configure-aws-credentials@v1-node16
@@ -93,7 +98,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: PROD
     needs: [deploy-to-showcase]
-    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/cicd'
+    if: github.ref == 'refs/heads/main'
     steps:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1-node16
