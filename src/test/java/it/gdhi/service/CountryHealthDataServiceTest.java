@@ -318,7 +318,6 @@ public class CountryHealthDataServiceTest {
         List<String> resourceLinks = asList("Res 1");
         CountrySummaryDto countrySummaryDetailDto = CountrySummaryDto.builder()
                 .summary("Summary 1")
-                .collectedDate(new GregorianCalendar().getTime())
                 .dataFeederEmail("feeder@email.com")
                 .dataFeederName("feeder")
                 .dataFeederRole("feeder role")
@@ -613,7 +612,6 @@ public class CountryHealthDataServiceTest {
         String countryName = "Argentina";
         CountrySummaryDto countrySummaryDetailDto = CountrySummaryDto.builder()
                 .summary("Summary 1")
-                .collectedDate(new GregorianCalendar().getTime())
                 .dataFeederEmail("feeder@email.com")
                 .dataFeederName("feeder")
                 .dataFeederRole("feeder role")
@@ -641,77 +639,12 @@ public class CountryHealthDataServiceTest {
     }
 
     @Test
-    public void shouldReturnFalseIfDateIsInvalid() {
-        String countryId = "ALB";
-        String countryName = "Albania";
-        List<String> resourceLinks = asList("Res 1");
-        Date collectedDateBefore2010 = new GregorianCalendar(2009, 0, 1).getTime();
-        GregorianCalendar gregCal = new GregorianCalendar();
-        gregCal.add(Calendar.DAY_OF_MONTH, 1);
-        Date collectedDateAfterCurrentDate = gregCal.getTime();
-        CountrySummaryDto countrySummaryDetailBefore2010 = CountrySummaryDto.builder()
-                .summary("Summary 1")
-                .collectedDate(collectedDateBefore2010)
-                .dataFeederEmail("feeder@email.com")
-                .dataFeederName("feeder")
-                .dataFeederRole("feeder role")
-                .contactEmail("contact@test.com")
-                .contactDesignation("some designation")
-                .contactName("some contact name")
-                .contactOrganization("contact org")
-                .dataApproverEmail("approver@email.com")
-                .dataApproverName("Some approver name")
-                .dataApproverRole("some approver role")
-                .govtApproved(true)
-                .countryId(countryId)
-                .countryName(countryName)
-                .resources(resourceLinks)
-                .build();
-
-        CountrySummaryDto countrySummaryDetailDtoFutureDate = CountrySummaryDto.builder()
-                .summary("Summary 1")
-                .collectedDate(collectedDateAfterCurrentDate)
-                .dataFeederEmail("feeder@email.com")
-                .dataFeederName("feeder")
-                .dataFeederRole("feeder role")
-                .contactEmail("contact@test.com")
-                .contactDesignation("some designation")
-                .contactName("some contact name")
-                .contactOrganization("contact org")
-                .dataApproverEmail("approver@email.com")
-                .dataApproverName("Some approver name")
-                .dataApproverRole("some approver role")
-                .govtApproved(true)
-                .countryId(countryId)
-                .countryName(countryName)
-                .resources(resourceLinks)
-                .build();
-
-        List<HealthIndicatorDto> healthIndicatorDtos = getHealthIndicatorDto(1, "some text");
-        when(categoryIndicatorService.getHealthIndicatorCount()).thenReturn(30);
-
-        GdhiQuestionnaire gdhiQuestionnaire = GdhiQuestionnaire.builder().countryId(countryId)
-                .countrySummary(countrySummaryDetailBefore2010)
-                .healthIndicators(healthIndicatorDtos).build();
-
-        assertFalse(countryHealthDataService.validateRequiredFields(gdhiQuestionnaire));
-
-        GdhiQuestionnaire gdhiQuestionnaire1 = GdhiQuestionnaire.builder().countryId(countryId)
-                .countrySummary(countrySummaryDetailDtoFutureDate)
-                .healthIndicators(healthIndicatorDtos).build();
-
-        assertFalse(countryHealthDataService.validateRequiredFields(gdhiQuestionnaire1));
-
-    }
-
-    @Test
     public void shouldReturnFalseIfIndicatorDataIsInvalid() {
         String countryId = "AUS";
         String countryName = "Australia";
         List<String> resourceLinks = asList("Res 1");
         CountrySummaryDto countrySummaryDetailDto = CountrySummaryDto.builder()
                 .summary("Summary 1")
-                .collectedDate(new Date())
                 .dataFeederEmail("feeder@email.com")
                 .dataFeederName("feeder")
                 .dataFeederRole("feeder role")
@@ -788,7 +721,6 @@ public class CountryHealthDataServiceTest {
         List<String> resourceLinks = asList("Res 1");
         CountrySummaryDto countrySummaryDetailDto = CountrySummaryDto.builder()
                 .summary("Summary 1")
-                .collectedDate(new Date())
                 .dataFeederEmail("feeder@email.com")
                 .dataFeederName("feeder")
                 .dataFeederRole("feeder role")

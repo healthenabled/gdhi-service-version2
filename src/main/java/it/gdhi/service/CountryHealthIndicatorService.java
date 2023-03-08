@@ -181,13 +181,12 @@ public class CountryHealthIndicatorService {
         CountryPhase countryPhase = iCountryPhaseRepository.findByCountryPhaseIdCountryIdAndCountryPhaseIdYear(countryId, year);
         CountrySummary countrySummary = iCountrySummaryRepository.
                 findByCountrySummaryIdCountryIdAndCountrySummaryIdYearAndCountrySummaryIdStatus(countryId, year, PUBLISHED.name());
-        String collectedDateStr = countrySummary != null && countrySummary.getCollectedDate() != null ?
-                new SimpleDateFormat("MMMM yyyy").format(countrySummary.getCollectedDate()) : "";
+        String updatedDateStr = countrySummary != null && countrySummary.getUpdatedAt() != null ?
+                new SimpleDateFormat("MMMM yyyy").format(countrySummary.getUpdatedAt()) : "";
         return new CountryHealthScoreDto(countryId, countryHealthIndicators.getCountryName(),
                 countryHealthIndicators.getCountryAlpha2Code(),
-                categoryDtos, countryPhase != null ? countryPhase.getCountryOverallPhase() : null, collectedDateStr);
+                categoryDtos, countryPhase != null ? countryPhase.getCountryOverallPhase() : null, updatedDateStr);
     }
-
 
     private List<CategoryHealthScoreDto> getCategoriesWithIndicators(CountryHealthIndicators countryHealthIndicators,
                                                                      Predicate<? super CategoryHealthScoreDto>

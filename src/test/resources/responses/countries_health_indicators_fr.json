@@ -85,7 +85,7 @@
         }
       ],
       "countryPhase": 2,
-      "collectedDate": "April 2018"
+      "updatedDate": "March 2023"
     },
     {
       "countryId": "PAK",
@@ -172,7 +172,7 @@
         }
       ],
       "countryPhase": null,
-      "collectedDate": "April 2018"
+      "updatedDate": "March 2023"
     },
     {
       "countryId": "GBR",
@@ -259,7 +259,7 @@
         }
       ],
       "countryPhase": 4,
-      "collectedDate": "April 2018"
+      "updatedDate": "March 2023"
     }
   ]
 }

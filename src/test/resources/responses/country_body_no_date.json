@@ -16,7 +16,6 @@
     "dataApproverName": "coll name",
     "dataApproverRole": "coll role",
     "dataApproverEmail": "coll email",
-    "collectedDate": "",
     "resources": [
       "link1",
       "link2"

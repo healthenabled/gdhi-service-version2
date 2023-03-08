@@ -43,8 +43,6 @@ public class ScoreAggregationIntegrationTest extends BaseIntegrationTest {
 
     private void addCountrySummary(String countryId, String countryName, String alpha2code, String year) throws Exception {
         String status = "PUBLISHED";
-        SimpleDateFormat fmt = new SimpleDateFormat("dd-MM-yyyy");
-        Date date = fmt.parse("04-04-2018");
         CountrySummary countrySummary = CountrySummary.builder()
                 .countrySummaryId(new CountrySummaryId(countryId, status, year))
                 .summary("summary")
@@ -60,7 +58,6 @@ public class ScoreAggregationIntegrationTest extends BaseIntegrationTest {
                 .dataApproverRole("coll role")
                 .dataFeederRole("coll role")
                 .dataApproverEmail("coll email")
-                .collectedDate(date)
                 .countryResourceLinks(new ArrayList<>())
                 .build();
         countrySummaryRepository.save(countrySummary);

@@ -113,7 +113,6 @@ public class CountryServiceTest {
                 .dataApproverName("coll name")
                 .dataApproverRole("coll role")
                 .dataApproverEmail("coll email")
-                .collectedDate(new Date())
                 .countryResourceLinks(countryResourceLinks)
                 .build();
         when(iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdYearAndCountrySummaryIdStatus(countryId, year, status)).thenReturn(countrySummary);
@@ -131,7 +130,6 @@ public class CountryServiceTest {
         assertThat(countrySummaryDto.getDataApproverName(), is(countrySummary.getDataApproverName()));
         assertThat(countrySummaryDto.getDataApproverRole(), is(countrySummary.getDataApproverRole()));
         assertThat(countrySummaryDto.getDataApproverEmail(), is(countrySummary.getDataApproverEmail()));
-        assertThat(countrySummaryDto.getCollectedDate(), is(countrySummary.getCollectedDate()));
         assertThat(countrySummaryDto.getSummary(), is(summary));
         assertThat(countrySummaryDto.getResources(), Matchers.containsInAnyOrder(link1, link2));
     }
@@ -166,7 +164,6 @@ public class CountryServiceTest {
                 .dataApproverName("collector name")
                 .dataApproverRole("collector role")
                 .dataApproverRole("collector email")
-                .collectedDate(new Date())
                 .countryResourceLinks(asList(new CountryResourceLink(new CountryResourceLinkId(countryId, "link",
                         statusValue, year), new Date(), null)))
                 .build();
@@ -213,7 +210,6 @@ public class CountryServiceTest {
                 .dataApproverName("collector name")
                 .dataApproverRole("collector role")
                 .dataApproverRole("collector email")
-                .collectedDate(new Date())
                 .countryResourceLinks(asList(new CountryResourceLink(new CountryResourceLinkId(countryIdInd, "link",
                         statusValueInd, year), new Date(), null)))
                 .build();
@@ -235,7 +231,6 @@ public class CountryServiceTest {
                 .dataApproverName("collector name")
                 .dataApproverRole("collector role")
                 .dataApproverRole("collector email")
-                .collectedDate(new Date())
                 .countryResourceLinks(asList(new CountryResourceLink(new CountryResourceLinkId(countryIdInd, "link",
                         statusValueInd, year), new Date(), null)))
                 .build();
@@ -270,7 +265,7 @@ public class CountryServiceTest {
         UUID countryUUID = randomUUID();
         String indiaAlpha2Code = "IN";
         Country country = new Country(countryId, "India", countryUUID, indiaAlpha2Code);
-        Date collectedDate = new Date();
+        Date createdDate = new Date();
         String year = getCurrentYear();
         CountrySummary countrySummary = CountrySummary.builder()
                 .countrySummaryId(new CountrySummaryId(countryId, statusValue, year))
@@ -286,9 +281,8 @@ public class CountryServiceTest {
                 .dataApproverName("collector name")
                 .dataApproverRole("collector role")
                 .dataApproverRole("collector email")
-                .collectedDate(collectedDate)
                 .countryResourceLinks(asList(new CountryResourceLink(new CountryResourceLinkId(countryId, "link",
-                        statusValue, year), collectedDate, null)))
+                        statusValue, year), createdDate, null)))
                 .build();
 
         when(iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdYear(countryId, year)).thenReturn(Collections.singletonList(countrySummary));
@@ -323,9 +317,8 @@ public class CountryServiceTest {
                 .dataApproverName("collector name")
                 .dataApproverRole("collector role")
                 .dataApproverRole("collector email")
-                .collectedDate(collectedDate)
                 .countryResourceLinks(asList(new CountryResourceLink(new CountryResourceLinkId(countryId, "link",
-                        statusValue, year), collectedDate, null)))
+                        statusValue, year), createdDate, null)))
                 .build();
         assertSummary(expectedCountrySummary, details.getCountrySummary());
         assertIndicators(countryHealthIndicators, details.getHealthIndicators());
@@ -389,7 +382,6 @@ public class CountryServiceTest {
         assertEquals(expectedCountrySummary.getDataFeederEmail(), actualCountrySummary.getDataFeederEmail());
         assertEquals(expectedCountrySummary.getDataApproverName(), actualCountrySummary.getDataApproverName());
         assertEquals(expectedCountrySummary.getDataApproverEmail(), actualCountrySummary.getDataApproverEmail());
-        assertEquals(expectedCountrySummary.getCollectedDate(), actualCountrySummary.getCollectedDate());
         assertEquals(expectedCountrySummary.getCountryResourceLinks().stream().map(CountryResourceLink::getLink).collect(Collectors.toList()),
                 actualCountrySummary.getResources());
     }

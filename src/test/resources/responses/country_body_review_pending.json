@@ -17,8 +17,7 @@
     "dataApproverRole": "coll role new",
     "dataApproverEmail": "coll email new",
     "govtApproved": true,
-    "collectedDate": "10-02-2015",
-    "resources": [
+     "resources": [
       "www.example.com"
     ]
   },

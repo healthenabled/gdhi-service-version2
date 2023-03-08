@@ -24,7 +24,7 @@ public class CountryHealthScoreDto {
 
     private Integer countryPhase;
 
-    private String collectedDate;
+    private String updatedDate;
 
     @JsonIgnore
     public boolean hasCategories() {
@@ -32,6 +32,6 @@ public class CountryHealthScoreDto {
     }
 
     public void translateCountryName(String translatedCountryName) {
-        if(isNonNullAndNonEmpty(translatedCountryName)) this.countryName = translatedCountryName;
+        if (isNonNullAndNonEmpty(translatedCountryName)) this.countryName = translatedCountryName;
     }
 }
