@@ -99,7 +99,7 @@ public class CountryHealthDataService {
 
         if (isNull(currentStatus)) {
             CountrySummary countrySummary = new CountrySummary(new CountrySummaryId(countryId, NEW.toString(), currentYear),
-                    new CountrySummaryDto());
+                    new CountrySummaryDto(false));
             iCountrySummaryRepository.save(countrySummary);
             statusDto = new CountryUrlGenerationStatusDto(countryId, true, null);
         } else {
