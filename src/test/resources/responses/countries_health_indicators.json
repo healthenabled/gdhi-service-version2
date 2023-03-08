@@ -7,7 +7,7 @@
       "categories": [
         {
           "id": 1,
-          "name": "Leadership and Governance",
+          "name": "Leadership & Governance",
           "overallScore": 1.5,
           "phase": 2,
           "indicators": [
@@ -33,7 +33,7 @@
         },
         {
           "id": 2,
-          "name": "Strategy and Investment",
+          "name": "Strategy & Investment",
           "overallScore": 2.0,
           "phase": 2,
           "indicators": [
@@ -59,7 +59,7 @@
         },
         {
           "id": 3,
-          "name": "Legislation, Policy, and Compliance",
+          "name": "Legislation, Policy, & Compliance",
           "overallScore": 1.0,
           "phase": 1,
           "indicators": [
@@ -94,7 +94,7 @@
       "categories": [
         {
           "id": 1,
-          "name": "Leadership and Governance",
+          "name": "Leadership & Governance",
           "overallScore": 1.0,
           "phase": 1,
           "indicators": [
@@ -120,7 +120,7 @@
         },
         {
           "id": 2,
-          "name": "Strategy and Investment",
+          "name": "Strategy & Investment",
           "overallScore": 1.0,
           "phase": 1,
           "indicators": [
@@ -146,7 +146,7 @@
         },
         {
           "id": 3,
-          "name": "Legislation, Policy, and Compliance",
+          "name": "Legislation, Policy, & Compliance",
           "overallScore": 1.0,
           "phase": 1,
           "indicators": [
@@ -181,7 +181,7 @@
       "categories": [
         {
           "id": 1,
-          "name": "Leadership and Governance",
+          "name": "Leadership & Governance",
           "overallScore": 4.5,
           "phase": 5,
           "indicators": [
@@ -207,7 +207,7 @@
         },
         {
           "id": 2,
-          "name": "Strategy and Investment",
+          "name": "Strategy & Investment",
           "overallScore": 2.0,
           "phase": 2,
           "indicators": [
@@ -233,7 +233,7 @@
         },
         {
           "id": 3,
-          "name": "Legislation, Policy, and Compliance",
+          "name": "Legislation, Policy, & Compliance",
           "overallScore": 1.0,
           "phase": 1,
           "indicators": [
