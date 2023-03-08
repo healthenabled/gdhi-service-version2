@@ -839,7 +839,6 @@ public class CountryHealthDataServiceTest {
 
     }
 
-
     @Test
     public void shouldReturnFalseIfIndicatorDataIsInvalid() {
         String countryId = "AUS";
