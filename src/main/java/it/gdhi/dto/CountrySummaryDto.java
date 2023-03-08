@@ -69,6 +69,10 @@ public class CountrySummaryDto {
         this.resources = transformResourceLinks(countrySummary);
     }
 
+    public CountrySummaryDto(boolean govtApproved) {
+        this.govtApproved = govtApproved;
+    }
+
     private List<String> transformResourceLinks(CountrySummary countrySummary) {
         return Optional.ofNullable(countrySummary.getCountryResourceLinks())
                 .map(list -> list.stream().map(CountryResourceLink::getLink).collect(toList()))

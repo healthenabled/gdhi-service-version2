@@ -268,13 +268,16 @@ public class CountryHealthDataService {
                 && StringUtils.hasText(countrySummary.getContactName())
                 && StringUtils.hasText(countrySummary.getContactOrganization())
                 && StringUtils.hasText(countrySummary.getCountryName())
-                && StringUtils.hasText(countrySummary.getDataApproverEmail())
-                && StringUtils.hasText(countrySummary.getDataApproverName())
-                && StringUtils.hasText(countrySummary.getDataApproverRole())
+                && verifyApproverData(countrySummary)
                 && StringUtils.hasText(countrySummary.getDataFeederEmail())
                 && StringUtils.hasText(countrySummary.getDataFeederName())
                 && StringUtils.hasText(countrySummary.getDataFeederRole())
                 && StringUtils.hasText(countrySummary.getSummary());
+    }
+
+    private boolean verifyApproverData(CountrySummaryDto countrySummary) {
+        return (countrySummary.getGovtApproved()) ? StringUtils.hasText(countrySummary.getDataApproverEmail()) && StringUtils.hasText(countrySummary.getDataApproverName()) && StringUtils.hasText(countrySummary.getDataApproverRole()) :
+                !StringUtils.hasText(countrySummary.getDataApproverEmail()) && !StringUtils.hasText(countrySummary.getDataApproverName()) && !StringUtils.hasText(countrySummary.getDataApproverRole());
     }
 
     private boolean verifyDateRange(Date collectedDate) {
