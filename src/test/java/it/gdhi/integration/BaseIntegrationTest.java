@@ -11,6 +11,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.jdbc.JdbcTestUtils;
 
 import javax.sql.DataSource;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -35,8 +36,8 @@ public class BaseIntegrationTest {
     @AfterEach
     public void tearDown() throws Exception {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-        JdbcTestUtils.deleteFromTables(jdbcTemplate,"country_health_data.health_indicators",
-                "country_health_data.country_resource_links","country_health_data.country_summary","country_health_data.country_phase");
+        JdbcTestUtils.deleteFromTables(jdbcTemplate, "country_health_data.health_indicators",
+                "country_health_data.country_resource_links", "country_health_data.country_summary", "country_health_data.country_phase");
     }
 
     ObjectMapper getMapper() {
@@ -47,9 +48,9 @@ public class BaseIntegrationTest {
         return new String(Files.readAllBytes(Paths.get(getClass().getClassLoader().getResource("responses/" + fileName).getFile())));
     }
 
-    void setupHealthIndicatorsForCountry(String countryId, List<HealthIndicatorDto> healthIndicatorDtos) {
+    void setupHealthIndicatorsForCountry(String countryId, List<HealthIndicatorDto> healthIndicatorDtos, String year) {
         healthIndicatorDtos.forEach(healthIndicator -> {
-            CountryHealthIndicatorId countryHealthIndicatorId1 = new CountryHealthIndicatorId(countryId,healthIndicator.getCategoryId(),healthIndicator.getIndicatorId(),healthIndicator.getStatus());
+            CountryHealthIndicatorId countryHealthIndicatorId1 = new CountryHealthIndicatorId(countryId, healthIndicator.getCategoryId(), healthIndicator.getIndicatorId(), healthIndicator.getStatus(), year);
             CountryHealthIndicator countryHealthIndicatorSetupData1 = new CountryHealthIndicator(countryHealthIndicatorId1, healthIndicator.getScore(), healthIndicator.getSupportingText());
             healthIndicatorRepository.save(countryHealthIndicatorSetupData1);
         });

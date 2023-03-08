@@ -1,12 +1,26 @@
 package it.gdhi.service;
 
+import java.time.Year;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
+import java.util.UUID;
+import java.util.stream.Collectors;
+
 import com.google.common.collect.ImmutableList;
 import it.gdhi.dto.CountrySummaryDto;
 import it.gdhi.dto.GdhiQuestionnaire;
 import it.gdhi.dto.HealthIndicatorDto;
 import it.gdhi.internationalization.service.CountryNameTranslator;
-import it.gdhi.model.*;
+import it.gdhi.model.Country;
+import it.gdhi.model.CountryHealthIndicator;
+import it.gdhi.model.CountryPhase;
+import it.gdhi.model.CountryResourceLink;
+import it.gdhi.model.CountrySummary;
+import it.gdhi.model.Indicator;
 import it.gdhi.model.id.CountryHealthIndicatorId;
+import it.gdhi.model.id.CountryPhaseId;
 import it.gdhi.model.id.CountryResourceLinkId;
 import it.gdhi.model.id.CountrySummaryId;
 import it.gdhi.repository.ICountryHealthIndicatorRepository;
@@ -23,9 +37,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
 
-import java.util.*;
-import java.util.stream.Collectors;
-
+import static it.gdhi.utils.FormStatus.PUBLISHED;
 import static it.gdhi.utils.LanguageCode.ar;
 import static it.gdhi.utils.LanguageCode.en;
 import static java.util.Arrays.asList;
@@ -72,7 +84,7 @@ public class CountryServiceTest {
     }
 
     @Test
-    public void shouldReturnCountrySummaryDetails() {
+    public void shouldReturnCountrySummaryDetailsForAGivenYear() {
         String countryId = "ARG";
         String summary = "Summary";
         String contactName = "Contact Name";
@@ -81,13 +93,14 @@ public class CountryServiceTest {
         String link1 = "Link 1";
         String link2 = "Link 2";
         String status = "PUBLISHED";
+        String year = "Version1";
         CountryResourceLink countryResourceLink1 = new CountryResourceLink(new CountryResourceLinkId("ARG", link1,
-                status), new Date(), null);
+                status, year), new Date(), null);
         CountryResourceLink countryResourceLink2 = new CountryResourceLink(new CountryResourceLinkId("ARG", link2,
-                status), new Date(), null);
+                status, year), new Date(), null);
         List<CountryResourceLink> countryResourceLinks = asList(countryResourceLink1, countryResourceLink2);
         CountrySummary countrySummary = CountrySummary.builder()
-                .countrySummaryId(new CountrySummaryId(countryId, status))
+                .countrySummaryId(new CountrySummaryId(countryId, status, year))
                 .summary(summary)
                 .country(new Country(countryId, "Argentina", randomUUID(), "AR"))
                 .contactName(contactName)
@@ -103,9 +116,9 @@ public class CountryServiceTest {
                 .collectedDate(new Date())
                 .countryResourceLinks(countryResourceLinks)
                 .build();
-        when(iCountrySummaryRepository.findByCountryAndStatus(countryId, status)).thenReturn(countrySummary);
+        when(iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdYearAndCountrySummaryIdStatus(countryId, year, status)).thenReturn(countrySummary);
 
-        CountrySummaryDto countrySummaryDto = countryService.fetchCountrySummary(countryId);
+        CountrySummaryDto countrySummaryDto = countryService.fetchCountrySummary(countryId, year);
 
         assertThat(countrySummaryDto.getCountryId(), is(countryId));
         assertThat(countrySummaryDto.getContactName(), is(contactName));
@@ -124,21 +137,23 @@ public class CountryServiceTest {
     }
 
     @Test
-    public void shouldReturnEmptyCountrySummaryObjectWhenNoCountrySummaryPresent() {
+    public void shouldReturnEmptyCountrySummaryObjectWhenNoCountrySummaryPresentForAGivenYear() {
         String countryId = "ARG";
-        when(iCountrySummaryRepository.findOne(countryId)).thenReturn(null);
-        CountrySummaryDto countrySummaryDto = countryService.fetchCountrySummary(countryId);
+        String year = "Version1";
+        when(iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdYearAndCountrySummaryIdStatus(countryId, year, PUBLISHED.name())).thenReturn(null);
+        CountrySummaryDto countrySummaryDto = countryService.fetchCountrySummary(countryId, year);
         assertNull(countrySummaryDto.getCountryId());
     }
 
     @Test
-    public void shouldGetGlobalHealthScoreDto() throws Exception {
+    public void shouldGetGlobalHealthScoreDtoForCurrentYear() throws Exception {
         String countryId = "IND";
         String statusValue = "PUBLISHED";
         UUID countryUUID = randomUUID();
+        String year = getCurrentYear();
         Country country = new Country(countryId, "India", countryUUID, "IN");
         CountrySummary countrySummary = CountrySummary.builder()
-                .countrySummaryId(new CountrySummaryId(countryId, statusValue))
+                .countrySummaryId(new CountrySummaryId(countryId, statusValue, year))
                 .country(country)
                 .summary("summary")
                 .contactName("contactName")
@@ -153,37 +168,39 @@ public class CountryServiceTest {
                 .dataApproverRole("collector email")
                 .collectedDate(new Date())
                 .countryResourceLinks(asList(new CountryResourceLink(new CountryResourceLinkId(countryId, "link",
-                        statusValue), new Date(), null)))
+                        statusValue, year), new Date(), null)))
                 .build();
 
-        when(iCountrySummaryRepository.findAll(countryId)).thenReturn(asList(countrySummary));
+        when(iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdYearAndCountrySummaryIdStatusNot(countryId, year, statusValue)).thenReturn(countrySummary);
         when(countryDetailRepository.findByUniqueId(countryUUID)).thenReturn(country);
         CountryHealthIndicator indicator1 = CountryHealthIndicator.builder()
-                .countryHealthIndicatorId(new CountryHealthIndicatorId(countryId, 1, 2, statusValue))
+                .countryHealthIndicatorId(new CountryHealthIndicatorId(countryId, 1, 2, statusValue, year))
                 .indicator(new Indicator(2, "Some indicator", "some code", 1, null, new ArrayList<>(), "some def"))
                 .score(5)
                 .build();
         CountryHealthIndicator indicator2 = CountryHealthIndicator.builder()
-                .countryHealthIndicatorId(new CountryHealthIndicatorId(countryId, 2, 3, statusValue))
+                .countryHealthIndicatorId(new CountryHealthIndicatorId(countryId, 2, 3, statusValue, year))
                 .indicator(new Indicator(3, "Some indicator", "some code", 2, null, new ArrayList<>(), "some def"))
                 .score(4)
                 .build();
         List<CountryHealthIndicator> countryHealthIndicators = asList(indicator1, indicator2);
-        when(iCountryHealthIndicatorRepository.findByCountryIdAndStatus(countryId, statusValue)).thenReturn(countryHealthIndicators);
+        when(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdYearAndCountryHealthIndicatorIdStatus(countryId, year, statusValue)).thenReturn(countryHealthIndicators);
 
-        GdhiQuestionnaire details = countryService.getDetails(countryUUID, LanguageCode.en, false);
+        GdhiQuestionnaire details = countryService.getDetails(countryUUID, LanguageCode.en, false, year);
 
         assertSummary(countrySummary, details.getCountrySummary());
         assertIndicators(countryHealthIndicators, details.getHealthIndicators());
     }
+
     @Test
-    public void shouldGetGlobalHealthScoreDtoForNotPublished() throws Exception {
+    public void shouldGetGlobalHealthScoreDtoForNotPublishedForCurrentYear() throws Exception {
         String countryIdInd = "IND";
         String statusValueInd = "REVIEW_PENDING";
         UUID countryUUIDInd = randomUUID();
+        String year = getCurrentYear();
         Country countryInd = new Country(countryIdInd, "India", countryUUIDInd, "IN");
         CountrySummary countrySummaryInd = CountrySummary.builder()
-                .countrySummaryId(new CountrySummaryId(countryIdInd, statusValueInd))
+                .countrySummaryId(new CountrySummaryId(countryIdInd, statusValueInd, year))
                 .country(countryInd)
                 .summary("summary")
                 .contactName("contactName")
@@ -198,14 +215,14 @@ public class CountryServiceTest {
                 .dataApproverRole("collector email")
                 .collectedDate(new Date())
                 .countryResourceLinks(asList(new CountryResourceLink(new CountryResourceLinkId(countryIdInd, "link",
-                        statusValueInd), new Date(), null)))
+                        statusValueInd, year), new Date(), null)))
                 .build();
         String countryIdArg = "ARG";
         String statusValueArg = "REVIEW_PENDING";
         UUID countryUUIDArg = randomUUID();
         Country countryArg = new Country(countryIdArg, "Argentina", countryUUIDArg, "Arg");
         CountrySummary countrySummaryArg = CountrySummary.builder()
-                .countrySummaryId(new CountrySummaryId(countryIdArg, statusValueArg))
+                .countrySummaryId(new CountrySummaryId(countryIdArg, statusValueArg, year))
                 .country(countryArg)
                 .summary("summary")
                 .contactName("contactName")
@@ -220,26 +237,26 @@ public class CountryServiceTest {
                 .dataApproverRole("collector email")
                 .collectedDate(new Date())
                 .countryResourceLinks(asList(new CountryResourceLink(new CountryResourceLinkId(countryIdInd, "link",
-                        statusValueInd), new Date(), null)))
+                        statusValueInd, year), new Date(), null)))
                 .build();
 
-        when(iCountrySummaryRepository.findAll(countryIdInd)).thenReturn(asList(countrySummaryInd,countrySummaryArg));
-        when(iCountrySummaryRepository.findByCountryAndStatus(countryIdInd, statusValueInd)).thenReturn(countrySummaryInd);
+        when(iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdYearAndCountrySummaryIdStatusNot(countryIdInd, year, "PUBLISHED")).thenReturn(countrySummaryInd);
+        when(iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdYearAndCountrySummaryIdStatus(countryIdArg, year, statusValueInd)).thenReturn(countrySummaryArg);
         when(countryDetailRepository.findByUniqueId(countryUUIDInd)).thenReturn(countryInd);
         CountryHealthIndicator indicator1 = CountryHealthIndicator.builder()
-                .countryHealthIndicatorId(new CountryHealthIndicatorId(countryIdInd, 1, 2, statusValueInd))
+                .countryHealthIndicatorId(new CountryHealthIndicatorId(countryIdInd, 1, 2, statusValueInd, year))
                 .indicator(new Indicator(2, "Some indicator", "some code", 1, null, new ArrayList<>(), "some def"))
                 .score(5)
                 .build();
         CountryHealthIndicator indicator2 = CountryHealthIndicator.builder()
-                .countryHealthIndicatorId(new CountryHealthIndicatorId(countryIdInd, 2, 3, statusValueInd))
+                .countryHealthIndicatorId(new CountryHealthIndicatorId(countryIdInd, 2, 3, statusValueInd, year))
                 .indicator(new Indicator(3, "Some indicator", "some code", 2, null, new ArrayList<>(), "some def"))
                 .score(4)
                 .build();
         List<CountryHealthIndicator> countryHealthIndicators = asList(indicator1, indicator2);
-        when(iCountryHealthIndicatorRepository.findByCountryIdAndStatus(countryIdInd, statusValueInd)).thenReturn(countryHealthIndicators);
+        when(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdYearAndCountryHealthIndicatorIdStatus(countryIdInd, year, statusValueInd)).thenReturn(countryHealthIndicators);
 
-        GdhiQuestionnaire details = countryService.getDetails(countryUUIDInd, LanguageCode.en, false);
+        GdhiQuestionnaire details = countryService.getDetails(countryUUIDInd, LanguageCode.en, false, year);
 
         assertSummary(countrySummaryInd, details.getCountrySummary());
         assertIndicators(countryHealthIndicators, details.getHealthIndicators());
@@ -254,8 +271,9 @@ public class CountryServiceTest {
         String indiaAlpha2Code = "IN";
         Country country = new Country(countryId, "India", countryUUID, indiaAlpha2Code);
         Date collectedDate = new Date();
+        String year = getCurrentYear();
         CountrySummary countrySummary = CountrySummary.builder()
-                .countrySummaryId(new CountrySummaryId(countryId, statusValue))
+                .countrySummaryId(new CountrySummaryId(countryId, statusValue, year))
                 .country(country)
                 .summary("summary")
                 .contactName("contactName")
@@ -270,29 +288,29 @@ public class CountryServiceTest {
                 .dataApproverRole("collector email")
                 .collectedDate(collectedDate)
                 .countryResourceLinks(asList(new CountryResourceLink(new CountryResourceLinkId(countryId, "link",
-                        statusValue), collectedDate, null)))
+                        statusValue, year), collectedDate, null)))
                 .build();
 
-        when(iCountrySummaryRepository.findAll(countryId)).thenReturn(asList(countrySummary));
+        when(iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdYearAndCountrySummaryIdStatusNot(countryId, year, statusValue)).thenReturn(countrySummary);
         when(translator.getCountryTranslationForLanguage(ar, countryId)).thenReturn(indiaInArabic);
         when(countryDetailRepository.findByUniqueId(countryUUID)).thenReturn(country);
         CountryHealthIndicator indicator1 = CountryHealthIndicator.builder()
-                .countryHealthIndicatorId(new CountryHealthIndicatorId(countryId, 1, 2, statusValue))
+                .countryHealthIndicatorId(new CountryHealthIndicatorId(countryId, 1, 2, statusValue, year))
                 .indicator(new Indicator(2, "Some indicator", "some code", 1, null, new ArrayList<>(), "some def"))
                 .score(5)
                 .build();
         CountryHealthIndicator indicator2 = CountryHealthIndicator.builder()
-                .countryHealthIndicatorId(new CountryHealthIndicatorId(countryId, 2, 3, statusValue))
+                .countryHealthIndicatorId(new CountryHealthIndicatorId(countryId, 2, 3, statusValue, year))
                 .indicator(new Indicator(3, "Some indicator", "some code", 2, null, new ArrayList<>(), "some def"))
                 .score(4)
                 .build();
         List<CountryHealthIndicator> countryHealthIndicators = asList(indicator1, indicator2);
-        when(iCountryHealthIndicatorRepository.findByCountryIdAndStatus(countryId, statusValue)).thenReturn(countryHealthIndicators);
+        when(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdYearAndCountryHealthIndicatorIdStatus(countryId, year, statusValue)).thenReturn(countryHealthIndicators);
 
-        GdhiQuestionnaire details = countryService.getDetails(countryUUID, LanguageCode.ar, false);
+        GdhiQuestionnaire details = countryService.getDetails(countryUUID, LanguageCode.ar, false, year);
 
         CountrySummary expectedCountrySummary = CountrySummary.builder()
-                .countrySummaryId(new CountrySummaryId(countryId, statusValue))
+                .countrySummaryId(new CountrySummaryId(countryId, statusValue, year))
                 .country(new Country(countryId, indiaInArabic, countryUUID, indiaAlpha2Code))
                 .summary("summary")
                 .contactName("contactName")
@@ -307,38 +325,43 @@ public class CountryServiceTest {
                 .dataApproverRole("collector email")
                 .collectedDate(collectedDate)
                 .countryResourceLinks(asList(new CountryResourceLink(new CountryResourceLinkId(countryId, "link",
-                        statusValue), collectedDate, null)))
+                        statusValue, year), collectedDate, null)))
                 .build();
         assertSummary(expectedCountrySummary, details.getCountrySummary());
         assertIndicators(countryHealthIndicators, details.getHealthIndicators());
     }
 
     @Test
-    public void shouldHandleCountriesNotAvailable() throws Exception {
+    public void shouldHandleCountriesNotAvailableForCurrentYear() throws Exception {
         String countryId = "IND";
         UUID countryUUID = randomUUID();
+        String currentYear = getCurrentYear();
         Country country = new Country(countryId, "India", countryUUID, "IN");
 
-        when(iCountrySummaryRepository.findAll(countryId)).thenReturn(null);
+        when(iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdYearAndCountrySummaryIdStatusNot(countryId, currentYear, "PUBLISHED")).thenReturn(null);
 
-        when(iCountryHealthIndicatorRepository.findByCountryIdAndStatus(countryId, null)).thenReturn(Collections.emptyList());
+        when(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdYearAndCountryHealthIndicatorIdStatus(countryId, currentYear, null)).thenReturn(Collections.emptyList());
 
         when(countryDetailRepository.findByUniqueId(countryUUID)).thenReturn(country);
-        GdhiQuestionnaire details = countryService.getDetails(countryUUID, LanguageCode.en, false);
+        GdhiQuestionnaire details = countryService.getDetails(countryUUID, LanguageCode.en, false, currentYear);
 
         assertNull(details);
     }
-    @Test
-    public void shouldGetPublishedCountriesDistinctYears(){
-        CountryPhase countryPhaseInd = CountryPhase.builder().countryId("IND").countryOverallPhase(1).year("Version1").build();
-        CountryPhase countryPhaseAus = CountryPhase.builder().countryId("AUS").countryOverallPhase(2).year("2023").build();
-        CountryPhase countryPhasePak = CountryPhase.builder().countryId("PAK").countryOverallPhase(3).year("2023").build();
 
-        when(iCountryPhaseRepository.findAll()).thenReturn(asList(countryPhasePak,countryPhaseAus,countryPhaseInd));
+    @Test
+    public void shouldGetPublishedCountriesDistinctYears() {
+        CountryPhaseId countryPhaseId1 = new CountryPhaseId("IND", "Version1");
+        CountryPhaseId countryPhaseId2 = new CountryPhaseId("AUS", "2023");
+        CountryPhaseId countryPhaseId3 = new CountryPhaseId("PAK", "2023");
+        CountryPhase countryPhaseInd = CountryPhase.builder().countryPhaseId(countryPhaseId1).countryOverallPhase(1).build();
+        CountryPhase countryPhaseAus = CountryPhase.builder().countryPhaseId(countryPhaseId2).countryOverallPhase(2).build();
+        CountryPhase countryPhasePak = CountryPhase.builder().countryPhaseId(countryPhaseId3).countryOverallPhase(3).build();
+
+        when(iCountryPhaseRepository.findAll()).thenReturn(asList(countryPhasePak, countryPhaseAus, countryPhaseInd));
         List<String> expectedDistinctYears = asList("Version1", "2023");
         List<String> actualDistinctYears = countryService.fetchPublishCountriesDistinctYears();
 
-        assertEquals(expectedDistinctYears,actualDistinctYears);
+        assertEquals(expectedDistinctYears, actualDistinctYears);
     }
 
     private void assertIndicators(List<CountryHealthIndicator> expectedCountryHealthIndicators, List<HealthIndicatorDto> actualHealthIndicators) {
@@ -369,5 +392,11 @@ public class CountryServiceTest {
         assertEquals(expectedCountrySummary.getCollectedDate(), actualCountrySummary.getCollectedDate());
         assertEquals(expectedCountrySummary.getCountryResourceLinks().stream().map(CountryResourceLink::getLink).collect(Collectors.toList()),
                 actualCountrySummary.getResources());
+    }
+
+    public String getCurrentYear() {
+        int currentYear = Year.now().getValue();
+        String year = new String(String.valueOf(currentYear));
+        return year;
     }
 }

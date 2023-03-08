@@ -1,15 +1,18 @@
 package it.gdhi.service;
 
-import it.gdhi.dto.BenchmarkDto;
-import it.gdhi.model.CountryHealthIndicator;
-import it.gdhi.model.Score;
-import it.gdhi.repository.ICountryHealthIndicatorRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+
+import it.gdhi.dto.BenchmarkDto;
+import it.gdhi.model.CountryHealthIndicator;
+import it.gdhi.model.CountryPhase;
+import it.gdhi.model.Score;
+import it.gdhi.repository.ICountryHealthIndicatorRepository;
+import it.gdhi.repository.ICountryPhaseRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import static it.gdhi.utils.FormStatus.PUBLISHED;
 import static java.util.stream.Collectors.averagingInt;
@@ -18,48 +21,49 @@ import static java.util.stream.Collectors.groupingBy;
 @Service
 public class BenchMarkService {
 
-    static final String BENCHMARK_AT_PAR_VALUE="At";
-    static final String BENCHMARK_ABOVE_PAR_VALUE="Above";
-    static final String BENCHMARK_BELOW_PAR_VALUE="Below";
+    static final String BENCHMARK_AT_PAR_VALUE = "At";
+    static final String BENCHMARK_ABOVE_PAR_VALUE = "Above";
+    static final String BENCHMARK_BELOW_PAR_VALUE = "Below";
 
     @Autowired
     private ICountryHealthIndicatorRepository iCountryHealthIndicatorRepository;
 
+    @Autowired
+    private ICountryPhaseRepository iCountryPhaseRepository;
 
-    private Map<Integer, Double> calculateBenchmarkScoresForIndicators(Integer benchmarkType) {
-        List<CountryHealthIndicator> publishedCountryHealthIndicators =
-                iCountryHealthIndicatorRepository.findByStatusAndPhase(PUBLISHED.name(), benchmarkType);
+    private Map<Integer, Double> calculateBenchmarkScoresForIndicators(Integer benchmarkType, String year) {
+        List<CountryHealthIndicator> countryHealthIndicators = iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdStatusAndCountryHealthIndicatorIdYear(PUBLISHED.name(), year);
+        List<CountryHealthIndicator> publishedCountryHealthIndicators = (benchmarkType == -1) ? countryHealthIndicators : countryHealthIndicators.stream().filter(countryHealthIndicator ->
+                validateCountryHealthIndicatorByPhaseAndYear(countryHealthIndicator, benchmarkType, year)).collect(Collectors.toList());
 
-
-        Map<Integer, Double> indicatorBenchmarkScores = publishedCountryHealthIndicators.stream()
-                .map( row -> {
+        return publishedCountryHealthIndicators.stream()
+                .map(row -> {
                     row.convertNotAvailableToPhase1();
                     return row;
                 })
                 .filter(indicator -> indicator.getIndicator().getParentId() == null)
-                .collect(groupingBy(h -> h.getIndicatorId(),
+                .collect(groupingBy(CountryHealthIndicator::getIndicatorId,
                         averagingInt(CountryHealthIndicator::getScore)));
-
-        return indicatorBenchmarkScores;
     }
 
+    private boolean validateCountryHealthIndicatorByPhaseAndYear(CountryHealthIndicator countryHealthIndicator, Integer phase, String year) {
+        CountryPhase countryPhase = iCountryPhaseRepository.findByCountryPhaseIdCountryIdAndCountryPhaseIdYear(countryHealthIndicator.getCountryId(), year);
+        return countryPhase.getCountryOverallPhase().equals(phase);
+    }
 
-    Map<Integer, BenchmarkDto> getBenchmarkFor(String countryId, Integer benchmarkType) {
-        Map<Integer, Double> indicatorBenchmarkScores = calculateBenchmarkScoresForIndicators(benchmarkType);
+    Map<Integer, BenchmarkDto> getBenchmarkFor(String countryId, Integer benchmarkType, String year) {
+        Map<Integer, Double> indicatorBenchmarkScores = calculateBenchmarkScoresForIndicators(benchmarkType, year);
 
         List<CountryHealthIndicator> countryHealthIndicator = iCountryHealthIndicatorRepository
-                .findByCountryIdAndStatus(countryId, PUBLISHED.name());
+                .findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdYearAndCountryHealthIndicatorIdStatus(countryId, year, PUBLISHED.name());
 
-        Map<Integer, BenchmarkDto> benchmarkScoresForCountry = countryHealthIndicator.stream()
+        return countryHealthIndicator.stream()
                 .filter(indicator -> (indicator.isScoreValid() &&
                         indicatorBenchmarkScores.containsKey(indicator.getIndicatorId())
                         && indicator.getIndicator().getParentId() == null))
                 .collect(Collectors.toMap(CountryHealthIndicator::getIndicatorId,
                         indicator -> constructBenchMarkDto(indicator.getScore(),
                                 indicatorBenchmarkScores.get(indicator.getIndicatorId()))));
-
-
-        return benchmarkScoresForCountry;
     }
 
     private BenchmarkDto constructBenchMarkDto(Integer indicatorCountryScore, Double indicatorBenchmarkScore) {

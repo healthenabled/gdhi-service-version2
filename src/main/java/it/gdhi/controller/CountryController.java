@@ -4,10 +4,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 import it.gdhi.dto.*;
 import it.gdhi.model.Country;
 import it.gdhi.model.DevelopmentIndicator;
-import it.gdhi.service.CountryHealthDataService;
-import it.gdhi.service.CountryHealthIndicatorService;
-import it.gdhi.service.CountryService;
-import it.gdhi.service.DevelopmentIndicatorService;
+import it.gdhi.service.*;
 import it.gdhi.utils.LanguageCode;
 import it.gdhi.view.DevelopmentIndicatorView;
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -42,6 +40,9 @@ public class CountryController {
     @Autowired
     private DevelopmentIndicatorService developmentIndicatorService;
 
+    @Autowired
+    private DefaultYearDataService defaultYearDataService;
+
     @GetMapping("/countries")
     public List<Country> getCountries(HttpServletRequest request) {
         LanguageCode languageCode = LanguageCode.getValueFor(request.getHeader(USER_LANGUAGE));
@@ -56,14 +57,22 @@ public class CountryController {
 
     @GetMapping("/countries/{id}/health_indicators")
     public CountryHealthScoreDto getHealthIndicatorForGivenCountryCode(HttpServletRequest request,
-                                                                       @PathVariable("id") String countryId) {
+                                                                       @PathVariable("id") String countryId,
+                                                                       @RequestParam(value = "year", required = false) String year) {
         LanguageCode languageCode = LanguageCode.getValueFor(request.getHeader(USER_LANGUAGE));
-        return countryHealthIndicatorService.fetchCountryHealthScore(countryId, languageCode);
+        if (year == null) {
+            year = defaultYearDataService.fetchDefaultYear();
+        }
+        return countryHealthIndicatorService.fetchCountryHealthScore(countryId, languageCode, year);
     }
 
     @GetMapping("/countries/{id}/country_summary")
-    public CountrySummaryDto fetchCountrySummary(@PathVariable("id") String countryId) {
-        return countryService.fetchCountrySummary(countryId);
+    public CountrySummaryDto fetchCountrySummary(@PathVariable("id") String countryId,
+                                                 @RequestParam(value = "year", required = false) String year) {
+        if (year == null) {
+            year = defaultYearDataService.fetchDefaultYear();
+        }
+        return countryService.fetchCountrySummary(countryId, year);
     }
 
     @PostMapping("/countries/save")
@@ -89,13 +98,13 @@ public class CountryController {
         countryHealthDataService.saveCorrection(gdhiQuestionnaire);
     }
 
-    @PostMapping("/countries/publish")
+    @PostMapping("/countries/publish/{year}")
     @ResponseBody
-    public ResponseEntity publishHealthIndicatorsFor(@RequestBody GdhiQuestionnaire gdhiQuestionnaire) {
+    public ResponseEntity publishHealthIndicatorsFor(@RequestBody GdhiQuestionnaire gdhiQuestionnaire, @PathVariable("year") String year) {
         boolean isValid;
         isValid = countryHealthDataService.validateRequiredFields(gdhiQuestionnaire);
         if (isValid) {
-            countryHealthDataService.publish(gdhiQuestionnaire);
+            countryHealthDataService.publish(gdhiQuestionnaire, year);
             return ResponseEntity.status(HttpStatus.CREATED).body(null);
         } else {
             return ResponseEntity.badRequest().body(null);
@@ -104,30 +113,42 @@ public class CountryController {
 
     @GetMapping("/countries/{uuid}")
     public GdhiQuestionnaire getQuestionnaireForCountry(HttpServletRequest request,
-                                                        @PathVariable("uuid") UUID countryUIID) {
+                                                        @PathVariable("uuid") UUID countryUIID,
+                                                        @RequestParam(value = "year", required = false) String year) {
         LanguageCode languageCode = LanguageCode.getValueFor(request.getHeader(USER_LANGUAGE));
-        return countryService.getDetails(countryUIID, languageCode, false);
+        if (year == null) {
+            year = countryHealthDataService.getCurrentYear();
+        }
+        return countryService.getDetails(countryUIID, languageCode, false, year);
     }
 
-    @GetMapping("/countries/viewPublish/{uuid}")
+    @GetMapping("/countries/viewPublish/{uuid}/{year}")
     public GdhiQuestionnaire getQuestionnaireForPublishedCountry(HttpServletRequest request,
-                                                                 @PathVariable("uuid") UUID countryUIID) {
+                                                                 @PathVariable("uuid") UUID countryUIID,
+                                                                 @PathVariable("year") String year) {
         LanguageCode languageCode = LanguageCode.getValueFor(request.getHeader(USER_LANGUAGE));
-        return countryService.getDetails(countryUIID, languageCode, true);
+        return countryService.getDetails(countryUIID, languageCode, true, year);
     }
 
     @GetMapping("/export_global_data")
     public void exportGlobalData(HttpServletRequest request,
-                                 HttpServletResponse response) throws IOException {
-        log.info("Entered export global data end point");
-        countryHealthIndicatorService.createGlobalHealthIndicatorInExcel(request, response);
+                                 HttpServletResponse response,
+                                 @RequestParam(value = "year", required = false) String year) throws IOException {
+        if (year == null) {
+            year = defaultYearDataService.fetchDefaultYear();
+        }
+        countryHealthIndicatorService.createGlobalHealthIndicatorInExcel(request, response, year);
     }
 
     @GetMapping("/export_country_data/{id}")
     public void exportCountryDetails(HttpServletRequest request,
                                      HttpServletResponse response,
-                                     @PathVariable("id") String countryId) throws IOException {
-        countryHealthIndicatorService.createHealthIndicatorInExcelFor(countryId, request, response);
+                                     @PathVariable("id") String countryId,
+                                     @RequestParam(value = "year", required = false) String year) throws IOException {
+        if (year == null) {
+            year = defaultYearDataService.fetchDefaultYear();
+        }
+        countryHealthIndicatorService.createHealthIndicatorInExcelFor(countryId, request, response, year);
     }
 
     //TODO: add integration test for this endpoint
@@ -137,25 +158,32 @@ public class CountryController {
         return countryHealthDataService.saveNewCountrySummary(countryUIID);
     }
 
-    @DeleteMapping("/countries/{uuid}/delete")
-    public void deleteCountryData(@PathVariable("uuid") UUID countryUIID) throws Exception {
-        countryHealthDataService.deleteCountryData(countryUIID);
+    @DeleteMapping("/countries/{uuid}/delete/{year}")
+    public void deleteCountryData(@PathVariable("uuid") UUID countryUIID, @PathVariable("year") String year) throws Exception {
+        countryHealthDataService.deleteCountryData(countryUIID, year);
     }
 
     @GetMapping("/countries/country_status_summaries")
-    public Map<String, List<CountrySummaryStatusDto>> getAllCountryStatusSummaries() {
+    public CountrySummaryStatusYearDto getAllCountryStatusSummaries() {
         return countryHealthDataService.getAllCountryStatusSummaries();
     }
 
     @GetMapping("/countries/{id}/benchmark/{type}")
     public Map<Integer, BenchmarkDto> getBenchmarkDetailsFor(@PathVariable("id") String countryId,
-                                                             @PathVariable("type") Integer benchmarkType) {
-        return countryHealthDataService.getBenchmarkDetailsFor(countryId, benchmarkType);
+                                                             @PathVariable("type") Integer benchmarkType,
+                                                             @RequestParam(value = "year", required = false) String year) {
+        if (year == null) {
+            year = defaultYearDataService.fetchDefaultYear();
+        }
+        return countryHealthDataService.getBenchmarkDetailsFor(countryId, benchmarkType, year);
     }
 
     @GetMapping("/admin/countries/calculate_phase")
-    public void calculateCountryPhase() {
-        countryHealthDataService.calculatePhaseForAllCountries();
+    public void calculateCountryPhase(@RequestParam(value = "year", required = false) String year) {
+        if (year == null) {
+            year = countryHealthDataService.getCurrentYear();
+        }
+        countryHealthDataService.calculatePhaseForAllCountries(year);
     }
 
     @ResponseStatus(value = HttpStatus.NOT_ACCEPTABLE, reason = "User language requested not found")

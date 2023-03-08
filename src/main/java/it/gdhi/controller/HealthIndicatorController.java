@@ -3,6 +3,7 @@ package it.gdhi.controller;
 import it.gdhi.dto.CountriesHealthScoreDto;
 import it.gdhi.dto.GlobalHealthScoreDto;
 import it.gdhi.service.CountryHealthIndicatorService;
+import it.gdhi.service.DefaultYearDataService;
 import it.gdhi.utils.LanguageCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,22 +22,33 @@ public class HealthIndicatorController {
     @Autowired
     private CountryHealthIndicatorService countryHealthIndicatorService;
 
+    @Autowired
+    private DefaultYearDataService defaultYearDataService;
+
     @GetMapping("/global_health_indicators")
     public GlobalHealthScoreDto getGlobalHealthIndicator(
-                                            HttpServletRequest request,
-                                            @RequestParam(value = "categoryId", required = false) Integer categoryId,
-                                            @RequestParam(value = "phase", required = false) Integer score) {
+            HttpServletRequest request,
+            @RequestParam(value = "categoryId", required = false) Integer categoryId,
+            @RequestParam(value = "phase", required = false) Integer score,
+            @RequestParam(value = "year", required = false) String year) {
         LanguageCode languageCode = getLanguageCode(request);
-        return countryHealthIndicatorService.getGlobalHealthIndicator(categoryId, score, languageCode);
+        if (year == null) {
+            year = defaultYearDataService.fetchDefaultYear();
+        }
+        return countryHealthIndicatorService.getGlobalHealthIndicator(categoryId, score, languageCode, year);
     }
 
     @GetMapping("/countries_health_indicator_scores")
     public CountriesHealthScoreDto getCountriesHealthIndicatorScores(
-                                            HttpServletRequest request,
-                                            @RequestParam(value = "categoryId", required = false) Integer categoryId,
-                                            @RequestParam(value = "phase", required = false) Integer score) {
+            HttpServletRequest request,
+            @RequestParam(value = "categoryId", required = false) Integer categoryId,
+            @RequestParam(value = "phase", required = false) Integer score,
+            @RequestParam(value = "year", required = false) String year) {
         LanguageCode languageCode = getLanguageCode(request);
-        return countryHealthIndicatorService.fetchCountriesHealthScores(categoryId, score, languageCode);
+        if (year == null) {
+            year = defaultYearDataService.fetchDefaultYear();
+        }
+        return countryHealthIndicatorService.fetchCountriesHealthScores(categoryId, score, languageCode, year);
     }
 
     private LanguageCode getLanguageCode(HttpServletRequest request) {

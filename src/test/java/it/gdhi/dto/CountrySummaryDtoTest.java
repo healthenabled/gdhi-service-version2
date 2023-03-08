@@ -50,9 +50,9 @@ public class CountrySummaryDtoTest {
 
     private CountrySummary getCountrySummaryFor(List<CountryResourceLink> countryResourceLinks) {
         return CountrySummary.builder()
-                    .countrySummaryId(new CountrySummaryId("TUN", "NEW"))
-                    .country(new Country("TUN", "TUNISIA", UUID.randomUUID(), "TN"))
-                    .countryResourceLinks(countryResourceLinks)
-                    .build();
+                .countrySummaryId(new CountrySummaryId("TUN", "NEW", "Version1"))
+                .country(new Country("TUN", "TUNISIA", UUID.randomUUID(), "TN"))
+                .countryResourceLinks(countryResourceLinks)
+                .build();
     }
 }

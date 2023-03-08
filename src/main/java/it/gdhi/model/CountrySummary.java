@@ -7,9 +7,12 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 import org.springframework.util.ObjectUtils;
 
 import javax.persistence.*;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -47,10 +50,11 @@ public class CountrySummary implements Serializable {
     private Date createdAt;
     private Date updatedAt;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL , fetch = FetchType.LAZY)
     @JoinColumns({
-        @JoinColumn(name = "country_id", referencedColumnName = "country_id", insertable = false, updatable = false),
-        @JoinColumn(name = "status", referencedColumnName = "status", insertable = false, updatable = false)
+            @JoinColumn(name = "country_id", referencedColumnName = "country_id", insertable = false, updatable = false),
+            @JoinColumn(name = "status", referencedColumnName = "status", insertable = false, updatable = false),
+            @JoinColumn(name = "year", referencedColumnName = "year", insertable = false, updatable = false)
     })
     private List<CountryResourceLink> countryResourceLinks;
 
@@ -69,17 +73,21 @@ public class CountrySummary implements Serializable {
         this.dataApproverEmail = countrySummaryDetailDto.getDataApproverEmail();
         this.collectedDate = countrySummaryDetailDto.getCollectedDate();
         this.countryResourceLinks = transformToResourceLinks(countrySummaryId.getCountryId(),
-                countrySummaryId.getStatus(), countrySummaryDetailDto);
+                countrySummaryId.getStatus(), countrySummaryDetailDto, countrySummaryId.getYear());
     }
 
     private List<CountryResourceLink> transformToResourceLinks(String countryId,
                                                                String status,
-                                                               CountrySummaryDto countrySummaryDetailDto) {
+                                                               CountrySummaryDto countrySummaryDetailDto, String year) {
         List<String> resourceLinks = countrySummaryDetailDto.getResources();
         return ObjectUtils.isEmpty(resourceLinks) ? null : resourceLinks.stream().map(
-                link ->
-                        new CountryResourceLink(new CountryResourceLinkId(countryId, link, status), new Date(), null))
+                        link ->
+                                new CountryResourceLink(new CountryResourceLinkId(countryId, link, status, year), new Date(), null))
                 .collect(toList());
+    }
+
+    public String getStatus() {
+        return this.countrySummaryId.getStatus();
     }
 
     @PreUpdate

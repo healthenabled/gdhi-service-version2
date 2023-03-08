@@ -12,19 +12,10 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-public class CountryHealthIndicatorId implements Serializable {
+public class CountryPhaseId implements Serializable {
 
     @Column(name = "country_id")
     private String countryId;
-
-    @Column(name = "category_id")
-    private Integer categoryId;
-
-    @Column(name = "indicator_id")
-    private Integer indicatorId;
-
-    @Column(name = "status")
-    private String status;
 
     private String year;
 
