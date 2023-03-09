@@ -28,6 +28,7 @@ jobs:
         with:
           repository: healthenabled/gdhi-automation-version2
           ref: "master"
+          path: gdhi-automation-version2
 
       - name: Run test suite for backend
         run: ls;pwd;
