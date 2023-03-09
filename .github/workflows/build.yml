@@ -20,8 +20,8 @@ jobs:
       - name: grant permissions
         run: chmod +x gradlew
 
-      # - name: Run tests without integration and repository tests
-      #   run: ./gradlew clean build -x bootJar -DincludeIntegrationTestAndRepositoryTest=false -PappVersion=${{ secrets.APPLICATION_VERSION }}
+      - name: Run tests without integration and repository tests
+        run: ./gradlew clean build -x bootJar -DincludeIntegrationTestAndRepositoryTest=false -PappVersion=${{ secrets.APPLICATION_VERSION }}
 
       - name: Check out code from gdhi-automation-version2
         uses: actions/checkout@v3
@@ -35,9 +35,6 @@ jobs:
 
       - name: Install Gauge
         run: curl -SsL https://downloads.gauge.org/stable | sh
-
-      - name: Run test suite for backend
-        run: ls;pwd;
 
       - name: Run test suite for backend
         working-directory: gdhi-automation-version2
