@@ -29,6 +29,9 @@ jobs:
           repository: healthenabled/gdhi-automation-version2
 
       - name: Run test suite for backend
+        run: pwd
+
+      - name: Run test suite for backend
         working-directory: gdhi-automation-version2
         run: ./gradlew clean gauge -Ptags='api'
 
