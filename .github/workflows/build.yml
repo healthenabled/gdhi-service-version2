@@ -29,6 +29,7 @@ jobs:
           repository: healthenabled/gdhi-automation-version2
           token: :${{ secrets.PA_TOKEN }}
           ref: 'master'
+          path: gdhi-automation-version2
 
       - name: Run test suite for backend
         run: ls;pwd;
