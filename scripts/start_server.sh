@@ -21,6 +21,6 @@ then
 fi
 
 echo -n $"Starting $FILE: "
-nohup java -jar $CURRENT_DIR/gdhi-*.jar --spring.config.location=${SPRING_CONFIG_LOCATION} -Dlogback.configurationFile=${LOGBACK_FILE_LOCATION} > /opt/logs/gdhi_stdout.txt 2> ${CURRENT_DIR}/logs/gdhi_stderr.txt < /dev/null &
+nohup java -jar $CURRENT_DIR/gdhi-*.jar --spring.config.location=${SPRING_CONFIG_LOCATION} -Dlogback.configurationFile=${LOGBACK_FILE_LOCATION} > ${CURRENT_DIR}/logs/gdhi_stdout.txt 2> ${CURRENT_DIR}/logs/gdhi_stderr.txt < /dev/null &
 PID="$!"
 echo "Started, pid: $PID"
