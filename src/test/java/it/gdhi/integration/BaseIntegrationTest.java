@@ -67,16 +67,18 @@ public class BaseIntegrationTest {
         String expectedJSON = expectedResponseJson(expectedJsonFileName);
         HashMap actualMap = getMapper().readValue(responseJSON, HashMap.class);
         HashMap expectedMap = getMapper().readValue(expectedJSON, HashMap.class);
+
         for (Object countryHealthScores : actualMap.keySet()) {
             List<Map<String, Object>> listOfCountriesHealthScores = (List<Map<String, Object>>) actualMap.get(countryHealthScores);
             for (Map<String, Object> countryHealthScore : listOfCountriesHealthScores) {
                 countryHealthScore.remove("updatedDate");
             }
         }
-        for (Object a : expectedMap.keySet()) {
-            List<Map<String, Object>> b = (List<Map<String, Object>>) expectedMap.get(a);
-            for (Map<String, Object> c : b) {
-                c.remove("updatedDate");
+
+        for (Object countryHealthScores : expectedMap.keySet()) {
+            List<Map<String, Object>> listOfCountriesHealthScores = (List<Map<String, Object>>) expectedMap.get(countryHealthScores);
+            for (Map<String, Object> countryHealthScore : listOfCountriesHealthScores) {
+                countryHealthScore.remove("updatedDate");
             }
         }
         assertEquals(actualMap, expectedMap);
