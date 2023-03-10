@@ -68,20 +68,19 @@ public class BaseIntegrationTest {
         HashMap actualMap = getMapper().readValue(responseJSON, HashMap.class);
         HashMap expectedMap = getMapper().readValue(expectedJSON, HashMap.class);
 
-        for (Object countryHealthScores : actualMap.keySet()) {
-            List<Map<String, Object>> listOfCountriesHealthScores = (List<Map<String, Object>>) actualMap.get(countryHealthScores);
-            for (Map<String, Object> countryHealthScore : listOfCountriesHealthScores) {
-                countryHealthScore.remove("updatedDate");
-            }
-        }
+        removeUpdatedDateFromMap(actualMap);
+        removeUpdatedDateFromMap(expectedMap);
 
-        for (Object countryHealthScores : expectedMap.keySet()) {
-            List<Map<String, Object>> listOfCountriesHealthScores = (List<Map<String, Object>>) expectedMap.get(countryHealthScores);
+        assertEquals(actualMap, expectedMap);
+    }
+
+    private static void removeUpdatedDateFromMap(HashMap countryHealthScoresMap) {
+        for (Object countryHealthScores : countryHealthScoresMap.keySet()) {
+            List<Map<String, Object>> listOfCountriesHealthScores = (List<Map<String, Object>>) countryHealthScoresMap.get(countryHealthScores);
             for (Map<String, Object> countryHealthScore : listOfCountriesHealthScores) {
                 countryHealthScore.remove("updatedDate");
             }
         }
-        assertEquals(actualMap, expectedMap);
     }
 
     void assertStringResponse(String responseJSON, String expectedJSON) throws IOException {
