@@ -2,6 +2,7 @@ package it.gdhi.integration;
 
 import io.restassured.response.Response;
 import it.gdhi.GdhiServiceApplication;
+import it.gdhi.dto.CountryHealthScoreDto;
 import it.gdhi.dto.HealthIndicatorDto;
 import it.gdhi.model.Country;
 import it.gdhi.model.CountryPhase;
@@ -131,11 +132,17 @@ public class CountryIntegrationTest extends BaseIntegrationTest {
         setupHealthIndicatorsForCountry(countryId, healthIndicatorDtos, year);
         setUpCountryPhase(countryId, 2, year);
 
+        SimpleDateFormat DateFor = new SimpleDateFormat("MMMM yyyy");
+        String expectedUpdatedDate = DateFor.format(new Date());
+
         Response response = given()
                 .contentType("application/json")
                 .header(USER_LANGUAGE, "en")
                 .when()
                 .get("http://localhost:" + port + "/countries/IND/health_indicators?year=" + year);
+
+        CountryHealthScoreDto countryHealthScoreDto = response.getBody().as(CountryHealthScoreDto.class);
+        assertEquals(countryHealthScoreDto.getUpdatedDate(), expectedUpdatedDate);
 
         assertResponse(response.asString(), "health_indicators.json");
     }
@@ -170,11 +177,17 @@ public class CountryIntegrationTest extends BaseIntegrationTest {
         setupHealthIndicatorsForCountry(countryId, healthIndicatorDtos, year);
         setUpCountryPhase(countryId, 2, year);
 
+        SimpleDateFormat DateFor = new SimpleDateFormat("MMMM yyyy");
+        String expectedUpdatedDate = DateFor.format(new Date());
+
         Response response = given()
                 .contentType("application/json")
                 .header(USER_LANGUAGE, "pt")
                 .when()
                 .get("http://localhost:" + port + "/countries/IND/health_indicators?year=" + year);
+
+        CountryHealthScoreDto countryHealthScoreDto = response.getBody().as(CountryHealthScoreDto.class);
+        assertEquals(countryHealthScoreDto.getUpdatedDate(), expectedUpdatedDate);
 
         assertResponse(response.asString(), "health_indicators_pt.json");
     }
@@ -209,11 +222,17 @@ public class CountryIntegrationTest extends BaseIntegrationTest {
         setupHealthIndicatorsForCountry(countryId, healthIndicatorDtos, year);
         setUpCountryPhase(countryId, 2, year);
 
+        SimpleDateFormat DateFor = new SimpleDateFormat("MMMM yyyy");
+        String expectedUpdatedDate = DateFor.format(new Date());
+
         Response response = given()
                 .contentType("application/json")
                 .header(USER_LANGUAGE, "es")
                 .when()
                 .get("http://localhost:" + port + "/countries/IND/health_indicators?year=" + year);
+
+        CountryHealthScoreDto countryHealthScoreDto = response.getBody().as(CountryHealthScoreDto.class);
+        assertEquals(countryHealthScoreDto.getUpdatedDate(), expectedUpdatedDate);
 
         assertResponse(response.asString(), "health_indicators_es.json");
     }
