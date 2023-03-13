@@ -24,7 +24,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import static it.gdhi.utils.FormStatus.PUBLISHED;
-import static java.util.Arrays.asList;
 import static java.util.stream.Collectors.toList;
 
 
@@ -61,7 +60,7 @@ public class CountryService {
 
         GdhiQuestionnaire gdhiQuestionnaire = null;
 
-        List<CountrySummary> countrySummaries = (!publishedOnly) ? getCountrySummariesForNotPublished(year, countryId) : Collections.singletonList(iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdYearAndCountrySummaryIdStatus(countryId, year, PUBLISHED.name()));
+        List<CountrySummary> countrySummaries = (!publishedOnly) ? getCountrySummaries(year, countryId) : Collections.singletonList(iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdYearAndCountrySummaryIdStatus(countryId, year, PUBLISHED.name()));
 
         if (countrySummaries != null) {
             CountrySummary countrySummary = countrySummaries.size() > 1 ? getUnPublishedCountrySummary(countrySummaries) : Optional.ofNullable(countrySummaries.get(0)).get();
@@ -75,8 +74,8 @@ public class CountryService {
         return gdhiQuestionnaire;
     }
 
-    private List<CountrySummary> getCountrySummariesForNotPublished(String year, String countryId) {
-        return (iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdYearAndCountrySummaryIdStatusNot(countryId, year, PUBLISHED.name()) != null) ? Collections.singletonList(iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdYearAndCountrySummaryIdStatusNot(countryId, year, PUBLISHED.name())) : null;
+    private List<CountrySummary> getCountrySummaries(String year, String countryId) {
+        return iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdYear(countryId, year);
     }
 
     private List<CountryHealthIndicator> getCountryHealthIndicators(String countryId, CountrySummary countrySummary, String year) {

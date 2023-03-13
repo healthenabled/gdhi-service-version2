@@ -103,7 +103,7 @@ public class CountryController {
     public ResponseEntity publishHealthIndicatorsFor(@RequestBody GdhiQuestionnaire gdhiQuestionnaire, @PathVariable("year") String year) {
         boolean isValid;
         isValid = countryHealthDataService.validateRequiredFields(gdhiQuestionnaire);
-        if (isValid) {
+        if (isValid && year.equals(countryHealthDataService.getCurrentYear())) {
             countryHealthDataService.publish(gdhiQuestionnaire, year);
             return ResponseEntity.status(HttpStatus.CREATED).body(null);
         } else {

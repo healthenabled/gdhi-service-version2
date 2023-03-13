@@ -35,6 +35,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -138,6 +139,7 @@ public class CountryControllerTest {
         GdhiQuestionnaire mock = mock(GdhiQuestionnaire.class);
         String year = getCurrentYear();
         doNothing().when(countryHealthDataService).publish(mock, year);
+        when(countryHealthDataService.getCurrentYear()).thenReturn(year);
         when(countryHealthDataService.validateRequiredFields(mock)).thenReturn(true);
         countryController.publishHealthIndicatorsFor(mock, year);
         verify(countryHealthDataService).publish(mock, year);
