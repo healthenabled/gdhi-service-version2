@@ -570,6 +570,7 @@ public class CountryIntegrationTest extends BaseIntegrationTest {
                 .dataApproverRole("coll role")
                 .dataFeederRole("coll role")
                 .dataApproverEmail("coll email")
+                .govtApproved(true)
                 .collectedDate(date)
                 .countryResourceLinks(countryResourceLinks)
                 .build();

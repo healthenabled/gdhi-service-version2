@@ -1,6 +1,17 @@
 package it.gdhi.controller;
 
-import it.gdhi.dto.*;
+import java.time.Year;
+import java.util.HashMap;
+import java.util.UUID;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import it.gdhi.dto.CountryHealthScoreDto;
+import it.gdhi.dto.CountrySummaryDto;
+import it.gdhi.dto.CountrySummaryStatusYearDto;
+import it.gdhi.dto.CountryUrlGenerationStatusDto;
+import it.gdhi.dto.GdhiQuestionnaire;
 import it.gdhi.model.DevelopmentIndicator;
 import it.gdhi.service.CountryHealthDataService;
 import it.gdhi.service.CountryHealthIndicatorService;
@@ -12,27 +23,21 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletRequest;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import java.sql.Timestamp;
-import java.time.Year;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.UUID;
 
 import static it.gdhi.utils.FormStatus.DRAFT;
 import static it.gdhi.utils.LanguageCode.en;
 import static it.gdhi.utils.LanguageCode.fr;
 import static java.util.Collections.emptyList;
-import static java.util.Collections.emptyMap;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class CountryControllerTest {
@@ -132,10 +137,20 @@ public class CountryControllerTest {
     public void shouldPublishHealthIndicatorsForCurrentYear() {
         GdhiQuestionnaire mock = mock(GdhiQuestionnaire.class);
         String year = getCurrentYear();
-        doNothing().when(countryHealthDataService).publish(mock , year);
+        doNothing().when(countryHealthDataService).publish(mock, year);
         when(countryHealthDataService.validateRequiredFields(mock)).thenReturn(true);
-        countryController.publishHealthIndicatorsFor(mock , year);
-        verify(countryHealthDataService).publish(mock , year);
+        countryController.publishHealthIndicatorsFor(mock, year);
+        verify(countryHealthDataService).publish(mock, year);
+    }
+
+    @Test
+    public void shouldReturnBadRequestForInvalidIndicators() {
+        GdhiQuestionnaire mock = mock(GdhiQuestionnaire.class);
+        String year = getCurrentYear();
+        when(countryHealthDataService.validateRequiredFields(mock)).thenReturn(false);
+        ResponseEntity expectedResponse = ResponseEntity.badRequest().body(null);
+        ResponseEntity actualResponse = countryController.publishHealthIndicatorsFor(mock, year);
+        assertEquals(expectedResponse, actualResponse);
     }
 
     @Test
@@ -197,11 +212,11 @@ public class CountryControllerTest {
     public void shouldDeleteCountryDataForAGivenYear() throws Exception {
         UUID countryUUID = UUID.randomUUID();
         String currentYear = "2020";
-        doNothing().when(countryHealthDataService).deleteCountryData(countryUUID , currentYear);
+        doNothing().when(countryHealthDataService).deleteCountryData(countryUUID, currentYear);
 
-        countryController.deleteCountryData(countryUUID , currentYear);
+        countryController.deleteCountryData(countryUUID, currentYear);
 
-        verify(countryHealthDataService).deleteCountryData(countryUUID , currentYear);
+        verify(countryHealthDataService).deleteCountryData(countryUUID, currentYear);
     }
 
     @Test

@@ -16,6 +16,7 @@
     "dataApproverName": "coll name",
     "dataApproverRole": "coll role",
     "dataApproverEmail": "coll email",
+    "govtApproved": true,
     "collectedDate": "04-04-2018",
     "resources": [
       "link1",

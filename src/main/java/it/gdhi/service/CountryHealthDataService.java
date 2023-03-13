@@ -99,7 +99,7 @@ public class CountryHealthDataService {
 
         if (isNull(currentStatus)) {
             CountrySummary countrySummary = new CountrySummary(new CountrySummaryId(countryId, NEW.toString(), currentYear),
-                    new CountrySummaryDto());
+                    new CountrySummaryDto(false));
             iCountrySummaryRepository.save(countrySummary);
             statusDto = new CountryUrlGenerationStatusDto(countryId, true, null);
         } else {
@@ -268,13 +268,22 @@ public class CountryHealthDataService {
                 && StringUtils.hasText(countrySummary.getContactName())
                 && StringUtils.hasText(countrySummary.getContactOrganization())
                 && StringUtils.hasText(countrySummary.getCountryName())
-                && StringUtils.hasText(countrySummary.getDataApproverEmail())
-                && StringUtils.hasText(countrySummary.getDataApproverName())
-                && StringUtils.hasText(countrySummary.getDataApproverRole())
+                && hasValidApproverData(countrySummary)
                 && StringUtils.hasText(countrySummary.getDataFeederEmail())
                 && StringUtils.hasText(countrySummary.getDataFeederName())
                 && StringUtils.hasText(countrySummary.getDataFeederRole())
                 && StringUtils.hasText(countrySummary.getSummary());
+    }
+
+    private boolean hasValidApproverData(CountrySummaryDto countrySummary) {
+        return Boolean.TRUE.equals((countrySummary.getGovtApproved())) ?
+                StringUtils.hasText(countrySummary.getDataApproverEmail()) &&
+                        StringUtils.hasText(countrySummary.getDataApproverName()) &&
+                        StringUtils.hasText(countrySummary.getDataApproverRole()) :
+
+                !StringUtils.hasText(countrySummary.getDataApproverEmail()) &&
+                        !StringUtils.hasText(countrySummary.getDataApproverName()) &&
+                        !StringUtils.hasText(countrySummary.getDataApproverRole());
     }
 
     private boolean verifyDateRange(Date collectedDate) {
