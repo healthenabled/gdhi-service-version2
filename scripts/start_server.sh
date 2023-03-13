@@ -12,12 +12,14 @@ fi
 if [ "$DEPLOYMENT_GROUP_NAME" == "GDHI-Backend-v2-Showcase" ]
 then
     source /opt/scripts/export_Showcase_env.sh
-    FILE=`/usr/local/bin/aws ssm get-parameters --name "buildNumberForService" --query "Parameters[0].Value" | tr -d '"'`
+    FILE=`/usr/local/bin/aws ssm get-parameters --name "buildNumberForService" --query "Parameters[0].Value" | tr -d '"'`.jar
+    echo $FILE
 fi
 if [ "$DEPLOYMENT_GROUP_NAME" == "GDHI-Backend-v2-Prod" ]
 then
     source /opt/scripts/export_Prod_env.sh
-    FILE=`/usr/local/bin/aws ssm get-parameters --name "buildNumberForService" --query "Parameters[0].Value" | tr -d '"'`
+    FILE=`/usr/local/bin/aws ssm get-parameters --name "buildNumberForService" --query "Parameters[0].Value" | tr -d '"'`.jar
+    echo $FILE
 fi
 
 /usr/local/bin/aws s3 cp "s3://$AWS_S3_BUCKET_NAME/$FILE" $CURRENT_DIR/
