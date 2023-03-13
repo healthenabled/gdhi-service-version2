@@ -312,7 +312,7 @@ public class CountryHealthDataServiceTest {
     }
 
     @Test
-    public void shouldReturnTrueIfGovtApprovedIsTrueAndAllFieldsAreValid() {
+    public void shouldReturnTrueWhenGovtApprovedIsTrueAndAllFieldsAreValid() {
         String countryId = "ARG";
         String countryName = "Argentina";
         List<String> resourceLinks = asList("Res 1");
@@ -344,7 +344,7 @@ public class CountryHealthDataServiceTest {
     }
 
     @Test
-    public void shouldReturnFalseIfGovtApprovedIsTrueAndJustApproverEmailIsMissing() {
+    public void shouldReturnFalseWhenGovtApprovedIsTrueAndJustApproverEmailIsMissing() {
         String countryId = "ARG";
         String countryName = "Argentina";
         List<String> resourceLinks = asList("Res 1");
@@ -373,8 +373,9 @@ public class CountryHealthDataServiceTest {
 
         assertFalse(countryHealthDataService.validateRequiredFields(gdhiQuestionnaire));
     }
+
     @Test
-    public void shouldReturnFalseIfGovtApprovedIsTrueAndJustApproverRoleIsMissing() {
+    public void shouldReturnFalseWhenGovtApprovedIsTrueAndJustApproverRoleIsMissing() {
         String countryId = "ARG";
         String countryName = "Argentina";
         List<String> resourceLinks = asList("Res 1");
@@ -403,8 +404,9 @@ public class CountryHealthDataServiceTest {
 
         assertFalse(countryHealthDataService.validateRequiredFields(gdhiQuestionnaire));
     }
+
     @Test
-    public void shouldReturnFalseIfGovtApprovedIsTrueAndJustApproverNameIsMissing() {
+    public void shouldReturnFalseWhenGovtApprovedIsTrueAndJustApproverNameIsMissing() {
         String countryId = "ARG";
         String countryName = "Argentina";
         List<String> resourceLinks = asList("Res 1");
@@ -433,8 +435,9 @@ public class CountryHealthDataServiceTest {
 
         assertFalse(countryHealthDataService.validateRequiredFields(gdhiQuestionnaire));
     }
+
     @Test
-    public void shouldReturnFalseIfGovtApprovedIsFalseAndAllFieldsArePresent() {
+    public void shouldReturnFalseWhenGovtApprovedIsFalseAndAllFieldsArePresent() {
         String countryId = "ARG";
         String countryName = "Argentina";
         List<String> resourceLinks = asList("Res 1");
@@ -464,8 +467,9 @@ public class CountryHealthDataServiceTest {
 
         assertFalse(countryHealthDataService.validateRequiredFields(gdhiQuestionnaire));
     }
+
     @Test
-    public void shouldReturnFalseIfGovtApprovedIsFalseAndDataApproverRoleIsPresent() {
+    public void shouldReturnFalseWhenGovtApprovedIsFalseAndDataApproverRoleIsPresent() {
         String countryId = "ARG";
         String countryName = "Argentina";
         List<String> resourceLinks = asList("Res 1");
@@ -493,8 +497,9 @@ public class CountryHealthDataServiceTest {
 
         assertFalse(countryHealthDataService.validateRequiredFields(gdhiQuestionnaire));
     }
+
     @Test
-    public void shouldReturnFalseIfGovtApprovedIsFalseAndDataApproverEmailIsPresent() {
+    public void shouldReturnFalseWhenGovtApprovedIsFalseAndDataApproverEmailIsPresent() {
         String countryId = "ARG";
         String countryName = "Argentina";
         List<String> resourceLinks = asList("Res 1");
@@ -522,8 +527,9 @@ public class CountryHealthDataServiceTest {
 
         assertFalse(countryHealthDataService.validateRequiredFields(gdhiQuestionnaire));
     }
+
     @Test
-    public void shouldReturnFalseIfGovtApprovedIsFalseAndDataApproverNameIsPresent() {
+    public void shouldReturnFalseWhenGovtApprovedIsFalseAndDataApproverNameIsPresent() {
         String countryId = "ARG";
         String countryName = "Argentina";
         List<String> resourceLinks = asList("Res 1");
@@ -551,8 +557,9 @@ public class CountryHealthDataServiceTest {
 
         assertFalse(countryHealthDataService.validateRequiredFields(gdhiQuestionnaire));
     }
+
     @Test
-    public void shouldReturnTrueIfGovtApprovedIsFalseAndAllDataApproverFieldsAreMissing() {
+    public void shouldReturnTrueWhenGovtApprovedIsFalseAndAllDataApproverFieldsAreMissing() {
         String countryId = "ARG";
         String countryName = "Argentina";
         List<String> resourceLinks = asList("Res 1");
@@ -583,7 +590,7 @@ public class CountryHealthDataServiceTest {
 
 
     @Test
-    public void shouldReturnFalseIfAnyCountrySummaryFieldIsNotPresent() {
+    public void shouldReturnFalseWhenAnyCountrySummaryFieldIsNotPresent() {
         String countryId = "IND";
         List<String> resourceLinks = asList("Res 1");
         CountrySummaryDto countrySummaryDetailDto = CountrySummaryDto.builder()
