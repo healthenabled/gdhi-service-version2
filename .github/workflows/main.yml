@@ -29,7 +29,7 @@ jobs:
   deploy-to-showcase:
     runs-on: ubuntu-latest
     environment: SHOWCASE
-    needs: [ deploy-to-qa ]
+    needs: [ set-build-number ]
     if: github.ref == 'refs/heads/main'
     steps:
       - name: Configure AWS credentials
