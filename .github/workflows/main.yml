@@ -30,7 +30,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: SHOWCASE
     needs: [ set-build-number ]
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/GDHI-60'
     steps:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1-node16
@@ -53,7 +53,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: PROD
     needs: [ deploy-to-showcase ]
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/GDHI-60'
     steps:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1-node16
