@@ -4,8 +4,8 @@ on:
   workflow_dispatch:
     inputs:
       name:
-        description: 'Build Number'
-        default: '0'
+        description: "Build Number"
+        default: "0"
         required: true
         type: string
 
@@ -24,12 +24,12 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Set the build number for GDHI-Frontend in AWS parameter store
-        run: aws ssm put-parameter --name "buildNumberForApp" --value gdhi-service-2.0${{ inputs.name }} --overwrite
+        run: aws ssm put-parameter --name "buildNumberForService" --value gdhi-service-2.0${{ inputs.name }} --overwrite
 
   deploy-to-showcase:
     runs-on: ubuntu-latest
     environment: SHOWCASE
-    needs: [ set-build-number ]
+    needs: [set-build-number]
     if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/GDHI-60'
     steps:
       - name: Configure AWS credentials
@@ -52,7 +52,7 @@ jobs:
   deploy-to-prod:
     runs-on: ubuntu-latest
     environment: PROD
-    needs: [ deploy-to-showcase ]
+    needs: [deploy-to-showcase]
     if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/GDHI-60'
     steps:
       - name: Configure AWS credentials
