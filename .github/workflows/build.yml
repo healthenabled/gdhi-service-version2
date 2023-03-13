@@ -98,15 +98,16 @@ jobs:
           java-version: "17"
           distribution: "temurin"
 
-      - name: grant permissions
-        run: chmod +x gradlew
-
       - name: Check out code from gdhi-automation-version2
         uses: actions/checkout@v3
         with:
           repository: healthenabled/gdhi-automation-version2
           ref: "master"
           path: gdhi-automation-version2
+
+      - name: grant permissions
+        working-directory: gdhi-automation-version2
+        run: chmod +x gradlew
 
       - name: Install curl
         run: sudo apt install curl
