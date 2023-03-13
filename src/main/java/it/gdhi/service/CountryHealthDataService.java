@@ -266,22 +266,16 @@ public class CountryHealthDataService {
                 && StringUtils.hasText(countrySummary.getContactName())
                 && StringUtils.hasText(countrySummary.getContactOrganization())
                 && StringUtils.hasText(countrySummary.getCountryName())
-                && hasValidApproverData(countrySummary)
+                && verifyApproverData(countrySummary)
                 && StringUtils.hasText(countrySummary.getDataFeederEmail())
                 && StringUtils.hasText(countrySummary.getDataFeederName())
                 && StringUtils.hasText(countrySummary.getDataFeederRole())
                 && StringUtils.hasText(countrySummary.getSummary());
     }
 
-    private boolean hasValidApproverData(CountrySummaryDto countrySummary) {
-        return Boolean.TRUE.equals((countrySummary.getGovtApproved())) ?
-                StringUtils.hasText(countrySummary.getDataApproverEmail()) &&
-                        StringUtils.hasText(countrySummary.getDataApproverName()) &&
-                        StringUtils.hasText(countrySummary.getDataApproverRole()) :
-
-                !StringUtils.hasText(countrySummary.getDataApproverEmail()) &&
-                        !StringUtils.hasText(countrySummary.getDataApproverName()) &&
-                        !StringUtils.hasText(countrySummary.getDataApproverRole());
+    private boolean verifyApproverData(CountrySummaryDto countrySummary) {
+        return (countrySummary.getGovtApproved()) ? StringUtils.hasText(countrySummary.getDataApproverEmail()) && StringUtils.hasText(countrySummary.getDataApproverName()) && StringUtils.hasText(countrySummary.getDataApproverRole()) :
+                !StringUtils.hasText(countrySummary.getDataApproverEmail()) && !StringUtils.hasText(countrySummary.getDataApproverName()) && !StringUtils.hasText(countrySummary.getDataApproverRole());
     }
 
 }

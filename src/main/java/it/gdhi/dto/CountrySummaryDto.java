@@ -39,8 +39,8 @@ public class CountrySummaryDto {
     private String dataApproverName;
     private String dataApproverRole;
     private String dataApproverEmail;
-    private List<String> resources;
     private Boolean govtApproved;
+    private List<String> resources;
 
     public CountrySummaryDto(CountrySummary countrySummary) {
         this.countryId = countrySummary.getCountrySummaryId().getCountryId();
@@ -57,6 +57,7 @@ public class CountrySummaryDto {
         this.dataApproverName = countrySummary.getDataApproverName();
         this.dataApproverRole = countrySummary.getDataApproverRole();
         this.dataApproverEmail = countrySummary.getDataApproverEmail();
+        this.govtApproved = countrySummary.getGovtApproved();
         this.resources = transformResourceLinks(countrySummary);
         this.govtApproved = countrySummary.getGovtApproved();
     }
@@ -64,6 +65,7 @@ public class CountrySummaryDto {
     public CountrySummaryDto(boolean govtApproved) {
         this.govtApproved = govtApproved;
     }
+
 
     private List<String> transformResourceLinks(CountrySummary countrySummary) {
         return Optional.ofNullable(countrySummary.getCountryResourceLinks())
