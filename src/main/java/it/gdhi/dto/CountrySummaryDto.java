@@ -59,7 +59,6 @@ public class CountrySummaryDto {
         this.dataApproverEmail = countrySummary.getDataApproverEmail();
         this.govtApproved = countrySummary.getGovtApproved();
         this.resources = transformResourceLinks(countrySummary);
-        this.govtApproved = countrySummary.getGovtApproved();
     }
 
     public CountrySummaryDto(boolean govtApproved) {
