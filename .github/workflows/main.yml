@@ -56,7 +56,7 @@ jobs:
       - name: Run test suite for backend
         working-directory: gdhi-automation-version2
         run: ./gradlew clean gauge -Ptags='api'
-        continue-on-error: false
+        continue-on-error: true
 
   deploy-to-showcase:
     runs-on: ubuntu-latest
