@@ -2,6 +2,8 @@ package it.gdhi.integration;
 
 import io.restassured.response.Response;
 import it.gdhi.GdhiServiceApplication;
+import it.gdhi.dto.CountriesHealthScoreDto;
+import it.gdhi.dto.CountryHealthScoreDto;
 import it.gdhi.dto.HealthIndicatorDto;
 import it.gdhi.model.Country;
 import it.gdhi.model.CountryPhase;
@@ -27,6 +29,7 @@ import java.util.UUID;
 import static io.restassured.RestAssured.given;
 import static it.gdhi.utils.LanguageCode.USER_LANGUAGE;
 import static java.util.Arrays.asList;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = GdhiServiceApplication.class)
@@ -43,8 +46,6 @@ public class ScoreAggregationIntegrationTest extends BaseIntegrationTest {
 
     private void addCountrySummary(String countryId, String countryName, String alpha2code, String year) throws Exception {
         String status = "PUBLISHED";
-        SimpleDateFormat fmt = new SimpleDateFormat("dd-MM-yyyy");
-        Date date = fmt.parse("04-04-2018");
         CountrySummary countrySummary = CountrySummary.builder()
                 .countrySummaryId(new CountrySummaryId(countryId, status, year))
                 .summary("summary")
@@ -60,7 +61,6 @@ public class ScoreAggregationIntegrationTest extends BaseIntegrationTest {
                 .dataApproverRole("coll role")
                 .dataFeederRole("coll role")
                 .dataApproverEmail("coll email")
-                .collectedDate(date)
                 .countryResourceLinks(new ArrayList<>())
                 .build();
         countrySummaryRepository.save(countrySummary);
@@ -403,13 +403,19 @@ public class ScoreAggregationIntegrationTest extends BaseIntegrationTest {
         setupHealthIndicatorsForCountry(pakistan, healthIndicatorDtos, year);
         addCountryPhase(pakistan, null, year);
 
+        SimpleDateFormat DateFor = new SimpleDateFormat("MMMM yyyy");
+        String expectedUpdatedDate = DateFor.format(new Date());
+
         Response response = given()
                 .contentType("application/json")
                 .header(USER_LANGUAGE, "en")
                 .when()
                 .get("http://localhost:" + port + "/countries_health_indicator_scores?year=" + year);
 
-        assertResponse(response.asString(), "countries_health_indicators.json");
+        CountriesHealthScoreDto countryHealthScoreDto = response.getBody().as(CountriesHealthScoreDto.class);
+        assertEquals(countryHealthScoreDto.getCountryHealthScores().get(0).getUpdatedDate(), expectedUpdatedDate);
+
+        assertCountryHealthScoreResponse(response.asString(), "countries_health_indicators.json");
     }
 
     @Test
@@ -466,13 +472,19 @@ public class ScoreAggregationIntegrationTest extends BaseIntegrationTest {
         setupHealthIndicatorsForCountry(pakistan, healthIndicatorDtos, year);
         addCountryPhase(pakistan, null, year);
 
+        SimpleDateFormat DateFor = new SimpleDateFormat("MMMM yyyy");
+        String expectedUpdatedDate = DateFor.format(new Date());
+
         Response response = given()
                 .contentType("application/json")
                 .header(USER_LANGUAGE, "en")
                 .when()
                 .get("http://localhost:" + port + "/countries_health_indicator_scores?categoryId=" + categoryId1 + "&phase=2" + "&year=" + year);
 
-        assertResponse(response.asString(), "filtered_countries_health_indicators.json");
+        CountriesHealthScoreDto countryHealthScoreDto = response.getBody().as(CountriesHealthScoreDto.class);
+        assertEquals(countryHealthScoreDto.getCountryHealthScores().get(0).getUpdatedDate(), expectedUpdatedDate);
+
+        assertCountryHealthScoreResponse(response.asString(), "filtered_countries_health_indicators.json");
     }
 
     @Test
@@ -529,13 +541,19 @@ public class ScoreAggregationIntegrationTest extends BaseIntegrationTest {
         setupHealthIndicatorsForCountry(pakistan, healthIndicatorDtos, year);
         addCountryPhase(pakistan, null, year);
 
+        SimpleDateFormat DateFor = new SimpleDateFormat("MMMM yyyy");
+        String expectedUpdatedDate = DateFor.format(new Date());
+
         Response response = given()
                 .contentType("application/json")
                 .header(USER_LANGUAGE, "en")
                 .when()
                 .get("http://localhost:" + port + "/countries_health_indicator_scores?categoryId=" + categoryId1 + "&year=" + year);
 
-        assertResponse(response.asString(), "countries_health_indicators_filter_by_category.json");
+        CountriesHealthScoreDto countryHealthScoreDto = response.getBody().as(CountriesHealthScoreDto.class);
+        assertEquals(countryHealthScoreDto.getCountryHealthScores().get(0).getUpdatedDate(), expectedUpdatedDate);
+
+        assertCountryHealthScoreResponse(response.asString(), "countries_health_indicators_filter_by_category.json");
     }
 
     @Test
@@ -592,13 +610,19 @@ public class ScoreAggregationIntegrationTest extends BaseIntegrationTest {
         setupHealthIndicatorsForCountry(pakistan, healthIndicatorDtos, year);
         addCountryPhase(pakistan, null, year);
 
+        SimpleDateFormat DateFor = new SimpleDateFormat("MMMM yyyy");
+        String expectedUpdatedDate = DateFor.format(new Date());
+
         Response response = given()
                 .contentType("application/json")
                 .header(USER_LANGUAGE, "en")
                 .when()
                 .get("http://localhost:" + port + "/countries_health_indicator_scores?phase=3" + "&year=" + year);
 
-        assertResponse(response.asString(), "countries_health_indicators_filter_by_phase.json");
+        CountriesHealthScoreDto countryHealthScoreDto = response.getBody().as(CountriesHealthScoreDto.class);
+        assertEquals(countryHealthScoreDto.getCountryHealthScores().get(0).getUpdatedDate(), expectedUpdatedDate);
+
+        assertCountryHealthScoreResponse(response.asString(), "countries_health_indicators_filter_by_phase.json");
     }
 
     @Test
@@ -655,13 +679,19 @@ public class ScoreAggregationIntegrationTest extends BaseIntegrationTest {
         setupHealthIndicatorsForCountry(pakistan, healthIndicatorDtos, year);
         addCountryPhase(pakistan, null, year);
 
+        SimpleDateFormat DateFor = new SimpleDateFormat("MMMM yyyy");
+        String expectedUpdatedDate = DateFor.format(new Date());
+
         Response response = given()
                 .contentType("application/json")
                 .header(USER_LANGUAGE, "fr")
                 .when()
                 .get("http://localhost:" + port + "/countries_health_indicator_scores?year=" + year);
 
-        assertResponse(response.asString(), "countries_health_indicators_fr.json");
+        CountriesHealthScoreDto countryHealthScoreDto = response.getBody().as(CountriesHealthScoreDto.class);
+        assertEquals(countryHealthScoreDto.getCountryHealthScores().get(0).getUpdatedDate(), expectedUpdatedDate);
+
+        assertCountryHealthScoreResponse(response.asString(), "countries_health_indicators_fr.json");
     }
 
     @Test
@@ -707,12 +737,19 @@ public class ScoreAggregationIntegrationTest extends BaseIntegrationTest {
                 .when()
                 .get("http://localhost:" + port + "/admin/countries/calculate_phase?year=" + year);
 
+        SimpleDateFormat DateFor = new SimpleDateFormat("MMMM yyyy");
+        String expectedUpdatedDate = DateFor.format(new Date());
+
         Response response = given()
                 .contentType("application/json")
                 .header(USER_LANGUAGE, "en")
                 .when()
                 .get("http://localhost:" + port + "/countries_health_indicator_scores?year=" + year);
-        assertResponse(response.asString(), "countries_health_indicators_sub_indicator_score.json");
+
+        CountriesHealthScoreDto countryHealthScoreDto = response.getBody().as(CountriesHealthScoreDto.class);
+        assertEquals(countryHealthScoreDto.getCountryHealthScores().get(0).getUpdatedDate(), expectedUpdatedDate);
+
+        assertCountryHealthScoreResponse(response.asString(), "countries_health_indicators_sub_indicator_score.json");
 
     }
 }

@@ -44,10 +44,8 @@ public class CountrySummary implements Serializable {
     private String dataApproverName;
     private String dataApproverRole;
     private String dataApproverEmail;
-
     @Column(name = "govt_approved")
     private Boolean govtApproved;
-    private Date collectedDate;
     @Column(insertable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
@@ -75,7 +73,6 @@ public class CountrySummary implements Serializable {
         this.dataApproverRole = countrySummaryDetailDto.getDataApproverRole();
         this.dataApproverEmail = countrySummaryDetailDto.getDataApproverEmail();
         this.govtApproved = countrySummaryDetailDto.getGovtApproved();
-        this.collectedDate = countrySummaryDetailDto.getCollectedDate();
         this.countryResourceLinks = transformToResourceLinks(countrySummaryId.getCountryId(),
                 countrySummaryId.getStatus(), countrySummaryDetailDto, countrySummaryId.getYear());
     }

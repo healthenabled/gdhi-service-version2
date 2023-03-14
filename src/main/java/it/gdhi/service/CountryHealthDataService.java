@@ -164,7 +164,6 @@ public class CountryHealthDataService {
 
     public boolean validateRequiredFields(GdhiQuestionnaire gdhiQuestionnaire) {
         return verifyFields(gdhiQuestionnaire.getCountrySummary())
-                && verifyDateRange(gdhiQuestionnaire.getCountrySummary().getCollectedDate())
                 && verifyResources(gdhiQuestionnaire.getCountrySummary().getResources())
                 && verifyIndicators(gdhiQuestionnaire.getHealthIndicators());
     }
@@ -261,8 +260,7 @@ public class CountryHealthDataService {
     }
 
     private boolean verifyFields(CountrySummaryDto countrySummary) {
-        return countrySummary.getCollectedDate() != null
-                && StringUtils.hasText(countrySummary.getCountryId())
+        return StringUtils.hasText(countrySummary.getCountryId())
                 && StringUtils.hasText(countrySummary.getContactEmail())
                 && StringUtils.hasText(countrySummary.getContactDesignation())
                 && StringUtils.hasText(countrySummary.getContactName())
@@ -278,20 +276,12 @@ public class CountryHealthDataService {
     private boolean hasValidApproverData(CountrySummaryDto countrySummary) {
         return Boolean.TRUE.equals((countrySummary.getGovtApproved())) ?
                 StringUtils.hasText(countrySummary.getDataApproverEmail()) &&
-                        StringUtils.hasText(countrySummary.getDataApproverName()) &&
-                        StringUtils.hasText(countrySummary.getDataApproverRole()) :
+                StringUtils.hasText(countrySummary.getDataApproverName()) &&
+                StringUtils.hasText(countrySummary.getDataApproverRole()) :
 
                 !StringUtils.hasText(countrySummary.getDataApproverEmail()) &&
-                        !StringUtils.hasText(countrySummary.getDataApproverName()) &&
-                        !StringUtils.hasText(countrySummary.getDataApproverRole());
+                !StringUtils.hasText(countrySummary.getDataApproverName()) &&
+                !StringUtils.hasText(countrySummary.getDataApproverRole());
     }
-
-    private boolean verifyDateRange(Date collectedDate) {
-        Calendar myCalendar = new GregorianCalendar(2010, 0, 1);
-        Date backDate = myCalendar.getTime();
-        Date today = new GregorianCalendar().getTime();
-        return (collectedDate.equals(today)) || (collectedDate.before(today) && collectedDate.after(backDate));
-    }
-
 
 }

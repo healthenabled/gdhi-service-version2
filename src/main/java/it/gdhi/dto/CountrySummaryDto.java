@@ -39,15 +39,8 @@ public class CountrySummaryDto {
     private String dataApproverName;
     private String dataApproverRole;
     private String dataApproverEmail;
-
     private Boolean govtApproved;
-
-    @JsonSerialize(using = JsonDateSerializer.class)
-    @JsonDeserialize(using = JsonDateDeserializer.class)
-    private Date collectedDate;
-
     private List<String> resources;
-
 
     public CountrySummaryDto(CountrySummary countrySummary) {
         this.countryId = countrySummary.getCountrySummaryId().getCountryId();
@@ -65,13 +58,13 @@ public class CountrySummaryDto {
         this.dataApproverRole = countrySummary.getDataApproverRole();
         this.dataApproverEmail = countrySummary.getDataApproverEmail();
         this.govtApproved = countrySummary.getGovtApproved();
-        this.collectedDate = countrySummary.getCollectedDate();
         this.resources = transformResourceLinks(countrySummary);
     }
 
     public CountrySummaryDto(boolean govtApproved) {
         this.govtApproved = govtApproved;
     }
+
 
     private List<String> transformResourceLinks(CountrySummary countrySummary) {
         return Optional.ofNullable(countrySummary.getCountryResourceLinks())

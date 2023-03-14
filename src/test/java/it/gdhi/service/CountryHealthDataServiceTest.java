@@ -1,32 +1,9 @@
 package it.gdhi.service;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.List;
-import java.util.UUID;
-
-import javax.persistence.EntityManager;
-
-import it.gdhi.dto.CountrySummaryDto;
-import it.gdhi.dto.CountrySummaryStatusDto;
-import it.gdhi.dto.CountrySummaryStatusYearDto;
-import it.gdhi.dto.CountryUrlGenerationStatusDto;
-import it.gdhi.dto.GdhiQuestionnaire;
-import it.gdhi.dto.HealthIndicatorDto;
-import it.gdhi.model.Category;
-import it.gdhi.model.Country;
-import it.gdhi.model.CountryHealthIndicator;
-import it.gdhi.model.CountryPhase;
-import it.gdhi.model.CountrySummary;
-import it.gdhi.model.Indicator;
+import it.gdhi.dto.*;
+import it.gdhi.model.*;
 import it.gdhi.model.id.CountrySummaryId;
-import it.gdhi.repository.ICountryHealthIndicatorRepository;
-import it.gdhi.repository.ICountryPhaseRepository;
-import it.gdhi.repository.ICountryRepository;
-import it.gdhi.repository.ICountryResourceLinkRepository;
-import it.gdhi.repository.ICountrySummaryRepository;
+import it.gdhi.repository.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -37,25 +14,19 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
 
-import static it.gdhi.utils.FormStatus.DRAFT;
-import static it.gdhi.utils.FormStatus.NEW;
-import static it.gdhi.utils.FormStatus.PUBLISHED;
-import static it.gdhi.utils.FormStatus.REVIEW_PENDING;
+import javax.persistence.EntityManager;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
+import static it.gdhi.utils.FormStatus.*;
 import static java.util.Arrays.asList;
 import static java.util.Collections.emptyList;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.anyString;
-import static org.mockito.Mockito.inOrder;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 @MockitoSettings(strictness = Strictness.LENIENT)
@@ -318,7 +289,6 @@ public class CountryHealthDataServiceTest {
         List<String> resourceLinks = asList("Res 1");
         CountrySummaryDto countrySummaryDetailDto = CountrySummaryDto.builder()
                 .summary("Summary 1")
-                .collectedDate(new GregorianCalendar().getTime())
                 .dataFeederEmail("feeder@email.com")
                 .dataFeederName("feeder")
                 .dataFeederRole("feeder role")
@@ -344,13 +314,250 @@ public class CountryHealthDataServiceTest {
     }
 
     @Test
+    public void shouldReturnFalseIfGovtApprovedIsTrueAndJustApproverEmailIsMissing() {
+        String countryId = "ARG";
+        String countryName = "Argentina";
+        List<String> resourceLinks = asList("Res 1");
+        CountrySummaryDto countrySummaryDetailDto = CountrySummaryDto.builder()
+                .summary("Summary 1")
+                .dataFeederEmail("feeder@email.com")
+                .dataFeederName("feeder")
+                .dataFeederRole("feeder role")
+                .contactEmail("contact@test.com")
+                .contactDesignation("some designation")
+                .contactName("some contact name")
+                .contactOrganization("contact org")
+                .dataApproverName("Some approver name")
+                .dataApproverRole("some approver role")
+                .govtApproved(true)
+                .countryId(countryId)
+                .countryName(countryName)
+                .resources(resourceLinks)
+                .build();
+        List<HealthIndicatorDto> healthIndicatorDtos = getHealthIndicatorDto(1, "some text");
+        when(categoryIndicatorService.getHealthIndicatorCount()).thenReturn(30);
+        GdhiQuestionnaire gdhiQuestionnaire = GdhiQuestionnaire.builder().countryId(countryId)
+                .countrySummary(countrySummaryDetailDto)
+                .healthIndicators(healthIndicatorDtos).build();
+
+        assertFalse(countryHealthDataService.validateRequiredFields(gdhiQuestionnaire));
+    }
+
+    @Test
+    public void shouldReturnFalseIfGovtApprovedIsTrueAndJustApproverRoleIsMissing() {
+        String countryId = "ARG";
+        String countryName = "Argentina";
+        List<String> resourceLinks = asList("Res 1");
+        CountrySummaryDto countrySummaryDetailDto = CountrySummaryDto.builder()
+                .summary("Summary 1")
+                .dataFeederEmail("feeder@email.com")
+                .dataFeederName("feeder")
+                .dataFeederRole("feeder role")
+                .contactEmail("contact@test.com")
+                .contactDesignation("some designation")
+                .contactName("some contact name")
+                .contactOrganization("contact org")
+                .dataApproverEmail("approver@email.com")
+                .dataApproverName("Some approver name")
+                .govtApproved(true)
+                .countryId(countryId)
+                .countryName(countryName)
+                .resources(resourceLinks)
+                .build();
+        List<HealthIndicatorDto> healthIndicatorDtos = getHealthIndicatorDto(1, "some text");
+        when(categoryIndicatorService.getHealthIndicatorCount()).thenReturn(30);
+        GdhiQuestionnaire gdhiQuestionnaire = GdhiQuestionnaire.builder().countryId(countryId)
+                .countrySummary(countrySummaryDetailDto)
+                .healthIndicators(healthIndicatorDtos).build();
+
+        assertFalse(countryHealthDataService.validateRequiredFields(gdhiQuestionnaire));
+    }
+
+    @Test
+    public void shouldReturnFalseIfGovtApprovedIsTrueAndJustApproverNameIsMissing() {
+        String countryId = "ARG";
+        String countryName = "Argentina";
+        List<String> resourceLinks = asList("Res 1");
+        CountrySummaryDto countrySummaryDetailDto = CountrySummaryDto.builder()
+                .summary("Summary 1")
+                .dataFeederEmail("feeder@email.com")
+                .dataFeederName("feeder")
+                .dataFeederRole("feeder role")
+                .contactEmail("contact@test.com")
+                .contactDesignation("some designation")
+                .contactName("some contact name")
+                .contactOrganization("contact org")
+                .dataApproverEmail("approver@email.com")
+                .dataApproverRole("some approver role")
+                .govtApproved(true)
+                .countryId(countryId)
+                .countryName(countryName)
+                .resources(resourceLinks)
+                .build();
+        List<HealthIndicatorDto> healthIndicatorDtos = getHealthIndicatorDto(1, "some text");
+        when(categoryIndicatorService.getHealthIndicatorCount()).thenReturn(30);
+        GdhiQuestionnaire gdhiQuestionnaire = GdhiQuestionnaire.builder().countryId(countryId)
+                .countrySummary(countrySummaryDetailDto)
+                .healthIndicators(healthIndicatorDtos).build();
+
+        assertFalse(countryHealthDataService.validateRequiredFields(gdhiQuestionnaire));
+    }
+
+    @Test
+    public void shouldReturnFalseIfGovtApprovedIsFalseAndAllFieldsArePresent() {
+        String countryId = "ARG";
+        String countryName = "Argentina";
+        List<String> resourceLinks = asList("Res 1");
+        CountrySummaryDto countrySummaryDetailDto = CountrySummaryDto.builder()
+                .summary("Summary 1")
+                .dataFeederEmail("feeder@email.com")
+                .dataFeederName("feeder")
+                .dataFeederRole("feeder role")
+                .contactEmail("contact@test.com")
+                .contactDesignation("some designation")
+                .contactName("some contact name")
+                .contactOrganization("contact org")
+                .dataApproverEmail("approver@email.com")
+                .dataApproverRole("some approver role")
+                .dataApproverName("Some approver name")
+                .govtApproved(false)
+                .countryId(countryId)
+                .countryName(countryName)
+                .resources(resourceLinks)
+                .build();
+        List<HealthIndicatorDto> healthIndicatorDtos = getHealthIndicatorDto(1, "some text");
+        when(categoryIndicatorService.getHealthIndicatorCount()).thenReturn(30);
+        GdhiQuestionnaire gdhiQuestionnaire = GdhiQuestionnaire.builder().countryId(countryId)
+                .countrySummary(countrySummaryDetailDto)
+                .healthIndicators(healthIndicatorDtos).build();
+
+        assertFalse(countryHealthDataService.validateRequiredFields(gdhiQuestionnaire));
+    }
+
+    @Test
+    public void shouldReturnFalseIfGovtApprovedIsFalseAndDataApproverRoleIsPresent() {
+        String countryId = "ARG";
+        String countryName = "Argentina";
+        List<String> resourceLinks = asList("Res 1");
+        CountrySummaryDto countrySummaryDetailDto = CountrySummaryDto.builder()
+                .summary("Summary 1")
+                .dataFeederEmail("feeder@email.com")
+                .dataFeederName("feeder")
+                .dataFeederRole("feeder role")
+                .contactEmail("contact@test.com")
+                .contactDesignation("some designation")
+                .contactName("some contact name")
+                .contactOrganization("contact org")
+                .dataApproverRole("some approver role")
+                .govtApproved(false)
+                .countryId(countryId)
+                .countryName(countryName)
+                .resources(resourceLinks)
+                .build();
+        List<HealthIndicatorDto> healthIndicatorDtos = getHealthIndicatorDto(1, "some text");
+        when(categoryIndicatorService.getHealthIndicatorCount()).thenReturn(30);
+        GdhiQuestionnaire gdhiQuestionnaire = GdhiQuestionnaire.builder().countryId(countryId)
+                .countrySummary(countrySummaryDetailDto)
+                .healthIndicators(healthIndicatorDtos).build();
+
+        assertFalse(countryHealthDataService.validateRequiredFields(gdhiQuestionnaire));
+    }
+
+    @Test
+    public void shouldReturnFalseIfGovtApprovedIsFalseAndDataApproverEmailIsPresent() {
+        String countryId = "ARG";
+        String countryName = "Argentina";
+        List<String> resourceLinks = asList("Res 1");
+        CountrySummaryDto countrySummaryDetailDto = CountrySummaryDto.builder()
+                .summary("Summary 1")
+                .dataFeederEmail("feeder@email.com")
+                .dataFeederName("feeder")
+                .dataFeederRole("feeder role")
+                .contactEmail("contact@test.com")
+                .contactDesignation("some designation")
+                .contactName("some contact name")
+                .contactOrganization("contact org")
+                .dataApproverEmail("approver@email.com")
+                .govtApproved(false)
+                .countryId(countryId)
+                .countryName(countryName)
+                .resources(resourceLinks)
+                .build();
+        List<HealthIndicatorDto> healthIndicatorDtos = getHealthIndicatorDto(1, "some text");
+        when(categoryIndicatorService.getHealthIndicatorCount()).thenReturn(30);
+        GdhiQuestionnaire gdhiQuestionnaire = GdhiQuestionnaire.builder().countryId(countryId)
+                .countrySummary(countrySummaryDetailDto)
+                .healthIndicators(healthIndicatorDtos).build();
+
+        assertFalse(countryHealthDataService.validateRequiredFields(gdhiQuestionnaire));
+    }
+
+    @Test
+    public void shouldReturnFalseIfGovtApprovedIsFalseAndDataApproverNameIsPresent() {
+        String countryId = "ARG";
+        String countryName = "Argentina";
+        List<String> resourceLinks = asList("Res 1");
+        CountrySummaryDto countrySummaryDetailDto = CountrySummaryDto.builder()
+                .summary("Summary 1")
+                .dataFeederEmail("feeder@email.com")
+                .dataFeederName("feeder")
+                .dataFeederRole("feeder role")
+                .contactEmail("contact@test.com")
+                .contactDesignation("some designation")
+                .contactName("some contact name")
+                .contactOrganization("contact org")
+                .dataApproverRole("some approver role")
+                .govtApproved(false)
+                .countryId(countryId)
+                .countryName(countryName)
+                .resources(resourceLinks)
+                .build();
+        List<HealthIndicatorDto> healthIndicatorDtos = getHealthIndicatorDto(1, "some text");
+        when(categoryIndicatorService.getHealthIndicatorCount()).thenReturn(30);
+        GdhiQuestionnaire gdhiQuestionnaire = GdhiQuestionnaire.builder().countryId(countryId)
+                .countrySummary(countrySummaryDetailDto)
+                .healthIndicators(healthIndicatorDtos).build();
+
+        assertFalse(countryHealthDataService.validateRequiredFields(gdhiQuestionnaire));
+    }
+
+    @Test
+    public void shouldReturnTrueIfGovtApprovedIsFalseAndAllDataApproverFieldsAreMissing() {
+        String countryId = "ARG";
+        String countryName = "Argentina";
+        List<String> resourceLinks = asList("Res 1");
+        CountrySummaryDto countrySummaryDetailDto = CountrySummaryDto.builder()
+                .summary("Summary 1")
+                .dataFeederEmail("feeder@email.com")
+                .dataFeederName("feeder")
+                .dataFeederRole("feeder role")
+                .contactEmail("contact@test.com")
+                .contactDesignation("some designation")
+                .contactName("some contact name")
+                .contactOrganization("contact org")
+                .dataApproverName("Some approver name")
+                .govtApproved(false)
+                .countryId(countryId)
+                .countryName(countryName)
+                .resources(resourceLinks)
+                .build();
+        List<HealthIndicatorDto> healthIndicatorDtos = getHealthIndicatorDto(1, "some text");
+        when(categoryIndicatorService.getHealthIndicatorCount()).thenReturn(30);
+        GdhiQuestionnaire gdhiQuestionnaire = GdhiQuestionnaire.builder().countryId(countryId)
+                .countrySummary(countrySummaryDetailDto)
+                .healthIndicators(healthIndicatorDtos).build();
+
+        assertFalse(countryHealthDataService.validateRequiredFields(gdhiQuestionnaire));
+    }
+
+
+    @Test
     public void shouldReturnFalseWhenGovtApprovedIsTrueAndJustApproverEmailIsMissing() {
         String countryId = "ARG";
         String countryName = "Argentina";
         List<String> resourceLinks = asList("Res 1");
         CountrySummaryDto countrySummaryDetailDto = CountrySummaryDto.builder()
                 .summary("Summary 1")
-                .collectedDate(new GregorianCalendar().getTime())
                 .dataFeederEmail("feeder@email.com")
                 .dataFeederName("feeder")
                 .dataFeederRole("feeder role")
@@ -381,7 +588,6 @@ public class CountryHealthDataServiceTest {
         List<String> resourceLinks = asList("Res 1");
         CountrySummaryDto countrySummaryDetailDto = CountrySummaryDto.builder()
                 .summary("Summary 1")
-                .collectedDate(new GregorianCalendar().getTime())
                 .dataFeederEmail("feeder@email.com")
                 .dataFeederName("feeder")
                 .dataFeederRole("feeder role")
@@ -412,7 +618,6 @@ public class CountryHealthDataServiceTest {
         List<String> resourceLinks = asList("Res 1");
         CountrySummaryDto countrySummaryDetailDto = CountrySummaryDto.builder()
                 .summary("Summary 1")
-                .collectedDate(new GregorianCalendar().getTime())
                 .dataFeederEmail("feeder@email.com")
                 .dataFeederName("feeder")
                 .dataFeederRole("feeder role")
@@ -443,7 +648,6 @@ public class CountryHealthDataServiceTest {
         List<String> resourceLinks = asList("Res 1");
         CountrySummaryDto countrySummaryDetailDto = CountrySummaryDto.builder()
                 .summary("Summary 1")
-                .collectedDate(new GregorianCalendar().getTime())
                 .dataFeederEmail("feeder@email.com")
                 .dataFeederName("feeder")
                 .dataFeederRole("feeder role")
@@ -475,7 +679,6 @@ public class CountryHealthDataServiceTest {
         List<String> resourceLinks = asList("Res 1");
         CountrySummaryDto countrySummaryDetailDto = CountrySummaryDto.builder()
                 .summary("Summary 1")
-                .collectedDate(new GregorianCalendar().getTime())
                 .dataFeederEmail("feeder@email.com")
                 .dataFeederName("feeder")
                 .dataFeederRole("feeder role")
@@ -505,7 +708,6 @@ public class CountryHealthDataServiceTest {
         List<String> resourceLinks = asList("Res 1");
         CountrySummaryDto countrySummaryDetailDto = CountrySummaryDto.builder()
                 .summary("Summary 1")
-                .collectedDate(new GregorianCalendar().getTime())
                 .dataFeederEmail("feeder@email.com")
                 .dataFeederName("feeder")
                 .dataFeederRole("feeder role")
@@ -535,7 +737,6 @@ public class CountryHealthDataServiceTest {
         List<String> resourceLinks = asList("Res 1");
         CountrySummaryDto countrySummaryDetailDto = CountrySummaryDto.builder()
                 .summary("Summary 1")
-                .collectedDate(new GregorianCalendar().getTime())
                 .dataFeederEmail("feeder@email.com")
                 .dataFeederName("feeder")
                 .dataFeederRole("feeder role")
@@ -565,7 +766,6 @@ public class CountryHealthDataServiceTest {
         List<String> resourceLinks = asList("Res 1");
         CountrySummaryDto countrySummaryDetailDto = CountrySummaryDto.builder()
                 .summary("Summary 1")
-                .collectedDate(new GregorianCalendar().getTime())
                 .dataFeederEmail("feeder@email.com")
                 .dataFeederName("feeder")
                 .dataFeederRole("feeder role")
@@ -613,7 +813,6 @@ public class CountryHealthDataServiceTest {
         String countryName = "Argentina";
         CountrySummaryDto countrySummaryDetailDto = CountrySummaryDto.builder()
                 .summary("Summary 1")
-                .collectedDate(new GregorianCalendar().getTime())
                 .dataFeederEmail("feeder@email.com")
                 .dataFeederName("feeder")
                 .dataFeederRole("feeder role")
@@ -641,77 +840,12 @@ public class CountryHealthDataServiceTest {
     }
 
     @Test
-    public void shouldReturnFalseIfDateIsInvalid() {
-        String countryId = "ALB";
-        String countryName = "Albania";
-        List<String> resourceLinks = asList("Res 1");
-        Date collectedDateBefore2010 = new GregorianCalendar(2009, 0, 1).getTime();
-        GregorianCalendar gregCal = new GregorianCalendar();
-        gregCal.add(Calendar.DAY_OF_MONTH, 1);
-        Date collectedDateAfterCurrentDate = gregCal.getTime();
-        CountrySummaryDto countrySummaryDetailBefore2010 = CountrySummaryDto.builder()
-                .summary("Summary 1")
-                .collectedDate(collectedDateBefore2010)
-                .dataFeederEmail("feeder@email.com")
-                .dataFeederName("feeder")
-                .dataFeederRole("feeder role")
-                .contactEmail("contact@test.com")
-                .contactDesignation("some designation")
-                .contactName("some contact name")
-                .contactOrganization("contact org")
-                .dataApproverEmail("approver@email.com")
-                .dataApproverName("Some approver name")
-                .dataApproverRole("some approver role")
-                .govtApproved(true)
-                .countryId(countryId)
-                .countryName(countryName)
-                .resources(resourceLinks)
-                .build();
-
-        CountrySummaryDto countrySummaryDetailDtoFutureDate = CountrySummaryDto.builder()
-                .summary("Summary 1")
-                .collectedDate(collectedDateAfterCurrentDate)
-                .dataFeederEmail("feeder@email.com")
-                .dataFeederName("feeder")
-                .dataFeederRole("feeder role")
-                .contactEmail("contact@test.com")
-                .contactDesignation("some designation")
-                .contactName("some contact name")
-                .contactOrganization("contact org")
-                .dataApproverEmail("approver@email.com")
-                .dataApproverName("Some approver name")
-                .dataApproverRole("some approver role")
-                .govtApproved(true)
-                .countryId(countryId)
-                .countryName(countryName)
-                .resources(resourceLinks)
-                .build();
-
-        List<HealthIndicatorDto> healthIndicatorDtos = getHealthIndicatorDto(1, "some text");
-        when(categoryIndicatorService.getHealthIndicatorCount()).thenReturn(30);
-
-        GdhiQuestionnaire gdhiQuestionnaire = GdhiQuestionnaire.builder().countryId(countryId)
-                .countrySummary(countrySummaryDetailBefore2010)
-                .healthIndicators(healthIndicatorDtos).build();
-
-        assertFalse(countryHealthDataService.validateRequiredFields(gdhiQuestionnaire));
-
-        GdhiQuestionnaire gdhiQuestionnaire1 = GdhiQuestionnaire.builder().countryId(countryId)
-                .countrySummary(countrySummaryDetailDtoFutureDate)
-                .healthIndicators(healthIndicatorDtos).build();
-
-        assertFalse(countryHealthDataService.validateRequiredFields(gdhiQuestionnaire1));
-
-    }
-
-    @Test
     public void shouldReturnFalseIfIndicatorDataIsInvalid() {
         String countryId = "AUS";
         String countryName = "Australia";
         List<String> resourceLinks = asList("Res 1");
         CountrySummaryDto countrySummaryDetailDto = CountrySummaryDto.builder()
                 .summary("Summary 1")
-                .collectedDate(new Date())
                 .dataFeederEmail("feeder@email.com")
                 .dataFeederName("feeder")
                 .dataFeederRole("feeder role")
@@ -788,7 +922,6 @@ public class CountryHealthDataServiceTest {
         List<String> resourceLinks = asList("Res 1");
         CountrySummaryDto countrySummaryDetailDto = CountrySummaryDto.builder()
                 .summary("Summary 1")
-                .collectedDate(new Date())
                 .dataFeederEmail("feeder@email.com")
                 .dataFeederName("feeder")
                 .dataFeederRole("feeder role")

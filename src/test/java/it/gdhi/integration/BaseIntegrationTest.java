@@ -16,9 +16,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class BaseIntegrationTest {
@@ -60,7 +60,27 @@ public class BaseIntegrationTest {
         String expectedJSON = expectedResponseJson(expectedJsonFileName);
         HashMap actualMap = getMapper().readValue(responseJSON, HashMap.class);
         HashMap expectedMap = getMapper().readValue(expectedJSON, HashMap.class);
-        assertEquals(expectedMap, actualMap);
+        assertThat(actualMap).usingRecursiveComparison().ignoringFields("updatedDate").isEqualTo(expectedMap);
+    }
+
+    void assertCountryHealthScoreResponse(String responseJSON, String expectedJsonFileName) throws IOException {
+        String expectedJSON = expectedResponseJson(expectedJsonFileName);
+        HashMap actualMap = getMapper().readValue(responseJSON, HashMap.class);
+        HashMap expectedMap = getMapper().readValue(expectedJSON, HashMap.class);
+
+        removeUpdatedDateFromMap(actualMap);
+        removeUpdatedDateFromMap(expectedMap);
+
+        assertEquals(actualMap, expectedMap);
+    }
+
+    private static void removeUpdatedDateFromMap(HashMap countryHealthScoresMap) {
+        for (Object countryHealthScores : countryHealthScoresMap.keySet()) {
+            List<Map<String, Object>> listOfCountriesHealthScores = (List<Map<String, Object>>) countryHealthScoresMap.get(countryHealthScores);
+            for (Map<String, Object> countryHealthScore : listOfCountriesHealthScores) {
+                countryHealthScore.remove("updatedDate");
+            }
+        }
     }
 
     void assertStringResponse(String responseJSON, String expectedJSON) throws IOException {
