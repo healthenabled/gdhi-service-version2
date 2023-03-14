@@ -61,7 +61,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: SHOWCASE
     needs: [run-automation-testsuite]
-    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/GDHI-60'
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/GDHI/CI-CD'
     steps:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1-node16
@@ -83,7 +83,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: PROD
     needs: [deploy-to-showcase]
-    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/GDHI-60'
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/GDHI/CI-CD'
     steps:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1-node16
