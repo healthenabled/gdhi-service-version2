@@ -36,13 +36,13 @@ public class IIndicatorTranslationRepositoryTest {
 
     @Test
     public void shouldReturnAllIndicatorsInFrench() {
-        String name = "Santé numérique priorisée au niveau national à travers des instances/mécanismes de gouvernance dédiés";
-        String definition = "Le pays dispose-t-il d'un département/agence/groupe de travail national distinct pour la santé numérique?";
+        String name = "Santé numérique priorisée au niveau national grâce à la planification";
+        String definition = "La santé numérique est-elle incluse et budgétisée dans la politique nationale de santé ou les stratégies et/ou plans nationaux pertinents ? Remarque : Cet indicateur se concentre sur l'inclusion de la santé numérique ou de la cybersanté dans la stratégie nationale de santé.";
 
         List<IndicatorTranslation> translatedIndicator = repository.findByLanguageId(fr);
 
         assertEquals(22, translatedIndicator.size());
-        assertEquals(Integer.valueOf(1), translatedIndicator.get(0).getIndicatorId());
+        assertEquals(Integer.valueOf(2), translatedIndicator.get(0).getIndicatorId());
         assertEquals(name, translatedIndicator.get(0).getName());
         assertEquals(definition, translatedIndicator.get(0).getDefinition());
     }

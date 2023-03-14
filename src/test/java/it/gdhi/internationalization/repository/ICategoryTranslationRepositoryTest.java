@@ -37,8 +37,8 @@ public class ICategoryTranslationRepositoryTest {
 
     @Test
     public void shouldReturnAllCategoryNamesInFrench() {
-        List<String> expectedCategories = of("Leadership et gouvernance", "Stratégie et investissement", "Lois, politiques et conformité",
-                "Ressources Humaines", "Normes et interopérabilité", "Infrastructure", "Services et applications");
+        List<String> expectedCategories = of("Leadership & Gouvernance", "Stratégie & investissement", "Législation, politique & conformité",
+                "Ressource Humaine / Main d’Oeuvre", "Standards/ Normes & Interoperabilité", "Infrastructure", "Services & Applications");
 
         List<CategoryTranslation> categories = repository.findByLanguageId(LanguageCode.fr);
         List<String> categoryNames = categories.stream().map(c -> c.getName()).sorted(Comparator.naturalOrder()).collect(Collectors.toList());
