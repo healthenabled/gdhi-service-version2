@@ -18,11 +18,11 @@ fi
 if [ "$DEPLOYMENT_GROUP_NAME" == "GDHI-Backend-v2-Prod" ]
 then
     source /opt/scripts/export_Prod_env.sh
-    FILE=`/usr/local/bin/aws ssm get-parameters --name "buildNumberForService" --query "Parameters[0].Value" | tr -d '"'`.jar
+    FILE=$AWS_S3_FOLDER_BACKEND/`/usr/local/bin/aws ssm get-parameters --name "buildNumberForService" --query "Parameters[0].Value" | tr -d '"'`.jar
     echo $FILE
 fi
 
-/usr/local/bin/aws s3 cp "s3://$AWS_S3_BUCKET_NAME/$AWS_S3_FOLDER_BACKEND/$FILE" $CURRENT_DIR/
+/usr/local/bin/aws s3 cp "s3://$AWS_S3_BUCKET_NAME/$FILE" $CURRENT_DIR/
 chmod +x $CURRENT_DIR/gdhi-*.jar;
 
 echo -n $"Starting $FILE: "
