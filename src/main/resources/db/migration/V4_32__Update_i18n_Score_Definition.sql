@@ -1,0 +1,5 @@
+UPDATE i18n.score_definition SET name='Stratégie nationale de santé numérique et plan chiffré entièrement mis en œuvre avec une planification en cours pour le prochain cycle de 3 à 5 ans.' where indicator_id=3 and language_id='fr' and score=5;
+UPDATE i18n.score_definition SET name='Estratégia nacional de saúde digital e plano custeado totalmente implementados com planejamento em andamento para o próximo ciclo de 3 a 5 anos.' where indicator_id=3 and language_id='pt' and score=5;
+UPDATE i18n.score_definition SET name='La estrategia nacional de salud digital y el plan presupuestado se han aplicado plenamente, y la planificación está en curso para el próximo ciclo de 3 a 5 años.' where indicator_id=3 and language_id='es' and score=5;
+UPDATE i18n.score_definition SET definition='الإستراتيجية الوطنية للصحة الرقمية وخطة التكلفة بشكل كامل مع التخطيط الجاري لدورة الـ 3-5 سنوات القادمة.' WHERE indicator_id=3 AND score=5 and language_id='ar';
+UPDATE i18n.score_definition SET definition='يوجد سجل آمن للمواليد، وهو متاح ومستخدم بشكل نشط ويشمل <٪25 من السكان المعنيين.' WHERE indicator_id=28 AND score=3 AND language_id='ar';

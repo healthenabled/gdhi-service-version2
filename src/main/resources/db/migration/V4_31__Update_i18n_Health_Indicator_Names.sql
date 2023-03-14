@@ -1,0 +1,12 @@
+UPDATE i18n.health_indicator SET name='Marco o estrategia nacional de eSalud/salud digital' where indicator_id=3 and language_id='es';
+UPDATE i18n.health_indicator SET name='Financiación pública para la salud digital' where indicator_id=4 and language_id='es';
+UPDATE i18n.health_indicator SET name='Marco Legal de Protección de Datos (Seguridad/ Ciberseguridad)' where indicator_id=5 and language_id='es';
+UPDATE i18n.health_indicator SET name='Seguridad e intercambio de datos transfronterizos'WHERE indicator_id=8 AND language_id='es';
+UPDATE i18n.health_indicator SET name='Salud digital integrada en la salud y la formación previa al servicio profesional relacionada (antes de la implementación)' where indicator_id=9 and language_id='es';
+UPDATE i18n.health_indicator SET name='Salud digital integrada en la salud y la capacitación profesional en el servicio relacionada (después del despliegue)' where indicator_id=10 and language_id='es';
+UPDATE i18n.health_indicator SET name='Madurez de las carreras profesionales de salud digital del sector público' where indicator_id=12 and language_id='es';
+UPDATE i18n.health_indicator SET name='Arquitectura sanitaria digital nacional y/o intercambio de información sanitaria' where indicator_id=13 and language_id='es';
+UPDATE i18n.health_indicator SET name='Estándares de información en salud' where indicator_id=14 and language_id='es';
+UPDATE i18n.health_indicator SET name='Leyes o Reglamentos de privacidad, consentimiento, confidencialidad y acceso a la información de salud (Privacidad)' where indicator_id=6 and language_id='es';
+UPDATE i18n.health_indicator SET name='Protocolo para regular o certificar dispositivos y/o servicios de salud, incluidas disposiciones para IA y algoritmos (en etapas más altas de madurez)' where indicator_id=7 and language_id='es';
+UPDATE i18n.health_indicator SET name='Preparación de la red' where indicator_id=15 and language_id='es';
