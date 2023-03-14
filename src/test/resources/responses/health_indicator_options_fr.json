@@ -1,7 +1,7 @@
 [
   {
     "categoryId": 1,
-    "categoryName": "Leadership et gouvernance",
+    "categoryName": "Leadership & Gouvernance",
     "indicators": [
       {
         "indicatorId": 1,
@@ -45,7 +45,7 @@
         "indicatorId": 2,
         "indicatorCode": "2",
         "indicatorName": "Santé numérique priorisée au niveau national grâce à la planification",
-        "indicatorDefinition": "La santé numérique est-elle incluse et budgétisée dans la politique nationale de santé ou les stratégies et/ou plans nationaux pertinents ? Remarque : Cet indicateur se concentre sur  l'inclusion de la santé numérique ou de la cybersanté dans la stratégie nationale de santé.",
+        "indicatorDefinition": "La santé numérique est-elle incluse et budgétisée dans la politique nationale de santé ou les stratégies et/ou plans nationaux pertinents ? Remarque : Cet indicateur se concentre sur l'inclusion de la santé numérique ou de la cybersanté dans la stratégie nationale de santé.",
         "scores": [
           {
             "scoreId": 8,
@@ -83,7 +83,7 @@
   },
   {
     "categoryId": 2,
-    "categoryName": "Stratégie et investissement",
+    "categoryName": "Stratégie & investissement",
     "indicators": [
       {
         "indicatorId": 3,
@@ -119,7 +119,7 @@
           {
             "scoreId": 21,
             "score": 5,
-            "scoreDefinition": "Stratégie nationale en matière de santé numérique et plan chiffré entièrement mis en œuvre et planification en cours pour le prochain cycle de trois à cinq ans."
+            "scoreDefinition": "Stratégie nationale de santé numérique et plan chiffré entièrement mis en œuvre avec une planification en cours pour le prochain cycle de 3 à 5 ans."
           }
         ]
       },
@@ -165,13 +165,13 @@
   },
   {
     "categoryId": 3,
-    "categoryName": "Lois, politiques et conformité",
+    "categoryName": "Législation, politique & conformité",
     "indicators": [
       {
         "indicatorId": 5,
         "indicatorCode": "5",
         "indicatorName": "Cadre juridique de la protection des données (sécurité/cybersécurité)",
-        "indicatorDefinition": "Existe-t-il une loi sur la sécurité des données (tout au long du cycle de vie des données, par exemple la collecte, le traitement, le stockage, la transmission,  l'utilisation et la destruction) qui concerne la santé numérique ?",
+        "indicatorDefinition": "Existe-t-il une loi sur la sécurité des données (tout au long du cycle de vie des données, par exemple la collecte, le traitement, le stockage, la transmission, l'utilisation et la destruction) qui concerne la santé numérique ?",
         "scores": [
           {
             "scoreId": 29,
@@ -323,7 +323,7 @@
   },
   {
     "categoryId": 4,
-    "categoryName": "Ressources Humaines",
+    "categoryName": "Ressource Humaine / Main d’Oeuvre",
     "indicators": [
       {
         "indicatorId": 9,
@@ -481,7 +481,7 @@
   },
   {
     "categoryId": 5,
-    "categoryName": "Normes et interopérabilité",
+    "categoryName": "Standards/ Normes & Interoperabilité",
     "indicators": [
       {
         "indicatorId": 13,
@@ -645,7 +645,7 @@
   },
   {
     "categoryId": 7,
-    "categoryName": "Services et applications",
+    "categoryName": "Services & Applications",
     "indicators": [
       {
         "indicatorId": 17,

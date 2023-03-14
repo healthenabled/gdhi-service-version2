@@ -170,7 +170,7 @@
       {
         "indicatorId": 5,
         "indicatorCode": "5",
-        "indicatorName": "Legal Framework for Data Protection (Security)",
+        "indicatorName":"Legal Framework for Data Protection (Security/ Cybersecurity)",
         "indicatorDefinition": "Is there a law on data security (across the full data lifecycle e.g. collection, processing, storage, transmission, use and destruction) that is relevant to digital health?",
         "scores": [
           {
