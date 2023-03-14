@@ -1,0 +1,2 @@
+UPDATE master.health_indicators SET name=' Legal Framework for Data Protection (Security/ Cybersecurity)' where indicator_id=5;
+UPDATE master.health_indicators SET name='Digital health integrated in health and related professional in-service training (after to deployment)' where indicator_id=10;

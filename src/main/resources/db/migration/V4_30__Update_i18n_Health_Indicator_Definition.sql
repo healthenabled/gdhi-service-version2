@@ -1,0 +1,6 @@
+UPDATE i18n.health_indicator SET definition='La santé numérique est-elle incluse et budgétisée dans la politique nationale de santé ou les stratégies et/ou plans nationaux pertinents ? Remarque : Cet indicateur se concentre sur l''inclusion de la santé numérique ou de la cybersanté dans la stratégie nationale de santé.' where indicator_id=2 and language_id='fr';
+UPDATE i18n.health_indicator SET definition='Existe-t-il une loi sur la sécurité des données (tout au long du cycle de vie des données, par exemple la collecte, le traitement, le stockage, la transmission, l''utilisation et la destruction) qui concerne la santé numérique ?' where indicator_id=5 and language_id='fr';
+UPDATE i18n.health_indicator SET definition='Las prioridades del sector público están respaldadas por sistemas de salud digitales a escala nacional' where indicator_id=17 and language_id='es';
+UPDATE i18n.category SET name = 'Ressource Humaine / Main d’Oeuvre' where category_id=4 and language_id='fr';
+UPDATE i18n.category SET name = 'Legislación, políticas y cumplimiento' where category_id=3 and language_id='es';
+UPDATE i18n.health_indicator SET definition='As prioridades do setor público são apoiadas por sistemas digitais de saúde em escala nacional' where indicator_id=17 and language_id='pt';
