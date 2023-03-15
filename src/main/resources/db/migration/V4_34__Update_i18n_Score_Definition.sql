@@ -1,0 +1,1 @@
+UPDATE i18N.score_definition SET definition='يوجد سجل شامل للمرضى، وهو متاح وقيد الاستخدام النشط ويشمل <25٪ من السكان المعنيين.' where indicator_id=27 and language_id='ar' and score=3;
