@@ -170,7 +170,7 @@
       {
         "indicatorId": 5,
         "indicatorCode": "5",
-        "indicatorName": "Legal Framework for Data Protection (Security)",
+        "indicatorName":"Legal Framework for Data Protection (Security/ Cybersecurity)",
         "indicatorDefinition": "Is there a law on data security (across the full data lifecycle e.g. collection, processing, storage, transmission, use and destruction) that is relevant to digital health?",
         "scores": [
           {
@@ -300,7 +300,7 @@
           {
             "scoreId": 53,
             "score": 2,
-            "scoreDefinition": "Protocols, policies, frameworks, or accepted processes governing AI use in health service have been proposed and under review"
+            "scoreDefinition": "Protocols, policies, frameworks, or accepted processes governing AI use in health service have been proposed and under review."
           },
           {
             "scoreId": 54,
@@ -366,7 +366,7 @@
       {
         "indicatorId": 10,
         "indicatorCode": "10",
-        "indicatorName": "Digital health integrated in health and related professional in-service training (after deployment)",
+        "indicatorName": "Digital health integrated in health and related professional in-service training (after to deployment)",
         "indicatorDefinition": "Specifically, is digital health part of curriculum for health and health-related support professionals in the workforce in general? [Defined as community health workers, nurses, doctors, allied health, health managers/administrators, and technologists]",
         "scores": [
           {

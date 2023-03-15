@@ -64,7 +64,7 @@
         {
           "id": 5,
           "code": "5",
-          "name": "Legal Framework for Data Protection (Security)",
+          "name": "Legal Framework for Data Protection (Security/ Cybersecurity)",
           "indicatorDescription": "Is there a law on data security (across the full data lifecycle e.g. collection, processing, storage, transmission, use and destruction) that is relevant to digital health?",
           "score": null,
           "supportingText": "sp1",

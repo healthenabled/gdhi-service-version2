@@ -1,7 +1,7 @@
 [
   {
     "categoryId": 1,
-    "categoryName": "Liderança e Governação",
+    "categoryName": "Liderança e Governança",
     "indicators": [
       {
         "indicatorId": 1,
@@ -119,7 +119,7 @@
           {
             "scoreId": 21,
             "score": 5,
-            "scoreDefinition": "Estratégia nacional de saúde digital e plano orçamentado totalmente implementado com o planeamento em curso para o próximo ciclo de 3-5 anos."
+            "scoreDefinition": "Estratégia nacional de saúde digital e plano custeado totalmente implementados com planejamento em andamento para o próximo ciclo de 3 a 5 anos."
           }
         ]
       },
@@ -323,7 +323,7 @@
   },
   {
     "categoryId": 4,
-    "categoryName": "Recursos Humanos",
+    "categoryName": "trabalhadores",
     "indicators": [
       {
         "indicatorId": 9,
@@ -481,7 +481,7 @@
   },
   {
     "categoryId": 5,
-    "categoryName": "Normas e Interoperabilidade",
+    "categoryName": "Padrões e Interoperabilidade",
     "indicators": [
       {
         "indicatorId": 13,
@@ -563,7 +563,7 @@
   },
   {
     "categoryId": 6,
-    "categoryName": "Infraestrutura",
+    "categoryName": "A infraestrutura",
     "indicators": [
       {
         "indicatorId": 15,
@@ -651,7 +651,7 @@
         "indicatorId": 17,
         "indicatorCode": "17",
         "indicatorName": "Sistemas digitais de saúde em escala nacional",
-        "indicatorDefinition": "As prioridades do setor público são apoiadas por sistemas digitais de saúde em escala naciona l",
+        "indicatorDefinition": "As prioridades do setor público são apoiadas por sistemas digitais de saúde em escala nacional",
         "scores": [
           {
             "scoreId": 113,
