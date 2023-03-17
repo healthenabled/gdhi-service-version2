@@ -27,6 +27,7 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
+import static it.gdhi.utils.Util.*;
 
 @ExtendWith(MockitoExtension.class)
 @MockitoSettings(strictness = Strictness.LENIENT)
@@ -59,7 +60,7 @@ public class CountryHealthDataServiceTest {
                 .resources(resourceLinks).build();
 
         String status = PUBLISHED.name();
-        String currentYear = countryHealthDataService.getCurrentYear();
+        String currentYear = getCurrentYear();
         List<HealthIndicatorDto> healthIndicatorDtos = asList(new HealthIndicatorDto(1, 1, status, 2, "Text"));
         String countryId = "ARG";
         GdhiQuestionnaire gdhiQuestionnaire = GdhiQuestionnaire.builder().countryId(countryId)
@@ -128,7 +129,7 @@ public class CountryHealthDataServiceTest {
         String feeder = "feeder";
         String feederRole = "feeder role";
         String contactEmail = "contact@test.com";
-        String currentYear = countryHealthDataService.getCurrentYear();
+        String currentYear = getCurrentYear();
         CountrySummaryDto countrySummaryDetailDto = CountrySummaryDto.builder().summary("Summary 1")
                 .dataFeederName(feeder)
                 .dataFeederRole(feederRole)
@@ -158,7 +159,7 @@ public class CountryHealthDataServiceTest {
     @Test
     public void shouldNotSaveAsNewStatusWhenCountryHasPublishedDataForCurrentYear() throws Exception {
         String countryId = "ARG";
-        String currentYear = countryHealthDataService.getCurrentYear();
+        String currentYear = getCurrentYear();
         UUID countryUUID = UUID.randomUUID();
         ArgumentCaptor<CountrySummary> summaryCaptor = ArgumentCaptor.forClass(CountrySummary.class);
         Country country = new Country(countryId, "Argentina", countryUUID, "AR");
@@ -179,7 +180,7 @@ public class CountryHealthDataServiceTest {
     @Test
     public void shouldNotSaveNewCountrySummaryWhenItAlreadyHasUnpublishedDataForCurrentYear() throws Exception {
         String countryId = "ARG";
-        String currentYear = countryHealthDataService.getCurrentYear();
+        String currentYear = getCurrentYear();
         UUID countryUUID = UUID.randomUUID();
         Country country = new Country(countryId, "Argentina", countryUUID, "AR");
         CountrySummaryId countrySummaryId = CountrySummaryId.builder().countryId(countryId).status(NEW.name()).year(currentYear).build();
@@ -202,7 +203,7 @@ public class CountryHealthDataServiceTest {
     public void shouldNotSaveNewCountrySummaryWhenItAlreadyHaveDraftDataForCurrentYear() throws Exception {
         String countryId = "ARG";
         UUID countryUUID = UUID.randomUUID();
-        String currentYear = countryHealthDataService.getCurrentYear();
+        String currentYear = getCurrentYear();
         Country country = new Country(countryId, "Argentina", countryUUID, "AR");
         CountrySummaryId countrySummaryId = CountrySummaryId.builder().countryId(countryId).status(DRAFT.name()).year(currentYear).build();
         CountrySummary countrySummary = CountrySummary.builder().countrySummaryId(countrySummaryId).build();
@@ -224,7 +225,7 @@ public class CountryHealthDataServiceTest {
     public void shouldNotSaveNewCountrySummaryWhenItAlreadyHasNewDataForCurrentYear() throws Exception {
         String countryId = "ARG";
         UUID countryUUID = UUID.randomUUID();
-        String currentYear = countryHealthDataService.getCurrentYear();
+        String currentYear = getCurrentYear();
         Country country = new Country(countryId, "Argentina", countryUUID, "AR");
         CountrySummaryId countrySummaryId = CountrySummaryId.builder().countryId(countryId).status(NEW.name()).year(currentYear).build();
         CountrySummary countrySummary = CountrySummary.builder().countrySummaryId(countrySummaryId).build();
@@ -982,7 +983,7 @@ public class CountryHealthDataServiceTest {
         String countryId = "ARG";
         UUID countryUUID = UUID.randomUUID();
         String year = "Version1";
-        String currentYear = countryHealthDataService.getCurrentYear();
+        String currentYear = getCurrentYear();
         Country country = new Country(countryId, "Argentina", countryUUID, "AR");
         CountrySummaryId countrySummaryId1 = CountrySummaryId.builder().countryId(countryId).status(PUBLISHED.name()).year(year).build();
         CountrySummary countrySummary1 = CountrySummary.builder().countrySummaryId(countrySummaryId1).build();

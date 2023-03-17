@@ -39,6 +39,7 @@ import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static it.gdhi.utils.Util.*;
 
 @ExtendWith(MockitoExtension.class)
 public class CountryControllerTest {
@@ -139,7 +140,6 @@ public class CountryControllerTest {
         GdhiQuestionnaire mock = mock(GdhiQuestionnaire.class);
         String year = getCurrentYear();
         doNothing().when(countryHealthDataService).publish(mock, year);
-        when(countryHealthDataService.getCurrentYear()).thenReturn(year);
         when(countryHealthDataService.validateRequiredFields(mock)).thenReturn(true);
         countryController.publishHealthIndicatorsFor(mock, year);
         verify(countryHealthDataService).publish(mock, year);
@@ -223,7 +223,7 @@ public class CountryControllerTest {
 
     @Test
     public void shouldGetAllCountryStatusSummariesForCurrentYear() {
-        CountrySummaryStatusYearDto countrySummaryStatusYearDto = new CountrySummaryStatusYearDto(this.getCurrentYear(), emptyList(), emptyList(), emptyList(), emptyList());
+        CountrySummaryStatusYearDto countrySummaryStatusYearDto = new CountrySummaryStatusYearDto(getCurrentYear(), emptyList(), emptyList(), emptyList(), emptyList());
         when(countryHealthDataService.getAllCountryStatusSummaries()).thenReturn(countrySummaryStatusYearDto);
         countryController.getAllCountryStatusSummaries();
         verify(countryHealthDataService).getAllCountryStatusSummaries();
@@ -262,9 +262,4 @@ public class CountryControllerTest {
         verify(countryHealthDataService).calculatePhaseForAllCountries(year);
     }
 
-    private String getCurrentYear() {
-        int currentYear = Year.now().getValue();
-        String year = new String(String.valueOf(currentYear));
-        return year;
-    }
 }

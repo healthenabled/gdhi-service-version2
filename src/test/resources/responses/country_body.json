@@ -1,6 +1,9 @@
 {
   "countryId": "IND",
-  "status":"DRAFT",
+  "currentYear": "2023",
+  "dataAvailableForYear": "2023",
+  "status": "DRAFT",
+  "updatedDate": "March 2023",
   "countrySummary": {
     "countryId": "IND",
     "countryName": "India",
@@ -23,27 +26,159 @@
     ]
   },
   "healthIndicators": [
-    {"categoryId":1, "indicatorId":1, "status":"DRAFT", "score":1, "supportingText":"blah@blah.com"},
-    {"categoryId":1, "indicatorId":2, "status":"DRAFT", "score":1, "supportingText":"blah@blah.com"},
-    {"categoryId":2, "indicatorId":3, "status":"DRAFT", "score":1, "supportingText":"blah@blah.com"},
-    {"categoryId":2, "indicatorId":4, "status":"DRAFT", "score":1, "supportingText":"blah@blah.com"},
-    {"categoryId":3, "indicatorId":5, "status":"DRAFT", "score":1, "supportingText":"blah@blah.com"},
-    {"categoryId":3, "indicatorId":6, "status":"DRAFT", "score":1, "supportingText":"blah@blah.com"},
-    {"categoryId":3, "indicatorId":7, "status":"DRAFT", "score":1, "supportingText":"blah@blah.com"},
-    {"categoryId":3, "indicatorId":8, "status":"DRAFT", "score":1, "supportingText":"blah@blah.com"},
-    {"categoryId":4, "indicatorId":9, "status":"DRAFT", "score":1, "supportingText":"blah@blah.com"},
-    {"categoryId":4, "indicatorId":10, "status":"DRAFT", "score":1, "supportingText":"blah@blah.com"},
-    {"categoryId":4, "indicatorId":11, "status":"DRAFT", "score":1, "supportingText":"blah@blah.com"},
-    {"categoryId":4, "indicatorId":12, "status":"DRAFT", "score":1, "supportingText":"blah@blah.com"},
-    {"categoryId":5, "indicatorId":13, "status":"DRAFT", "score":1, "supportingText":"blah@blah.com"},
-    {"categoryId":5, "indicatorId":14, "status":"DRAFT", "score":1, "supportingText":"blah@blah.com"},
-    {"categoryId":6, "indicatorId":15, "status":"DRAFT", "score":1, "supportingText":"blah@blah.com"},
-    {"categoryId":6, "indicatorId":16, "status":"DRAFT", "score":1, "supportingText":"blah@blah.com"},
-    {"categoryId":7, "indicatorId":17, "status":"DRAFT", "score":1, "supportingText":"blah@blah.com"},
-    {"categoryId":7, "indicatorId":18, "status":"DRAFT", "score":1, "supportingText":"blah@blah.com"},
-    {"categoryId":7, "indicatorId":19, "status":"DRAFT", "score":1, "supportingText":"blah@blah.com"},
-    {"categoryId":7, "indicatorId":27, "status":"DRAFT", "score":1, "supportingText":"blah@blah.com"},
-    {"categoryId":7, "indicatorId":28, "status":"DRAFT", "score":1, "supportingText":"blah@blah.com"},
-    {"categoryId":7, "indicatorId":29, "status":"DRAFT", "score":1, "supportingText":"blah@blah.com"}
+    {
+      "categoryId": 1,
+      "indicatorId": 1,
+      "status": "DRAFT",
+      "score": 1,
+      "supportingText": "blah@blah.com"
+    },
+    {
+      "categoryId": 1,
+      "indicatorId": 2,
+      "status": "DRAFT",
+      "score": 1,
+      "supportingText": "blah@blah.com"
+    },
+    {
+      "categoryId": 2,
+      "indicatorId": 3,
+      "status": "DRAFT",
+      "score": 1,
+      "supportingText": "blah@blah.com"
+    },
+    {
+      "categoryId": 2,
+      "indicatorId": 4,
+      "status": "DRAFT",
+      "score": 1,
+      "supportingText": "blah@blah.com"
+    },
+    {
+      "categoryId": 3,
+      "indicatorId": 5,
+      "status": "DRAFT",
+      "score": 1,
+      "supportingText": "blah@blah.com"
+    },
+    {
+      "categoryId": 3,
+      "indicatorId": 6,
+      "status": "DRAFT",
+      "score": 1,
+      "supportingText": "blah@blah.com"
+    },
+    {
+      "categoryId": 3,
+      "indicatorId": 7,
+      "status": "DRAFT",
+      "score": 1,
+      "supportingText": "blah@blah.com"
+    },
+    {
+      "categoryId": 3,
+      "indicatorId": 8,
+      "status": "DRAFT",
+      "score": 1,
+      "supportingText": "blah@blah.com"
+    },
+    {
+      "categoryId": 4,
+      "indicatorId": 9,
+      "status": "DRAFT",
+      "score": 1,
+      "supportingText": "blah@blah.com"
+    },
+    {
+      "categoryId": 4,
+      "indicatorId": 10,
+      "status": "DRAFT",
+      "score": 1,
+      "supportingText": "blah@blah.com"
+    },
+    {
+      "categoryId": 4,
+      "indicatorId": 11,
+      "status": "DRAFT",
+      "score": 1,
+      "supportingText": "blah@blah.com"
+    },
+    {
+      "categoryId": 4,
+      "indicatorId": 12,
+      "status": "DRAFT",
+      "score": 1,
+      "supportingText": "blah@blah.com"
+    },
+    {
+      "categoryId": 5,
+      "indicatorId": 13,
+      "status": "DRAFT",
+      "score": 1,
+      "supportingText": "blah@blah.com"
+    },
+    {
+      "categoryId": 5,
+      "indicatorId": 14,
+      "status": "DRAFT",
+      "score": 1,
+      "supportingText": "blah@blah.com"
+    },
+    {
+      "categoryId": 6,
+      "indicatorId": 15,
+      "status": "DRAFT",
+      "score": 1,
+      "supportingText": "blah@blah.com"
+    },
+    {
+      "categoryId": 6,
+      "indicatorId": 16,
+      "status": "DRAFT",
+      "score": 1,
+      "supportingText": "blah@blah.com"
+    },
+    {
+      "categoryId": 7,
+      "indicatorId": 17,
+      "status": "DRAFT",
+      "score": 1,
+      "supportingText": "blah@blah.com"
+    },
+    {
+      "categoryId": 7,
+      "indicatorId": 18,
+      "status": "DRAFT",
+      "score": 1,
+      "supportingText": "blah@blah.com"
+    },
+    {
+      "categoryId": 7,
+      "indicatorId": 19,
+      "status": "DRAFT",
+      "score": 1,
+      "supportingText": "blah@blah.com"
+    },
+    {
+      "categoryId": 7,
+      "indicatorId": 27,
+      "status": "DRAFT",
+      "score": 1,
+      "supportingText": "blah@blah.com"
+    },
+    {
+      "categoryId": 7,
+      "indicatorId": 28,
+      "status": "DRAFT",
+      "score": 1,
+      "supportingText": "blah@blah.com"
+    },
+    {
+      "categoryId": 7,
+      "indicatorId": 29,
+      "status": "DRAFT",
+      "score": 1,
+      "supportingText": "blah@blah.com"
+    }
   ]
 }

@@ -16,7 +16,13 @@ public class GdhiQuestionnaire {
 
     private String countryId;
 
+    private String currentYear;
+
+    private String dataAvailableForYear;
+
     private String status;
+
+    private String updatedDate;
 
     private CountrySummaryDto countrySummary;
 

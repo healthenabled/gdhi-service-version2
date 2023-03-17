@@ -23,6 +23,7 @@ import java.util.UUID;
 
 import static it.gdhi.utils.FormStatus.DRAFT;
 import static it.gdhi.utils.LanguageCode.USER_LANGUAGE;
+import static it.gdhi.utils.Util.*;
 
 @RestController
 @Slf4j
@@ -103,7 +104,7 @@ public class CountryController {
     public ResponseEntity publishHealthIndicatorsFor(@RequestBody GdhiQuestionnaire gdhiQuestionnaire, @PathVariable("year") String year) {
         boolean isValid;
         isValid = countryHealthDataService.validateRequiredFields(gdhiQuestionnaire);
-        if (isValid && year.equals(countryHealthDataService.getCurrentYear())) {
+        if (isValid && year.equals(getCurrentYear())) {
             countryHealthDataService.publish(gdhiQuestionnaire, year);
             return ResponseEntity.status(HttpStatus.CREATED).body(null);
         } else {
@@ -117,7 +118,7 @@ public class CountryController {
                                                         @RequestParam(value = "year", required = false) String year) {
         LanguageCode languageCode = LanguageCode.getValueFor(request.getHeader(USER_LANGUAGE));
         if (year == null) {
-            year = countryHealthDataService.getCurrentYear();
+            year = getCurrentYear();
         }
         return countryService.getDetails(countryUIID, languageCode, false, year);
     }
@@ -181,7 +182,7 @@ public class CountryController {
     @GetMapping("/admin/countries/calculate_phase")
     public void calculateCountryPhase(@RequestParam(value = "year", required = false) String year) {
         if (year == null) {
-            year = countryHealthDataService.getCurrentYear();
+            year = getCurrentYear();
         }
         countryHealthDataService.calculatePhaseForAllCountries(year);
     }

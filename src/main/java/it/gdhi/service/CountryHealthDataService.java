@@ -44,6 +44,7 @@ import static it.gdhi.utils.FormStatus.REVIEW_PENDING;
 import static java.util.Objects.isNull;
 import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.toList;
+import static it.gdhi.utils.Util.*;
 
 @Service
 public class CountryHealthDataService {
@@ -91,7 +92,7 @@ public class CountryHealthDataService {
     @Transactional
     public CountryUrlGenerationStatusDto saveNewCountrySummary(UUID countryUUID) {
         String countryId = iCountryRepository.findByUniqueId(countryUUID).getId();
-        String currentYear = this.getCurrentYear();
+        String currentYear = getCurrentYear();
 
         CountryUrlGenerationStatusDto statusDto;
 
@@ -142,7 +143,7 @@ public class CountryHealthDataService {
     }
 
     public CountrySummaryStatusYearDto getAllCountryStatusSummaries() {
-        String currentYear = this.getCurrentYear();
+        String currentYear = getCurrentYear();
         List<CountrySummary> countrySummaries = iCountrySummaryRepository.findByCountrySummaryIdYearOrderByUpdatedAtDesc(currentYear);
 
         List<CountrySummaryStatusDto> countrySummaryStatusDtos = countrySummaries
@@ -177,13 +178,6 @@ public class CountryHealthDataService {
             return new CountryHealthIndicator(countryHealthIndicatorId, dto.getScore(), dto.getSupportingText());
         }).collect(toList());
     }
-
-    public String getCurrentYear() {
-        int currentYear = Year.now().getValue();
-        String year = new String(String.valueOf(currentYear));
-        return year;
-    }
-
 
     private void calculateAndSaveCountryPhase(String countryId, String status, String year) {
         CountryHealthIndicators countryHealthIndicators = new CountryHealthIndicators(iCountryHealthIndicatorRepository
@@ -276,12 +270,12 @@ public class CountryHealthDataService {
     private boolean hasValidApproverData(CountrySummaryDto countrySummary) {
         return Boolean.TRUE.equals((countrySummary.getGovtApproved())) ?
                 StringUtils.hasText(countrySummary.getDataApproverEmail()) &&
-                StringUtils.hasText(countrySummary.getDataApproverName()) &&
-                StringUtils.hasText(countrySummary.getDataApproverRole()) :
+                        StringUtils.hasText(countrySummary.getDataApproverName()) &&
+                        StringUtils.hasText(countrySummary.getDataApproverRole()) :
 
                 !StringUtils.hasText(countrySummary.getDataApproverEmail()) &&
-                !StringUtils.hasText(countrySummary.getDataApproverName()) &&
-                !StringUtils.hasText(countrySummary.getDataApproverRole());
+                        !StringUtils.hasText(countrySummary.getDataApproverName()) &&
+                        !StringUtils.hasText(countrySummary.getDataApproverRole());
     }
 
 }

@@ -1,10 +1,7 @@
 package it.gdhi.service;
 
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import it.gdhi.dto.CountrySummaryDto;
@@ -25,6 +22,7 @@ import org.springframework.stereotype.Service;
 
 import static it.gdhi.utils.FormStatus.PUBLISHED;
 import static java.util.stream.Collectors.toList;
+import static it.gdhi.utils.Util.*;
 
 
 @Service
@@ -66,7 +64,7 @@ public class CountryService {
             CountrySummary countrySummary = countrySummaries.size() > 1 ? getUnPublishedCountrySummary(countrySummaries) : Optional.ofNullable(countrySummaries.get(0)).get();
 
             List<CountryHealthIndicator> sortedIndicators = getCountryHealthIndicators(countryId, countrySummary, year);
-            gdhiQuestionnaire = constructGdhiQuestionnaire(countryId, countrySummary, sortedIndicators);
+            gdhiQuestionnaire = constructGdhiQuestionnaire(countryId, countrySummary, sortedIndicators, year);
             String translatedCountryName = translator.getCountryTranslationForLanguage(languageCode, gdhiQuestionnaire.getCountryId());
             gdhiQuestionnaire.translateCountryName(translatedCountryName);
         }
@@ -88,11 +86,13 @@ public class CountryService {
         return countrySummaries.stream().filter(countrySummaryTmp -> !countrySummaryTmp.getCountrySummaryId().getStatus().equalsIgnoreCase(PUBLISHED.name())).findFirst().get();
     }
 
-    private GdhiQuestionnaire constructGdhiQuestionnaire(String countryId, CountrySummary countrySummary, List<CountryHealthIndicator> sortedIndicators) {
+    private GdhiQuestionnaire constructGdhiQuestionnaire(String countryId, CountrySummary countrySummary, List<CountryHealthIndicator> sortedIndicators, String year) {
         GdhiQuestionnaire gdhiQuestionnaire;
         CountrySummaryDto countrySummaryDto = Optional.ofNullable(countrySummary).map(CountrySummaryDto::new).orElse(null);
         List<HealthIndicatorDto> healthIndicatorDtos = sortedIndicators.stream().map(HealthIndicatorDto::new).collect(toList());
-        gdhiQuestionnaire = new GdhiQuestionnaire(countryId, countrySummary.getCountrySummaryId().getStatus(), countrySummaryDto, healthIndicatorDtos);
+        String updatedDateStr = countrySummary != null && countrySummary.getUpdatedAt() != null ?
+                new SimpleDateFormat("MMMM yyyy").format(countrySummary.getUpdatedAt()) : "";
+        gdhiQuestionnaire = new GdhiQuestionnaire(countryId, getCurrentYear(), year, countrySummary.getCountrySummaryId().getStatus(), updatedDateStr, countrySummaryDto, healthIndicatorDtos);
         return gdhiQuestionnaire;
     }
 

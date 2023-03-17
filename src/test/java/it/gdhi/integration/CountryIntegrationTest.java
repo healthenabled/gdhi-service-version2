@@ -3,6 +3,7 @@ package it.gdhi.integration;
 import io.restassured.response.Response;
 import it.gdhi.GdhiServiceApplication;
 import it.gdhi.dto.CountryHealthScoreDto;
+import it.gdhi.dto.GdhiQuestionnaire;
 import it.gdhi.dto.HealthIndicatorDto;
 import it.gdhi.model.Country;
 import it.gdhi.model.CountryPhase;
@@ -268,6 +269,7 @@ public class CountryIntegrationTest extends BaseIntegrationTest {
         String status = "DRAFT";
         String alpha2code = "IN";
         String currentYear = getCurrentYear();
+        String dataAvailableForYear = "2023";
 
         CountryResourceLink countryResourceLink1 = new CountryResourceLink(new CountryResourceLinkId(countryId,
                 "link1", status, currentYear), new Date(), null);
@@ -304,11 +306,19 @@ public class CountryIntegrationTest extends BaseIntegrationTest {
 
         setupHealthIndicatorsForCountry(countryId, healthIndicatorDtos, currentYear);
 
+        SimpleDateFormat DateFor = new SimpleDateFormat("MMMM yyyy");
+        String expectedUpdatedDate = DateFor.format(new Date());
+
         Response response = given()
                 .contentType("application/json")
                 .when()
                 .get("http://localhost:" + port + "/countries/" + INDIA_UUID.toString());
         String responseJson = response.asString();
+
+        GdhiQuestionnaire gdhiQuestionnaire = response.getBody().as(GdhiQuestionnaire.class);
+        assertEquals(gdhiQuestionnaire.getUpdatedDate(), expectedUpdatedDate);
+        assertEquals(gdhiQuestionnaire.getCurrentYear() , currentYear);
+
         assertResponse(responseJson, "country_body.json");
     }
 
@@ -348,6 +358,10 @@ public class CountryIntegrationTest extends BaseIntegrationTest {
         addCountrySummary(INDIA_ID, "India", "NEW", "IN", UUID.randomUUID(), new ArrayList<>(), currentYear);
         mailerService = mock(MailerService.class);
         doNothing().when(mailerService).send(any(Country.class), anyString(), anyString(), anyString());
+        String dataAvailableForYear = "2023";
+
+        SimpleDateFormat DateFor = new SimpleDateFormat("MMMM yyyy");
+        String expectedUpdatedDate = DateFor.format(new Date());
 
         Response response = given()
                 .contentType("application/json")
@@ -364,6 +378,10 @@ public class CountryIntegrationTest extends BaseIntegrationTest {
         String responseJson = response.asString();
         assertResponse(responseJson, "country_body.json");
 
+        GdhiQuestionnaire gdhiQuestionnaire = response.getBody().as(GdhiQuestionnaire.class);
+        assertEquals(gdhiQuestionnaire.getUpdatedDate(), expectedUpdatedDate);
+        assertEquals(gdhiQuestionnaire.getCurrentYear() , currentYear);
+
         response = given()
                 .contentType("application/json")
                 .when()
@@ -377,12 +395,21 @@ public class CountryIntegrationTest extends BaseIntegrationTest {
                 .when()
                 .get("http://localhost:" + port + "/countries/" + INDIA_UUID.toString());
         responseJson = response.asString();
+        gdhiQuestionnaire = response.getBody().as(GdhiQuestionnaire.class);
+        assertEquals(gdhiQuestionnaire.getUpdatedDate(), expectedUpdatedDate);
+        assertEquals(gdhiQuestionnaire.getCurrentYear() , currentYear);
+
         assertResponse(responseJson, "country_body_edit.json");
     }
 
     @Test
     public void shouldSubmitCountryDetails() throws Exception {
         String currentYear = getCurrentYear();
+        String dataAvailableForYear = "2023";
+
+        SimpleDateFormat DateFor = new SimpleDateFormat("MMMM yyyy");
+        String expectedUpdatedDate = DateFor.format(new Date());
+
         addCountrySummary(INDIA_ID, "India", "NEW", "IN", UUID.randomUUID(), new ArrayList<>(), currentYear);
 
         Response response = given()
@@ -398,6 +425,11 @@ public class CountryIntegrationTest extends BaseIntegrationTest {
                 .when()
                 .get("http://localhost:" + port + "/countries/" + INDIA_UUID.toString());
         String responseJson = response.asString();
+
+        GdhiQuestionnaire gdhiQuestionnaire = response.getBody().as(GdhiQuestionnaire.class);
+        assertEquals(gdhiQuestionnaire.getUpdatedDate(), expectedUpdatedDate);
+        assertEquals(gdhiQuestionnaire.getCurrentYear() , currentYear);
+
         assertResponse(responseJson, "country_body_review_pending.json");
     }
 
