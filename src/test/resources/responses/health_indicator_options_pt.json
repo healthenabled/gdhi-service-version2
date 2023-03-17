@@ -420,22 +420,22 @@
           {
             "scoreId": 74,
             "score": 2,
-            "scoreDefinition": "Necessidades de força de trabalho de saúde digital avaliadas, lacunas identificadas e opções de treinamento em desenvolvimento"
+            "scoreDefinition": "Necessidades de força de trabalho de saúde digital avaliadas, lacunas identificadas e opções de treinamento em desenvolvimento."
           },
           {
             "scoreId": 75,
             "score": 3,
-            "scoreDefinition": "O treinamento profissional está disponível, mas os graduados ainda não foram implantados"
+            "scoreDefinition": "O treinamento profissional está disponível, mas os graduados ainda não foram implantados."
           },
           {
             "scoreId": 76,
             "score": 4,
-            "scoreDefinition": "Profissionais de saúde digital treinados disponíveis e implantados, mas ainda há lacunas essenciais de pessoal"
+            "scoreDefinition": "Profissionais de saúde digital treinados disponíveis e implantados, mas ainda há lacunas essenciais de pessoal."
           },
           {
             "scoreId": 77,
             "score": 5,
-            "scoreDefinition": "Número suficiente de profissionais de saúde digital treinados disponíveis para atender às necessidades nacionais de saúde digital"
+            "scoreDefinition": "Número suficiente de profissionais de saúde digital treinados disponíveis para atender às necessidades nacionais de saúde digital."
           }
         ]
       },
@@ -453,12 +453,12 @@
           {
             "scoreId": 80,
             "score": 1,
-            "scoreDefinition": "Nenhuma estratégia, política ou guia de força de trabalho que reconheça a saúde digital está em vigor. A distribuição da força de trabalho de saúde digital é ad hoc"
+            "scoreDefinition": "Nenhuma estratégia, política ou guia de força de trabalho que reconheça a saúde digital está em vigor. A distribuição da força de trabalho de saúde digital é ad hoc."
           },
           {
             "scoreId": 81,
             "score": 2,
-            "scoreDefinition": "Uma avaliação nacional das necessidades mostra o número e os tipos de habilidades necessárias para apoiar a saúde digital com foco explícito no treinamento de profissionais de saúde do sexo feminino"
+            "scoreDefinition": "Uma avaliação nacional das necessidades mostra o número e os tipos de habilidades necessárias para apoiar a saúde digital com foco explícito no treinamento de profissionais de saúde do sexo feminino."
           },
           {
             "scoreId": 82,
@@ -468,12 +468,12 @@
           {
             "scoreId": 83,
             "score": 4,
-            "scoreDefinition": "Existe uma política de RH e um plano estratégico que identifica as habilidades e funções necessárias para apoiar a saúde digital com foco explícito no treinamento de profissionais de saúde do sexo feminino e uma estimativa de 50 a 75% da força de trabalho de saúde digital do setor público"
+            "scoreDefinition": "Existe uma política de RH e um plano estratégico que identifica as habilidades e funções necessárias para apoiar a saúde digital com foco explícito no treinamento de profissionais de saúde do sexo feminino e uma estimativa de 50 a 75% da força de trabalho de saúde digital do setor público."
           },
           {
             "scoreId": 84,
             "score": 5,
-            "scoreDefinition": "Existe um plano de longo prazo para aumentar e manter a equipe com as habilidades necessárias para sustentar a saúde digital nos níveis nacional e subnacional, com foco explícito no treinamento de quadros de trabalhadoras de saúde do sexo feminino com um número estimado de mais de 75% dos cargos necessários preenchidos. Os sistemas de gestão de desempenho estão em vigor para garantir o crescimento e a sustentabilidade da força de trabalho de saúde digital com oferta suficiente para atender às necessidades de saúde digital e pouca rotatividade de pessoal"
+            "scoreDefinition": "Existe um plano de longo prazo para aumentar e manter a equipe com as habilidades necessárias para sustentar a saúde digital nos níveis nacional e subnacional, com foco explícito no treinamento de quadros de trabalhadoras de saúde do sexo feminino com um número estimado de mais de 75% dos cargos necessários preenchidos. Os sistemas de gestão de desempenho estão em vigor para garantir o crescimento e a sustentabilidade da força de trabalho de saúde digital com oferta suficiente para atender às necessidades de saúde digital e pouca rotatividade de pessoal."
           }
         ]
       }
@@ -497,22 +497,22 @@
           {
             "scoreId": 87,
             "score": 1,
-            "scoreDefinition": "Não existe uma estrutura arquitetônica nacional de saúde digital (eHealth) e/ou troca de informações de saúde (HIE) estabelecida"
+            "scoreDefinition": "Não existe uma estrutura arquitetônica nacional de saúde digital (eHealth) e/ou troca de informações de saúde (HIE) estabelecida."
           },
           {
             "scoreId": 88,
             "score": 2,
-            "scoreDefinition": "Uma arquitetura digital de saúde nacional e/ou troca de informações de saúde (HIE) foi proposta, mas não aprovada, incluindo camadas semânticas, sintáticas e organizacionais"
+            "scoreDefinition": "Uma arquitetura digital de saúde nacional e/ou troca de informações de saúde (HIE) foi proposta, mas não aprovada, incluindo camadas semânticas, sintáticas e organizacionais."
           },
           {
             "scoreId": 89,
             "score": 3,
-            "scoreDefinition": "A arquitetura digital de saúde nacional e/ou troca de informações de saúde (HIE) é operável e fornece funções essenciais, como autenticação, tradução, armazenamento e função de armazenamento, guia para quais dados estão disponíveis e como acessá-los e interpretação de dados"
+            "scoreDefinition": "A arquitetura digital de saúde nacional e/ou troca de informações de saúde (HIE) é operável e fornece funções essenciais, como autenticação, tradução, armazenamento e função de armazenamento, guia para quais dados estão disponíveis e como acessá-los e interpretação de dados."
           },
           {
             "scoreId": 90,
             "score": 4,
-            "scoreDefinition": "O governo lidera, gerencia e reforça a implementação da arquitetura digital de saúde nacional e/ou a troca de informações de saúde (HIE), que são totalmente implementadas de acordo com os padrões da indústria"
+            "scoreDefinition": "O governo lidera, gerencia e reforça a implementação da arquitetura digital de saúde nacional e/ou a troca de informações de saúde (HIE), que são totalmente implementadas de acordo com os padrões da indústria."
           },
           {
             "scoreId": 91,

@@ -1,0 +1,1 @@
+UPDATE i18n.health_indicator SET name='Formación en salud digital del recurso humano' where indicator_id=11 and language_id='es';

@@ -1,0 +1,1 @@
+UPDATE i18n.category SET name = 'Legislación, política y cumplimiento' where category_id=3 and language_id='es';

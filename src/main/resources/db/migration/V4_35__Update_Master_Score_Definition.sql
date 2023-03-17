@@ -1,0 +1,1 @@
+UPDATE master.health_indicator_scores SET definition='Protocols, policies, frameworks, or accepted processes governing AI use in health service have been proposed and under review.' WHERE indicator_id=8 AND score=2;
