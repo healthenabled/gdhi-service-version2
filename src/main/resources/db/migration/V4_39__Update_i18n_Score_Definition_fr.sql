@@ -1,0 +1,3 @@
+UPDATE i18n.score_definition SET definition = 'Il n''y a pas de programme de santé numérique pour les professionnels de la santé dans le cadre des exigences de formation préalable.' WHERE indicator_id =9 AND score =1 AND language_id = 'fr';
+UPDATE i18n.score_definition SET definition = 'Mise en œuvre du programme de santé numérique en cours couvrant environ <50% des professionnels de la santé en formation initiale.' WHERE indicator_id =9 AND score =3 AND language_id = 'fr';
+UPDATE i18n.score_definition SET definition = 'Santé numérique enseignée dans les institutions concernées avec > 75% des professionnels de la santé recevant une formation initiale.' WHERE indicator_id =9 AND score =5 AND language_id = 'fr';
