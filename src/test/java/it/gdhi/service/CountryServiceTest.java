@@ -1,11 +1,6 @@
 package it.gdhi.service;
 
-import java.time.Year;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import com.google.common.collect.ImmutableList;
@@ -37,9 +32,11 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
 
+import static it.gdhi.utils.FormStatus.NEW;
 import static it.gdhi.utils.FormStatus.PUBLISHED;
 import static it.gdhi.utils.LanguageCode.ar;
 import static it.gdhi.utils.LanguageCode.en;
+import static it.gdhi.utils.Util.*;
 import static java.util.Arrays.asList;
 import static java.util.UUID.randomUUID;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -357,6 +354,67 @@ public class CountryServiceTest {
         assertEquals(expectedDistinctYears, actualDistinctYears);
     }
 
+    @Test
+    public void shouldGetTheLatestDataAvailableYearWhenCountryUUIDIsGiven() {
+        String countryId = "IND";
+        UUID countryUUID = randomUUID();
+        Date createdDate = new Date();
+
+        Date updatedDate = getUpdatedDate(2022);
+        Date updatedDate1 = getUpdatedDate(2018);
+
+        Country country = new Country(countryId, "India", countryUUID, "IN");
+        CountrySummary countrySummary = CountrySummary.builder()
+                .countrySummaryId(new CountrySummaryId(countryId, PUBLISHED.name(), "2022"))
+                .country(new Country(countryId, "INDIA ", countryUUID, "IN"))
+                .summary("summary")
+                .contactName("contactName")
+                .contactDesignation("contact designation")
+                .contactOrganization("contact org")
+                .contactEmail("contact email")
+                .dataFeederName("feeder name")
+                .dataFeederRole("feeder role")
+                .dataFeederEmail("feeder email")
+                .dataApproverName("collector name")
+                .dataApproverRole("collector role")
+                .dataApproverRole("collector email")
+                .countryResourceLinks(asList(new CountryResourceLink(new CountryResourceLinkId(countryId, "link",
+                        PUBLISHED.name(), "2022"), createdDate, updatedDate)))
+                .build();
+        CountrySummary countrySummary1 = CountrySummary.builder()
+                .countrySummaryId(new CountrySummaryId(countryId, PUBLISHED.name(), "2018"))
+                .country(new Country(countryId, "INDIA ", countryUUID, "IN"))
+                .summary("summary")
+                .contactName("contactName")
+                .contactDesignation("contact designation")
+                .contactOrganization("contact org")
+                .contactEmail("contact email")
+                .dataFeederName("feeder name")
+                .dataFeederRole("feeder role")
+                .dataFeederEmail("feeder email")
+                .dataApproverName("collector name")
+                .dataApproverRole("collector role")
+                .dataApproverRole("collector email")
+                .countryResourceLinks(asList(new CountryResourceLink(new CountryResourceLinkId(countryId, "link",
+                        PUBLISHED.name(), "2018"), createdDate, updatedDate1)))
+                .build();
+        when(iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdStatusNotOrderByUpdatedAtDesc(countryId, NEW.name())).thenReturn(asList(countrySummary, countrySummary1));
+        when(countryDetailRepository.findByUniqueId(countryUUID)).thenReturn(country);
+
+        String actualYear = countryService.fetchTheLatestDataAvailableYear(countryUUID);
+        String expectedYear = "2022";
+
+        assertEquals(expectedYear, actualYear);
+    }
+
+    private Date getUpdatedDate(int year) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.YEAR, year);
+        calendar.set(Calendar.MONTH, Calendar.MARCH);
+        calendar.set(Calendar.DAY_OF_MONTH, 1);
+        return calendar.getTime();
+    }
+
     private void assertIndicators(List<CountryHealthIndicator> expectedCountryHealthIndicators, List<HealthIndicatorDto> actualHealthIndicators) {
         assertEquals(expectedCountryHealthIndicators.size(), actualHealthIndicators.size());
         expectedCountryHealthIndicators.forEach(expected -> {
@@ -386,9 +444,4 @@ public class CountryServiceTest {
                 actualCountrySummary.getResources());
     }
 
-    public String getCurrentYear() {
-        int currentYear = Year.now().getValue();
-        String year = new String(String.valueOf(currentYear));
-        return year;
-    }
 }

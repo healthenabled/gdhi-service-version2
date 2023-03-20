@@ -20,6 +20,7 @@ import it.gdhi.utils.LanguageCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import static it.gdhi.utils.FormStatus.NEW;
 import static it.gdhi.utils.FormStatus.PUBLISHED;
 import static java.util.stream.Collectors.toList;
 import static it.gdhi.utils.Util.*;
@@ -61,7 +62,7 @@ public class CountryService {
         List<CountrySummary> countrySummaries = (!publishedOnly) ? getCountrySummaries(year, countryId) : Collections.singletonList(iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdYearAndCountrySummaryIdStatus(countryId, year, PUBLISHED.name()));
 
         if (countrySummaries != null) {
-            CountrySummary countrySummary = countrySummaries.size() > 1 ? getUnPublishedCountrySummary(countrySummaries) : Optional.ofNullable(countrySummaries.get(0)).get();
+            CountrySummary countrySummary = Optional.ofNullable(countrySummaries.get(0)).get();
 
             List<CountryHealthIndicator> sortedIndicators = getCountryHealthIndicators(countryId, countrySummary, year);
             gdhiQuestionnaire = constructGdhiQuestionnaire(countryId, countrySummary, sortedIndicators, year);
@@ -82,10 +83,6 @@ public class CountryService {
         return countryHealthIndicators.stream().sorted(Comparator.comparing(o -> o.getIndicator().getRank())).collect(Collectors.toList());
     }
 
-    private CountrySummary getUnPublishedCountrySummary(List<CountrySummary> countrySummaries) {
-        return countrySummaries.stream().filter(countrySummaryTmp -> !countrySummaryTmp.getCountrySummaryId().getStatus().equalsIgnoreCase(PUBLISHED.name())).findFirst().get();
-    }
-
     private GdhiQuestionnaire constructGdhiQuestionnaire(String countryId, CountrySummary countrySummary, List<CountryHealthIndicator> sortedIndicators, String year) {
         GdhiQuestionnaire gdhiQuestionnaire;
         CountrySummaryDto countrySummaryDto = Optional.ofNullable(countrySummary).map(CountrySummaryDto::new).orElse(null);
@@ -104,5 +101,11 @@ public class CountryService {
     public Boolean validateDefaultYear(String year) {
         List<String> distinctYears = this.fetchPublishCountriesDistinctYears();
         return distinctYears.contains(year);
+    }
+
+    public String fetchTheLatestDataAvailableYear(UUID countryUUID) {
+        String countryId = iCountryRepository.findByUniqueId(countryUUID).getId();
+        List<CountrySummary> countrySummaries = iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdStatusNotOrderByUpdatedAtDesc(countryId, NEW.name());
+        return countrySummaries.size() == 0 ? null : countrySummaries.get(0).getCountrySummaryId().getYear();
     }
 }
