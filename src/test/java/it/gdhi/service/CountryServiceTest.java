@@ -398,11 +398,26 @@ public class CountryServiceTest {
                 .countryResourceLinks(asList(new CountryResourceLink(new CountryResourceLinkId(countryId, "link",
                         PUBLISHED.name(), "2018"), createdDate, updatedDate1)))
                 .build();
-        when(iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdStatusNotOrderByUpdatedAtDesc(countryId, NEW.name())).thenReturn(asList(countrySummary, countrySummary1));
+        when(iCountrySummaryRepository.findFirstByCountryIdAndStatusNotNEWOrderByDesc(countryId)).thenReturn("2022");
         when(countryDetailRepository.findByUniqueId(countryUUID)).thenReturn(country);
 
-        String actualYear = countryService.fetchTheLatestDataAvailableYear(countryUUID);
+        String actualYear = countryService.fetchTheYearToPrefillData(countryUUID);
         String expectedYear = "2022";
+
+        assertEquals(expectedYear, actualYear);
+    }
+
+    @Test
+    public void shouldGetTheCurrentYearForACountryWhenNoPreviousDataIsAvailable() {
+        String countryId = "IND";
+        UUID countryUUID = randomUUID();
+        Country country = new Country(countryId, "India", countryUUID, "IN");
+
+        when(iCountrySummaryRepository.findFirstByCountryIdAndStatusNotNEWOrderByDesc(countryId)).thenReturn(null);
+        when(countryDetailRepository.findByUniqueId(countryUUID)).thenReturn(country);
+
+        String actualYear = countryService.fetchTheYearToPrefillData(countryUUID);
+        String expectedYear = getCurrentYear();
 
         assertEquals(expectedYear, actualYear);
     }

@@ -20,7 +20,6 @@ import it.gdhi.utils.LanguageCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import static it.gdhi.utils.FormStatus.NEW;
 import static it.gdhi.utils.FormStatus.PUBLISHED;
 import static java.util.stream.Collectors.toList;
 import static it.gdhi.utils.Util.*;
@@ -103,9 +102,8 @@ public class CountryService {
         return distinctYears.contains(year);
     }
 
-    public String fetchTheLatestDataAvailableYear(UUID countryUUID) {
+    public String fetchTheYearToPrefillData(UUID countryUUID) {
         String countryId = iCountryRepository.findByUniqueId(countryUUID).getId();
-        List<CountrySummary> countrySummaries = iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdStatusNotOrderByUpdatedAtDesc(countryId, NEW.name());
-        return countrySummaries.size() == 0 ? null : countrySummaries.get(0).getCountrySummaryId().getYear();
+        return iCountrySummaryRepository.findFirstByCountryIdAndStatusNotNEWOrderByDesc(countryId) == null ? getCurrentYear() : iCountrySummaryRepository.findFirstByCountryIdAndStatusNotNEWOrderByDesc(countryId);
     }
 }

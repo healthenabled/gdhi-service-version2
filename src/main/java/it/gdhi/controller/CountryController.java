@@ -118,7 +118,7 @@ public class CountryController {
                                                         @RequestParam(value = "year", required = false) String year) {
         LanguageCode languageCode = LanguageCode.getValueFor(request.getHeader(USER_LANGUAGE));
         if (year == null) {
-            year = countryService.fetchTheLatestDataAvailableYear(countryUIID) == null ? getCurrentYear() : countryService.fetchTheLatestDataAvailableYear(countryUIID);
+            year = countryService.fetchTheYearToPrefillData(countryUIID);
         }
         return countryService.getDetails(countryUIID, languageCode, false, year);
     }
