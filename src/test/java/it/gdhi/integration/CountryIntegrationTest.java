@@ -272,36 +272,43 @@ public class CountryIntegrationTest extends BaseIntegrationTest {
         String dataAvailableForYear = "2023";
 
         CountryResourceLink countryResourceLink1 = new CountryResourceLink(new CountryResourceLinkId(countryId,
-                "link1", status, currentYear), new Date(), null);
-        CountryResourceLink countryResourceLink2 = new CountryResourceLink(new CountryResourceLinkId(countryId,
-                "link2", status, currentYear), new Date(), null);
-        List<CountryResourceLink> countryResourceLinks = asList(countryResourceLink1, countryResourceLink2);
+                "www.example.com", status, currentYear), new Date(), null);
+        List<CountryResourceLink> countryResourceLinks = asList(countryResourceLink1);
 
         addCountrySummary(countryId, "India", status, alpha2code, INDIA_UUID, countryResourceLinks, currentYear);
 
         List<HealthIndicatorDto> healthIndicatorDtos = asList(
-                HealthIndicatorDto.builder().categoryId(1).indicatorId(1).status(status).score(1).supportingText("blah@blah.com").build(),
-                HealthIndicatorDto.builder().categoryId(1).indicatorId(2).status(status).score(1).supportingText("blah@blah.com").build(),
-                HealthIndicatorDto.builder().categoryId(2).indicatorId(3).status(status).score(1).supportingText("blah@blah.com").build(),
-                HealthIndicatorDto.builder().categoryId(2).indicatorId(4).status(status).score(1).supportingText("blah@blah.com").build(),
-                HealthIndicatorDto.builder().categoryId(3).indicatorId(5).status(status).score(1).supportingText("blah@blah.com").build(),
+                HealthIndicatorDto.builder().categoryId(1).indicatorId(1).status(status).score(-1).supportingText("blah@blah.com").build(),
+                HealthIndicatorDto.builder().categoryId(1).indicatorId(2).status(status).score(5).supportingText("blah@blah.com").build(),
+                HealthIndicatorDto.builder().categoryId(1).indicatorId(30).status(status).score(5).supportingText("blah@blah.com").build(),
+                HealthIndicatorDto.builder().categoryId(2).indicatorId(3).status(status).score(5).supportingText("blah@blah.com").build(),
+                HealthIndicatorDto.builder().categoryId(2).indicatorId(37).status(status).score(-1).supportingText("blah@blah.com").build(),
+                HealthIndicatorDto.builder().categoryId(2).indicatorId(4).status(status).score(-1).supportingText("blah@blah.com").build(),
+                HealthIndicatorDto.builder().categoryId(2).indicatorId(38).status(status).score(-1).supportingText("blah@blah.com").build(),
+                HealthIndicatorDto.builder().categoryId(3).indicatorId(5).status(status).score(5).supportingText("blah@blah.com").build(),
                 HealthIndicatorDto.builder().categoryId(3).indicatorId(6).status(status).score(1).supportingText("blah@blah.com").build(),
-                HealthIndicatorDto.builder().categoryId(3).indicatorId(7).status(status).score(1).supportingText("blah@blah.com").build(),
-                HealthIndicatorDto.builder().categoryId(3).indicatorId(8).status(status).score(1).supportingText("blah@blah.com").build(),
-                HealthIndicatorDto.builder().categoryId(4).indicatorId(9).status(status).score(1).supportingText("blah@blah.com").build(),
-                HealthIndicatorDto.builder().categoryId(4).indicatorId(10).status(status).score(1).supportingText("blah@blah.com").build(),
-                HealthIndicatorDto.builder().categoryId(4).indicatorId(11).status(status).score(1).supportingText("blah@blah.com").build(),
-                HealthIndicatorDto.builder().categoryId(4).indicatorId(12).status(status).score(1).supportingText("blah@blah.com").build(),
-                HealthIndicatorDto.builder().categoryId(5).indicatorId(13).status(status).score(1).supportingText("blah@blah.com").build(),
-                HealthIndicatorDto.builder().categoryId(5).indicatorId(14).status(status).score(1).supportingText("blah@blah.com").build(),
-                HealthIndicatorDto.builder().categoryId(6).indicatorId(15).status(status).score(1).supportingText("blah@blah.com").build(),
-                HealthIndicatorDto.builder().categoryId(6).indicatorId(16).status(status).score(1).supportingText("blah@blah.com").build(),
-                HealthIndicatorDto.builder().categoryId(7).indicatorId(17).status(status).score(1).supportingText("blah@blah.com").build(),
-                HealthIndicatorDto.builder().categoryId(7).indicatorId(18).status(status).score(1).supportingText("blah@blah.com").build(),
-                HealthIndicatorDto.builder().categoryId(7).indicatorId(19).status(status).score(1).supportingText("blah@blah.com").build(),
-                HealthIndicatorDto.builder().categoryId(7).indicatorId(27).status(status).score(1).supportingText("blah@blah.com").build(),
-                HealthIndicatorDto.builder().categoryId(7).indicatorId(28).status(status).score(1).supportingText("blah@blah.com").build(),
-                HealthIndicatorDto.builder().categoryId(7).indicatorId(29).status(status).score(1).supportingText("blah@blah.com").build());
+                HealthIndicatorDto.builder().categoryId(3).indicatorId(7).status(status).score(4).supportingText("blah@blah.com").build(),
+                HealthIndicatorDto.builder().categoryId(3).indicatorId(36).status(status).score(2).supportingText("blah@blah.com").build(),
+                HealthIndicatorDto.builder().categoryId(3).indicatorId(8).status(status).score(2).supportingText("blah@blah.com").build(),
+                HealthIndicatorDto.builder().categoryId(4).indicatorId(9).status(status).score(-1).supportingText("blah@blah.com").build(),
+                HealthIndicatorDto.builder().categoryId(4).indicatorId(10).status(status).score(-1).supportingText("blah@blah.com").build(),
+                HealthIndicatorDto.builder().categoryId(4).indicatorId(11).status(status).score(-1).supportingText("blah@blah.com").build(),
+                HealthIndicatorDto.builder().categoryId(4).indicatorId(12).status(status).score(-1).supportingText("blah@blah.com").build(),
+                HealthIndicatorDto.builder().categoryId(5).indicatorId(13).status(status).score(-1).supportingText("blah@blah.com").build(),
+                HealthIndicatorDto.builder().categoryId(5).indicatorId(14).status(status).score(-1).supportingText("blah@blah.com").build(),
+                HealthIndicatorDto.builder().categoryId(6).indicatorId(15).status(status).score(3).supportingText("blah@blah.com").build(),
+                HealthIndicatorDto.builder().categoryId(6).indicatorId(16).status(status).score(5).supportingText("blah@blah.com").build(),
+                HealthIndicatorDto.builder().categoryId(7).indicatorId(17).status(status).score(-1).supportingText("blah@blah.com").build(),
+                HealthIndicatorDto.builder().categoryId(7).indicatorId(18).status(status).score(-1).supportingText("blah@blah.com").build(),
+                HealthIndicatorDto.builder().categoryId(7).indicatorId(19).status(status).score(-1).supportingText("blah@blah.com").build(),
+                HealthIndicatorDto.builder().categoryId(7).indicatorId(27).status(status).score(-1).supportingText("blah@blah.com").build(),
+                HealthIndicatorDto.builder().categoryId(7).indicatorId(28).status(status).score(-1).supportingText("blah@blah.com").build(),
+                HealthIndicatorDto.builder().categoryId(7).indicatorId(29).status(status).score(-1).supportingText("blah@blah.com").build(),
+                HealthIndicatorDto.builder().categoryId(7).indicatorId(34).status(status).score(-1).supportingText("blah@blah.com").build(),
+                HealthIndicatorDto.builder().categoryId(7).indicatorId(35).status(status).score(-1).supportingText("blah@blah.com").build(),
+                HealthIndicatorDto.builder().categoryId(1).indicatorId(31).status(status).score(5).supportingText("blah@blah.com").build(),
+                HealthIndicatorDto.builder().categoryId(1).indicatorId(32).status(status).score(5).supportingText("blah@blah.com").build(),
+                HealthIndicatorDto.builder().categoryId(1).indicatorId(33).status(status).score(5).supportingText("blah@blah.com").build());
 
 
         setupHealthIndicatorsForCountry(countryId, healthIndicatorDtos, currentYear);

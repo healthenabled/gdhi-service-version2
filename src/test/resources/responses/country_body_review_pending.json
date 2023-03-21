@@ -40,6 +40,13 @@
       "supportingText": "blah@blah.com"
     },
     {
+      "categoryId": 1,
+      "indicatorId": 30,
+      "status": "REVIEW_PENDING",
+      "score": 5,
+      "supportingText": "blah@blah.com"
+    },
+    {
       "categoryId": 2,
       "indicatorId": 3,
       "status": "REVIEW_PENDING",
@@ -48,7 +55,21 @@
     },
     {
       "categoryId": 2,
+      "indicatorId": 37,
+      "status": "REVIEW_PENDING",
+      "score": -1,
+      "supportingText": "blah@blah.com"
+    },
+    {
+      "categoryId": 2,
       "indicatorId": 4,
+      "status": "REVIEW_PENDING",
+      "score": -1,
+      "supportingText": "blah@blah.com"
+    },
+    {
+      "categoryId": 2,
+      "indicatorId": 38,
       "status": "REVIEW_PENDING",
       "score": -1,
       "supportingText": "blah@blah.com"
@@ -72,6 +93,13 @@
       "indicatorId": 7,
       "status": "REVIEW_PENDING",
       "score": 4,
+      "supportingText": "blah@blah.com"
+    },
+    {
+      "categoryId": 3,
+      "indicatorId": 36,
+      "status": "REVIEW_PENDING",
+      "score": 2,
       "supportingText": "blah@blah.com"
     },
     {
@@ -177,6 +205,41 @@
       "indicatorId": 29,
       "status": "REVIEW_PENDING",
       "score": -1,
+      "supportingText": "blah@blah.com"
+    },
+    {
+      "categoryId": 7,
+      "indicatorId": 34,
+      "status": "REVIEW_PENDING",
+      "score": -1,
+      "supportingText": "blah@blah.com"
+    },
+    {
+      "categoryId": 7,
+      "indicatorId": 35,
+      "status": "REVIEW_PENDING",
+      "score": -1,
+      "supportingText": "blah@blah.com"
+    },
+    {
+      "categoryId": 1,
+      "indicatorId": 31,
+      "status": "REVIEW_PENDING",
+      "score": 5,
+      "supportingText": "blah@blah.com"
+    },
+    {
+      "categoryId": 1,
+      "indicatorId": 32,
+      "status": "REVIEW_PENDING",
+      "score": 5,
+      "supportingText": "blah@blah.com"
+    },
+    {
+      "categoryId": 1,
+      "indicatorId": 33,
+      "status": "REVIEW_PENDING",
+      "score": 5,
       "supportingText": "blah@blah.com"
     }
   ]
