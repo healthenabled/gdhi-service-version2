@@ -1165,17 +1165,17 @@
           {
             "scoreId": 227,
             "score": 3,
-            "scoreDefinition": "Un système de retour d'information sécurisé existe, est disponible et utilisé activement et comprend des données provenant de <25 % des services de santé et/ou de l'emplacement géographique concernés. Il est accessible à une partie de la population."
+            "scoreDefinition": "Un système de retour d'information sécurisé existe, est disponible et utilisé activement et comprend des données provenant de <25 % des services de santé et/ou de l'emplacement géographique concernés. Il est accessible à une partie de la population."
           },
           {
             "scoreId": 228,
             "score": 4,
-            "scoreDefinition": "Un système de retour d'information sécurisé existe, est disponible et utilisé activement et comprend des données provenant de 25 à 75 % des services de santé et/ou de l'emplacement géographique concernés. Il est accessible à la majorité de la population."
+            "scoreDefinition": "Un système de retour d'information sécurisé existe, est disponible et utilisé activement et comprend des données provenant de 25 à 75 % des services de santé et/ou de l'emplacement géographique concernés. Il est accessible à la majorité de la population."
           },
           {
             "scoreId": 229,
             "score": 5,
-            "scoreDefinition": "Un système de retour d'information sécurisé existe, est disponible dans des formats accessibles et en utilisation active et comprend des données provenant de > 75 % des services de santé et/ou de l'emplacement géographique concernés. Il est accessible à 100% de la population."
+            "scoreDefinition": "Un système de retour d'information sécurisé existe, est disponible dans des formats accessibles et en utilisation active et comprend des données provenant de > 75 % des services de santé et/ou de l'emplacement géographique concernés. Il est accessible à 100% de la population."
           }
         ]
       },
@@ -1201,17 +1201,17 @@
             "scoreDefinition": "Les systèmes numériques utilisés au niveau des districts/états ne contribuent qu'aux rapports nationaux sur la santé publique et à la prise de décision pour la gestion de la santé de la population."
           },
           {
-            "scoreId": 234,
+            "scoreId": 233,
             "score": 3,
             "scoreDefinition": "Les systèmes numériques sont utilisés au niveau des établissements ou des communautés et contribuent aux rapports de santé publique du pays et à la prise de décision pour la gestion de la santé de la population."
           },
           {
-            "scoreId": 235,
+            "scoreId": 234,
             "score": 4,
             "scoreDefinition": "Les systèmes numériques sont utilisés dans les établissements ou les communautés et par les individus et contribuent aux rapports de santé publique du pays et à la prise de décision pour la gestion de la santé de la population."
           },
           {
-            "scoreId": 236,
+            "scoreId": 235,
             "score": 5,
             "scoreDefinition": "Les systèmes numériques utilisés à tous les niveaux, y compris par les individus, contribuent à la notification en temps opportun de la santé publique des pays et à la prise de décision pour la gestion de la santé de la population."
           }

@@ -22,48 +22,48 @@ INSERT INTO i18n.score_definition(indicator_id, score, language_id, definition) 
 
 
 INSERT INTO i18n.score_definition(indicator_id, score, language_id, definition) VALUES( 33,-1,  'fr', 'Non disponible');
-INSERT INTO i18n.score_definition(indicator_id, score, language_id, definition) VALUES( 33, 1,  'fr', '');
-INSERT INTO i18n.score_definition(indicator_id, score, language_id, definition) VALUES( 33, 2,  'fr', 'Non disponible');
-INSERT INTO i18n.score_definition(indicator_id, score, language_id, definition) VALUES( 33, 3,  'fr', 'Non disponible');
-INSERT INTO i18n.score_definition(indicator_id, score, language_id, definition) VALUES( 33, 4,  'fr', 'Non disponible');
-INSERT INTO i18n.score_definition(indicator_id, score, language_id, definition) VALUES( 33, 5,  'fr', 'Non disponible');
+INSERT INTO i18n.score_definition(indicator_id, score, language_id, definition) VALUES( 33, 1,  'fr', 'Les stratégies et interventions de santé numérique sont élaborées et mises en œuvre sans tenir compte des normes, des rôles et des relations de genre.');
+INSERT INTO i18n.score_definition(indicator_id, score, language_id, definition) VALUES( 33, 2,  'fr', 'Des stratégies et des interventions de santé numérique sont élaborées et mises en œuvre en tenant compte ad hoc et non systématique des normes, rôles et relations de genre.');
+INSERT INTO i18n.score_definition(indicator_id, score, language_id, definition) VALUES( 33, 3,  'fr', 'Les stratégies et programmes de santé numérique sont élaborés et mis en œuvre en tenant systématiquement compte des normes, des rôles et des relations de genre sans les politiques ou structures de responsabilité (sensibles au genre).');
+INSERT INTO i18n.score_definition(indicator_id, score, language_id, definition) VALUES( 33, 4,  'fr', 'Des stratégies et des programmes de santé numérique sont élaborés et mis en œuvre en tenant systématiquement compte des normes, des rôles et des relations de genre avec des stratégies spécifiques ciblant les organes de gouvernance, le personnel de santé et les clients dotés de mécanismes de responsabilisation (spécifiques au genre).');
+INSERT INTO i18n.score_definition(indicator_id, score, language_id, definition) VALUES( 33, 5,  'fr', 'Les stratégies, politiques et interventions de santé numérique s''attaquent à l''inégalité entre les sexes et favorisent un changement progressif de la dynamique de genre sur la base d''analyses de genre et d''évaluations d''impact de routine (transformatrices en matière de genre).');
 
 
 INSERT INTO i18n.score_definition(indicator_id, score, language_id, definition) VALUES( 37,-1,  'fr', 'Non disponible');
-INSERT INTO i18n.score_definition(indicator_id, score, language_id, definition) VALUES( 37, 1,  'fr', 'Non disponible');
-INSERT INTO i18n.score_definition(indicator_id, score, language_id, definition) VALUES( 37, 2,  'fr', 'Non disponible');
-INSERT INTO i18n.score_definition(indicator_id, score, language_id, definition) VALUES( 37, 3,  'fr', 'Non disponible');
-INSERT INTO i18n.score_definition(indicator_id, score, language_id, definition) VALUES( 37, 4,  'fr', 'Non disponible');
-INSERT INTO i18n.score_definition(indicator_id, score, language_id, definition) VALUES( 37, 5,  'fr', 'Non disponible');
+INSERT INTO i18n.score_definition(indicator_id, score, language_id, definition) VALUES( 37, 1,  'fr', 'La stratégie de santé numérique n''existe pas ou n''existe pas et n''est pas alignée sur la CSU et n''aborde aucune des composantes essentielles de la CSU que sont la couverture, l''accès, l''adoption, la qualité et l''équité.');
+INSERT INTO i18n.score_definition(indicator_id, score, language_id, definition) VALUES( 37, 2,  'fr', 'Une stratégie de santé numérique existe et est en partie alignée sur la CSU, ne traitant qu''un seul élément central de la CSU, à savoir la couverture, l''accès, l''adoption, la qualité et l''équité.');
+INSERT INTO i18n.score_definition(indicator_id, score, language_id, definition) VALUES( 37, 3,  'fr', 'Une stratégie de santé numérique existe et est en partie alignée sur la CSU, abordant au moins deux composantes essentielles de la CSU que sont la couverture, l''accès, l''adoption, la qualité et l''équité.');
+INSERT INTO i18n.score_definition(indicator_id, score, language_id, definition) VALUES( 37, 4,  'fr', 'Une stratégie de santé numérique existe et est entièrement alignée sur les objectifs de la CSU du pays, mais n''inclut pas de mesures pour évaluer la contribution de la santé numérique aux objectifs de la CSU.');
+INSERT INTO i18n.score_definition(indicator_id, score, language_id, definition) VALUES( 37, 5,  'fr', 'La stratégie de santé numérique est entièrement alignée sur les objectifs de la CSU du pays et comprend des mesures pour évaluer la contribution de la santé numérique aux objectifs de la CSU.');
 
 
 INSERT INTO i18n.score_definition(indicator_id, score, language_id, definition) VALUES( 38,-1,  'fr', 'Non disponible');
-INSERT INTO i18n.score_definition(indicator_id, score, language_id, definition) VALUES( 38, 1,  'fr', 'Non disponible');
-INSERT INTO i18n.score_definition(indicator_id, score, language_id, definition) VALUES( 38, 2,  'fr', 'Non disponible');
-INSERT INTO i18n.score_definition(indicator_id, score, language_id, definition) VALUES( 38, 3,  'fr', 'Non disponible');
-INSERT INTO i18n.score_definition(indicator_id, score, language_id, definition) VALUES( 38, 4,  'fr', 'Non disponible');
-INSERT INTO i18n.score_definition(indicator_id, score, language_id, definition) VALUES( 38, 5,  'fr', 'Non disponible');
+INSERT INTO i18n.score_definition(indicator_id, score, language_id, definition) VALUES( 38, 1,  'fr', 'Le secteur privé ne participe visiblement pas et n''investit pas dans les activités de santé numérique du pays.');
+INSERT INTO i18n.score_definition(indicator_id, score, language_id, definition) VALUES( 38, 2,  'fr', 'La participation et l''investissement du secteur privé dans les activités et les investissements de santé numérique du pays sont ponctuels et limités.');
+INSERT INTO i18n.score_definition(indicator_id, score, language_id, definition) VALUES( 38, 3,  'fr', 'La participation et l''investissement du secteur privé dans les activités de santé numérique du pays sont systématiques mais ne répondent pas aux besoins du pays.');
+INSERT INTO i18n.score_definition(indicator_id, score, language_id, definition) VALUES( 38, 4,  'fr', 'La participation et l''investissement du secteur privé dans les activités de santé numérique du pays sont systématiques et répondent aux besoins du pays.');
+INSERT INTO i18n.score_definition(indicator_id, score, language_id, definition) VALUES( 38, 5,  'fr', 'Le secteur privé participe et investit dans les activités de santé numérique du pays dans un environnement optimisé.');
 
 
 INSERT INTO i18n.score_definition(indicator_id, score, language_id, definition) VALUES( 36,-1,  'fr', 'Non disponible');
-INSERT INTO i18n.score_definition(indicator_id, score, language_id, definition) VALUES( 36, 1,  'fr', 'Non disponible');
-INSERT INTO i18n.score_definition(indicator_id, score, language_id, definition) VALUES( 36, 2,  'fr', 'Non disponible');
-INSERT INTO i18n.score_definition(indicator_id, score, language_id, definition) VALUES( 36, 3,  'fr', 'Non disponible');
-INSERT INTO i18n.score_definition(indicator_id, score, language_id, definition) VALUES( 36, 4,  'fr', 'Non disponible');
-INSERT INTO i18n.score_definition(indicator_id, score, language_id, definition) VALUES( 36, 5,  'fr', 'Non disponible');
+INSERT INTO i18n.score_definition(indicator_id, score, language_id, definition) VALUES( 36, 1,  'fr', 'Il n''y a pas de protocoles, de politiques, de cadres ou de processus acceptés régissant l''utilisation de l''IA dans les services de santé.');
+INSERT INTO i18n.score_definition(indicator_id, score, language_id, definition) VALUES( 36, 2,  'fr', 'Des protocoles, des politiques, des cadres ou des processus acceptés régissant l''utilisation de l''IA dans les services de santé ont été proposés et sont en cours d''examen');
+INSERT INTO i18n.score_definition(indicator_id, score, language_id, definition) VALUES( 36, 3,  'fr', 'Des protocoles, des politiques, des cadres ou des processus acceptés régissant l''utilisation de l''IA dans les services de santé ont été adoptés mais ne sont pas entièrement mis en œuvre.');
+INSERT INTO i18n.score_definition(indicator_id, score, language_id, definition) VALUES( 36, 4,  'fr', 'Des protocoles, des politiques, des cadres ou des processus acceptés régissant l''utilisation de l''IA dans les services de santé ont été mis en œuvre, mais ne sont pas appliqués de manière cohérente.');
+INSERT INTO i18n.score_definition(indicator_id, score, language_id, definition) VALUES( 36, 5,  'fr', 'Des protocoles, des politiques, des cadres ou des processus acceptés régissant l''utilisation de l''IA dans les services de santé ont été mis en œuvre et sont appliqués de manière cohérente.');
 
 
 INSERT INTO i18n.score_definition(indicator_id, score, language_id, definition) VALUES( 34,-1,  'fr', 'Non disponible');
-INSERT INTO i18n.score_definition(indicator_id, score, language_id, definition) VALUES( 34, 1,  'fr', 'Non disponible');
-INSERT INTO i18n.score_definition(indicator_id, score, language_id, definition) VALUES( 34, 2,  'fr', 'Non disponible');
-INSERT INTO i18n.score_definition(indicator_id, score, language_id, definition) VALUES( 34, 3,  'fr', 'Non disponible');
-INSERT INTO i18n.score_definition(indicator_id, score, language_id, definition) VALUES( 34, 4,  'fr', 'Non disponible');
-INSERT INTO i18n.score_definition(indicator_id, score, language_id, definition) VALUES( 34, 5,  'fr', 'Non disponible');
+INSERT INTO i18n.score_definition(indicator_id, score, language_id, definition) VALUES( 34, 1,  'fr', 'Il n''existe aucun système sécurisé de rétroaction des patients.');
+INSERT INTO i18n.score_definition(indicator_id, score, language_id, definition) VALUES( 34, 2,  'fr', 'Un système sécurisé de rétroaction des patients existe pour certains services de santé, mais il est incomplet/partiellement disponible, utilisé et entretenu de manière irrégulière.');
+INSERT INTO i18n.score_definition(indicator_id, score, language_id, definition) VALUES( 34, 3,  'fr', 'Un système de retour d''information sécurisé existe, est disponible et utilisé activement et comprend des données provenant de <25 % des services de santé et/ou de l''emplacement géographique concernés. Il est accessible à une partie de la population.');
+INSERT INTO i18n.score_definition(indicator_id, score, language_id, definition) VALUES( 34, 4,  'fr', 'Un système de retour d''information sécurisé existe, est disponible et utilisé activement et comprend des données provenant de 25 à 75 % des services de santé et/ou de l''emplacement géographique concernés. Il est accessible à la majorité de la population.');
+INSERT INTO i18n.score_definition(indicator_id, score, language_id, definition) VALUES( 34, 5,  'fr', 'Un système de retour d''information sécurisé existe, est disponible dans des formats accessibles et en utilisation active et comprend des données provenant de > 75 % des services de santé et/ou de l''emplacement géographique concernés. Il est accessible à 100% de la population.');
 
 
 INSERT INTO i18n.score_definition(indicator_id, score, language_id, definition) VALUES( 35,-1,  'fr', 'Non disponible');
-INSERT INTO i18n.score_definition(indicator_id, score, language_id, definition) VALUES( 35, 1,  'fr', 'Non disponible');
-INSERT INTO i18n.score_definition(indicator_id, score, language_id, definition) VALUES( 35, 2,  'fr', 'Non disponible');
-INSERT INTO i18n.score_definition(indicator_id, score, language_id, definition) VALUES( 35, 3,  'fr', 'Non disponible');
-INSERT INTO i18n.score_definition(indicator_id, score, language_id, definition) VALUES( 35, 4,  'fr', 'Non disponible');
-INSERT INTO i18n.score_definition(indicator_id, score, language_id, definition) VALUES( 35, 5,  'fr', 'Non disponible');
+INSERT INTO i18n.score_definition(indicator_id, score, language_id, definition) VALUES( 35, 1,  'fr', 'Aucune contribution d''une initiative de santé numérique aux rapports de routine ou à la prise de décision basée sur les données pour la gestion de la santé de la population.');
+INSERT INTO i18n.score_definition(indicator_id, score, language_id, definition) VALUES( 35, 2,  'fr', 'Les systèmes numériques utilisés au niveau des districts/états ne contribuent qu''aux rapports nationaux sur la santé publique et à la prise de décision pour la gestion de la santé de la population.');
+INSERT INTO i18n.score_definition(indicator_id, score, language_id, definition) VALUES( 35, 3,  'fr', 'Les systèmes numériques sont utilisés au niveau des établissements ou des communautés et contribuent aux rapports de santé publique du pays et à la prise de décision pour la gestion de la santé de la population.');
+INSERT INTO i18n.score_definition(indicator_id, score, language_id, definition) VALUES( 35, 4,  'fr', 'Les systèmes numériques sont utilisés dans les établissements ou les communautés et par les individus et contribuent aux rapports de santé publique du pays et à la prise de décision pour la gestion de la santé de la population.');
+INSERT INTO i18n.score_definition(indicator_id, score, language_id, definition) VALUES( 35, 5,  'fr', 'Les systèmes numériques utilisés à tous les niveaux, y compris par les individus, contribuent à la notification en temps opportun de la santé publique des pays et à la prise de décision pour la gestion de la santé de la population.');
