@@ -78,6 +78,158 @@
             "scoreDefinition": "يتم تنفيذ الصحة الرقمية وتقييمها بشكل دوري وتحسينها ضمن استراتيجية الصحة الوطنية أو غيرها من الاستراتيجيات و / أو الخطط الوطنية ذات الصلة."
           }
         ]
+      },
+      {
+        "indicatorId": 30,
+        "indicatorCode": "2a",
+        "indicatorName": "ا إعطاء الأولوية للصحة في السياسات الوطنية للتحول الرقمي وإدارة البيانات.",
+        "indicatorDefinition": "هل تراعي السياسات والنهج الوطنية للتحول الرقمي وحوكمة البيانات الفوائد والمخاطر المحتملة على الصحة العامة وصحة الفرد وتعالجها؟",
+        "scores": [
+          {
+            "scoreId": 200,
+            "score": -1,
+            "scoreDefinition": "غير متاح"
+          },
+          {
+            "scoreId": 201,
+            "score": 1,
+            "scoreDefinition": "لا تتضمن سياسات التحول الرقمي وإدارة البيانات الوطنية الفوائد والمخاطر المحتملة على الصحة العامة أو النتائج الصحية على الأفراد."
+          },
+          {
+            "scoreId": 202,
+            "score": 2,
+            "scoreDefinition": "تشمل سياسات التحول الرقمي وحوكمة البيانات الوطنية الفوائد والمخاطر المحتملة على الصحة العامة أو النتائج الصحية على الأفراد، بشكل عشوائي."
+          },
+          {
+            "scoreId": 203,
+            "score": 3,
+            "scoreDefinition": "تتضمن سياسات التحول الرقمي وإدارة البيانات الوطنية بشكل منهجي الفوائد والمخاطر المحتملة على الصحة العامة أو النتائج الصحية على الأفراد ولكن ليس لديها استراتيجية (استراتيجيات) لمعالجتها."
+          },
+          {
+            "scoreId": 204,
+            "score": 4,
+            "scoreDefinition": "تتضمن سياسات التحول الرقمي وإدارة البيانات الوطنية بشكل منهجي الفوائد والمخاطر المحتملة على الصحة العامة أو النتائج الصحية على الأفراد ولديها بعض الاستراتيجيات لمعالجتها ولكن لم يتم تنفيذها بعد."
+          },
+          {
+            "scoreId": 205,
+            "score": 5,
+            "scoreDefinition": "تراعي جميع سياسات التحول الرقمي وإدارة البيانات ذات الصلة بشكل كامل الفوائد والمخاطر المحتملة للأنظمة الصحية ومحددات الصحة والنتائج الصحية على الأفراد (بما في ذلك للأطفال والنساء والفئات الضعيفة) ولديها استراتيجيات متعددة القطاعات يتم تنفيذها بالكامل."
+          }
+        ]
+      },
+      {
+        "indicatorId": 31,
+        "indicatorCode": "22",
+        "indicatorName": "ا الجاهزية لاعتماد التكنولوجيات الناشئة وإدارتها",
+        "indicatorDefinition": "",
+        "scores": [
+          {
+            "scoreId": 206,
+            "score": -1,
+            "scoreDefinition": "غير متاح"
+          },
+          {
+            "scoreId": 207,
+            "score": 1,
+            "scoreDefinition": "لا توجد خطة وطنية خاصة بالتكنولوجيات الناشئة (مثل الذكاء الاصطناعي والأجهزة القابلة للارتداء وسلسلة الكتل \"البلوك تشين\" وإنترنت الأشياء) لدعم أهداف الصحة العامة."
+          },
+          {
+            "scoreId": 208,
+            "score": 2,
+            "scoreDefinition": "تم وضع خطة وطنية خاصة بالتكنولوجيات الناشئة (مثل الذكاء الاصطناعي والأجهزة القابلة للارتداء وسلسلة الكتل \"البلوك تشين\" وإنترنت الأشياء) لدعم أهداف الصحة العامة، ولكنها لم تنفذ."
+          },
+          {
+            "scoreId": 209,
+            "score": 3,
+            "scoreDefinition": "توجد خطة لتكنولوجيا ناشئة واحدة على الأقل (على سبيل المثال، الذكاء الاصطناعي، والأجهزة القابلة للارتداء ، وسلسلة الكتل \"البلوك تشين\"، وإنترنت الأشياء) لدعم أهداف الصحة العامة. وتحدد الخطة (الخطط) آليات الحوكمة المطلوبة للتكنولوجيات الناشئة."
+          },
+          {
+            "scoreId": 210,
+            "score": 4,
+            "scoreDefinition": "يجري تنفيذ خطة لتكنولوجيا ناشئة واحدة أو أكثر (على سبيل المثال، الذكاء الاصطناعي، والأجهزة القابلة للارتداء، وسلسلة الكتل \"البلوك تشين\"، وإنترنت الأشياء) لدعم الصحة العامة، ويتم تمويلها، ويتم رصد النتائج. وتتوفر الآليات المطلوبة لإدارة التكنولوجيا الناشئة."
+          },
+          {
+            "scoreId": 211,
+            "score": 5,
+            "scoreDefinition": "يجري تنفيذ خطة لتكنولوجيا ناشئة واحدة أو أكثر (على سبيل المثال، الذكاء الاصطناعي، والأجهزة القابلة للارتداء، وسلسلة الكتل \"البلوك تشين\"، وإنترنت الأشياء) لدعم الصحة العامة، ويتم تمويلها ورصد النتائج وتحديث الخطة باستمرار. وتتوفر وتستخدم آليات للإدارة."
+          }
+        ]
+      },
+      {
+        "indicatorId": 32,
+        "indicatorCode": "23",
+        "indicatorName": "ا يتم ادراج تحليل وتخطيط ورصد التنوع والعدالة وحقوق الإنسان في الاستراتيجيات والخطط الوطنية للصحة الرقمية",
+        "indicatorDefinition": "هل قام البلد بتقييم/تكييف الاستراتيجيات الوطنية للصحة الرقمية بالاعتماد على منظور العدالة وحقوق الإنسان؟",
+        "scores": [
+          {
+            "scoreId": 212,
+            "score": -1,
+            "scoreDefinition": "غير متاح"
+          },
+          {
+            "scoreId": 213,
+            "score": 1,
+            "scoreDefinition": "يتم تطوير وتنفيذ استراتيجيات وبرامج الصحة الرقمية دون النظر إلى العدالة والآثار المترتبة على حقوق الإنسان."
+          },
+          {
+            "scoreId": 214,
+            "score": 2,
+            "scoreDefinition": "يتم تطوير وتنفيذ استراتيجيات وبرامج الصحة الرقمية مع مراعاة الآثار المترتبة على العدالة وحقوق الإنسان."
+          },
+          {
+            "scoreId": 215,
+            "score": 3,
+            "scoreDefinition": "يتم تطوير وتنفيذ استراتيجيات وبرامج الصحة الرقمية مع النظر رسميا في الآثار المترتبة على الإنصاف وحقوق الإنسان جوت أن تتوفر استراتيجية (استراتيجيات) لمعالجتها"
+          },
+          {
+            "scoreId": 216,
+            "score": 4,
+            "scoreDefinition": "يتم تطوير وتنفيذ استراتيجيات وبرامج الصحة الرقمية مع النظر رسميا في الآثار المترتبة على الإنصاف وحقوق الإنسان وتتوفر استراتيجية (استراتيجيات) مخصصة لمعالجتها."
+          },
+          {
+            "scoreId": 217,
+            "score": 5,
+            "scoreDefinition": "تقوم البلد بتنفيذ وتقييم آثار استراتيجيات الصحة الرقمية وحلول الصحة الرقمية المحددة بناء على تقييمات الآثار المترتبة على الإنصاف وحقوق الإنسان. وهناك استراتيجيات موثقة لمعالجة الثغرات في الوصول والنتائج لمختلف الفئات السكانية، بما في ذلك النساء والأطفال والفئات المهمشة."
+          }
+        ]
+      },
+      {
+        "indicatorId": 33,
+        "indicatorCode": "23a",
+        "indicatorName": "ا مراعاة اعتبارات المساواة بين الجنسين في استراتيجيات وإدارة الصحة الرقمي",
+        "indicatorDefinition": "هل تدرج الدولة اعتبارات النوع الاجتماعي في الاستراتيجية الوطنية للصحة الرقمية أو حوكمة الصحة الرقمية؟",
+        "scores": [
+          {
+            "scoreId": 218,
+            "score": -1,
+            "scoreDefinition": "غير متاح"
+          },
+          {
+            "scoreId": 219,
+            "score": 1,
+            "scoreDefinition": "يتم تطوير وتنفيذ استراتيجيات وتدخلات الصحة الرقمية دون مراعاة المعايير والأدوار والعلاقات المتصلة بالنوع الاجتماعي."
+          },
+          {
+            "scoreId": 220,
+            "score": 2,
+            "scoreDefinition": "يتم تطوير وتنفيذ استراتيجيات وتدخلات الصحة الرقمية مع مراعاة المعايير والأدوار والعلاقات المتصلة بالنوع الاجتماعي بشكل عشوائي وغير منهجي."
+          },
+          {
+            "scoreId": 221,
+            "score": 3,
+            "scoreDefinition": "يتم تطوير وتنفيذ استراتيجيات وبرامج الصحة الرقمية مع مراعاة منهجية للمعايير والأدوار والعلاقات المتصلة بالنوع الاجتماعي دون وجود سياسات أو هياكل للمساءلة (تراعي الفوارق بين الجنسين)."
+          },
+          {
+            "scoreId": 222,
+            "score": 4,
+            "scoreDefinition": "يتم تطوير وتنفيذ استراتيجيات وبرامج الصحة الرقمية مع مراعاة منهجية للمعايير والأدوار والعلاقات المتصلة بالنوع الاجتماعي مع وجود استراتيجيات محددة تستهدف هيئات الحوكمة والقوى العاملة الصحية والعملاء بآليات للمساءلة (خاصة بالنوع الاجتماعي)."
+          },
+          {
+            "scoreId": 223,
+            "score": 5,
+            "scoreDefinition": "تعالج استراتيجيات وسياسات وتدخلات الصحة الرقمية عدم المساواة بين الجنسين وتعزز التغيير التدريجي في ديناميكيات النوع الاجتماعي بناء على تحليلات النوع الاجتماعي الروتينية وتقييمات الأثر (تغيير المفاهيم بين الجنسين)."
+          }
+        ]
       }
     ]
   },
@@ -124,6 +276,44 @@
         ]
       },
       {
+        "indicatorId": 37,
+        "indicatorCode": "3a",
+        "indicatorName": "Alignement de la stratégie numérique nationale sur les composantes essentielles de la couverture sanitaire universelle (CSU)",
+        "indicatorDefinition": "La stratégie nationale de santé numérique du pays est-elle alignée sur la couverture sanitaire universelle et/ou les composantes essentielles de la CSU ?",
+        "scores": [
+          {
+            "scoreId": 242,
+            "score": -1,
+            "scoreDefinition": "Non disponible"
+          },
+          {
+            "scoreId": 243,
+            "score": 1,
+            "scoreDefinition": "La stratégie de santé numérique n'existe pas ou n'existe pas et n'est pas alignée sur la CSU et n'aborde aucune des composantes essentielles de la CSU que sont la couverture, l'accès, l'adoption, la qualité et l'équité."
+          },
+          {
+            "scoreId": 244,
+            "score": 2,
+            "scoreDefinition": "Une stratégie de santé numérique existe et est en partie alignée sur la CSU, ne traitant qu'un seul élément central de la CSU, à savoir la couverture, l'accès, l'adoption, la qualité et l'équité."
+          },
+          {
+            "scoreId": 245,
+            "score": 3,
+            "scoreDefinition": "Une stratégie de santé numérique existe et est en partie alignée sur la CSU, abordant au moins deux composantes essentielles de la CSU que sont la couverture, l'accès, l'adoption, la qualité et l'équité."
+          },
+          {
+            "scoreId": 246,
+            "score": 4,
+            "scoreDefinition": "Une stratégie de santé numérique existe et est entièrement alignée sur les objectifs de la CSU du pays, mais n'inclut pas de mesures pour évaluer la contribution de la santé numérique aux objectifs de la CSU."
+          },
+          {
+            "scoreId": 247,
+            "score": 5,
+            "scoreDefinition": "La stratégie de santé numérique est entièrement alignée sur les objectifs de la CSU du pays et comprend des mesures pour évaluer la contribution de la santé numérique aux objectifs de la CSU."
+          }
+        ]
+      },
+      {
         "indicatorId": 4,
         "indicatorCode": "4",
         "indicatorName": "التمويل العام للصحة الرقمية",
@@ -158,6 +348,44 @@
             "scoreId": 28,
             "score": 5,
             "scoreDefinition": "يوجد هيكل وبند ميزانية منتظم للصحة الرقمية وهو كاف تماما لتلبية احتياجات الصحة الرقمية في البلاد."
+          }
+        ]
+      },
+      {
+        "indicatorId": 38,
+        "indicatorCode": "4a",
+        "indicatorName": "Participation et investissements du secteur privé dans la santé numérique",
+        "indicatorDefinition": "Compte tenu de l'environnement favorable, le secteur privé participe-t-il et investit-il dans les activités de santé numérique ?",
+        "scores": [
+          {
+            "scoreId": 248,
+            "score": -1,
+            "scoreDefinition": "Non disponible"
+          },
+          {
+            "scoreId": 249,
+            "score": 1,
+            "scoreDefinition": "Le secteur privé ne participe visiblement pas et n'investit pas dans les activités de santé numérique du pays."
+          },
+          {
+            "scoreId": 250,
+            "score": 2,
+            "scoreDefinition": "La participation et l'investissement du secteur privé dans les activités et les investissements de santé numérique du pays sont ponctuels et limités."
+          },
+          {
+            "scoreId": 251,
+            "score": 3,
+            "scoreDefinition": "La participation et l'investissement du secteur privé dans les activités de santé numérique du pays sont systématiques mais ne répondent pas aux besoins du pays."
+          },
+          {
+            "scoreId": 252,
+            "score": 4,
+            "scoreDefinition": "La participation et l'investissement du secteur privé dans les activités de santé numérique du pays sont systématiques et répondent aux besoins du pays."
+          },
+          {
+            "scoreId": 253,
+            "score": 5,
+            "scoreDefinition": "Le secteur privé participe et investit dans les activités de santé numérique du pays dans un environnement optimisé."
           }
         ]
       }
@@ -278,6 +506,44 @@
             "scoreId": 49,
             "score": 5,
             "scoreDefinition": "تم تطبيق بروتوكولات أو سياسات أو أطر أو عمليات معتمدة تحكم استخدام الأجهزة الطبية والخدمات الصحية ذات العلاقة (مثل الطب الاتصالي والتطبيقات) في الرعاية السريرية ورعاية المرضى، لا سيما فيما يتعلق بالسلامة وسلامة البيانات وجودة الرعاية - بما في ذلك أحكام الذكاء الاصطناعي والخوارزميات- ويتم إنفاذها باستمرار"
+          }
+        ]
+      },
+      {
+        "indicatorId": 36,
+        "indicatorCode": "7a",
+        "indicatorName": "Protocole de régulation et de certification de l'IA au sein des services de santé",
+        "indicatorDefinition": "Existe-t-il des protocoles, des politiques, des cadres ou des processus acceptés régissant l'utilisation de l'IA dans les systèmes, services et applications de santé, en particulier en ce qui concerne l'éthique, l'équité, la sécurité, l'intégrité des données et la qualité des soins ?",
+        "scores": [
+          {
+            "scoreId": 236,
+            "score": -1,
+            "scoreDefinition": "Non disponible"
+          },
+          {
+            "scoreId": 237,
+            "score": 1,
+            "scoreDefinition": "Il n'y a pas de protocoles, de politiques, de cadres ou de processus acceptés régissant l'utilisation de l'IA dans les services de santé."
+          },
+          {
+            "scoreId": 238,
+            "score": 2,
+            "scoreDefinition": "Des protocoles, des politiques, des cadres ou des processus acceptés régissant l'utilisation de l'IA dans les services de santé ont été proposés et sont en cours d'examen"
+          },
+          {
+            "scoreId": 239,
+            "score": 3,
+            "scoreDefinition": "Des protocoles, des politiques, des cadres ou des processus acceptés régissant l'utilisation de l'IA dans les services de santé ont été adoptés mais ne sont pas entièrement mis en œuvre."
+          },
+          {
+            "scoreId": 240,
+            "score": 4,
+            "scoreDefinition": "Des protocoles, des politiques, des cadres ou des processus acceptés régissant l'utilisation de l'IA dans les services de santé ont été mis en œuvre, mais ne sont pas appliqués de manière cohérente."
+          },
+          {
+            "scoreId": 241,
+            "score": 5,
+            "scoreDefinition": "Des protocoles, des politiques, des cadres ou des processus acceptés régissant l'utilisation de l'IA dans les services de santé ont été mis en œuvre et sont appliqués de manière cohérente."
           }
         ]
       },
@@ -872,6 +1138,82 @@
             "scoreId": 193,
             "score": 5,
             "scoreDefinition": "يوجد سجل آمن للوفيات، وهو متاح وقيد الاستخدام النشط ويشمل >75٪ من السكان المعنيين. وتعتبر البيانات متاحة ومستخدمة ومنسقة. ويجري تنفيذ استراتيجيات لتشمل جميع السكان."
+          }
+        ]
+      },
+      {
+        "indicatorId": 34,
+        "indicatorCode": "20",
+        "indicatorName": "Sécuriser les systèmes de rétroaction des patients",
+        "indicatorDefinition": "Plus précisément, existe-t-il un système sécurisé de retour d'information des patients, disponible, accessible ?",
+        "scores": [
+          {
+            "scoreId": 224,
+            "score": -1,
+            "scoreDefinition": "Non disponible"
+          },
+          {
+            "scoreId": 225,
+            "score": 1,
+            "scoreDefinition": "Il n'existe aucun système sécurisé de rétroaction des patients."
+          },
+          {
+            "scoreId": 226,
+            "score": 2,
+            "scoreDefinition": "Un système sécurisé de rétroaction des patients existe pour certains services de santé, mais il est incomplet/partiellement disponible, utilisé et entretenu de manière irrégulière."
+          },
+          {
+            "scoreId": 227,
+            "score": 3,
+            "scoreDefinition": "Un système de retour d'information sécurisé existe, est disponible et utilisé activement et comprend des données provenant de <25 % des services de santé et/ou de l'emplacement géographique concernés. Il est accessible à une partie de la population."
+          },
+          {
+            "scoreId": 228,
+            "score": 4,
+            "scoreDefinition": "Un système de retour d'information sécurisé existe, est disponible et utilisé activement et comprend des données provenant de 25 à 75 % des services de santé et/ou de l'emplacement géographique concernés. Il est accessible à la majorité de la population."
+          },
+          {
+            "scoreId": 229,
+            "score": 5,
+            "scoreDefinition": "Un système de retour d'information sécurisé existe, est disponible dans des formats accessibles et en utilisation active et comprend des données provenant de > 75 % des services de santé et/ou de l'emplacement géographique concernés. Il est accessible à 100% de la population."
+          }
+        ]
+      },
+      {
+        "indicatorId": 35,
+        "indicatorCode": "21",
+        "indicatorName": "Contribution de la santé numérique à la gestion de la santé de la population",
+        "indicatorDefinition": "Les initiatives nationales actuelles en matière de santé numérique contribuent-elles aux rapports et à la prise de décision en matière de santé publique ?",
+        "scores": [
+          {
+            "scoreId": 230,
+            "score": -1,
+            "scoreDefinition": "Non disponible"
+          },
+          {
+            "scoreId": 231,
+            "score": 1,
+            "scoreDefinition": "Aucune contribution d'une initiative de santé numérique aux rapports de routine ou à la prise de décision basée sur les données pour la gestion de la santé de la population."
+          },
+          {
+            "scoreId": 232,
+            "score": 2,
+            "scoreDefinition": "Les systèmes numériques utilisés au niveau des districts/états ne contribuent qu'aux rapports nationaux sur la santé publique et à la prise de décision pour la gestion de la santé de la population."
+          },
+          {
+            "scoreId": 233,
+            "score": 3,
+            "scoreDefinition": "Les systèmes numériques sont utilisés au niveau des établissements ou des communautés et contribuent aux rapports de santé publique du pays et à la prise de décision pour la gestion de la santé de la population."
+          },
+          {
+            "scoreId": 234,
+            "score": 4,
+            "scoreDefinition": "Les systèmes numériques sont utilisés dans les établissements ou les communautés et par les individus et contribuent aux rapports de santé publique du pays et à la prise de décision pour la gestion de la santé de la population."
+          },
+          {
+            "scoreId": 235,
+            "score": 5,
+            "scoreDefinition": "Les systèmes numériques utilisés à tous les niveaux, y compris par les individus, contribuent à la notification en temps opportun de la santé publique des pays et à la prise de décision pour la gestion de la santé de la population."
           }
         ]
       }
