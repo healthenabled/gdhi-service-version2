@@ -78,6 +78,158 @@
             "scoreDefinition": "La santé numérique est mise en œuvre et périodiquement évaluée et optimisée dans la santé nationale ou d'autres stratégies et/ou plans nationaux pertinents."
           }
         ]
+      },
+      {
+        "indicatorId": 30,
+        "indicatorCode": "2a",
+        "indicatorName": "La santé est une priorité dans les politiques nationales de transformation numérique et de gouvernance des données.",
+        "indicatorDefinition": "Les politiques et approches nationales de transformation numérique et de gouvernance des données prennent-elles en compte et traitent-elles les avantages et les risques potentiels pour la santé publique et la santé individuelle ?",
+        "scores": [
+          {
+            "scoreId": 200,
+            "score": -1,
+            "scoreDefinition": "Non disponible"
+          },
+          {
+            "scoreId": 201,
+            "score": 1,
+            "scoreDefinition": "Les politiques nationales de transformation numérique et de gouvernance des données n'incluent pas les avantages et les risques potentiels pour la santé publique ou les résultats de santé individuels."
+          },
+          {
+            "scoreId": 202,
+            "score": 2,
+            "scoreDefinition": "Les politiques nationales de transformation numérique et de gouvernance des données incluent les avantages et les risques potentiels pour la santé publique ou les résultats de santé individuels sur une base ad hoc."
+          },
+          {
+            "scoreId": 203,
+            "score": 3,
+            "scoreDefinition": "Les politiques nationales de transformation numérique et de gouvernance des données incluent systématiquement les avantages et les risques potentiels pour la santé publique ou les résultats de santé individuels, mais n'ont pas de stratégie(s) pour y faire face."
+          },
+          {
+            "scoreId": 204,
+            "score": 4,
+            "scoreDefinition": "Les politiques nationales de transformation numérique et de gouvernance des données incluent systématiquement les avantages et les risques potentiels pour la santé publique ou les résultats de santé individuels et ont une ou plusieurs stratégies pour y faire face qui ne sont pas encore mises en œuvre."
+          },
+          {
+            "scoreId": 205,
+            "score": 5,
+            "scoreDefinition": "Toutes les politiques pertinentes de transformation numérique et de gouvernance des données tiennent pleinement compte des avantages et des risques potentiels pour les systèmes de santé, les déterminants de la santé et les résultats de santé individuels (y compris pour les enfants, les femmes et les groupes vulnérables) et disposent de stratégies multisectorielles pleinement mises en œuvre."
+          }
+        ]
+      },
+      {
+        "indicatorId": 31,
+        "indicatorCode": "22",
+        "indicatorName": "Préparation à l'adoption et à la gouvernance des technologies émergentes",
+        "indicatorDefinition": "Existe-t-il un plan national spécifique aux technologies émergentes (par exemple, IA, Wearables, Blockchain, IoT) pour soutenir les objectifs de santé publique ?",
+        "scores": [
+          {
+            "scoreId": 206,
+            "score": -1,
+            "scoreDefinition": "Non disponible"
+          },
+          {
+            "scoreId": 207,
+            "score": 1,
+            "scoreDefinition": "Il n'y a pas de plan de technologies émergentes (par exemple, IA, Wearables, Blockchain, IoT) à l'appui des objectifs de santé publique."
+          },
+          {
+            "scoreId": 208,
+            "score": 2,
+            "scoreDefinition": "Un plan a été élaboré pour au moins une technologie émergente (par exemple, IA, Wearables, Blockchain, IdO) pour soutenir les objectifs de santé publique, mais il n'est pas mis en œuvre."
+          },
+          {
+            "scoreId": 209,
+            "score": 3,
+            "scoreDefinition": "Un plan existe pour au moins une technologie émergente (par exemple, IA, Wearables, Blockchain, IoT) pour soutenir les objectifs de santé publique. Le ou les plans identifient les mécanismes de gouvernance requis pour les technologies émergentes."
+          },
+          {
+            "scoreId": 210,
+            "score": 4,
+            "scoreDefinition": "Un plan pour une ou plusieurs technologies émergentes (par exemple, IA, Wearables, Blockchain, IoT) pour soutenir la santé publique est mis en œuvre, est financé et les résultats sont surveillés. Les mécanismes de gouvernance requis pour les technologies émergentes sont en place."
+          },
+          {
+            "scoreId": 211,
+            "score": 5,
+            "scoreDefinition": "Un plan pour une ou plusieurs technologies émergentes (par exemple, IA, Wearables, Blockchain, IoT) à l'appui de la santé publique est mis en œuvre, est financé, les résultats sont surveillés et le plan est tenu à jour. Des mécanismes de gouvernance sont en place et utilisés."
+          }
+        ]
+      },
+      {
+        "indicatorId": 32,
+        "indicatorCode": "23",
+        "indicatorName": "Analyse, planification et suivi de la diversité, de l'équité et des droits de l'homme inclus dans les stratégies et plans nationaux de santé numérique",
+        "indicatorDefinition": "Le pays a-t-il évalué/adapté les stratégies nationales de santé numérique du point de vue de l'équité et des droits de l'homme ?",
+        "scores": [
+          {
+            "scoreId": 212,
+            "score": -1,
+            "scoreDefinition": "Non disponible"
+          },
+          {
+            "scoreId": 213,
+            "score": 1,
+            "scoreDefinition": "Les stratégies et programmes de santé numérique sont élaborés et mis en œuvre sans tenir compte des implications en matière d'équité et de droits de l'homme."
+          },
+          {
+            "scoreId": 214,
+            "score": 2,
+            "scoreDefinition": "Des stratégies et des programmes de santé numérique sont élaborés et mis en œuvre en tenant compte au cas par cas des implications en matière d'équité et de droits de l'homme."
+          },
+          {
+            "scoreId": 215,
+            "score": 3,
+            "scoreDefinition": "Les stratégies et programmes de santé numérique sont élaborés et mis en œuvre en tenant compte formellement des implications en matière d'équité et de droits de l'homme, sans stratégie(s) pour y faire face."
+          },
+          {
+            "scoreId": 216,
+            "score": 4,
+            "scoreDefinition": "Des stratégies et des programmes de santé numérique sont élaborés et mis en œuvre en tenant compte formellement des implications en matière d'équité et de droits de l'homme avec une ou des stratégies ad hoc pour y faire face."
+          },
+          {
+            "scoreId": 217,
+            "score": 5,
+            "scoreDefinition": "Le pays met en œuvre et évalue les effets des stratégies de santé numérique et des solutions de santé numérique spécifiques basées sur des évaluations d'impact sur l'équité et les droits de l'homme. Des stratégies documentées sont en place pour combler les lacunes en matière d'accès et de résultats pour différents groupes de population, y compris les femmes, les enfants et les groupes marginalisés."
+          }
+        ]
+      },
+      {
+        "indicatorId": 33,
+        "indicatorCode": "23a",
+        "indicatorName": "Prise en compte des considérations de genre dans les stratégies de santé numérique et la gouvernance de la santé numérique",
+        "indicatorDefinition": "Le pays intègre-t-il des considérations de genre dans la stratégie nationale de santé numérique ou sa gouvernance de la santé numérique ?",
+        "scores": [
+          {
+            "scoreId": 218,
+            "score": -1,
+            "scoreDefinition": "Non disponible"
+          },
+          {
+            "scoreId": 219,
+            "score": 1,
+            "scoreDefinition": "Les stratégies et interventions de santé numérique sont élaborées et mises en œuvre sans tenir compte des normes, des rôles et des relations de genre."
+          },
+          {
+            "scoreId": 220,
+            "score": 2,
+            "scoreDefinition": "Des stratégies et des interventions de santé numérique sont élaborées et mises en œuvre en tenant compte ad hoc et non systématique des normes, rôles et relations de genre."
+          },
+          {
+            "scoreId": 221,
+            "score": 3,
+            "scoreDefinition": "Les stratégies et programmes de santé numérique sont élaborés et mis en œuvre en tenant systématiquement compte des normes, des rôles et des relations de genre sans les politiques ou structures de responsabilité (sensibles au genre)."
+          },
+          {
+            "scoreId": 222,
+            "score": 4,
+            "scoreDefinition": "Des stratégies et des programmes de santé numérique sont élaborés et mis en œuvre en tenant systématiquement compte des normes, des rôles et des relations de genre avec des stratégies spécifiques ciblant les organes de gouvernance, le personnel de santé et les clients dotés de mécanismes de responsabilisation (spécifiques au genre)."
+          },
+          {
+            "scoreId": 223,
+            "score": 5,
+            "scoreDefinition": "Les stratégies, politiques et interventions de santé numérique s'attaquent à l'inégalité entre les sexes et favorisent un changement progressif de la dynamique de genre sur la base d'analyses de genre et d'évaluations d'impact de routine (transformatrices en matière de genre)."
+          }
+        ]
       }
     ]
   },
