@@ -276,6 +276,44 @@
         ]
       },
       {
+        "indicatorId": 37,
+        "indicatorCode": "3a",
+        "indicatorName": "Alignement de la stratégie numérique nationale sur les composantes essentielles de la couverture sanitaire universelle (CSU)",
+        "indicatorDefinition": "La stratégie nationale de santé numérique du pays est-elle alignée sur la couverture sanitaire universelle et/ou les composantes essentielles de la CSU ?",
+        "scores": [
+          {
+            "scoreId": 242,
+            "score": -1,
+            "scoreDefinition": "Non disponible"
+          },
+          {
+            "scoreId": 243,
+            "score": 1,
+            "scoreDefinition": "La stratégie de santé numérique n'existe pas ou n'existe pas et n'est pas alignée sur la CSU et n'aborde aucune des composantes essentielles de la CSU que sont la couverture, l'accès, l'adoption, la qualité et l'équité."
+          },
+          {
+            "scoreId": 244,
+            "score": 2,
+            "scoreDefinition": "Une stratégie de santé numérique existe et est en partie alignée sur la CSU, ne traitant qu'un seul élément central de la CSU, à savoir la couverture, l'accès, l'adoption, la qualité et l'équité."
+          },
+          {
+            "scoreId": 245,
+            "score": 3,
+            "scoreDefinition": "Une stratégie de santé numérique existe et est en partie alignée sur la CSU, abordant au moins deux composantes essentielles de la CSU que sont la couverture, l'accès, l'adoption, la qualité et l'équité."
+          },
+          {
+            "scoreId": 246,
+            "score": 4,
+            "scoreDefinition": "Une stratégie de santé numérique existe et est entièrement alignée sur les objectifs de la CSU du pays, mais n'inclut pas de mesures pour évaluer la contribution de la santé numérique aux objectifs de la CSU."
+          },
+          {
+            "scoreId": 247,
+            "score": 5,
+            "scoreDefinition": "La stratégie de santé numérique est entièrement alignée sur les objectifs de la CSU du pays et comprend des mesures pour évaluer la contribution de la santé numérique aux objectifs de la CSU."
+          }
+        ]
+      },
+      {
         "indicatorId": 4,
         "indicatorCode": "4",
         "indicatorName": "Financement public de la santé numérique",
@@ -310,6 +348,44 @@
             "scoreId": 28,
             "score": 5,
             "scoreDefinition": "Une ligne budgétaire structurée et systématique existe pour la santé numérique et est tout à fait suffisante pour répondre aux besoins de santé numérique du pays."
+          }
+        ]
+      },
+      {
+        "indicatorId": 38,
+        "indicatorCode": "4a",
+        "indicatorName": "Participation et investissements du secteur privé dans la santé numérique",
+        "indicatorDefinition": "Compte tenu de l'environnement favorable, le secteur privé participe-t-il et investit-il dans les activités de santé numérique ?",
+        "scores": [
+          {
+            "scoreId": 248,
+            "score": -1,
+            "scoreDefinition": "Non disponible"
+          },
+          {
+            "scoreId": 249,
+            "score": 1,
+            "scoreDefinition": "Le secteur privé ne participe visiblement pas et n'investit pas dans les activités de santé numérique du pays."
+          },
+          {
+            "scoreId": 250,
+            "score": 2,
+            "scoreDefinition": "La participation et l'investissement du secteur privé dans les activités et les investissements de santé numérique du pays sont ponctuels et limités."
+          },
+          {
+            "scoreId": 251,
+            "score": 3,
+            "scoreDefinition": "La participation et l'investissement du secteur privé dans les activités de santé numérique du pays sont systématiques mais ne répondent pas aux besoins du pays."
+          },
+          {
+            "scoreId": 252,
+            "score": 4,
+            "scoreDefinition": "La participation et l'investissement du secteur privé dans les activités de santé numérique du pays sont systématiques et répondent aux besoins du pays."
+          },
+          {
+            "scoreId": 253,
+            "score": 5,
+            "scoreDefinition": "Le secteur privé participe et investit dans les activités de santé numérique du pays dans un environnement optimisé."
           }
         ]
       }
@@ -430,6 +506,44 @@
             "scoreId": 49,
             "score": 5,
             "scoreDefinition": "Les protocoles, politiques, cadres ou processus acceptés régissant l'utilisation clinique et des soins aux patients des dispositifs médicaux et des services de santé connectés (par exemple, la télémédecine, les applications), en particulier en ce qui concerne la sécurité, l'intégrité des données et la qualité des soins - y compris les dispositions relatives à l'IA et aux algorithmes - ont été mis en œuvre et sont appliqués de manière cohérente."
+          }
+        ]
+      },
+      {
+        "indicatorId": 36,
+        "indicatorCode": "7a",
+        "indicatorName": "Protocole de régulation et de certification de l'IA au sein des services de santé",
+        "indicatorDefinition": "Existe-t-il des protocoles, des politiques, des cadres ou des processus acceptés régissant l'utilisation de l'IA dans les systèmes, services et applications de santé, en particulier en ce qui concerne l'éthique, l'équité, la sécurité, l'intégrité des données et la qualité des soins ?",
+        "scores": [
+          {
+            "scoreId": 236,
+            "score": -1,
+            "scoreDefinition": "Non disponible"
+          },
+          {
+            "scoreId": 237,
+            "score": 1,
+            "scoreDefinition": "Il n'y a pas de protocoles, de politiques, de cadres ou de processus acceptés régissant l'utilisation de l'IA dans les services de santé."
+          },
+          {
+            "scoreId": 238,
+            "score": 2,
+            "scoreDefinition": "Des protocoles, des politiques, des cadres ou des processus acceptés régissant l'utilisation de l'IA dans les services de santé ont été proposés et sont en cours d'examen"
+          },
+          {
+            "scoreId": 239,
+            "score": 3,
+            "scoreDefinition": "Des protocoles, des politiques, des cadres ou des processus acceptés régissant l'utilisation de l'IA dans les services de santé ont été adoptés mais ne sont pas entièrement mis en œuvre."
+          },
+          {
+            "scoreId": 240,
+            "score": 4,
+            "scoreDefinition": "Des protocoles, des politiques, des cadres ou des processus acceptés régissant l'utilisation de l'IA dans les services de santé ont été mis en œuvre, mais ne sont pas appliqués de manière cohérente."
+          },
+          {
+            "scoreId": 241,
+            "score": 5,
+            "scoreDefinition": "Des protocoles, des politiques, des cadres ou des processus acceptés régissant l'utilisation de l'IA dans les services de santé ont été mis en œuvre et sont appliqués de manière cohérente."
           }
         ]
       },
