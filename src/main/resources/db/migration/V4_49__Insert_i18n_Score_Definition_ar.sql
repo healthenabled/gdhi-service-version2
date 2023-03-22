@@ -54,7 +54,7 @@ INSERT INTO i18n.score_definition(indicator_id, score, language_id, definition) 
 
 
 INSERT INTO i18n.score_definition(indicator_id, score, language_id, definition) VALUES( 34,-1,  'ar', 'غير متاح');
-INSERT INTO i18n.score_definition(indicator_id, score, language_id, definition) VALUES( 34, 1,  'ar', 'لا يوجد نظام آمن لتلقي التغذية الراجعة من المرضى. ');
+INSERT INTO i18n.score_definition(indicator_id, score, language_id, definition) VALUES( 34, 1,  'ar', 'لا يوجد نظام آمن لتلقي التغذية الراجعة من المرضى.');
 INSERT INTO i18n.score_definition(indicator_id, score, language_id, definition) VALUES( 34, 2,  'ar', 'يوجد نظام آمن لتلقي التغذية الراجعة من المرضى لبعض الخدمات الصحية، ولكنه غير مكتمل / متاح جزئيا، ويتم استخدامه وصيانته بشكل غير منتظم.');
 INSERT INTO i18n.score_definition(indicator_id, score, language_id, definition) VALUES( 34, 3,  'ar', 'يوجد نظام آمن لتلقي التغذية الراجعة، وهو متاح وقيد الاستخدام النشط ويتضمن بيانات من <25٪ من المؤسسات الصحية ذات الصلة و/ أو الموقع الجغرافي. وهو متاح لبعض السكان.');
 INSERT INTO i18n.score_definition(indicator_id, score, language_id, definition) VALUES( 34, 4,  'ar', 'يوجد نظام آمن لتلقي التغذية الراجعة، وهو متاح وقيد الاستخدام النشط ويتضمن بيانات من 25-75٪ من المؤسسات الصحية ذات الصلة و/ أو الموقع الجغرافي. وهو متاح لمعظم السكان');
