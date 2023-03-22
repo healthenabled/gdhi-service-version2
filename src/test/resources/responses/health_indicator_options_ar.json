@@ -278,38 +278,38 @@
       {
         "indicatorId": 37,
         "indicatorCode": "3a",
-        "indicatorName": "Alignement de la stratégie numérique nationale sur les composantes essentielles de la couverture sanitaire universelle (CSU)",
-        "indicatorDefinition": "La stratégie nationale de santé numérique du pays est-elle alignée sur la couverture sanitaire universelle et/ou les composantes essentielles de la CSU ?",
+        "indicatorName": "لرقمية الوطنية مع المكونات الأساسية للتغطية الصحية الشاملة",
+        "indicatorDefinition": "هل تتماشى الاستراتيجية الوطنية للصحة الرقمية في البلد مع التغطية الصحية الشاملة و/أو المكونات الأساسية للتغطية الصحية الشاملة؟",
         "scores": [
           {
             "scoreId": 242,
             "score": -1,
-            "scoreDefinition": "Non disponible"
+            "scoreDefinition": "غير متاح"
           },
           {
             "scoreId": 243,
             "score": 1,
-            "scoreDefinition": "La stratégie de santé numérique n'existe pas ou n'existe pas et n'est pas alignée sur la CSU et n'aborde aucune des composantes essentielles de la CSU que sont la couverture, l'accès, l'adoption, la qualité et l'équité."
+            "scoreDefinition": "استراتيجية الصحة الرقمية غير موجودة أو موجودة ولا تتماشى مع التغطية الصحية الشاملة ولا تتناول أيا من المكونات الأساسية للتغطية والوصول والاستيعاب والجودة والعدالة."
           },
           {
             "scoreId": 244,
             "score": 2,
-            "scoreDefinition": "Une stratégie de santé numérique existe et est en partie alignée sur la CSU, ne traitant qu'un seul élément central de la CSU, à savoir la couverture, l'accès, l'adoption, la qualité et l'équité."
+            "scoreDefinition": "توجد استراتيجية للصحة الرقمية وتتماشى جزئيا مع التغطية الصحية الشاملة، وتتناول مكونا أساسيا واحدا فقط من مكونات التغطية والوصول والاستيعاب والجودة والعدالة."
           },
           {
             "scoreId": 245,
             "score": 3,
-            "scoreDefinition": "Une stratégie de santé numérique existe et est en partie alignée sur la CSU, abordant au moins deux composantes essentielles de la CSU que sont la couverture, l'accès, l'adoption, la qualité et l'équité."
+            "scoreDefinition": "توجد استراتيجية للصحة الرقمية وتتماشى جزئيا مع التغطية الصحية الشاملة، وتتناول مكونين أو أكثر من المكونات الأساسية للتغطية والوصول والاستيعاب والجودة والعدالة."
           },
           {
             "scoreId": 246,
             "score": 4,
-            "scoreDefinition": "Une stratégie de santé numérique existe et est entièrement alignée sur les objectifs de la CSU du pays, mais n'inclut pas de mesures pour évaluer la contribution de la santé numérique aux objectifs de la CSU."
+            "scoreDefinition": "توجد استراتيجية للصحة الرقمية وتتماشى تماما مع أهداف التغطية الصحية الشاملة للبلد، ولكنها لا تتضمن مقاييس لتقييم مساهمة الصحة الرقمية في تحقيق أهداف التغطية الصحية الشاملة."
           },
           {
             "scoreId": 247,
             "score": 5,
-            "scoreDefinition": "La stratégie de santé numérique est entièrement alignée sur les objectifs de la CSU du pays et comprend des mesures pour évaluer la contribution de la santé numérique aux objectifs de la CSU."
+            "scoreDefinition": "تتماشى استراتيجية الصحة الرقمية تماما مع أهداف التغطية الصحية الشاملة للبلد وتتضمن مقاييس لتقييم مساهمة الصحة الرقمية في تحقيق أهداف التغطية الصحية الشاملة."
           }
         ]
       },
@@ -354,38 +354,38 @@
       {
         "indicatorId": 38,
         "indicatorCode": "4a",
-        "indicatorName": "Participation et investissements du secteur privé dans la santé numérique",
-        "indicatorDefinition": "Compte tenu de l'environnement favorable, le secteur privé participe-t-il et investit-il dans les activités de santé numérique ?",
+        "indicatorName": "ا مشاركة القطاع الخاص واستثماراته في الصحة الرقمية",
+        "indicatorDefinition": "بالنظر إلى البيئة التمكينية، هل يشارك القطاع الخاص ويستثمر في أنشطة الصحة الرقمية؟",
         "scores": [
           {
             "scoreId": 248,
             "score": -1,
-            "scoreDefinition": "Non disponible"
+            "scoreDefinition": "غير متاح"
           },
           {
             "scoreId": 249,
             "score": 1,
-            "scoreDefinition": "Le secteur privé ne participe visiblement pas et n'investit pas dans les activités de santé numérique du pays."
+            "scoreDefinition": "لا يشارك القطاع الخاص بشكل واضح ولا يستثمر في أنشطة الصحة الرقمية في البلاد"
           },
           {
             "scoreId": 250,
             "score": 2,
-            "scoreDefinition": "La participation et l'investissement du secteur privé dans les activités et les investissements de santé numérique du pays sont ponctuels et limités."
+            "scoreDefinition": "مشاركة القطاع الخاص واستثماره في أنشطة الصحة الرقمية في البلاد تتم بشكل عشوائي ومحدود."
           },
           {
             "scoreId": 251,
             "score": 3,
-            "scoreDefinition": "La participation et l'investissement du secteur privé dans les activités de santé numérique du pays sont systématiques mais ne répondent pas aux besoins du pays."
+            "scoreDefinition": "مشاركة القطاع الخاص واستثماره في أنشطة الصحة الرقمية في البلاد منهجية ولكنها لا تلبي احتياجات البلاد."
           },
           {
             "scoreId": 252,
             "score": 4,
-            "scoreDefinition": "La participation et l'investissement du secteur privé dans les activités de santé numérique du pays sont systématiques et répondent aux besoins du pays."
+            "scoreDefinition": "مشاركة القطاع الخاص واستثماره في أنشطة الصحة الرقمية في البلاد منهجية وتلبي احتياجات البلاد."
           },
           {
             "scoreId": 253,
             "score": 5,
-            "scoreDefinition": "Le secteur privé participe et investit dans les activités de santé numérique du pays dans un environnement optimisé."
+            "scoreDefinition": "مشاركة القطاع الخاص واستثماره في أنشطة الصحة الرقمية في البلاد تتم في بيئة مُثلى"
           }
         ]
       }
@@ -512,38 +512,38 @@
       {
         "indicatorId": 36,
         "indicatorCode": "7a",
-        "indicatorName": "Protocole de régulation et de certification de l'IA au sein des services de santé",
-        "indicatorDefinition": "Existe-t-il des protocoles, des politiques, des cadres ou des processus acceptés régissant l'utilisation de l'IA dans les systèmes, services et applications de santé, en particulier en ce qui concerne l'éthique, l'équité, la sécurité, l'intégrité des données et la qualité des soins ?",
+        "indicatorName": "ا بروتوكول لتنظيم واعتماد الذكاء الاصطناعي في مجال الخدما",
+        "indicatorDefinition": "هل هناك بروتوكولات أو سياسات أو أطر أو عمليات مقبولة تحكم استخدام الذكاء الاصطناعي في النظم والخدمات والتطبيقات الصحية، لا سيما فيما يتعلق بالأخلاقيات والعدالة والسلامة وسلامة البيانات وجودة الرعاية؟",
         "scores": [
           {
             "scoreId": 236,
             "score": -1,
-            "scoreDefinition": "Non disponible"
+            "scoreDefinition": "غير متاح"
           },
           {
             "scoreId": 237,
             "score": 1,
-            "scoreDefinition": "Il n'y a pas de protocoles, de politiques, de cadres ou de processus acceptés régissant l'utilisation de l'IA dans les services de santé."
+            "scoreDefinition": "لا توجد بروتوكولات أو سياسات أو أطر أو عمليات مقبولة تحكم استخدام الذكاء الاصطناعي في الخدمات الصحية."
           },
           {
             "scoreId": 238,
             "score": 2,
-            "scoreDefinition": "Des protocoles, des politiques, des cadres ou des processus acceptés régissant l'utilisation de l'IA dans les services de santé ont été proposés et sont en cours d'examen"
+            "scoreDefinition": "تم اقتراح بروتوكولات أو سياسات أو أطر أو عمليات مقبولة تحكم استخدام الذكاء الاصطناعي في الخدمات الصحية وهي قيد المراجعة"
           },
           {
             "scoreId": 239,
             "score": 3,
-            "scoreDefinition": "Des protocoles, des politiques, des cadres ou des processus acceptés régissant l'utilisation de l'IA dans les services de santé ont été adoptés mais ne sont pas entièrement mis en œuvre."
+            "scoreDefinition": "تم إقرار البروتوكولات أو السياسات أو الأطر أو العمليات المقبولة التي تحكم استخدام الذكاء الاصطناعي في الخدمات الصحية ولكنها لم تنفذ بالكامل."
           },
           {
             "scoreId": 240,
             "score": 4,
-            "scoreDefinition": "Des protocoles, des politiques, des cadres ou des processus acceptés régissant l'utilisation de l'IA dans les services de santé ont été mis en œuvre, mais ne sont pas appliqués de manière cohérente."
+            "scoreDefinition": "تم تطبيق البروتوكولات أو السياسات أو الأطر أو العمليات المقبولة التي تحكم استخدام الذكاء الاصطناعي في الخدمات الصحية ولكن لا يتم إنفاذها باستمرار."
           },
           {
             "scoreId": 241,
             "score": 5,
-            "scoreDefinition": "Des protocoles, des politiques, des cadres ou des processus acceptés régissant l'utilisation de l'IA dans les services de santé ont été mis en œuvre et sont appliqués de manière cohérente."
+            "scoreDefinition": "تم تنفيذ البروتوكولات أو السياسات أو الأطر أو العمليات المقبولة التي تحكم استخدام الذكاء الاصطناعي في الخدمات الصحية ويتم إنفاذها باستمرار."
           }
         ]
       },
@@ -1144,76 +1144,76 @@
       {
         "indicatorId": 34,
         "indicatorCode": "20",
-        "indicatorName": "Sécuriser les systèmes de rétroaction des patients",
-        "indicatorDefinition": "Plus précisément, existe-t-il un système sécurisé de retour d'information des patients, disponible, accessible ?",
+        "indicatorName": "ا نظام آمن لتلقي التغذية الراجعة من المرضى",
+        "indicatorDefinition": "على وجه التحديد، هل هناك نظام آمن لتلقي التغذية الراجعة من المرضى، وهو متاح ويمكن الوصول إليه",
         "scores": [
           {
             "scoreId": 224,
             "score": -1,
-            "scoreDefinition": "Non disponible"
+            "scoreDefinition": "غير متاح"
           },
           {
             "scoreId": 225,
             "score": 1,
-            "scoreDefinition": "Il n'existe aucun système sécurisé de rétroaction des patients."
+            "scoreDefinition": "لا يوجد نظام آمن لتلقي التغذية الراجعة من المرضى."
           },
           {
             "scoreId": 226,
             "score": 2,
-            "scoreDefinition": "Un système sécurisé de rétroaction des patients existe pour certains services de santé, mais il est incomplet/partiellement disponible, utilisé et entretenu de manière irrégulière."
+            "scoreDefinition": "يوجد نظام آمن لتلقي التغذية الراجعة من المرضى لبعض الخدمات الصحية، ولكنه غير مكتمل / متاح جزئيا، ويتم استخدامه وصيانته بشكل غير منتظم."
           },
           {
             "scoreId": 227,
             "score": 3,
-            "scoreDefinition": "Un système de retour d'information sécurisé existe, est disponible et utilisé activement et comprend des données provenant de <25 % des services de santé et/ou de l'emplacement géographique concernés. Il est accessible à une partie de la population."
+            "scoreDefinition": "يوجد نظام آمن لتلقي التغذية الراجعة، وهو متاح وقيد الاستخدام النشط ويتضمن بيانات من <25٪ من المؤسسات الصحية ذات الصلة و/ أو الموقع الجغرافي. وهو متاح لبعض السكان."
           },
           {
             "scoreId": 228,
             "score": 4,
-            "scoreDefinition": "Un système de retour d'information sécurisé existe, est disponible et utilisé activement et comprend des données provenant de 25 à 75 % des services de santé et/ou de l'emplacement géographique concernés. Il est accessible à la majorité de la population."
+            "scoreDefinition": "يوجد نظام آمن لتلقي التغذية الراجعة، وهو متاح وقيد الاستخدام النشط ويتضمن بيانات من 25-75٪ من المؤسسات الصحية ذات الصلة و/ أو الموقع الجغرافي. وهو متاح لمعظم السكان"
           },
           {
             "scoreId": 229,
             "score": 5,
-            "scoreDefinition": "Un système de retour d'information sécurisé existe, est disponible dans des formats accessibles et en utilisation active et comprend des données provenant de > 75 % des services de santé et/ou de l'emplacement géographique concernés. Il est accessible à 100% de la population."
+            "scoreDefinition": "يوجد نظام آمن لتلقي التغذية الراجعة، وهو متاح بأشكال يسهل الوصول إليها وقيد الاستخدام النشط، ويتضمن بيانات من >75٪ من المؤسسات الصحية ذات الصلة و/أو الموقع الجغرافي. وهو متاح لجميع السكان."
           }
         ]
       },
       {
         "indicatorId": 35,
         "indicatorCode": "21",
-        "indicatorName": "Contribution de la santé numérique à la gestion de la santé de la population",
-        "indicatorDefinition": "Les initiatives nationales actuelles en matière de santé numérique contribuent-elles aux rapports et à la prise de décision en matière de santé publique ?",
+        "indicatorName": "ا مساهمة الصحة الرقمية في إدارة صحة السكان",
+        "indicatorDefinition": "هل تساهم مبادرات الدول للصحة الرقمية الحالية في إعداد تقارير الصحة العامة واتخاذ القرارات؟",
         "scores": [
           {
             "scoreId": 230,
             "score": -1,
-            "scoreDefinition": "Non disponible"
+            "scoreDefinition": "غير متاح"
           },
           {
             "scoreId": 231,
             "score": 1,
-            "scoreDefinition": "Aucune contribution d'une initiative de santé numérique aux rapports de routine ou à la prise de décision basée sur les données pour la gestion de la santé de la population."
+            "scoreDefinition": "لا توجد مساهمة لأي مبادرة تتعلق بالصحة الرقمية في إعداد التقارير الروتينية أو في اتخاذ القرارات القائمة على البيانات لإدارة صحة السكان"
           },
           {
             "scoreId": 232,
             "score": 2,
-            "scoreDefinition": "Les systèmes numériques utilisés au niveau des districts/états ne contribuent qu'aux rapports nationaux sur la santé publique et à la prise de décision pour la gestion de la santé de la population."
+            "scoreDefinition": "تساهم الأنظمة الرقمية المستخدمة على مستوى المقاطعة / الولاية فقط في اعداد التقارير حول الصحة العامة في البلاد واتخاذ القرارات لإدارة صحة السكان."
           },
           {
             "scoreId": 233,
             "score": 3,
-            "scoreDefinition": "Les systèmes numériques sont utilisés au niveau des établissements ou des communautés et contribuent aux rapports de santé publique du pays et à la prise de décision pour la gestion de la santé de la population."
+            "scoreDefinition": "تستخدم الأنظمة الرقمية على مستوى المرافق أو المجتمع وتساهم في اعداد التقارير حول الصحة العامة في البلاد واتخاذ القرارات لإدارة صحة السكان."
           },
           {
             "scoreId": 234,
             "score": 4,
-            "scoreDefinition": "Les systèmes numériques sont utilisés dans les établissements ou les communautés et par les individus et contribuent aux rapports de santé publique du pays et à la prise de décision pour la gestion de la santé de la population."
+            "scoreDefinition": "تستخدم الأنظمة الرقمية في المرافق أو المجتمعات ومن قبل الأفراد وتساهم في إعداد التقارير حول الصحة العامة في البلاد واتخاذ القرارات لإدارة صحة السكان."
           },
           {
             "scoreId": 235,
             "score": 5,
-            "scoreDefinition": "Les systèmes numériques utilisés à tous les niveaux, y compris par les individus, contribuent à la notification en temps opportun de la santé publique des pays et à la prise de décision pour la gestion de la santé de la population."
+            "scoreDefinition": "تساهم الأنظمة الرقمية المستخدمة على جميع المستويات، بما في ذلك الأنظمة المستخدمة من قبل الأفراد، في إعداد التقارير حول الصحة العامة في الوقت المناسب واتخاذ القرارات المتعلقة بإدارة صحة السكان"
           }
         ]
       }
