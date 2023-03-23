@@ -594,8 +594,8 @@
       {
         "indicatorId": 9,
         "indicatorCode": "9",
-        "indicatorName": "Santé numérique intégrée dans la formation professionnelle initiale en santé et connexe (avant le déploiement)",
-        "indicatorDefinition": "La santé numérique fait-elle partie du programme d'études pour les professionnels de la santé et de  l'assistance liée à la santé en formation, en général ?",
+        "indicatorName": "Salud digital integrada en la salud y la formación previa al servicio profesional relacionada (antes de la implementación)",
+        "indicatorDefinition": "¿La salud digital forma parte del currículo de los profesionales de la salud y de apoyo a la salud en formación, en general?",
         "scores": [
           {
             "scoreId": 57,
@@ -605,35 +605,35 @@
           {
             "scoreId": 59,
             "score": 1,
-            "scoreDefinition": "Il n'y a pas de programme de santé numérique pour les professionnels de la santé dans le cadre des exigences de formation préalable."
+            "scoreDefinition": "No existe un plan de estudios de salud digital para profesionales de la salud como parte de los requisitos de capacitación previa al servicio."
           },
           {
             "scoreId": 60,
             "score": 2,
-            "scoreDefinition": "Programme de santé numérique proposé et en cours d'examen dans le cadre des exigences de formation préalable."
+            "scoreDefinition": "Plan de estudios de salud digital propuesto y en revisión como parte de los requisitos de capacitación previa al servicio."
           },
           {
             "scoreId": 61,
             "score": 3,
-            "scoreDefinition": "Mise en œuvre du programme de santé numérique en cours couvrant environ <50% des professionnels de la santé en formation initiale."
+            "scoreDefinition": "Implementación del plan de estudios de salud digital en curso que cubre aproximadamente <50% de los profesionales de la salud en capacitación previa al servicio."
           },
           {
             "scoreId": 62,
             "score": 4,
-            "scoreDefinition": "La santé numérique est enseignée dans les institutions concernées avec environ 50 à 75 % de professionnels de la santé recevant une formation initiale."
+            "scoreDefinition": "La salud digital se enseña en instituciones relevantes con un estimado de 50-75% de profesionales de la salud que reciben capacitación previa al servicio."
           },
           {
             "scoreId": 63,
             "score": 5,
-            "scoreDefinition": "Santé numérique enseignée dans les institutions concernées avec > 75% des professionnels de la santé recevant une formation initiale."
+            "scoreDefinition": "Salud digital enseñada en instituciones relevantes con más del 75% de los profesionales de la salud recibiendo capacitación previa al servicio."
           }
         ]
       },
       {
         "indicatorId": 10,
         "indicatorCode": "10",
-        "indicatorName": "Santé numérique intégrée dans la formation continue des professionnels de la santé et connexes (après le déploiement)",
-        "indicatorDefinition": "Plus précisément, la santé numérique fait-elle partie du programme d'études pour les professionnels de la santé et du soutien lié à la santé dans la main-d'œuvre en général ? [Définis comme agents de santé communautaires, infirmières, médecins, personnel paramédical, gestionnaires/administrateurs de la santé et technologues]",
+        "indicatorName": "Salud digital integrada en la salud y la capacitación profesional en el servicio relacionada (después del despliegue)",
+        "indicatorDefinition": "Específicamente, ¿la salud digital es parte del plan de estudios para los profesionales de la salud y de apoyo relacionados con la salud en el recurso humano en general? [Definidos como trabajadores de salud comunitarios, enfermeras, médicos, auxiliares de salud, gerentes/administradores de salud y tecnólogos]",
         "scores": [
           {
             "scoreId": 64,
@@ -643,35 +643,35 @@
           {
             "scoreId": 66,
             "score": 1,
-            "scoreDefinition": "Il n'y a pas de programme de santé numérique dans le cadre de la formation continue (formation continue) pour les professionnels de la santé sur le marché du travail."
+            "scoreDefinition": "No existe un plan de estudios de salud digital como parte de la capacitación en el servicio (educación continua) para los profesionales de la salud en el recurso humano."
           },
           {
             "scoreId": 67,
             "score": 2,
-            "scoreDefinition": "Programme de santé numérique proposé et en cours d'examen dans le cadre de la formation continue (formation continue) des professionnels de la santé en milieu de travail."
+            "scoreDefinition": "Plan de estudios de salud digital propuesto y en revisión como parte de la capacitación en el servicio (educación continua) para profesionales de la salud en el recurso humano."
           },
           {
             "scoreId": 68,
             "score": 3,
-            "scoreDefinition": "Le programme de santé numérique est mis en œuvre dans le cadre de la formation continue (formation continue) pour <50% des professionnels de la santé dans la population active."
+            "scoreDefinition": "El plan de estudios de salud digital se implementa como parte de la capacitación en el servicio (educación continua) para menos del 50 % de los profesionales de la salud en el recurso humano."
           },
           {
             "scoreId": 69,
             "score": 4,
-            "scoreDefinition": "Le programme de santé numérique est mis en œuvre dans le cadre de la formation continue (formation continue) pour 50 à 75% des professionnels de la santé au sein de la population active."
+            "scoreDefinition": "El plan de estudios de salud digital se implementa como parte de la capacitación en el servicio (educación continua) para el 50-75% de los profesionales de la salud en el recurso humano"
           },
           {
             "scoreId": 70,
             "score": 5,
-            "scoreDefinition": "Le programme de santé numérique est mis en œuvre dans le cadre de la formation continue (formation continue) pour > 75% des professionnels de la santé dans la main-d'œuvre."
+            "scoreDefinition": "El plan de estudios de salud digital se implementa como parte de la capacitación en el servicio (educación continua) para más del 75 % de los profesionales de la salud en el recurso humano"
           }
         ]
       },
       {
         "indicatorId": 11,
         "indicatorCode": "11",
-        "indicatorName": "Formation du personnel de santé numérique",
-        "indicatorDefinition": "En général, la formation en santé numérique/informatique de santé/systèmes d'information de santé/programmes diplômants en informatique biomédicale (dans des établissements publics ou privés) produit-elle des agents de santé numériques formés ?",
+        "indicatorName": "Formación en salud digital del recurso humano",
+        "indicatorDefinition": "En general, ¿la formación en salud digital/informática sanitaria/sistemas de información sanitaria/programas de grado en informática biomédica (ya sea en instituciones públicas o privadas) está produciendo trabajadores capacitados en salud digital?",
         "scores": [
           {
             "scoreId": 71,
@@ -681,35 +681,35 @@
           {
             "scoreId": 73,
             "score": 1,
-            "scoreDefinition": "Il n'y a pas de formation disponible pour le personnel de santé numérique disponible dans le pays."
+            "scoreDefinition": "No hay capacitación en salud digital disponible para el recurso humano en el país."
           },
           {
             "scoreId": 74,
             "score": 2,
-            "scoreDefinition": "Besoins en personnel de santé numérique évalués, lacunes identifiées et options de formation en cours d'élaboration."
+            "scoreDefinition": "Se evaluaron las necesidades en salud digital del recurso humano, se identificaron las brechas y se están desarrollando opciones de capacitación."
           },
           {
             "scoreId": 75,
             "score": 3,
-            "scoreDefinition": "La formation professionnelle est disponible, mais les diplômés ne sont pas encore déployés."
+            "scoreDefinition": "La capacitación profesional está disponible, pero los graduados aún no están desplegados."
           },
           {
             "scoreId": 76,
             "score": 4,
-            "scoreDefinition": "Des professionnels de la santé numérique formés sont disponibles et déployés, mais des lacunes essentielles en personnel subsistent."
+            "scoreDefinition": "Los profesionalescapacitados en salud digital están disponibles y desplegados, pero persisten las brechas en el personal esencial."
           },
           {
             "scoreId": 77,
             "score": 5,
-            "scoreDefinition": "Un nombre suffisant de professionnels de la santé numérique formés disponibles pour répondre aux besoins nationaux en matière de santé numérique."
+            "scoreDefinition": "Número suficiente de profesionales capacitados en salud digital disponibles para satisfacer las necesidades nacionales de salud digital."
           }
         ]
       },
       {
         "indicatorId": 12,
         "indicatorCode": "12",
-        "indicatorName": "Maturité des carrières des professionnels de la santé numérique dans le secteur public",
-        "indicatorDefinition": "Existe-t-il des titres professionnels et des parcours professionnels publics en santé numérique ?",
+        "indicatorName": "Madurez de las carreras profesionales de salud digital del sector público",
+        "indicatorDefinition": "¿Existen títulos profesionales y carreras profesionales en salud digital del sector público?",
         "scores": [
           {
             "scoreId": 78,
@@ -719,27 +719,27 @@
           {
             "scoreId": 80,
             "score": 1,
-            "scoreDefinition": "Aucune stratégie, politique ou guide de la main-d'œuvre reconnaissant la santé numérique n'est en place. La répartition du personnel de santé numérique est ad hoc."
+            "scoreDefinition": "No existe una estrategia, política o guía del recurso humano que reconozca la salud digital. La distribución del recurso humano de salud digital es ad hoc."
           },
           {
             "scoreId": 81,
             "score": 2,
-            "scoreDefinition": "Une évaluation nationale des besoins montre le nombre et les types de compétences nécessaires pour soutenir la santé numérique en mettant explicitement l'accent sur la formation des cadres féminins du personnel de santé."
+            "scoreDefinition": "Una evaluación de las necesidades nacionales muestra la cantidad y los tipos de habilidades necesarias para respaldar la salud digital con un enfoque explícito en los cuadros de capacitación para trabajadoras de la salud."
           },
           {
             "scoreId": 82,
             "score": 3,
-            "scoreDefinition": "Les rôles et les responsabilités du personnel de santé numérique sont mappés sur les plans de carrière et de main-d'œuvre du gouvernement et 25 à 50 % des effectifs de santé numérique du secteur public nécessaires sont en place."
+            "scoreDefinition": "Las funciones y responsabilidades del personal de salud digital se asignan al recurso humano  y a los esquemas de carrera del gobierno y el 25-50% del recurso humano  de salud digital necesario del sector público está en su lugar."
           },
           {
             "scoreId": 83,
             "score": 4,
-            "scoreDefinition": "Il existe une politique et un plan stratégique des ressources humaines qui identifient les compétences et les fonctions nécessaires pour soutenir la santé numérique en mettant explicitement l'accent sur la formation des cadres féminins de la santé et sur environ 50 à 75% des effectifs de santé numérique du secteur public en place."
+            "scoreDefinition": "Existe una política de recursos humanos y un plan estratégico que identifica las habilidades y funciones necesarias para apoyar la salud digital con un enfoque explícito en los cuadros de capacitación de trabajadoras de la salud y un estimado del 50-75% del recurso humano de salud digital del sector público existente."
           },
           {
             "scoreId": 84,
             "score": 5,
-            "scoreDefinition": "Un plan à long terme est en place pour développer et maintenir le personnel doté des compétences nécessaires pour maintenir la santé numérique aux niveaux national et infranational, en mettant explicitement l'accent sur la formation de cadres de femmes agents de santé avec environ 75% des postes à pourvoir. Des systèmes de gestion des performances sont en place pour assurer la croissance et la pérennité du personnel de santé numérique avec un approvisionnement suffisant pour répondre aux besoins de santé numérique et un faible roulement du personnel."
+            "scoreDefinition": "Existe un plan a largo plazo para aumentar y mantener al personal con las habilidades necesarias para mantener la salud digital a nivel nacional y subnacional con un enfoque explícito en los cuadros de  capacitación de trabajadoras de la salud con un estimado de >75% de los puestos necesarios cubiertos. Existen sistemas de gestión del desempeño para garantizar el crecimiento y la sostenibilidad del recurso humano de salud digital con un suministro suficiente para satisfacer las necesidades y poca rotación de personal."
           }
         ]
       }
@@ -752,8 +752,8 @@
       {
         "indicatorId": 13,
         "indicatorCode": "13",
-        "indicatorName": "Architecture nationale de santé numérique et/ou échange d'informations de santé",
-        "indicatorDefinition": "Existe-t-il un cadre architectural national de santé numérique (eHealth) et/ou d'échange d'informations sur la santé (HIE) ?",
+        "indicatorName": "Arquitectura sanitaria digital nacional y/o intercambio de información sanitaria",
+        "indicatorDefinition": "¿Existe un marco arquitectónico nacional de salud digital (eHealth) y/o un intercambio de información de salud (HIE) establecido?",
         "scores": [
           {
             "scoreId": 85,
@@ -763,35 +763,35 @@
           {
             "scoreId": 87,
             "score": 1,
-            "scoreDefinition": "Il n'y a pas de cadre architectural national de santé numérique (eHealth) et/ou d'échange d'informations sur la santé (HIE) établi."
+            "scoreDefinition": "No se ha establecido un marco arquitectónico nacional de salud digital (eHealth) y/o intercambio de información de salud (HIE)."
           },
           {
             "scoreId": 88,
             "score": 2,
-            "scoreDefinition": "Une architecture nationale de la santé numérique et/ou un échange d'informations sur la santé (HIE) a été proposé, mais non approuvé, y compris les couches sémantique, syntaxique et organisationnelle."
+            "scoreDefinition": "Se ha propuesto una arquitectura de salud digital nacional y/o intercambio de información de salud (HIE), pero no se ha aprobado Incluyendo las capas semánticas, sintácticas y organizativas."
           },
           {
             "scoreId": 89,
             "score": 3,
-            "scoreDefinition": "l'architecture numérique nationale de la santé et/ou l'échange d'informations sur la santé (HIE) est opérationnelle et fournit des fonctions essentielles, telles que l'authentification, la traduction, la fonction de stockage et d'entreposage, un guide sur les données disponibles et la manière d'y accéder, et l'interprétation des données."
+            "scoreDefinition": "La arquitectura de salud digital nacional y/o el intercambio de información de salud (HIE) es operable y proporciona funciones básicas, como la función de autenticación, traducción, almacenamiento y guía sobre qué datos están disponibles y cómo acceder a ellos, e interpretación de datos."
           },
           {
             "scoreId": 90,
             "score": 4,
-            "scoreDefinition": "Le gouvernement dirige, gère et applique la mise en œuvre de l'architecture numérique nationale de la santé et/ou de l'échange d'informations sur la santé (HIE), qui sont entièrement mises en œuvre conformément aux normes de l'industrie."
+            "scoreDefinition": "El gobierno lidera, administra y hace cumplir la implementación de la arquitectura de salud digital nacional y/o el intercambio de información de salud (HIE), que se implementan siguiendo completamente los estándares de la industria."
           },
           {
             "scoreId": 91,
             "score": 5,
-            "scoreDefinition": "l'architecture nationale de la santé numérique et/ou l'échange d'informations sur la santé (HIE) fournit des fonctions d'échange de données de base et est périodiquement révisée et mise à jour pour répondre aux besoins de l'évolution de l'architecture de la santé numérique. Il y a un apprentissage continu, l'innovation et le contrôle de la qualité. Les données sont activement utilisées pour la planification stratégique et la budgétisation de la santé nationale."
+            "scoreDefinition": "La arquitectura de salud digital nacional y/o el intercambio de información de salud (HIE) proporciona funciones básicas de intercambio de datos y se revisa y actualiza periódicamente para satisfacer las necesidades de la arquitectura de salud digital cambiante. Hay aprendizaje continuo, innovación y control de calidad. Los datos se utilizan activamente para la planificación estratégica y la elaboración de presupuestos nacionales de salud."
           }
         ]
       },
       {
         "indicatorId": 14,
         "indicatorCode": "14",
-        "indicatorName": "Normes d'information sur la santé",
-        "indicatorDefinition": "Existe-t-il des normes numériques sur la santé/ l'information sur la santé pour  l'échange de données, la transmission, la messagerie, la sécurité, la confidentialité et le matériel ?",
+        "indicatorName": "Estándares de información en salud",
+        "indicatorDefinition": "¿Existen estándares de información de salud/salud digital para el intercambio de datos, transmisión, mensajería, seguridad, privacidad y hardware?",
         "scores": [
           {
             "scoreId": 92,
@@ -801,27 +801,27 @@
           {
             "scoreId": 94,
             "score": 1,
-            "scoreDefinition": "Il n'y a pas de normes numériques sur la santé / les informations sur la santé pour l'échange de données, la transmission, la messagerie, la sécurité, la confidentialité et le matériel."
+            "scoreDefinition": "No existen estándares de información de salud/salud digital para el intercambio de datos, la transmisión, la mensajería, la seguridad, la privacidad y el hardware."
           },
           {
             "scoreId": 95,
             "score": 2,
-            "scoreDefinition": "Certaines normes relatives à l'échange de données, à la transmission, à la messagerie, à la sécurité, à la confidentialité et au matériel ont été adoptées et/ou sont utilisées."
+            "scoreDefinition": "Existen algunos estándares de información de salud/salud digital para el intercambio de datos, la transmisión, la mensajería, la seguridad, la privacidad y el hardware que se han adoptado y/o se utilizan."
           },
           {
             "scoreId": 96,
             "score": 3,
-            "scoreDefinition": "Les normes d'information numérique sur la santé / la santé pour l'échange de données, la transmission, la messagerie, la sécurité, la confidentialité et le matériel ont été publiées et diffusées dans le pays sous la direction du gouvernement."
+            "scoreDefinition": "Los estándares de información de salud/salud digital para el intercambio de datos, la transmisión, la mensajería, la seguridad, la privacidad y el hardware se han publicado y difundido en el país bajo el liderazgo del gobierno."
           },
           {
             "scoreId": 97,
             "score": 4,
-            "scoreDefinition": "Les normes techniques basées sur l'industrie de l'information numérique sur la santé et la santé pour l'échange de données, la transmission, la messagerie, la sécurité, la confidentialité et le matériel sont utilisées dans la majorité des applications et des systèmes pour garantir la disponibilité (et l'utilisation) de données de haute qualité. Des tests de conformité sont régulièrement effectués pour certifier les exécutants."
+            "scoreDefinition": "La mayoría de las aplicaciones y sistemas utilizan estándares técnicos basados en la industria de información de salud/salud digital para el intercambio de datos, la transmisión, la mensajería, la seguridad, la privacidad y el hardware para garantizar la disponibilidad (y el uso) de datos de alta calidad. Las pruebas de conformidad se llevan a cabo de forma rutinaria para certificar a los implementadores."
           },
           {
             "scoreId": 98,
             "score": 5,
-            "scoreDefinition": "Les normes de données sont régulièrement mises à jour et les données sont activement utilisées pour le suivi et l'évaluation du système de santé ainsi que pour la planification stratégique et la budgétisation de la santé nationale."
+            "scoreDefinition": "Los estándares de datos se actualizan de manera rutinaria y los datos se utilizan activamente para monitorear y evaluar el sistema de salud y para la planificación y presupuestación estratégica nacional de salud."
           }
         ]
       }
@@ -834,8 +834,8 @@
       {
         "indicatorId": 15,
         "indicatorCode": "15",
-        "indicatorName": "État de préparation du réseau",
-        "indicatorDefinition": "Extraire le pilier technologique de  l'institut Portuland du score de  l'indice de préparation du réseau(https://networkreadinessindex.org )",
+        "indicatorName": "Preparación de la red",
+        "indicatorDefinition": "Extraiga la puntuación del índice de disponibilidad de la red del pilar tecnológico del instituto Portuland (https://networkreadinessindex.org )",
         "scores": [
           {
             "scoreId": 99,
@@ -872,8 +872,8 @@
       {
         "indicatorId": 16,
         "indicatorCode": "16",
-        "indicatorName": "Planification et soutien pour la maintenance continue de l'infrastructure de santé numérique",
-        "indicatorDefinition": "Existe-t-il un plan articulé pour soutenir  l'expansion de  l'infrastructure de santé numérique (y compris  l'équipement - ordinateurs/tablettes/téléphones, fournitures, logiciels, appareils, etc.) la fourniture et la maintenance de tous les établissements de santé publics ?",
+        "indicatorName": "Planificación y apoyo para el mantenimiento continuo de la infraestructura de salud digital",
+        "indicatorDefinition": "¿Existe un plan articulado para apoyar la expansión de la infraestructura de salud digital (incluidos los equipos, computadoras/tabletas/teléfonos, suministros, software, dispositivos, etc.), provisión y mantenimiento para todas las instalaciones de salud pública?",
         "scores": [
           {
             "scoreId": 106,
@@ -883,27 +883,27 @@
           {
             "scoreId": 108,
             "score": 1,
-            "scoreDefinition": "Il n'y a pas de plan articulé pour soutenir la fourniture et la maintenance de l'infrastructure de santé numérique (y compris l'équipement - ordinateurs/tablettes/téléphones, fournitures, logiciels, appareils, etc.)."
+            "scoreDefinition": "No existe un plan articulado para apoyar la provisión y el mantenimiento de la infraestructura de salud digital (incluidos equipos: computadoras/\ntablets/teléfonos, suministros, software, dispositivos, etc.)."
           },
           {
             "scoreId": 109,
             "score": 2,
-            "scoreDefinition": "Un plan de soutien à la fourniture et à la maintenance de l'infrastructure de santé numérique (y compris l'équipement - ordinateurs/tablettes/téléphones, fournitures, logiciels, appareils, etc.) a été élaboré, mais n'a pas été mis en œuvre."
+            "scoreDefinition": "Se ha desarrollado, pero no se ha implementado, un plan para respaldar la provisión y el mantenimiento de la infraestructura de salud digital (que incluye equipos: computadoras/tablets/teléfonos, suministros, software, dispositivos, etc.)."
           },
           {
             "scoreId": 110,
             "score": 3,
-            "scoreDefinition": "Un plan de soutien à l'infrastructure de santé numérique (y compris l'équipement - ordinateurs/tablettes/téléphones, fournitures, logiciels, appareils, etc.) a été mis en œuvre partiellement, mais pas de manière cohérente avec une estimation de 0 à 25% de l'infrastructure de santé numérique nécessaire dans secteur public des services de santé disponible et utilisé."
+            "scoreDefinition": "Se ha implementado parcialmente un plan para respaldar la provisión y el mantenimiento de la infraestructura de salud digital (incluidos equipos: computadoras/\ntablets/teléfonos, suministros, software, dispositivos, etc.), pero no de manera consistente con el 0-25 % estimado de la infraestructura de salud digital necesaria en sector de servicios públicos de salud disponibles y en uso."
           },
           {
             "scoreId": 111,
             "score": 4,
-            "scoreDefinition": "Un plan de soutien à l'infrastructure de santé numérique (y compris l'équipement - ordinateurs/tablettes/téléphones, fournitures, logiciels, appareils, etc.) a été mis en œuvre partiellement et systématiquement avec une estimation de 25 à 50% de l'infrastructure de santé numérique nécessaire dans les soins de santé publics secteur des services disponible et utilisé."
+            "scoreDefinition": "Se ha implementado un plan para respaldar la provisión y el mantenimiento de la infraestructura de salud digital (incluidos equipos, computadoras/tabletas/teléfonos, suministros, software, dispositivos, etc.), de manera parcial y consistente con un 25-50 % estimado de la infraestructura de salud digital necesaria para la atención médica pública. sector servicios disponible y en uso."
           },
           {
             "scoreId": 112,
             "score": 5,
-            "scoreDefinition": "l'infrastructure de santé numérique (y compris l'équipement - ordinateurs/tablettes/téléphones, fournitures, logiciels, appareils, etc.) est disponible, utilisée, et régulièrement entretenue et mise à niveau dans > 75% du secteur des services de santé publics. Des stratégies sont mises en œuvre pour combler les lacunes en matière d'accès/couverture et atteindre l'ensemble de la population."
+            "scoreDefinition": "La infraestructura de salud digital (incluidos equipos: computadoras/tablets/teléfonos, suministros, software, dispositivos, etc.) está disponible, en uso y se mantiene y actualiza regularmente en >75 % del sector de servicios de salud pública. Se están implementando estrategias para cerrar las brechas pendientes de acceso/cobertura y llegar a toda la población."
           }
         ]
       }
@@ -916,8 +916,8 @@
       {
         "indicatorId": 17,
         "indicatorCode": "17",
-        "indicatorName": "Systèmes de santé numériques à l'échelle nationale",
-        "indicatorDefinition": "Les priorités du secteur public sont soutenues par des systèmes de santé numériques à  l'échelle nationale",
+        "indicatorName": "Sistemas de salud digitales a escala nacional",
+        "indicatorDefinition": "Las prioridades del sector público están respaldadas por sistemas de salud digitales a escala nacional",
         "scores": [
           {
             "scoreId": 113,
@@ -927,35 +927,35 @@
           {
             "scoreId": 115,
             "score": 1,
-            "scoreDefinition": "Les domaines prioritaires nationaux ne sont soutenus par la santé numérique à aucune échelle."
+            "scoreDefinition": "Las áreas de prioridad nacional no cuentan con el apoyo de la salud digital en ninguna escala."
           },
           {
             "scoreId": 116,
             "score": 2,
-            "scoreDefinition": "Peu de domaines prioritaires nationaux sont soutenus par la santé numérique et la mise en œuvre amorcée (< 25% des domaines prioritaires)."
+            "scoreDefinition": "Pocas áreas prioritarias nacionales cuentan con el apoyo de la salud digital y se inició la implementación (< 25 % de las áreas prioritarias)."
           },
           {
             "scoreId": 117,
             "score": 3,
-            "scoreDefinition": "Certains domaines prioritaires nationaux soutenus par des systèmes de santé numériques à grande échelle (25 à 50% des domaines prioritaires)."
+            "scoreDefinition": "Algunas áreas prioritarias nacionales  están respaldadas por sistemas de salud digitales escalados (25-50% de las áreas prioritarias)."
           },
           {
             "scoreId": 118,
             "score": 4,
-            "scoreDefinition": "La majorité, mais pas tous les domaines prioritaires nationaux (50 à 75% des domaines prioritaires) soutenus par des systèmes de santé numériques à grande échelle."
+            "scoreDefinition": "La mayoría, pero no todas las áreas prioritarias nacionales (50-75% de las áreas prioritarias) están respaldadas por sistemas de salud digitales escalados."
           },
           {
             "scoreId": 119,
             "score": 5,
-            "scoreDefinition": "Tous les domaines prioritaires au niveau national soutenus par des systèmes de santé numériques à l'échelle nationale (> 75%) avec des systèmes de suivi et d'évaluation et des résultats."
+            "scoreDefinition": "Todas las áreas priorizadas a nivel nacional apoyadas por sistemas de salud digitales a escala nacional (>75 %) cuentan con sistemas de monitoreo y evaluación y resultados."
           }
         ]
       },
       {
         "indicatorId": 18,
         "indicatorCode": "18",
-        "indicatorName": "Gestion de l'identité numérique des prestataires de services, des administrateurs et des établissements de santé numérique, y compris les données de localisation pour la cartographie SIG",
-        "indicatorDefinition": "Les registres du système de santé des prestataires, administrateurs et établissements publics identifiables de manière unique (et privés le cas échéant) sont-ils disponibles, accessibles et à jour ? Les données sont-elles géolocalisées pour permettre la cartographie SIG avec des protocoles en place pour protéger les ensembles de données sensibles ?",
+        "indicatorName": "Gestión de la identidad digital de los proveedores de servicios, administradores e instalaciones para la salud digital, incluidos los datos de ubicación para el mapeo GIS",
+        "indicatorDefinition": "¿Están disponibles, accesibles y actualizados los registros del sistema de salud de proveedores, administradores y establecimientos públicos (y privados, si corresponde) identificables de manera única? ¿Los datos están geoetiquetados para permitir el mapeo GIS con protocolos implementados para proteger conjuntos de datos confidenciales?",
         "scores": [
           {
             "scoreId": 120,
@@ -965,35 +965,35 @@
           {
             "scoreId": 122,
             "score": 1,
-            "scoreDefinition": "Les registres du système de santé des prestataires, des administrateurs et des établissements publics identifiables de manière unique (et privés le cas échéant) ne sont pas disponibles, accessibles et à jour."
+            "scoreDefinition": "Los registros del sistema de salud de proveedores, administradores y establecimientos públicos (y privados, si corresponde) identificables de forma única no están disponibles, accesibles ni actualizados."
           },
           {
             "scoreId": 123,
             "score": 2,
-            "scoreDefinition": "Des registres du système de santé de prestataires, d'administrateurs et d'établissements publics identifiables de manière unique (et privés le cas échéant) sont en cours d'élaboration mais ne sont pas disponibles pour utilisation."
+            "scoreDefinition": "Se están desarrollando registros del sistema de salud de proveedores, administradores y establecimientos públicos (y privados, si corresponde) identificables de forma única, pero no están disponibles para su uso."
           },
           {
             "scoreId": 124,
             "score": 3,
-            "scoreDefinition": "Les registres du système de santé des prestataires, administrateurs et établissements publics (et privés le cas échéant) identifiables de manière unique sont disponibles, mais incomplets, partiellement disponibles, utilisés sporadiquement et tenus de manière irrégulière."
+            "scoreDefinition": "Los registros del sistema de salud de proveedores, administradores y establecimientos públicos (y privados, si corresponde) identificables de forma única están disponibles para su uso, pero están incompletos, parcialmente disponibles, se usan esporádicamente y se mantienen de manera irregular."
           },
           {
             "scoreId": 125,
             "score": 4,
-            "scoreDefinition": "Les registres du système de santé des prestataires, administrateurs et établissements publics (et privés le cas échéant) identifiables de manière unique sont disponibles, utilisés et régulièrement mis à jour et entretenus. Les données sont géolocalisées pour permettre la cartographie SIG."
+            "scoreDefinition": "Los registros del sistema de salud de proveedores, administradores y establecimientos públicos (y privados, si corresponde) identificables de manera única están disponibles, se usan y se actualizan y mantienen periódicamente. Los datos están etiquetados geográficamente para habilitar el mapeo GIS."
           },
           {
             "scoreId": 126,
             "score": 5,
-            "scoreDefinition": "Tous les domaines prioritaires au niveau national soutenus par des systèmes de santé numériques à l'échelle nationale (> 75%) avec des systèmes de suivi et d'évaluation et des résultats."
+            "scoreDefinition": "Todas las áreas priorizadas a nivel nacional están apoyadas por sistemas de salud digitales a escala nacional (>75 %) con sistemas de monitoreo y evaluación y resultados."
           }
         ]
       },
       {
         "indicatorId": 19,
         "indicatorCode": "19",
-        "indicatorName": "Gestion de l'identité numérique des individus pour la santé",
-        "indicatorDefinition": "Existe-t-il des registres sécurisés ou un fichier principal des patients d'individus identifiables de manière unique, pleinement a de la population, accessibles et à jour pour une utilisation à des fins liées à la santé ?",
+        "indicatorName": "Gestión de la identidad digital de personas para la salud",
+        "indicatorDefinition": "¿Están disponibles registros seguros o un índice maestro de pacientes de individuos identificables de manera única, totalmente representativos de la población, accesibles y actualizados para su uso con fines relacionados con la salud?",
         "scores": [
           {
             "scoreId": 127,
@@ -1003,35 +1003,35 @@
           {
             "scoreId": 129,
             "score": 1,
-            "scoreDefinition": "Il n'existe aucun registre sécurisé ou index principal des patients."
+            "scoreDefinition": "No existe un registro seguro o un índice maestro de pacientes.\n"
           },
           {
             "scoreId": 130,
             "score": 2,
-            "scoreDefinition": "Un registre sécurisé existe, mais il est incomplet/partiellement disponible, utilisé et entretenu de manière irrégulière."
+            "scoreDefinition": "Existe un registro seguro, pero está incompleto/parcialmente disponible, se usa y se mantiene de manera irregular."
           },
           {
             "scoreId": 131,
             "score": 3,
-            "scoreDefinition": "Un registre sécurisé existe, est disponible et utilisé activement et comprend <25% de la population concernée."
+            "scoreDefinition": "Existe un registro seguro, pero está incompleto/parcialmente disponible, se usa y se mantiene de manera irregular."
           },
           {
             "scoreId": 132,
             "score": 4,
-            "scoreDefinition": "Un registre sécurisé existe, est disponible et utilisé activement et a 25 à 50 % de la population concernée."
+            "scoreDefinition": "Existe un registro seguro, está disponible y en uso activo e incluye 25-50% de la población relevante."
           },
           {
             "scoreId": 133,
             "score": 5,
-            "scoreDefinition": "Un registre sécurisé existe, est disponible et utilisé activement et comprend > 75 % de la population concernée. Les données sont disponibles, utilisées et conservées. Des stratégies sont mises en œuvre pour inclure les données manquantes et s'assurer que des ensembles de données pleinement représentatifs sont disponibles."
+            "scoreDefinition": "Existe un registro seguro, está disponible y en uso activo e incluye >75% de la población relevante. Los datos están disponibles, utilizados y seleccionados. Se están implementando estrategias para incluir los datos faltantes y garantizar que se disponga de conjuntos de datos totalmente representativos."
           }
         ]
       },
       {
         "indicatorId": 27,
         "indicatorCode": "19a",
-        "indicatorName": "Gestion de l'identité numérique des individus pour la santé",
-        "indicatorDefinition": "Plus précisément, existe-t-il un fichier principal sécurisé des patients d'individus identifiables de manière unique disponible, accessible et à jour pour une utilisation à des fins liées à la santé ?",
+        "indicatorName": "Gestión de la identidad digital de personas para la salud",
+        "indicatorDefinition": "Específicamente, ¿hay un índice maestro de pacientes seguro de individuos identificables de forma única disponible, accesible y actualizado para su uso con fines relacionados con la salud?",
         "scores": [
           {
             "scoreId": 176,
@@ -1041,35 +1041,35 @@
           {
             "scoreId": 177,
             "score": 1,
-            "scoreDefinition": "Il n'existe aucun index patient sécurisé."
+            "scoreDefinition": "No existe un índice maestro seguro de pacientes."
           },
           {
             "scoreId": 178,
             "score": 2,
-            "scoreDefinition": "Un index principal des patients existe, mais il est incomplet/partiellement disponible, utilisé et mis à jour de manière irrégulière."
+            "scoreDefinition": "Existe un índice maestro de pacientes, pero está incompleto/parcialmente disponible, se usa y se mantiene de manera irregular."
           },
           {
             "scoreId": 179,
             "score": 3,
-            "scoreDefinition": "Un index principal des patients existe, est disponible et utilisé activement et comprend <25% de la population concernée."
+            "scoreDefinition": "Existe un índice maestro de pacientes, está disponible y en uso activo e incluye <25% de la población relevante."
           },
           {
             "scoreId": 180,
             "score": 4,
-            "scoreDefinition": "Un index principal des patients existe, est disponible et utilisé activement et comprend 25 à 50 % de la population concernée."
+            "scoreDefinition": "Existe un índice maestro de pacientes, está disponible y en uso activo e incluye el 25-50% de la población relevante."
           },
           {
             "scoreId": 181,
             "score": 5,
-            "scoreDefinition": "Un index principal des patients existe, est disponible et utilisé activement et comprend > 75% de la population concernée. Les données sont disponibles, utilisées et conservées. Des stratégies sont mises en œuvre pour inclure 100 % de la population."
+            "scoreDefinition": "Existe un índice maestro de pacientes, está disponible y en uso activo e incluye >75% de la población relevante. Los datos están disponibles, utilizados y seleccionados. Se están implementando estrategias para incluir al 100% de la población."
           }
         ]
       },
       {
         "indicatorId": 28,
         "indicatorCode": "19b",
-        "indicatorName": "Gestion de l'identité numérique des individus pour la santé",
-        "indicatorDefinition": "Plus précisément, existe-t-il un registre des naissances sécurisé d'individus identifiables de manière unique, disponible, accessible et à jour pour une utilisation à des fins liées à la santé ?",
+        "indicatorName": "Gestión de la identidad digital de las personas para la salud",
+        "indicatorDefinition": "Específicamente, ¿hay un registro de nacimiento seguro de individuos identificables de forma única disponible, accesible y actualizado para su uso con fines relacionados con la salud?",
         "scores": [
           {
             "scoreId": 182,
@@ -1079,35 +1079,35 @@
           {
             "scoreId": 183,
             "score": 1,
-            "scoreDefinition": "Il n'existe pas de registre des naissances sécurisé."
+            "scoreDefinition": "No existe un registro de nacimiento seguro."
           },
           {
             "scoreId": 184,
             "score": 2,
-            "scoreDefinition": "Un registre des naissances sécurisé existe, mais il est incomplet/partiellement disponible, utilisé et tenu de manière irrégulière."
+            "scoreDefinition": "Existe un registro de nacimiento seguro, pero está incompleto/parcialmente disponible, se usa y se mantiene de manera irregular."
           },
           {
             "scoreId": 185,
             "score": 3,
-            "scoreDefinition": "Un registre des naissances sécurisé existe, est disponible et utilisé activement et comprend <25% de la population concernée."
+            "scoreDefinition": "Existe un registro de nacimiento seguro, está disponible y en uso activo e incluye <25% de la población relevante."
           },
           {
             "scoreId": 186,
             "score": 4,
-            "scoreDefinition": "Un registre des naissances sécurisé existe, est disponible et utilisé activement et comprend 25 à 50 % de la population concernée."
+            "scoreDefinition": "Existe un registro de nacimiento seguro, está disponible y en uso activo e incluye al 25-50% de la población relevante."
           },
           {
             "scoreId": 187,
             "score": 5,
-            "scoreDefinition": "Un registre des naissances sécurisé existe, est disponible et utilisé activement et comprend > 75 % de la population concernée. Les données sont disponibles, utilisées et conservées. Des stratégies sont mises en œuvre pour inclure 100 % de la population."
+            "scoreDefinition": "Existe un registro de nacimiento seguro, está disponible y en uso activo e incluye >75% de la población relevante. Los datos están disponibles, utilizados y seleccionados. Se están implementando estrategias para incluir al 100% de la población."
           }
         ]
       },
       {
         "indicatorId": 29,
         "indicatorCode": "19c",
-        "indicatorName": "Gestion de l'identité numérique des individus pour la santé",
-        "indicatorDefinition": "Plus précisément, existe-t-il un registre sécurisé des décès d'individus identifiables de manière unique, disponible, accessible et à jour pour une utilisation à des fins liées à la santé ?",
+        "indicatorName": "Gestión de la identidad digital de las personas para la salud",
+        "indicatorDefinition": "Específicamente, ¿hay un registro seguro de defunciones de personas identificables de forma única disponible, accesible y actualizado para su uso con fines relacionados con la salud?",
         "scores": [
           {
             "scoreId": 188,
@@ -1117,35 +1117,35 @@
           {
             "scoreId": 189,
             "score": 1,
-            "scoreDefinition": "Il n'existe pas de registre sécurisé des décès."
+            "scoreDefinition": "No existe un registro seguro de defunciones."
           },
           {
             "scoreId": 190,
             "score": 2,
-            "scoreDefinition": "Un registre sécurisé des décès existe, mais il est incomplet/partiellement disponible, utilisé et tenu de manière irrégulière."
+            "scoreDefinition": "Existe un registro seguro de defunciones, pero está incompleto/parcialmente disponible, se usa y se mantiene de manera irregular."
           },
           {
             "scoreId": 191,
             "score": 3,
-            "scoreDefinition": "Un registre sécurisé des décès existe, est disponible et utilisé activement et comprend <25% de la population concernée."
+            "scoreDefinition": "Existe un registro seguro de defunciones, está disponible y en uso activo e incluye <25% de la población relevante."
           },
           {
             "scoreId": 192,
             "score": 4,
-            "scoreDefinition": "Un registre sécurisé des décès existe, est disponible et utilisé activement et comprend 25 à 50 % de la population concernée."
+            "scoreDefinition": "Existe un registro seguro de defunciones, está disponible y en uso activo e incluye al 25-50% de la población relevante."
           },
           {
             "scoreId": 193,
             "score": 5,
-            "scoreDefinition": "Un registre sécurisé des décès existe, est disponible et utilisé activement et comprend > 75 % de la population concernée. Les données sont disponibles, utilisées et conservées. Des stratégies sont mises en œuvre pour inclure 100 % de la population."
+            "scoreDefinition": "Existe un registro seguro de defunciones, está disponible y en uso activo e incluye >75% de la población relevante. Los datos están disponibles, utilizados y seleccionados. Se están implementando estrategias para incluir al 100% de la población."
           }
         ]
       },
       {
         "indicatorId": 34,
         "indicatorCode": "20",
-        "indicatorName": "Sécuriser les systèmes de rétroaction des patients",
-        "indicatorDefinition": "Plus précisément, existe-t-il un système sécurisé de retour d'information des patients, disponible, accessible ?",
+        "indicatorName": "Sistemas seguros de retroalimentación del paciente",
+        "indicatorDefinition": "Específicamente, ¿hay un sistema de retroalimentación del paciente seguro, disponible y accesible?",
         "scores": [
           {
             "scoreId": 224,
@@ -1155,35 +1155,35 @@
           {
             "scoreId": 225,
             "score": 1,
-            "scoreDefinition": "Il n'existe aucun système sécurisé de rétroaction des patients."
+            "scoreDefinition": "No existe un sistema seguro de retroalimenta-ción del paciente."
           },
           {
             "scoreId": 226,
             "score": 2,
-            "scoreDefinition": "Un système sécurisé de rétroaction des patients existe pour certains services de santé, mais il est incomplet/partiellement disponible, utilisé et entretenu de manière irrégulière."
+            "scoreDefinition": "Existe un sistema seguro de retroalimentación del paciente para algunos servicios de salud, pero está incompleto/parcialmente disponible, se usa y se mantiene de manera irregular."
           },
           {
             "scoreId": 227,
             "score": 3,
-            "scoreDefinition": "Un système de retour d'information sécurisé existe, est disponible et utilisé activement et comprend des données provenant de <25 % des services de santé et/ou de l'emplacement géographique concernés. Il est accessible à une partie de la population."
+            "scoreDefinition": "Existe un sistema de retroalimentación seguro, está disponible y en uso activo e incluye datos de <25% de los servicios de salud y/o ubicación geográfica relevantes. Está disponible para una parte de la población."
           },
           {
             "scoreId": 228,
             "score": 4,
-            "scoreDefinition": "Un système de retour d'information sécurisé existe, est disponible et utilisé activement et comprend des données provenant de 25 à 75 % des services de santé et/ou de l'emplacement géographique concernés. Il est accessible à la majorité de la population."
+            "scoreDefinition": "Existe un sistema de retroalimentación seguro, está disponible y en uso activo e incluye datos del 25-75% de los servicios de salud relevantes y/o ubicación geográfica. Está disponible para la mayoría de la población."
           },
           {
             "scoreId": 229,
             "score": 5,
-            "scoreDefinition": "Un système de retour d'information sécurisé existe, est disponible dans des formats accessibles et en utilisation active et comprend des données provenant de > 75 % des services de santé et/ou de l'emplacement géographique concernés. Il est accessible à 100% de la population."
+            "scoreDefinition": "Existe un sistema de retroalimentación seguro, está disponible en formatos accesibles y en uso activo e incluye datos de >75% de los servicios de salud y/o ubicación geográfica relevantes. Está disponible para el 100% de la población."
           }
         ]
       },
       {
         "indicatorId": 35,
         "indicatorCode": "21",
-        "indicatorName": "Contribution de la santé numérique à la gestion de la santé de la population",
-        "indicatorDefinition": "Les initiatives nationales actuelles en matière de santé numérique contribuent-elles aux rapports et à la prise de décision en matière de santé publique ?",
+        "indicatorName": "Contribución de la salud digital en la gestión de la salud de la población",
+        "indicatorDefinition": "¿Las iniciativas actuales de salud digital del país contribuyen a la elaboración de informes y la toma de decisiones sobre salud pública?",
         "scores": [
           {
             "scoreId": 230,
@@ -1193,27 +1193,27 @@
           {
             "scoreId": 231,
             "score": 1,
-            "scoreDefinition": "Aucune contribution d'une initiative de santé numérique aux rapports de routine ou à la prise de décision basée sur les données pour la gestion de la santé de la population."
+            "scoreDefinition": "No existe ninguna contribución de alguna iniciativa de salud digital a los informes de rutina o a la toma de decisiones basada en datos para la gestión de la salud de la población."
           },
           {
             "scoreId": 232,
             "score": 2,
-            "scoreDefinition": "Les systèmes numériques utilisés au niveau des districts/états ne contribuent qu'aux rapports nationaux sur la santé publique et à la prise de décision pour la gestion de la santé de la population."
+            "scoreDefinition": "Los sistemas digitales utilizados a nivel de distrito/estado solo contribuyen a los informes de salud pública del país y a la toma de decisiones para la gestión de la salud de la población."
           },
           {
             "scoreId": 233,
             "score": 3,
-            "scoreDefinition": "Les systèmes numériques sont utilisés au niveau des établissements ou des communautés et contribuent aux rapports de santé publique du pays et à la prise de décision pour la gestion de la santé de la population."
+            "scoreDefinition": "Los sistemas digitales se utilizan a nivel de establecimiento o comunidad y contribuyen a la elaboración de informes de salud pública del país y a la toma de decisiones para la gestión de la salud de la población."
           },
           {
             "scoreId": 234,
             "score": 4,
-            "scoreDefinition": "Les systèmes numériques sont utilisés dans les établissements ou les communautés et par les individus et contribuent aux rapports de santé publique du pays et à la prise de décision pour la gestion de la santé de la population."
+            "scoreDefinition": "Los sistemas digitales son utilizados en establecimientos o comunidades y por individuos y contribuyen a la elaboración de informes de salud pública del país y a la toma de decisiones para la gestión de la salud de la población."
           },
           {
             "scoreId": 235,
             "score": 5,
-            "scoreDefinition": "Les systèmes numériques utilisés à tous les niveaux, y compris par les individus, contribuent à la notification en temps opportun de la santé publique des pays et à la prise de décision pour la gestion de la santé de la population."
+            "scoreDefinition": "Los sistemas digitales utilizados en todos los niveles, incluso por parte de las personas, contribuyen a la notificación oportuna de la salud pública del país y a la toma de decisiones para la gestión de la salud de la población."
           }
         ]
       }
