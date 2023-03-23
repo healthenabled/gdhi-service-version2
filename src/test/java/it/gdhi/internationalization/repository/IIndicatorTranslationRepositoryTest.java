@@ -40,10 +40,10 @@ public class IIndicatorTranslationRepositoryTest {
         String definition = "Les politiques et approches nationales de transformation numérique et de gouvernance des données prennent-elles en compte et traitent-elles les avantages et les risques potentiels pour la santé publique et la santé individuelle ?";
 
         List<IndicatorTranslation> translatedIndicator = repository.findByLanguageId(fr);
-
+        IndicatorTranslation indicator = translatedIndicator.stream().filter(indicatorTranslation -> 30==indicatorTranslation.getIndicatorId()).findFirst().orElse(null);
         assertEquals(31, translatedIndicator.size());
-        assertEquals(Integer.valueOf(30), translatedIndicator.get(0).getIndicatorId());
-        assertEquals(name, translatedIndicator.get(0).getName());
-        assertEquals(definition, translatedIndicator.get(0).getDefinition());
+        assertEquals(Integer.valueOf(30), indicator.getIndicatorId());
+        assertEquals(name, indicator.getName());
+        assertEquals(definition, indicator.getDefinition());
     }
 }
