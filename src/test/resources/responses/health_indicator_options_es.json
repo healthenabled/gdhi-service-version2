@@ -1,7 +1,7 @@
 [
   {
     "categoryId": 1,
-    "categoryName": "Leadership & Gouvernance",
+    "categoryName": "Liderazgo y gobernanza",
     "indicators": [
       {
         "indicatorId": 1,
@@ -235,7 +235,7 @@
   },
   {
     "categoryId": 2,
-    "categoryName": "Stratégie & investissement",
+    "categoryName": "Estrategia e inversión",
     "indicators": [
       {
         "indicatorId": 3,
@@ -393,7 +393,7 @@
   },
   {
     "categoryId": 3,
-    "categoryName": "Législation, politique & conformité",
+    "categoryName": "Legislación, política y cumplimiento",
     "indicators": [
       {
         "indicatorId": 5,
@@ -474,8 +474,8 @@
       {
         "indicatorId": 7,
         "indicatorCode": "7",
-        "indicatorName": "Protocole de réglementation ou de certification des dispositifs et/ou des services de santé - y compris les dispositions relatives à l'IA et aux algorithmes (à des stades de maturité plus élevés)",
-        "indicatorDefinition": "Existe-t-il des protocoles, des politiques, des cadres ou des processus acceptés régissant  l'utilisation clinique et des soins aux patients des dispositifs médicaux et des services de santé connectés (par exemple, la télémédecine, les applications), en particulier en ce qui concerne la sécurité,  l'intégrité des données et la qualité des soins, y compris des dispositions pour  l'IA et les algorithmes ? (à des stades de maturité plus élevés) ?",
+        "indicatorName": "Protocolo para regular o certificar dispositivos y/o servicios de salud, incluidas disposiciones para IA y algoritmos (en etapas más altas de madurez)",
+        "indicatorDefinition": "¿Existen protocolos, políticas, marcos o procesos aceptados que rijan el uso clínico y de atención al paciente de dispositivos médicos y servicios de salud conectados (p. ej., telemedicina, aplicaciones), particularmente en relación con la seguridad, la integridad de los datos y la calidad de la atención, incluidas las disposiciones para IA y algoritmos? (en etapas más altas de madurez)?",
         "scores": [
           {
             "scoreId": 43,
@@ -589,7 +589,7 @@
   },
   {
     "categoryId": 4,
-    "categoryName": "Ressource Humaine / Main d’Oeuvre",
+    "categoryName": "Recursos humanos",
     "indicators": [
       {
         "indicatorId": 9,
@@ -747,7 +747,7 @@
   },
   {
     "categoryId": 5,
-    "categoryName": "Standards/ Normes & Interoperabilité",
+    "categoryName": "Estándares e interoperabilidad",
     "indicators": [
       {
         "indicatorId": 13,
@@ -829,7 +829,7 @@
   },
   {
     "categoryId": 6,
-    "categoryName": "Infrastructure",
+    "categoryName": "Infraestructura",
     "indicators": [
       {
         "indicatorId": 15,
@@ -883,7 +883,7 @@
           {
             "scoreId": 108,
             "score": 1,
-            "scoreDefinition": "No existe un plan articulado para apoyar la provisión y el mantenimiento de la infraestructura de salud digital (incluidos equipos: computadoras/\ntablets/teléfonos, suministros, software, dispositivos, etc.)."
+            "scoreDefinition": "No existe un plan articulado para apoyar la provisión y el mantenimiento de la infraestructura de salud digital (incluidos equipos: computadoras/tablets/teléfonos, suministros, software, dispositivos, etc.)."
           },
           {
             "scoreId": 109,
@@ -893,7 +893,7 @@
           {
             "scoreId": 110,
             "score": 3,
-            "scoreDefinition": "Se ha implementado parcialmente un plan para respaldar la provisión y el mantenimiento de la infraestructura de salud digital (incluidos equipos: computadoras/\ntablets/teléfonos, suministros, software, dispositivos, etc.), pero no de manera consistente con el 0-25 % estimado de la infraestructura de salud digital necesaria en sector de servicios públicos de salud disponibles y en uso."
+            "scoreDefinition": "Se ha implementado parcialmente un plan para respaldar la provisión y el mantenimiento de la infraestructura de salud digital (incluidos equipos: computadoras/tablets/teléfonos, suministros, software, dispositivos, etc.), pero no de manera consistente con el 0-25 % estimado de la infraestructura de salud digital necesaria en sector de servicios públicos de salud disponibles y en uso."
           },
           {
             "scoreId": 111,
@@ -911,7 +911,7 @@
   },
   {
     "categoryId": 7,
-    "categoryName": "Services & Applications",
+    "categoryName": "Servicios y aplicaciones",
     "indicators": [
       {
         "indicatorId": 17,
@@ -1003,7 +1003,7 @@
           {
             "scoreId": 129,
             "score": 1,
-            "scoreDefinition": "No existe un registro seguro o un índice maestro de pacientes.\n"
+            "scoreDefinition": "No existe un registro seguro o un índice maestro de pacientes."
           },
           {
             "scoreId": 130,
@@ -1013,7 +1013,7 @@
           {
             "scoreId": 131,
             "score": 3,
-            "scoreDefinition": "Existe un registro seguro, pero está incompleto/parcialmente disponible, se usa y se mantiene de manera irregular."
+            "scoreDefinition": "Existe un registro seguro, está disponible y en uso activo e incluye <25% de la población relevante."
           },
           {
             "scoreId": 132,
