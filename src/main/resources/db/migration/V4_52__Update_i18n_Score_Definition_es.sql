@@ -1,0 +1,1 @@
+UPDATE i18n.score_definition SET definition = 'Implementación del plan de estudios de salud digital en curso que cubre aproximadamente <50% de los profesionales de la salud en capacitación previa al servicio.' WHERE indicator_id =9 AND score =3 AND language_id = 'es';

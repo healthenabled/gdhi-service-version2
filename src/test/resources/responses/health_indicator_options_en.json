@@ -78,6 +78,158 @@
             "scoreDefinition": "Digital health is implemented and periodically evaluated and optimized in national health or other relevant national strategies and/or plans."
           }
         ]
+      },
+      {
+        "indicatorId": 30,
+        "indicatorCode": "2a",
+        "indicatorName": "Health is prioritized in national digital transformation and data governance policies",
+        "indicatorDefinition": "Do national digital transformation and data governance policies and approaches consider and address potential benefits and risks for public health and individual health?",
+        "scores": [
+          {
+            "scoreId": 200,
+            "score": -1,
+            "scoreDefinition": "Not Available"
+          },
+          {
+            "scoreId": 201,
+            "score": 1,
+            "scoreDefinition": "National digital transformation and data governance policies do not include potential benefits and risks on public health or individual health outcomes."
+          },
+          {
+            "scoreId": 202,
+            "score": 2,
+            "scoreDefinition": "National digital transformation and data governance policies include potential benefits and risks on public health or individual health outcomes on an ad hoc basis."
+          },
+          {
+            "scoreId": 203,
+            "score": 3,
+            "scoreDefinition": "National digital transformation and data governance policies systematically includes potential benefits and risks on public health or individual health outcomes but has no strategy(s) for addressing them."
+          },
+          {
+            "scoreId": 204,
+            "score": 4,
+            "scoreDefinition": "National digital transformation and data governance policies systematically includes potential benefits and risks on public health or individual health outcomes and has some strategy(s) for addressing them that are not yet implemented."
+          },
+          {
+            "scoreId": 205,
+            "score": 5,
+            "scoreDefinition": "All relevant digital transformation and data governance policies fully consider potential benefits and risks for health systems, determinants of health and individual health outcomes (including for children, women and vulnerable groups) and have multisectoral strategies  that are fully implemented."
+          }
+        ]
+      },
+      {
+        "indicatorId": 31,
+        "indicatorCode": "3",
+        "indicatorName": "Readiness for emerging technologies adoption and governance",
+        "indicatorDefinition": "Is there a national plan specific to emerging technologies (e.g., AI, Wearables, Blockchain, IoT) to support public health goals?",
+        "scores": [
+          {
+            "scoreId": 206,
+            "score": -1,
+            "scoreDefinition": "Not Available"
+          },
+          {
+            "scoreId": 207,
+            "score": 1,
+            "scoreDefinition": "There is no emerging technologies (e.g., AI, Wearables, Blockchain, IoT) plan in support of public health goals."
+          },
+          {
+            "scoreId": 208,
+            "score": 2,
+            "scoreDefinition": "A plan was developed for at least one emerging technology (e.g., AI, Wearables, Blockchain, IoT) to support public health goals, but it is not being implemented."
+          },
+          {
+            "scoreId": 209,
+            "score": 3,
+            "scoreDefinition": "A plan exists for at least one emerging technology (e.g., AI, Wearables, Blockchain, IoT) to support public health goals. Plan(s) identifies governance mechanisms required for emerging technologies."
+          },
+          {
+            "scoreId": 210,
+            "score": 4,
+            "scoreDefinition": "A plan for one or more emerging technology (e.g., AI, Wearables, Blockchain, IoT) to support public health is being implemented, is funded, and the results are being monitored. Governance mechanisms required for emerging technologies are in place."
+          },
+          {
+            "scoreId": 211,
+            "score": 5,
+            "scoreDefinition": "A plan for one or more emerging technology (e.g., AI, Wearables, Blockchain, IoT) in support of public health is being implemented, is funded, the results are being monitored, and the plan is kept updated. Governance mechanisms are in place and in use."
+          }
+        ]
+      },
+      {
+        "indicatorId": 32,
+        "indicatorCode": "4",
+        "indicatorName": "Diversity, Equity, and human rights analysis, planning and monitoring included in national digital health strategies and plans",
+        "indicatorDefinition": "Has the country assessed/adapted national digital health strategies from an equity and human rights perspective?",
+        "scores": [
+          {
+            "scoreId": 212,
+            "score": -1,
+            "scoreDefinition": "Not Available"
+          },
+          {
+            "scoreId": 213,
+            "score": 1,
+            "scoreDefinition": "Digital health strategies and programs are developed and implemented without consideration of equity and human rights implications."
+          },
+          {
+            "scoreId": 214,
+            "score": 2,
+            "scoreDefinition": "Digital health strategies and programs are developed and implemented with ad hoc consideration of equity and human rights implications."
+          },
+          {
+            "scoreId": 215,
+            "score": 3,
+            "scoreDefinition": "Digital health strategies and programs are developed and implemented with formal consideration of equity and human rights implications with no strategy(s) for addressing them."
+          },
+          {
+            "scoreId": 216,
+            "score": 4,
+            "scoreDefinition": "Digital health strategies and programs are developed and implemented with formal consideration of equity and human rights implications with ad hoc strategy(s) for addressing them."
+          },
+          {
+            "scoreId": 217,
+            "score": 5,
+            "scoreDefinition": "The country is implementing and evaluating the effects of digital health strategies and specific digital health solutions based on equity and human rights impact assessments. Documented strategies are in place to addressing address gaps in access and outcomes for different population groups, including women, children, and marginalized groups."
+          }
+        ]
+      },
+      {
+        "indicatorId": 33,
+        "indicatorCode": "4a",
+        "indicatorName": "Gender considerations accounted for in digital health strategies and digital health governance",
+        "indicatorDefinition": "Does the country include gender considerations in the national digital health strategy or its digital health governance?",
+        "scores": [
+          {
+            "scoreId": 218,
+            "score": -1,
+            "scoreDefinition": "Not Available"
+          },
+          {
+            "scoreId": 219,
+            "score": 1,
+            "scoreDefinition": "Digital health strategies and interventions are developed and implemented without consideration of gender norms, roles, and relations."
+          },
+          {
+            "scoreId": 220,
+            "score": 2,
+            "scoreDefinition": "Digital health strategies and interventions are developed and implemented with ad hoc and non-systematic consideration of gender norms, roles, and relations."
+          },
+          {
+            "scoreId": 221,
+            "score": 3,
+            "scoreDefinition": "Digital health strategies and programs are developed and implemented with systematic consideration of gender norms, roles, and relations without the policies or structures for accountability (gender-sensitive)."
+          },
+          {
+            "scoreId": 222,
+            "score": 4,
+            "scoreDefinition": "Digital health strategies and programs are developed and implemented with systematic consideration of gender norms, roles, and relations with specific strategies targeting governance bodies, health workforce, and clients with mechanisms for accountability (gender-specific)."
+          },
+          {
+            "scoreId": 223,
+            "score": 5,
+            "scoreDefinition": "Digital health strategies, policies, and interventions address gender inequality and foster progressive change in gender dynamics based on routine gender analyses and impact assessments (gender transformative)."
+          }
+        ]
       }
     ]
   },
@@ -87,7 +239,7 @@
     "indicators": [
       {
         "indicatorId": 3,
-        "indicatorCode": "3",
+        "indicatorCode": "5",
         "indicatorName": "National eHealth/ Digital Health Strategy or Framework",
         "indicatorDefinition": "Does the country have an eHealth or digital health strategy or framework and a costed digital health plan?",
         "scores": [
@@ -124,8 +276,46 @@
         ]
       },
       {
+        "indicatorId": 37,
+        "indicatorCode": "5a",
+        "indicatorName": "National digital strategy alignment with Universal Health Coverage (UHC) Core Components",
+        "indicatorDefinition": "Is the country’s national digital health strategy aligned with universal health coverage and/or UHC core components?",
+        "scores": [
+          {
+            "scoreId": 242,
+            "score": -1,
+            "scoreDefinition": "Not Available"
+          },
+          {
+            "scoreId": 243,
+            "score": 1,
+            "scoreDefinition": "Digital health strategy does not exist or exists and is not aligned to UHC and does not address any of the core UHC components of coverage, access, uptake, quality, and equity."
+          },
+          {
+            "scoreId": 244,
+            "score": 2,
+            "scoreDefinition": "Digital health strategy exists and is partly aligned to UHC, addressing only one core UHC component of coverage, access, uptake, quality, and equity."
+          },
+          {
+            "scoreId": 245,
+            "score": 3,
+            "scoreDefinition": "Digital health strategy exists and is partly aligned to UHC, addressing two or more core UHC components of coverage, access, uptake, quality, and equity."
+          },
+          {
+            "scoreId": 246,
+            "score": 4,
+            "scoreDefinition": "Digital health strategy exists and is fully aligned to country's UHC goals, but does not include metrics to assess the contribution of digital health towards UHC goals."
+          },
+          {
+            "scoreId": 247,
+            "score": 5,
+            "scoreDefinition": "Digital health strategy is fully aligned to the country's UHC goals and includes metrics to assess the contribution of digital health toward UHC targets."
+          }
+        ]
+      },
+      {
         "indicatorId": 4,
-        "indicatorCode": "4",
+        "indicatorCode": "6",
         "indicatorName": "Public funding for digital health",
         "indicatorDefinition": "Is public funding (including loans) for digital health sufficient for the digital health strategies, priorities (needs), or costed-plan of the country?",
         "scores": [
@@ -160,6 +350,44 @@
             "scoreDefinition": "Structure and systematic budget line exists for digital health and is completely sufficient to meet the country's digital health needs."
           }
         ]
+      },
+      {
+        "indicatorId": 38,
+        "indicatorCode": "6a",
+        "indicatorName": "Private sector participation and investments in digital health",
+        "indicatorDefinition": "Private sector participation and investments in digital health",
+        "scores": [
+          {
+            "scoreId": 248,
+            "score": -1,
+            "scoreDefinition": "Not Available"
+          },
+          {
+            "scoreId": 249,
+            "score": 1,
+            "scoreDefinition": "The private sector do not visibly participate and invest in country's digital health activities."
+          },
+          {
+            "scoreId": 250,
+            "score": 2,
+            "scoreDefinition": "The private sector participation and investment in the country's digital health activities and investment is ad-hoc and limited."
+          },
+          {
+            "scoreId": 251,
+            "score": 3,
+            "scoreDefinition": "The private sector participation and investment in the country's digital health activities is systematic but does not meet the needs of the country."
+          },
+          {
+            "scoreId": 252,
+            "score": 4,
+            "scoreDefinition": "The private sector participation and investment in the country's digital health activities is systematic and meets the needs of the country."
+          },
+          {
+            "scoreId": 253,
+            "score": 5,
+            "scoreDefinition": "The private sector participates and invests in the country's digital health activities in an optimized environment."
+          }
+        ]
       }
     ]
   },
@@ -169,7 +397,7 @@
     "indicators": [
       {
         "indicatorId": 5,
-        "indicatorCode": "5",
+        "indicatorCode": "7",
         "indicatorName":"Legal Framework for Data Protection (Security/ Cybersecurity)",
         "indicatorDefinition": "Is there a law on data security (across the full data lifecycle e.g. collection, processing, storage, transmission, use and destruction) that is relevant to digital health?",
         "scores": [
@@ -207,7 +435,7 @@
       },
       {
         "indicatorId": 6,
-        "indicatorCode": "6",
+        "indicatorCode": "8",
         "indicatorName": "Laws or Regulations for privacy, consent, confidentiality and access to health information (Privacy)",
         "indicatorDefinition": "Is there a law to protect individual privacy, governing ownership, consent, access and sharing of individually identifiable digital health data ?",
         "scores": [
@@ -245,7 +473,7 @@
       },
       {
         "indicatorId": 7,
-        "indicatorCode": "7",
+        "indicatorCode": "9",
         "indicatorName": "Protocol for regulating or certifying devices and/or health services- including provisions for AI and algorithms (at higher stages of maturity)",
         "indicatorDefinition": "Are there protocols, policies, frameworks or accepted processes governing the clinical and patient care use of connected medical devices and health services (e.g. telemedicine, applications), particularly in relation to safety, data integrity and quality of care- including provisions for AI and algorithms (at higher stages of maturity)?",
         "scores": [
@@ -282,8 +510,46 @@
         ]
       },
       {
+        "indicatorId": 36,
+        "indicatorCode": "9a",
+        "indicatorName": "Protocol for regulating and certifying AI within health services",
+        "indicatorDefinition": "Are there protocols, policies, frameworks or accepted processes governing the use of AI within health systems, services and applications, particularly in relation to ethics, equity, safety, data integrity and quality of care?",
+        "scores": [
+          {
+            "scoreId": 236,
+            "score": -1,
+            "scoreDefinition": "Not Available"
+          },
+          {
+            "scoreId": 237,
+            "score": 1,
+            "scoreDefinition": "There are no protocols, policies, frameworks, or accepted processes governing AI use in health services."
+          },
+          {
+            "scoreId": 238,
+            "score": 2,
+            "scoreDefinition": "Protocols, policies, frameworks, or accepted processes governing AI use in health service have been proposed and under review"
+          },
+          {
+            "scoreId": 239,
+            "score": 3,
+            "scoreDefinition": "Protocols, policies, frameworks, or accepted processes governing AI use in health service have been passed but are not fully implemented."
+          },
+          {
+            "scoreId": 240,
+            "score": 4,
+            "scoreDefinition": "Protocols, policies, frameworks or accepted processes governing AI use in health service have been implemented but are not consistently enforced."
+          },
+          {
+            "scoreId": 241,
+            "score": 5,
+            "scoreDefinition": "Protocols, policies, frameworks, or accepted processes governing AI use in health service have been implemented and are enforced consistently."
+          }
+        ]
+      },
+      {
         "indicatorId": 8,
-        "indicatorCode": "8",
+        "indicatorCode": "10",
         "indicatorName": "Cross-border data security and sharing",
         "indicatorDefinition": "Are there protocols, policies, frameworks or accepted processes in place to support secure cross-border data exchange and storage in support of public health goals while protecting individual privacy? Note: This includes health-related data coming into a country, going out of a country, and/or being used in a country related to an individual from another country.",
         "scores": [
@@ -327,7 +593,7 @@
     "indicators": [
       {
         "indicatorId": 9,
-        "indicatorCode": "9",
+        "indicatorCode": "11",
         "indicatorName": "Digital health integrated in health and related professional pre-service training (prior to deployment)",
         "indicatorDefinition": "Is digital health part of curriculum for health and health-related support professionals in training, in general?",
         "scores": [
@@ -365,7 +631,7 @@
       },
       {
         "indicatorId": 10,
-        "indicatorCode": "10",
+        "indicatorCode": "12",
         "indicatorName": "Digital health integrated in health and related professional in-service training (after to deployment)",
         "indicatorDefinition": "Specifically, is digital health part of curriculum for health and health-related support professionals in the workforce in general? [Defined as community health workers, nurses, doctors, allied health, health managers/administrators, and technologists]",
         "scores": [
@@ -403,7 +669,7 @@
       },
       {
         "indicatorId": 11,
-        "indicatorCode": "11",
+        "indicatorCode": "13",
         "indicatorName": "Training of digital health workforce",
         "indicatorDefinition": "In general, is training in digital health / health informatics / health information systems / biomedical informatics degree programs (in either public or private institutions) producing trained digital health workers?",
         "scores": [
@@ -441,7 +707,7 @@
       },
       {
         "indicatorId": 12,
-        "indicatorCode": "12",
+        "indicatorCode": "14",
         "indicatorName": "Maturity of public sector digital health professional careers",
         "indicatorDefinition": "Are there public sector professional titles and career paths in digital health?",
         "scores": [
@@ -485,7 +751,7 @@
     "indicators": [
       {
         "indicatorId": 13,
-        "indicatorCode": "13",
+        "indicatorCode": "15",
         "indicatorName": "National digital health architecture and/or health information exchange",
         "indicatorDefinition": "Is there a national digital health (eHealth) architectural framework and/or health information exchange (HIE) established?",
         "scores": [
@@ -523,7 +789,7 @@
       },
       {
         "indicatorId": 14,
-        "indicatorCode": "14",
+        "indicatorCode": "16",
         "indicatorName": "Health information standards",
         "indicatorDefinition": "Are there digital health / health information standards for data exchange, transmission, messaging, security, privacy, and hardware?",
         "scores": [
@@ -567,7 +833,7 @@
     "indicators": [
       {
         "indicatorId": 15,
-        "indicatorCode": "15",
+        "indicatorCode": "17",
         "indicatorName": "Network readiness",
         "indicatorDefinition": "Extract the Portuland institute technology pillar of network network readiness index score (https://networkreadinessindex.org )",
         "scores": [
@@ -605,7 +871,7 @@
       },
       {
         "indicatorId": 16,
-        "indicatorCode": "16",
+        "indicatorCode": "18",
         "indicatorName": "Planning and support for ongoing digital health infrastructure maintenance",
         "indicatorDefinition": "Is there an articulated plan for supporting the expansion of digital health infrastructure (including equipment- computers/ tablets/ phones, supplies, software, devices, etc.) provision and maintenance to all public healthcare facilities?",
         "scores": [
@@ -649,7 +915,7 @@
     "indicators": [
       {
         "indicatorId": 17,
-        "indicatorCode": "17",
+        "indicatorCode": "19",
         "indicatorName": "Nationally scaled digital health systems",
         "indicatorDefinition": "Public sector priorities are supported by nationally-scaled digital health systems",
         "scores": [
@@ -687,7 +953,7 @@
       },
       {
         "indicatorId": 18,
-        "indicatorCode": "18",
+        "indicatorCode": "20",
         "indicatorName": "Digital identity management of service providers, administrators, and facilities for digital health, including location data for GIS mapping",
         "indicatorDefinition": "Are health system registries of uniquely identifiable providers, administrators, and public facilities (and private if applicable) available, accessible and current? Is the data geotagged to enable GIS mapping with protocols in place to protect sensitive datasets?",
         "scores": [
@@ -725,7 +991,7 @@
       },
       {
         "indicatorId": 19,
-        "indicatorCode": "19",
+        "indicatorCode": "21",
         "indicatorName": "Digital identity management of individuals for health",
         "indicatorDefinition": "Are secure registries or a master patient index of uniquely identifiable individuals available, fully representative of the population, accessible and current for use for health-related purposes?",
         "scores": [
@@ -763,7 +1029,7 @@
       },
       {
         "indicatorId": 27,
-        "indicatorCode": "19a",
+        "indicatorCode": "21a",
         "indicatorName": "Digital identity management of individuals for health",
         "indicatorDefinition": "Specifically, is there a secure master patient index of uniquely identifiable individuals available, accessible and current for use for health-related purposes?",
         "scores": [
@@ -801,7 +1067,7 @@
       },
       {
         "indicatorId": 28,
-        "indicatorCode": "19b",
+        "indicatorCode": "21b",
         "indicatorName": "Digital identity management of individuals for health",
         "indicatorDefinition": "Specifically, is there a secure birth registry of uniquely identifiable individuals available, accessible and current for use for health-related purposes?",
         "scores": [
@@ -839,7 +1105,7 @@
       },
       {
         "indicatorId": 29,
-        "indicatorCode": "19c",
+        "indicatorCode": "21c",
         "indicatorName": "Digital identity management of individuals for health",
         "indicatorDefinition": "Specifically, is there a secure death registry of uniquely identifiable individuals available, accessible and current for use for health-related purposes?",
         "scores": [
@@ -872,6 +1138,82 @@
             "scoreId": 193,
             "score": 5,
             "scoreDefinition": "A secure death registry exists, is available and in active use and includes >75% of the relevant population. The data is available, used, and curated. Strategies are being implemented to include 100% of the population."
+          }
+        ]
+      },
+      {
+        "indicatorId": 34,
+        "indicatorCode": "22",
+        "indicatorName": "Secure Patient Feedback Systems",
+        "indicatorDefinition": "Specifically, is there a secure Patient feedback system, available, accessible?",
+        "scores": [
+          {
+            "scoreId": 224,
+            "score": -1,
+            "scoreDefinition": "Not Available"
+          },
+          {
+            "scoreId": 225,
+            "score": 1,
+            "scoreDefinition": "No secure patient feedback system exists."
+          },
+          {
+            "scoreId": 226,
+            "score": 2,
+            "scoreDefinition": "A secure patient feedback system exists for some health services, but is incomplete/ partially available, used, and irregularly maintained."
+          },
+          {
+            "scoreId": 227,
+            "score": 3,
+            "scoreDefinition": "A secure feedback system exists, is available and in active use and includes data from <25% of the relevant health services and/or geographic location. It is available to some of the population."
+          },
+          {
+            "scoreId": 228,
+            "score": 4,
+            "scoreDefinition": "A secure feedback system exists, is available and in active use and includes data from 25-75% of the relevant health services and/or geographic location. It is available to most of the population."
+          },
+          {
+            "scoreId": 229,
+            "score": 5,
+            "scoreDefinition": "A secure feedback system exists, is available in accessible formats and in active use and includes data from >75% of the relevant health services and/or geographic location. It is available to 100% of the population."
+          }
+        ]
+      },
+      {
+        "indicatorId": 35,
+        "indicatorCode": "23",
+        "indicatorName": "Population health management contribution of digital health",
+        "indicatorDefinition": "Are current country digital health initiatives contributing to public health reporting and decision making?",
+        "scores": [
+          {
+            "scoreId": 230,
+            "score": -1,
+            "scoreDefinition": "Not Available"
+          },
+          {
+            "scoreId": 231,
+            "score": 1,
+            "scoreDefinition": "No contribution from any digital health initiative to routine reporting or for data-based decision making for population health management."
+          },
+          {
+            "scoreId": 232,
+            "score": 2,
+            "scoreDefinition": "Digital systems used at district/state levels only contribute to country public health reporting and decision making for population health management."
+          },
+          {
+            "scoreId": 233,
+            "score": 3,
+            "scoreDefinition": "Digital systems are used at facility or community levels and contribute to the country's public health reporting and decision-making for population health management."
+          },
+          {
+            "scoreId": 234,
+            "score": 4,
+            "scoreDefinition": "Digital systems are used at facilities or communities and by individuals and contribute to the country's public health reporting and decision-making for population health management."
+          },
+          {
+            "scoreId": 235,
+            "score": 5,
+            "scoreDefinition": "Digital systems used at all levels, including by individuals, contribute to timely country public health reporting and decision making for population health management."
           }
         ]
       }

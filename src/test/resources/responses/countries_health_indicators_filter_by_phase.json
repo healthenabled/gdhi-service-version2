@@ -39,7 +39,7 @@
           "indicators": [
             {
               "id": 3,
-              "code": "3",
+              "code": "5",
               "name": "National eHealth/ Digital Health Strategy or Framework",
               "indicatorDescription": "Does the country have an eHealth or digital health strategy or framework and a costed digital health plan?",
               "score": 3,
@@ -48,7 +48,7 @@
             },
             {
               "id": 4,
-              "code": "4",
+              "code": "6",
               "name": "Public funding for digital health",
               "indicatorDescription": "Is public funding (including loans) for digital health sufficient for the digital health strategies, priorities (needs), or costed-plan of the country?",
               "score": null,
@@ -65,7 +65,7 @@
           "indicators": [
             {
               "id": 5,
-              "code": "5",
+              "code": "7",
               "name": "Legal Framework for Data Protection (Security/ Cybersecurity)",
               "indicatorDescription": "Is there a law on data security (across the full data lifecycle e.g. collection, processing, storage, transmission, use and destruction) that is relevant to digital health?",
               "score": null,
@@ -74,7 +74,7 @@
             },
             {
               "id": 6,
-              "code": "6",
+              "code": "8",
               "name": "Laws or Regulations for privacy, consent, confidentiality and access to health information (Privacy)",
               "indicatorDescription": "Is there a law to protect individual privacy, governing ownership, consent, access and sharing of individually identifiable digital health data ?",
               "score": null,
@@ -126,7 +126,7 @@
           "indicators": [
             {
               "id": 3,
-              "code": "3",
+              "code": "5",
               "name": "National eHealth/ Digital Health Strategy or Framework",
               "indicatorDescription": "Does the country have an eHealth or digital health strategy or framework and a costed digital health plan?",
               "score": 5,
@@ -135,7 +135,7 @@
             },
             {
               "id": 4,
-              "code": "4",
+              "code": "6",
               "name": "Public funding for digital health",
               "indicatorDescription": "Is public funding (including loans) for digital health sufficient for the digital health strategies, priorities (needs), or costed-plan of the country?",
               "score": null,
@@ -152,7 +152,7 @@
           "indicators": [
             {
               "id": 5,
-              "code": "5",
+              "code": "7",
               "name": "Legal Framework for Data Protection (Security/ Cybersecurity)",
               "indicatorDescription": "Is there a law on data security (across the full data lifecycle e.g. collection, processing, storage, transmission, use and destruction) that is relevant to digital health?",
               "score": null,
@@ -161,7 +161,7 @@
             },
             {
               "id": 6,
-              "code": "6",
+              "code": "8",
               "name": "Laws or Regulations for privacy, consent, confidentiality and access to health information (Privacy)",
               "indicatorDescription": "Is there a law to protect individual privacy, governing ownership, consent, access and sharing of individually identifiable digital health data ?",
               "score": null,

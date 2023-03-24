@@ -39,7 +39,7 @@
           "indicators": [
             {
               "id": 3,
-              "code": "3",
+              "code": "5",
               "name": "National eHealth/ Digital Health Strategy or Framework",
               "indicatorDescription": "Does the country have an eHealth or digital health strategy or framework and a costed digital health plan?",
               "score": 1,
@@ -56,7 +56,7 @@
           "indicators": [
             {
               "id": 27,
-              "code": "19a",
+              "code": "21a",
               "name": "Digital identity management of individuals for health",
               "indicatorDescription": "Specifically, is there a secure master patient index of uniquely identifiable individuals available, accessible and current for use for health-related purposes?",
               "score": null,
@@ -65,7 +65,7 @@
             },
             {
               "id": 28,
-              "code": "19b",
+              "code": "21b",
               "name": "Digital identity management of individuals for health",
               "indicatorDescription": "Specifically, is there a secure birth registry of uniquely identifiable individuals available, accessible and current for use for health-related purposes?",
               "score": null,
@@ -74,7 +74,7 @@
             },
             {
               "id": 29,
-              "code": "19c",
+              "code": "21c",
               "name": "Digital identity management of individuals for health",
               "indicatorDescription": "Specifically, is there a secure death registry of uniquely identifiable individuals available, accessible and current for use for health-related purposes?",
               "score": null,
@@ -126,7 +126,7 @@
           "indicators": [
             {
               "id": 3,
-              "code": "3",
+              "code": "5",
               "name": "National eHealth/ Digital Health Strategy or Framework",
               "indicatorDescription": "Does the country have an eHealth or digital health strategy or framework and a costed digital health plan?",
               "score": 1,
@@ -143,7 +143,7 @@
           "indicators": [
             {
               "id": 27,
-              "code": "19a",
+              "code": "21a",
               "name": "Digital identity management of individuals for health",
               "indicatorDescription": "Specifically, is there a secure master patient index of uniquely identifiable individuals available, accessible and current for use for health-related purposes?",
               "score": 5,
@@ -152,7 +152,7 @@
             },
             {
               "id": 28,
-              "code": "19b",
+              "code": "21b",
               "name": "Digital identity management of individuals for health",
               "indicatorDescription": "Specifically, is there a secure birth registry of uniquely identifiable individuals available, accessible and current for use for health-related purposes?",
               "score": 5,
@@ -161,7 +161,7 @@
             },
             {
               "id": 29,
-              "code": "19c",
+              "code": "21c",
               "name": "Digital identity management of individuals for health",
               "indicatorDescription": "Specifically, is there a secure death registry of uniquely identifiable individuals available, accessible and current for use for health-related purposes?",
               "score": 5,
