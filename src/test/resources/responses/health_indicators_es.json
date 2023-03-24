@@ -37,7 +37,7 @@
       "indicators": [
         {
           "id": 3,
-          "code": "3",
+          "code": "5",
           "name": "Marco o estrategia nacional de eSalud/salud digital",
           "indicatorDescription": "¿Cuenta el país con una estrategia o marco de eSalud o salud digital y un plan de salud digital presupuestado?",
           "score": 3,
@@ -46,7 +46,7 @@
         },
         {
           "id": 4,
-          "code": "4",
+          "code": "6",
           "name": "Financiación pública para la salud digital",
           "indicatorDescription": "¿La financiación pública (incluidos los préstamos) para la salud digital es suficiente para la estrategia de salud digital, las prioridades (necesidades) o el plan presupuestario del país?",
           "score": 4,
@@ -63,7 +63,7 @@
       "indicators": [
         {
           "id": 5,
-          "code": "5",
+          "code": "7",
           "name": "Marco Legal de Protección de Datos (Seguridad/ Ciberseguridad)",
           "indicatorDescription": "¿Existe una ley sobre la seguridad de los datos (a lo largo de todo el ciclo de vida de los datos, por ejemplo, recopilación, procesamiento, almacenamiento, transmisión, uso y destrucción) que sea relevante para la salud digital?",
           "score": null,
@@ -72,7 +72,7 @@
         },
         {
           "id": 6,
-          "code": "6",
+          "code": "8",
           "name": "Leyes o Reglamentos de privacidad, consentimiento, confidencialidad y acceso a la información de salud (Privacidad)",
           "indicatorDescription": "¿Existe una ley para proteger la privacidad individual, que rija la propiedad, el consentimiento, el acceso y el intercambio de datos de salud digitales identificables individualmente?",
           "score": null,

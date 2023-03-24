@@ -119,7 +119,7 @@
       },
       {
         "indicatorId": 31,
-        "indicatorCode": "22",
+        "indicatorCode": "3",
         "indicatorName": "Préparation à l'adoption et à la gouvernance des technologies émergentes",
         "indicatorDefinition": "Existe-t-il un plan national spécifique aux technologies émergentes (par exemple, IA, Wearables, Blockchain, IoT) pour soutenir les objectifs de santé publique ?",
         "scores": [
@@ -157,7 +157,7 @@
       },
       {
         "indicatorId": 32,
-        "indicatorCode": "23",
+        "indicatorCode": "4",
         "indicatorName": "Analyse, planification et suivi de la diversité, de l'équité et des droits de l'homme inclus dans les stratégies et plans nationaux de santé numérique",
         "indicatorDefinition": "Le pays a-t-il évalué/adapté les stratégies nationales de santé numérique du point de vue de l'équité et des droits de l'homme ?",
         "scores": [
@@ -195,7 +195,7 @@
       },
       {
         "indicatorId": 33,
-        "indicatorCode": "23a",
+        "indicatorCode": "4a",
         "indicatorName": "Prise en compte des considérations de genre dans les stratégies de santé numérique et la gouvernance de la santé numérique",
         "indicatorDefinition": "Le pays intègre-t-il des considérations de genre dans la stratégie nationale de santé numérique ou sa gouvernance de la santé numérique ?",
         "scores": [
@@ -239,7 +239,7 @@
     "indicators": [
       {
         "indicatorId": 3,
-        "indicatorCode": "3",
+        "indicatorCode": "5",
         "indicatorName": "Stratégie ou cadre national de cybersanté/santé numérique",
         "indicatorDefinition": "Le pays dispose-t-il d'une stratégie ou d'un cadre de cybersanté ou de santé numérique et d'un plan de santé numérique chiffré ?",
         "scores": [
@@ -277,7 +277,7 @@
       },
       {
         "indicatorId": 37,
-        "indicatorCode": "3a",
+        "indicatorCode": "5a",
         "indicatorName": "Alignement de la stratégie numérique nationale sur les composantes essentielles de la couverture sanitaire universelle (CSU)",
         "indicatorDefinition": "La stratégie nationale de santé numérique du pays est-elle alignée sur la couverture sanitaire universelle et/ou les composantes essentielles de la CSU ?",
         "scores": [
@@ -315,7 +315,7 @@
       },
       {
         "indicatorId": 4,
-        "indicatorCode": "4",
+        "indicatorCode": "6",
         "indicatorName": "Financement public de la santé numérique",
         "indicatorDefinition": "Le financement public (y compris les prêts) pour la santé numérique est-il suffisant pour les stratégies, les priorités (besoins) ou le plan chiffré de santé numérique du pays ?",
         "scores": [
@@ -353,7 +353,7 @@
       },
       {
         "indicatorId": 38,
-        "indicatorCode": "4a",
+        "indicatorCode": "6a",
         "indicatorName": "Participation et investissements du secteur privé dans la santé numérique",
         "indicatorDefinition": "Compte tenu de l'environnement favorable, le secteur privé participe-t-il et investit-il dans les activités de santé numérique ?",
         "scores": [
@@ -397,7 +397,7 @@
     "indicators": [
       {
         "indicatorId": 5,
-        "indicatorCode": "5",
+        "indicatorCode": "7",
         "indicatorName": "Cadre juridique de la protection des données (sécurité/cybersécurité)",
         "indicatorDefinition": "Existe-t-il une loi sur la sécurité des données (tout au long du cycle de vie des données, par exemple la collecte, le traitement, le stockage, la transmission, l'utilisation et la destruction) qui concerne la santé numérique ?",
         "scores": [
@@ -435,7 +435,7 @@
       },
       {
         "indicatorId": 6,
-        "indicatorCode": "6",
+        "indicatorCode": "8",
         "indicatorName": "Lois ou réglementations relatives à la vie privée, au consentement, à la confidentialité et à l'accès aux informations sur la santé (Confidentialité)",
         "indicatorDefinition": "Existe-t-il une loi pour protéger la vie privée des individus, régissant la propriété, le consentement,  l'accès et le partage des données de santé numériques identifiables individuellement ?",
         "scores": [
@@ -473,7 +473,7 @@
       },
       {
         "indicatorId": 7,
-        "indicatorCode": "7",
+        "indicatorCode": "9",
         "indicatorName": "Protocole de réglementation ou de certification des dispositifs et/ou des services de santé - y compris les dispositions relatives à l'IA et aux algorithmes (à des stades de maturité plus élevés)",
         "indicatorDefinition": "Existe-t-il des protocoles, des politiques, des cadres ou des processus acceptés régissant  l'utilisation clinique et des soins aux patients des dispositifs médicaux et des services de santé connectés (par exemple, la télémédecine, les applications), en particulier en ce qui concerne la sécurité,  l'intégrité des données et la qualité des soins, y compris des dispositions pour  l'IA et les algorithmes ? (à des stades de maturité plus élevés) ?",
         "scores": [
@@ -511,7 +511,7 @@
       },
       {
         "indicatorId": 36,
-        "indicatorCode": "7a",
+        "indicatorCode": "9a",
         "indicatorName": "Protocole de régulation et de certification de l'IA au sein des services de santé",
         "indicatorDefinition": "Existe-t-il des protocoles, des politiques, des cadres ou des processus acceptés régissant l'utilisation de l'IA dans les systèmes, services et applications de santé, en particulier en ce qui concerne l'éthique, l'équité, la sécurité, l'intégrité des données et la qualité des soins ?",
         "scores": [
@@ -549,7 +549,7 @@
       },
       {
         "indicatorId": 8,
-        "indicatorCode": "8",
+        "indicatorCode": "10",
         "indicatorName": "Sécurité et partage transfrontaliers des données",
         "indicatorDefinition": "Existe-t-il des protocoles, des politiques, des cadres ou des processus acceptés en place pour soutenir  l'échange et le stockage de données transfrontaliers sécurisés à  l'appui des objectifs de santé publique tout en protégeant la vie privée des individus ? Remarque : Cela inclut les données relatives à la santé entrant dans un pays, sortant d'un pays et/ou utilisées dans un pays concernant une personne d'un autre pays.",
         "scores": [
@@ -593,7 +593,7 @@
     "indicators": [
       {
         "indicatorId": 9,
-        "indicatorCode": "9",
+        "indicatorCode": "11",
         "indicatorName": "Santé numérique intégrée dans la formation professionnelle initiale en santé et connexe (avant le déploiement)",
         "indicatorDefinition": "La santé numérique fait-elle partie du programme d'études pour les professionnels de la santé et de  l'assistance liée à la santé en formation, en général ?",
         "scores": [
@@ -631,7 +631,7 @@
       },
       {
         "indicatorId": 10,
-        "indicatorCode": "10",
+        "indicatorCode": "12",
         "indicatorName": "Santé numérique intégrée dans la formation continue des professionnels de la santé et connexes (après le déploiement)",
         "indicatorDefinition": "Plus précisément, la santé numérique fait-elle partie du programme d'études pour les professionnels de la santé et du soutien lié à la santé dans la main-d'œuvre en général ? [Définis comme agents de santé communautaires, infirmières, médecins, personnel paramédical, gestionnaires/administrateurs de la santé et technologues]",
         "scores": [
@@ -669,7 +669,7 @@
       },
       {
         "indicatorId": 11,
-        "indicatorCode": "11",
+        "indicatorCode": "13",
         "indicatorName": "Formation du personnel de santé numérique",
         "indicatorDefinition": "En général, la formation en santé numérique/informatique de santé/systèmes d'information de santé/programmes diplômants en informatique biomédicale (dans des établissements publics ou privés) produit-elle des agents de santé numériques formés ?",
         "scores": [
@@ -707,7 +707,7 @@
       },
       {
         "indicatorId": 12,
-        "indicatorCode": "12",
+        "indicatorCode": "14",
         "indicatorName": "Maturité des carrières des professionnels de la santé numérique dans le secteur public",
         "indicatorDefinition": "Existe-t-il des titres professionnels et des parcours professionnels publics en santé numérique ?",
         "scores": [
@@ -751,7 +751,7 @@
     "indicators": [
       {
         "indicatorId": 13,
-        "indicatorCode": "13",
+        "indicatorCode": "15",
         "indicatorName": "Architecture nationale de santé numérique et/ou échange d'informations de santé",
         "indicatorDefinition": "Existe-t-il un cadre architectural national de santé numérique (eHealth) et/ou d'échange d'informations sur la santé (HIE) ?",
         "scores": [
@@ -789,7 +789,7 @@
       },
       {
         "indicatorId": 14,
-        "indicatorCode": "14",
+        "indicatorCode": "16",
         "indicatorName": "Normes d'information sur la santé",
         "indicatorDefinition": "Existe-t-il des normes numériques sur la santé/ l'information sur la santé pour  l'échange de données, la transmission, la messagerie, la sécurité, la confidentialité et le matériel ?",
         "scores": [
@@ -833,7 +833,7 @@
     "indicators": [
       {
         "indicatorId": 15,
-        "indicatorCode": "15",
+        "indicatorCode": "17",
         "indicatorName": "État de préparation du réseau",
         "indicatorDefinition": "Extraire le pilier technologique de  l'institut Portuland du score de  l'indice de préparation du réseau(https://networkreadinessindex.org )",
         "scores": [
@@ -871,7 +871,7 @@
       },
       {
         "indicatorId": 16,
-        "indicatorCode": "16",
+        "indicatorCode": "18",
         "indicatorName": "Planification et soutien pour la maintenance continue de l'infrastructure de santé numérique",
         "indicatorDefinition": "Existe-t-il un plan articulé pour soutenir  l'expansion de  l'infrastructure de santé numérique (y compris  l'équipement - ordinateurs/tablettes/téléphones, fournitures, logiciels, appareils, etc.) la fourniture et la maintenance de tous les établissements de santé publics ?",
         "scores": [
@@ -915,7 +915,7 @@
     "indicators": [
       {
         "indicatorId": 17,
-        "indicatorCode": "17",
+        "indicatorCode": "19",
         "indicatorName": "Systèmes de santé numériques à l'échelle nationale",
         "indicatorDefinition": "Les priorités du secteur public sont soutenues par des systèmes de santé numériques à  l'échelle nationale",
         "scores": [
@@ -953,7 +953,7 @@
       },
       {
         "indicatorId": 18,
-        "indicatorCode": "18",
+        "indicatorCode": "20",
         "indicatorName": "Gestion de l'identité numérique des prestataires de services, des administrateurs et des établissements de santé numérique, y compris les données de localisation pour la cartographie SIG",
         "indicatorDefinition": "Les registres du système de santé des prestataires, administrateurs et établissements publics identifiables de manière unique (et privés le cas échéant) sont-ils disponibles, accessibles et à jour ? Les données sont-elles géolocalisées pour permettre la cartographie SIG avec des protocoles en place pour protéger les ensembles de données sensibles ?",
         "scores": [
@@ -991,7 +991,7 @@
       },
       {
         "indicatorId": 19,
-        "indicatorCode": "19",
+        "indicatorCode": "21",
         "indicatorName": "Gestion de l'identité numérique des individus pour la santé",
         "indicatorDefinition": "Existe-t-il des registres sécurisés ou un fichier principal des patients d'individus identifiables de manière unique, pleinement a de la population, accessibles et à jour pour une utilisation à des fins liées à la santé ?",
         "scores": [
@@ -1029,7 +1029,7 @@
       },
       {
         "indicatorId": 27,
-        "indicatorCode": "19a",
+        "indicatorCode": "21a",
         "indicatorName": "Gestion de l'identité numérique des individus pour la santé",
         "indicatorDefinition": "Plus précisément, existe-t-il un fichier principal sécurisé des patients d'individus identifiables de manière unique disponible, accessible et à jour pour une utilisation à des fins liées à la santé ?",
         "scores": [
@@ -1067,7 +1067,7 @@
       },
       {
         "indicatorId": 28,
-        "indicatorCode": "19b",
+        "indicatorCode": "21b",
         "indicatorName": "Gestion de l'identité numérique des individus pour la santé",
         "indicatorDefinition": "Plus précisément, existe-t-il un registre des naissances sécurisé d'individus identifiables de manière unique, disponible, accessible et à jour pour une utilisation à des fins liées à la santé ?",
         "scores": [
@@ -1105,7 +1105,7 @@
       },
       {
         "indicatorId": 29,
-        "indicatorCode": "19c",
+        "indicatorCode": "21c",
         "indicatorName": "Gestion de l'identité numérique des individus pour la santé",
         "indicatorDefinition": "Plus précisément, existe-t-il un registre sécurisé des décès d'individus identifiables de manière unique, disponible, accessible et à jour pour une utilisation à des fins liées à la santé ?",
         "scores": [
@@ -1143,7 +1143,7 @@
       },
       {
         "indicatorId": 34,
-        "indicatorCode": "20",
+        "indicatorCode": "22",
         "indicatorName": "Sécuriser les systèmes de rétroaction des patients",
         "indicatorDefinition": "Plus précisément, existe-t-il un système sécurisé de retour d'information des patients, disponible, accessible ?",
         "scores": [
@@ -1181,7 +1181,7 @@
       },
       {
         "indicatorId": 35,
-        "indicatorCode": "21",
+        "indicatorCode": "23",
         "indicatorName": "Contribution de la santé numérique à la gestion de la santé de la population",
         "indicatorDefinition": "Les initiatives nationales actuelles en matière de santé numérique contribuent-elles aux rapports et à la prise de décision en matière de santé publique ?",
         "scores": [

@@ -281,6 +281,9 @@ public class CountryIntegrationTest extends BaseIntegrationTest {
                 HealthIndicatorDto.builder().categoryId(1).indicatorId(1).status(status).score(-1).supportingText("blah@blah.com").build(),
                 HealthIndicatorDto.builder().categoryId(1).indicatorId(2).status(status).score(5).supportingText("blah@blah.com").build(),
                 HealthIndicatorDto.builder().categoryId(1).indicatorId(30).status(status).score(5).supportingText("blah@blah.com").build(),
+                HealthIndicatorDto.builder().categoryId(1).indicatorId(31).status(status).score(5).supportingText("blah@blah.com").build(),
+                HealthIndicatorDto.builder().categoryId(1).indicatorId(32).status(status).score(5).supportingText("blah@blah.com").build(),
+                HealthIndicatorDto.builder().categoryId(1).indicatorId(33).status(status).score(5).supportingText("blah@blah.com").build(),
                 HealthIndicatorDto.builder().categoryId(2).indicatorId(3).status(status).score(5).supportingText("blah@blah.com").build(),
                 HealthIndicatorDto.builder().categoryId(2).indicatorId(37).status(status).score(-1).supportingText("blah@blah.com").build(),
                 HealthIndicatorDto.builder().categoryId(2).indicatorId(4).status(status).score(-1).supportingText("blah@blah.com").build(),
@@ -305,10 +308,7 @@ public class CountryIntegrationTest extends BaseIntegrationTest {
                 HealthIndicatorDto.builder().categoryId(7).indicatorId(28).status(status).score(-1).supportingText("blah@blah.com").build(),
                 HealthIndicatorDto.builder().categoryId(7).indicatorId(29).status(status).score(-1).supportingText("blah@blah.com").build(),
                 HealthIndicatorDto.builder().categoryId(7).indicatorId(34).status(status).score(-1).supportingText("blah@blah.com").build(),
-                HealthIndicatorDto.builder().categoryId(7).indicatorId(35).status(status).score(-1).supportingText("blah@blah.com").build(),
-                HealthIndicatorDto.builder().categoryId(1).indicatorId(31).status(status).score(5).supportingText("blah@blah.com").build(),
-                HealthIndicatorDto.builder().categoryId(1).indicatorId(32).status(status).score(5).supportingText("blah@blah.com").build(),
-                HealthIndicatorDto.builder().categoryId(1).indicatorId(33).status(status).score(5).supportingText("blah@blah.com").build());
+                HealthIndicatorDto.builder().categoryId(7).indicatorId(35).status(status).score(-1).supportingText("blah@blah.com").build());
 
 
         setupHealthIndicatorsForCountry(countryId, healthIndicatorDtos, currentYear);

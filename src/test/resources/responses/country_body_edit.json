@@ -47,6 +47,27 @@
       "supportingText": "blah@blah.com"
     },
     {
+      "categoryId": 1,
+      "indicatorId": 31,
+      "status": "DRAFT",
+      "score": 5,
+      "supportingText": "blah@blah.com"
+    },
+    {
+      "categoryId": 1,
+      "indicatorId": 32,
+      "status": "DRAFT",
+      "score": 5,
+      "supportingText": "blah@blah.com"
+    },
+    {
+      "categoryId": 1,
+      "indicatorId": 33,
+      "status": "DRAFT",
+      "score": 5,
+      "supportingText": "blah@blah.com"
+    },
+    {
       "categoryId": 2,
       "indicatorId": 3,
       "status": "DRAFT",
@@ -219,27 +240,6 @@
       "indicatorId": 35,
       "status": "DRAFT",
       "score": -1,
-      "supportingText": "blah@blah.com"
-    },
-    {
-      "categoryId": 1,
-      "indicatorId": 31,
-      "status": "DRAFT",
-      "score": 5,
-      "supportingText": "blah@blah.com"
-    },
-    {
-      "categoryId": 1,
-      "indicatorId": 32,
-      "status": "DRAFT",
-      "score": 5,
-      "supportingText": "blah@blah.com"
-    },
-    {
-      "categoryId": 1,
-      "indicatorId": 33,
-      "status": "DRAFT",
-      "score": 5,
       "supportingText": "blah@blah.com"
     }
   ]

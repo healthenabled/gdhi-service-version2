@@ -119,7 +119,7 @@
       },
       {
         "indicatorId": 31,
-        "indicatorCode": "22",
+        "indicatorCode": "3",
         "indicatorName": "Disponibilidad para la adopción de tecnologías emergentes y gobernanza",
         "indicatorDefinition": "¿Existe un plan nacional específico para las tecnologías emergentes (p. ej., IA, Wearables, Blockchain, IoT) para apoyar los objetivos de salud pública?",
         "scores": [
@@ -157,7 +157,7 @@
       },
       {
         "indicatorId": 32,
-        "indicatorCode": "23",
+        "indicatorCode": "4",
         "indicatorName": "Análisis, planificación y seguimiento de la diversidad, la equidad y los derechos humanos incluidos en las estrategias y planes nacionales de salud digital",
         "indicatorDefinition": "¿El país ha evaluado/adaptado las estrategias nacionales de salud digital desde una perspectiva de equidad y derechos humanos?",
         "scores": [
@@ -195,7 +195,7 @@
       },
       {
         "indicatorId": 33,
-        "indicatorCode": "23a",
+        "indicatorCode": "4a",
         "indicatorName": "Consideraciones de género en las estrategias de salud digital y la gobernanza de la salud digital",
         "indicatorDefinition": "¿Incluye el país consideraciones de género en la estrategia nacional de salud digital o en su gobernanza de la salud digital?",
         "scores": [
@@ -239,7 +239,7 @@
     "indicators": [
       {
         "indicatorId": 3,
-        "indicatorCode": "3",
+        "indicatorCode": "5",
         "indicatorName": "Marco o estrategia nacional de eSalud/salud digital",
         "indicatorDefinition": "¿Cuenta el país con una estrategia o marco de eSalud o salud digital y un plan de salud digital presupuestado?",
         "scores": [
@@ -277,7 +277,7 @@
       },
       {
         "indicatorId": 37,
-        "indicatorCode": "3a",
+        "indicatorCode": "5a",
         "indicatorName": "Alineación de la estrategia digital nacional con los componentes básicos de la cobertura sanitaria universal (CSU)",
         "indicatorDefinition": "¿La estrategia nacional de salud digital del país está alineada con la cobertura universal de salud y/o los componentes básicos de la CSU?",
         "scores": [
@@ -315,7 +315,7 @@
       },
       {
         "indicatorId": 4,
-        "indicatorCode": "4",
+        "indicatorCode": "6",
         "indicatorName": "Financiación pública para la salud digital",
         "indicatorDefinition": "¿La financiación pública (incluidos los préstamos) para la salud digital es suficiente para la estrategia de salud digital, las prioridades (necesidades) o el plan presupuestario del país?",
         "scores": [
@@ -353,7 +353,7 @@
       },
       {
         "indicatorId": 38,
-        "indicatorCode": "4a",
+        "indicatorCode": "6a",
         "indicatorName": "Participación e inversiones del sector privado en salud digital",
         "indicatorDefinition": "Dado el entorno propicio, ¿el sector privado participa e invierte en actividades de salud digital?",
         "scores": [
@@ -397,7 +397,7 @@
     "indicators": [
       {
         "indicatorId": 5,
-        "indicatorCode": "5",
+        "indicatorCode": "7",
         "indicatorName": "Marco Legal de Protección de Datos (Seguridad/ Ciberseguridad)",
         "indicatorDefinition": "¿Existe una ley sobre la seguridad de los datos (a lo largo de todo el ciclo de vida de los datos, por ejemplo, recopilación, procesamiento, almacenamiento, transmisión, uso y destrucción) que sea relevante para la salud digital?",
         "scores": [
@@ -435,7 +435,7 @@
       },
       {
         "indicatorId": 6,
-        "indicatorCode": "6",
+        "indicatorCode": "8",
         "indicatorName": "Leyes o Reglamentos de privacidad, consentimiento, confidencialidad y acceso a la información de salud (Privacidad)",
         "indicatorDefinition": "¿Existe una ley para proteger la privacidad individual, que rija la propiedad, el consentimiento, el acceso y el intercambio de datos de salud digitales identificables individualmente?",
         "scores": [
@@ -473,7 +473,7 @@
       },
       {
         "indicatorId": 7,
-        "indicatorCode": "7",
+        "indicatorCode": "9",
         "indicatorName": "Protocolo para regular o certificar dispositivos y/o servicios de salud, incluidas disposiciones para IA y algoritmos (en etapas más altas de madurez)",
         "indicatorDefinition": "¿Existen protocolos, políticas, marcos o procesos aceptados que rijan el uso clínico y de atención al paciente de dispositivos médicos y servicios de salud conectados (p. ej., telemedicina, aplicaciones), particularmente en relación con la seguridad, la integridad de los datos y la calidad de la atención, incluidas las disposiciones para IA y algoritmos? (en etapas más altas de madurez)?",
         "scores": [
@@ -511,7 +511,7 @@
       },
       {
         "indicatorId": 36,
-        "indicatorCode": "7a",
+        "indicatorCode": "9a",
         "indicatorName": "Protocolo para regular y certificar la IA en los servicios de salud",
         "indicatorDefinition": "¿Existen protocolos, políticas, marcos o procesos aceptados que rijan el uso de la IA en los sistemas, servicios y aplicaciones de salud, en particular en relación con la ética, la equidad, la seguridad, la integridad de los datos y la calidad de la atención?",
         "scores": [
@@ -549,7 +549,7 @@
       },
       {
         "indicatorId": 8,
-        "indicatorCode": "8",
+        "indicatorCode": "10",
         "indicatorName": "Seguridad e intercambio de datos transfronterizos",
         "indicatorDefinition": "¿Existen protocolos, políticas, marcos o procesos aceptados para respaldar el intercambio y el almacenamiento de datos transfronterizos seguros en apoyo de los objetivos de salud pública mientras se protege la privacidad individual? Nota: Esto incluye datos relacionados con la salud que ingresan a un país, salen de un país y/o se usan en un país en relación con una persona de otro país.",
         "scores": [
@@ -593,7 +593,7 @@
     "indicators": [
       {
         "indicatorId": 9,
-        "indicatorCode": "9",
+        "indicatorCode": "11",
         "indicatorName": "Salud digital integrada en la salud y la formación previa al servicio profesional relacionada (antes de la implementación)",
         "indicatorDefinition": "¿La salud digital forma parte del currículo de los profesionales de la salud y de apoyo a la salud en formación, en general?",
         "scores": [
@@ -631,7 +631,7 @@
       },
       {
         "indicatorId": 10,
-        "indicatorCode": "10",
+        "indicatorCode": "12",
         "indicatorName": "Salud digital integrada en la salud y la capacitación profesional en el servicio relacionada (después del despliegue)",
         "indicatorDefinition": "Específicamente, ¿la salud digital es parte del plan de estudios para los profesionales de la salud y de apoyo relacionados con la salud en el recurso humano en general? [Definidos como trabajadores de salud comunitarios, enfermeras, médicos, auxiliares de salud, gerentes/administradores de salud y tecnólogos]",
         "scores": [
@@ -669,7 +669,7 @@
       },
       {
         "indicatorId": 11,
-        "indicatorCode": "11",
+        "indicatorCode": "13",
         "indicatorName": "Formación en salud digital del recurso humano",
         "indicatorDefinition": "En general, ¿la formación en salud digital/informática sanitaria/sistemas de información sanitaria/programas de grado en informática biomédica (ya sea en instituciones públicas o privadas) está produciendo trabajadores capacitados en salud digital?",
         "scores": [
@@ -707,7 +707,7 @@
       },
       {
         "indicatorId": 12,
-        "indicatorCode": "12",
+        "indicatorCode": "14",
         "indicatorName": "Madurez de las carreras profesionales de salud digital del sector público",
         "indicatorDefinition": "¿Existen títulos profesionales y carreras profesionales en salud digital del sector público?",
         "scores": [
@@ -751,7 +751,7 @@
     "indicators": [
       {
         "indicatorId": 13,
-        "indicatorCode": "13",
+        "indicatorCode": "15",
         "indicatorName": "Arquitectura sanitaria digital nacional y/o intercambio de información sanitaria",
         "indicatorDefinition": "¿Existe un marco arquitectónico nacional de salud digital (eHealth) y/o un intercambio de información de salud (HIE) establecido?",
         "scores": [
@@ -789,7 +789,7 @@
       },
       {
         "indicatorId": 14,
-        "indicatorCode": "14",
+        "indicatorCode": "16",
         "indicatorName": "Estándares de información en salud",
         "indicatorDefinition": "¿Existen estándares de información de salud/salud digital para el intercambio de datos, transmisión, mensajería, seguridad, privacidad y hardware?",
         "scores": [
@@ -833,7 +833,7 @@
     "indicators": [
       {
         "indicatorId": 15,
-        "indicatorCode": "15",
+        "indicatorCode": "17",
         "indicatorName": "Preparación de la red",
         "indicatorDefinition": "Extraiga la puntuación del índice de disponibilidad de la red del pilar tecnológico del instituto Portuland (https://networkreadinessindex.org )",
         "scores": [
@@ -871,7 +871,7 @@
       },
       {
         "indicatorId": 16,
-        "indicatorCode": "16",
+        "indicatorCode": "18",
         "indicatorName": "Planificación y apoyo para el mantenimiento continuo de la infraestructura de salud digital",
         "indicatorDefinition": "¿Existe un plan articulado para apoyar la expansión de la infraestructura de salud digital (incluidos los equipos, computadoras/tabletas/teléfonos, suministros, software, dispositivos, etc.), provisión y mantenimiento para todas las instalaciones de salud pública?",
         "scores": [
@@ -915,7 +915,7 @@
     "indicators": [
       {
         "indicatorId": 17,
-        "indicatorCode": "17",
+        "indicatorCode": "19",
         "indicatorName": "Sistemas de salud digitales a escala nacional",
         "indicatorDefinition": "Las prioridades del sector público están respaldadas por sistemas de salud digitales a escala nacional",
         "scores": [
@@ -953,7 +953,7 @@
       },
       {
         "indicatorId": 18,
-        "indicatorCode": "18",
+        "indicatorCode": "20",
         "indicatorName": "Gestión de la identidad digital de los proveedores de servicios, administradores e instalaciones para la salud digital, incluidos los datos de ubicación para el mapeo GIS",
         "indicatorDefinition": "¿Están disponibles, accesibles y actualizados los registros del sistema de salud de proveedores, administradores y establecimientos públicos (y privados, si corresponde) identificables de manera única? ¿Los datos están geoetiquetados para permitir el mapeo GIS con protocolos implementados para proteger conjuntos de datos confidenciales?",
         "scores": [
@@ -991,7 +991,7 @@
       },
       {
         "indicatorId": 19,
-        "indicatorCode": "19",
+        "indicatorCode": "21",
         "indicatorName": "Gestión de la identidad digital de personas para la salud",
         "indicatorDefinition": "¿Están disponibles registros seguros o un índice maestro de pacientes de individuos identificables de manera única, totalmente representativos de la población, accesibles y actualizados para su uso con fines relacionados con la salud?",
         "scores": [
@@ -1029,7 +1029,7 @@
       },
       {
         "indicatorId": 27,
-        "indicatorCode": "19a",
+        "indicatorCode": "21a",
         "indicatorName": "Gestión de la identidad digital de personas para la salud",
         "indicatorDefinition": "Específicamente, ¿hay un índice maestro de pacientes seguro de individuos identificables de forma única disponible, accesible y actualizado para su uso con fines relacionados con la salud?",
         "scores": [
@@ -1067,7 +1067,7 @@
       },
       {
         "indicatorId": 28,
-        "indicatorCode": "19b",
+        "indicatorCode": "21b",
         "indicatorName": "Gestión de la identidad digital de las personas para la salud",
         "indicatorDefinition": "Específicamente, ¿hay un registro de nacimiento seguro de individuos identificables de forma única disponible, accesible y actualizado para su uso con fines relacionados con la salud?",
         "scores": [
@@ -1105,7 +1105,7 @@
       },
       {
         "indicatorId": 29,
-        "indicatorCode": "19c",
+        "indicatorCode": "21c",
         "indicatorName": "Gestión de la identidad digital de las personas para la salud",
         "indicatorDefinition": "Específicamente, ¿hay un registro seguro de defunciones de personas identificables de forma única disponible, accesible y actualizado para su uso con fines relacionados con la salud?",
         "scores": [
@@ -1143,7 +1143,7 @@
       },
       {
         "indicatorId": 34,
-        "indicatorCode": "20",
+        "indicatorCode": "22",
         "indicatorName": "Sistemas seguros de retroalimentación del paciente",
         "indicatorDefinition": "Específicamente, ¿hay un sistema de retroalimentación del paciente seguro, disponible y accesible?",
         "scores": [
@@ -1181,7 +1181,7 @@
       },
       {
         "indicatorId": 35,
-        "indicatorCode": "21",
+        "indicatorCode": "23",
         "indicatorName": "Contribución de la salud digital en la gestión de la salud de la población",
         "indicatorDefinition": "¿Las iniciativas actuales de salud digital del país contribuyen a la elaboración de informes y la toma de decisiones sobre salud pública?",
         "scores": [
