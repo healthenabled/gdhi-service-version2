@@ -51,8 +51,8 @@
         {
           "id": 7,
           "name": "Services & Applications",
-          "overallScore": null,
-          "phase": null,
+          "overallScore": -1.0,
+          "phase": -1,
           "indicators": [
             {
               "id": 27,
@@ -138,8 +138,8 @@
         {
           "id": 7,
           "name": "Services & Applications",
-          "overallScore": null,
-          "phase": null,
+          "overallScore": -1.0,
+          "phase": -1,
           "indicators": [
             {
               "id": 27,

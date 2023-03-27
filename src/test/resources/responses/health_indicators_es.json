@@ -58,8 +58,8 @@
     {
       "id": 3,
       "name": "Legislación, política y cumplimiento",
-      "overallScore": 1.0,
-      "phase": 1,
+      "overallScore": -1.0,
+      "phase": -1,
       "indicators": [
         {
           "id": 5,

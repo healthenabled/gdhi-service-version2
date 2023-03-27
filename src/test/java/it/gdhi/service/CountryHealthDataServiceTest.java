@@ -15,7 +15,9 @@ import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
 
 import javax.persistence.EntityManager;
+
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -55,13 +57,13 @@ public class CountryHealthDataServiceTest {
 
     @Test
     public void shouldPublishDetailsForACountryForCurrentYear() throws Exception {
-        List<String> resourceLinks = asList("Res 1");
+        List<String> resourceLinks = Collections.singletonList("Res 1");
         CountrySummaryDto countrySummaryDetailDto = CountrySummaryDto.builder().summary("Summary 1")
                 .resources(resourceLinks).build();
 
         String status = PUBLISHED.name();
         String currentYear = getCurrentYear();
-        List<HealthIndicatorDto> healthIndicatorDtos = asList(new HealthIndicatorDto(1, 1, status, 2, "Text"));
+        List<HealthIndicatorDto> healthIndicatorDtos = Collections.singletonList(new HealthIndicatorDto(1, 1, status, 2, "Text"));
         String countryId = "ARG";
         GdhiQuestionnaire gdhiQuestionnaire = GdhiQuestionnaire.builder().countryId(countryId)
                 .countrySummary(countrySummaryDetailDto)
@@ -71,15 +73,21 @@ public class CountryHealthDataServiceTest {
         CountrySummary countrySummary = CountrySummary.builder().summary("Summary 1").countrySummaryId(countrySummaryId).build();
 
         Indicator indicator1 = Indicator.builder().indicatorId(1).parentId(null).build();
+        Indicator indicator2 = Indicator.builder().indicatorId(1).parentId(null).build();
         CountryHealthIndicator countryHealthIndicator1 = CountryHealthIndicator.builder()
                 .indicator(indicator1)
-                .score(2)
-                .category(Category.builder().id(1).indicators(asList(indicator1)).build())
+                .score(3)
+                .category(Category.builder().id(1).indicators(asList(indicator1, indicator2)).build())
+                .build();
+        CountryHealthIndicator countryHealthIndicator2 = CountryHealthIndicator.builder()
+                .indicator(indicator2)
+                .score(-1)
+                .category(Category.builder().id(1).indicators(asList(indicator1, indicator2)).build())
                 .build();
 
 
         when(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdYearAndCountryHealthIndicatorIdStatus(countryId, currentYear, status))
-                .thenReturn(asList(countryHealthIndicator1));
+                .thenReturn(asList(countryHealthIndicator1, countryHealthIndicator2));
         when(iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdYearAndCountrySummaryIdStatusNot(countryId, currentYear, PUBLISHED.name())).thenReturn(countrySummary);
         countryHealthDataService.publish(gdhiQuestionnaire, currentYear);
         ArgumentCaptor<CountrySummary> summaryCaptor = ArgumentCaptor.forClass(CountrySummary.class);
@@ -93,10 +101,11 @@ public class CountryHealthDataServiceTest {
         assertThat(summaryCaptorValue.getCountrySummaryId().getCountryId(), is(countryId));
         assertThat(summaryCaptorValue.getSummary(), is("Summary 1"));
         assertThat(summaryCaptorValue.getCountryResourceLinks().get(0).getLink(), is("Res 1"));
+        assertThat(summaryCaptorValue.getStatus(), is("PUBLISHED"));
         assertThat(healthIndicatorsCaptorList.getValue().getCountryHealthIndicatorId().getCategoryId(), is(1));
         ArgumentCaptor<CountryPhase> phaseDetailsCaptor = ArgumentCaptor.forClass(CountryPhase.class);
         inOrder.verify(iCountryPhaseRepository).save(phaseDetailsCaptor.capture());
-        assertThat(phaseDetailsCaptor.getValue().getCountryOverallPhase(), is(2));
+        assertThat(phaseDetailsCaptor.getValue().getCountryOverallPhase(), is(3));
         assertThat(phaseDetailsCaptor.getValue().getCountryPhaseId().getCountryId(), is(countryId));
 
     }
@@ -955,7 +964,7 @@ public class CountryHealthDataServiceTest {
         String year = null;
         CountrySummaryId countrySummaryId = CountrySummaryId.builder().countryId("IND").status(PUBLISHED.name()).year(year).build();
         CountrySummary countrySummary = CountrySummary.builder().countrySummaryId(countrySummaryId).build();
-        when(iCountrySummaryRepository.findByCountrySummaryIdStatus(publishedStatus)).thenReturn(asList(countrySummary));
+        when(iCountrySummaryRepository.findByCountrySummaryIdYearAndCountrySummaryIdStatus(year, publishedStatus)).thenReturn(asList(countrySummary));
 
         Indicator indicator = Indicator.builder().indicatorId(1).parentId(null).build();
         CountryHealthIndicator countryHealthIndicator = CountryHealthIndicator.builder()
@@ -976,6 +985,94 @@ public class CountryHealthDataServiceTest {
         inOrder.verify(iCountryPhaseRepository, times(1)).save(phaseDetailsCaptor.capture());
         assertThat(phaseDetailsCaptor.getValue().getCountryPhaseId().getCountryId(), is("IND"));
         assertThat(phaseDetailsCaptor.getValue().getCountryOverallPhase(), is(2));
+    }
+
+    @Test
+    public void ShouldCalculatePhaseForAllCountriesIgnoringIndicatorsWithNegativeScoreForAGivenYear() {
+        String publishedStatus = "PUBLISHED";
+        String year = getCurrentYear();
+        CountrySummaryId countrySummaryId = CountrySummaryId.builder().countryId("IND").status(PUBLISHED.name()).year(year).build();
+        CountrySummary countrySummary = CountrySummary.builder().countrySummaryId(countrySummaryId).build();
+        when(iCountrySummaryRepository.findByCountrySummaryIdYearAndCountrySummaryIdStatus(year, publishedStatus)).thenReturn(Collections.singletonList(countrySummary));
+
+        Indicator indicator1 = Indicator.builder().indicatorId(1).parentId(null).build();
+        Indicator indicator2 = Indicator.builder().indicatorId(2).parentId(null).build();
+
+        CountryHealthIndicator countryHealthIndicator1 = CountryHealthIndicator.builder()
+                .indicator(indicator1)
+                .score(3)
+                .category(Category.builder().id(1).indicators(asList(indicator1, indicator2)).build())
+                .build();
+
+        CountryHealthIndicator countryHealthIndicator2 = CountryHealthIndicator.builder()
+                .indicator(indicator2)
+                .score(-1)
+                .category(Category.builder().id(1).indicators(asList(indicator1, indicator2)).build())
+                .build();
+
+        when(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdYearAndCountryHealthIndicatorIdStatus("IND", year, publishedStatus))
+                .thenReturn(asList(countryHealthIndicator1, countryHealthIndicator2));
+
+        countryHealthDataService.calculatePhaseForAllCountries(year);
+
+        InOrder inOrder = inOrder(iCountryPhaseRepository);
+
+
+        ArgumentCaptor<CountryPhase> phaseDetailsCaptor = ArgumentCaptor.forClass(CountryPhase.class);
+        inOrder.verify(iCountryPhaseRepository, times(1)).save(phaseDetailsCaptor.capture());
+        assertThat(phaseDetailsCaptor.getValue().getCountryPhaseId().getCountryId(), is("IND"));
+        assertThat(phaseDetailsCaptor.getValue().getCountryOverallPhase(), is(3));
+    }
+
+    @Test
+    public void ShouldCalculatePhaseForAllCountriesIgnoringCategoriesWithNoScoreForAGivenYear() {
+        String publishedStatus = "PUBLISHED";
+        String year = getCurrentYear();
+        CountrySummaryId countrySummaryId = CountrySummaryId.builder().countryId("IND").status(PUBLISHED.name()).year(year).build();
+        CountrySummary countrySummary = CountrySummary.builder().countrySummaryId(countrySummaryId).build();
+        when(iCountrySummaryRepository.findByCountrySummaryIdYearAndCountrySummaryIdStatus(year, publishedStatus)).thenReturn(Collections.singletonList(countrySummary));
+
+        Indicator indicator1 = Indicator.builder().indicatorId(1).parentId(null).build();
+        Indicator indicator2 = Indicator.builder().indicatorId(2).parentId(null).build();
+        Indicator indicator3 = Indicator.builder().indicatorId(3).parentId(null).build();
+        Indicator indicator4 = Indicator.builder().indicatorId(4).parentId(null).build();
+
+        CountryHealthIndicator countryHealthIndicator1 = CountryHealthIndicator.builder()
+                .indicator(indicator1)
+                .score(-1)
+                .category(Category.builder().id(1).indicators(asList(indicator1, indicator2)).build())
+                .build();
+
+        CountryHealthIndicator countryHealthIndicator2 = CountryHealthIndicator.builder()
+                .indicator(indicator2)
+                .score(-1)
+                .category(Category.builder().id(1).indicators(asList(indicator1, indicator2)).build())
+                .build();
+
+        CountryHealthIndicator countryHealthIndicator3 = CountryHealthIndicator.builder()
+                .indicator(indicator3)
+                .score(5)
+                .category(Category.builder().id(2).indicators(asList(indicator3, indicator4)).build())
+                .build();
+
+        CountryHealthIndicator countryHealthIndicator4 = CountryHealthIndicator.builder()
+                .indicator(indicator4)
+                .score(3)
+                .category(Category.builder().id(2).indicators(asList(indicator3, indicator4)).build())
+                .build();
+
+        when(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdYearAndCountryHealthIndicatorIdStatus("IND", year, publishedStatus))
+                .thenReturn(asList(countryHealthIndicator1, countryHealthIndicator2, countryHealthIndicator3, countryHealthIndicator4));
+
+        countryHealthDataService.calculatePhaseForAllCountries(year);
+
+        InOrder inOrder = inOrder(iCountryPhaseRepository);
+
+
+        ArgumentCaptor<CountryPhase> phaseDetailsCaptor = ArgumentCaptor.forClass(CountryPhase.class);
+        inOrder.verify(iCountryPhaseRepository, times(1)).save(phaseDetailsCaptor.capture());
+        assertThat(phaseDetailsCaptor.getValue().getCountryPhaseId().getCountryId(), is("IND"));
+        assertThat(phaseDetailsCaptor.getValue().getCountryOverallPhase(), is(4));
     }
 
     @Test

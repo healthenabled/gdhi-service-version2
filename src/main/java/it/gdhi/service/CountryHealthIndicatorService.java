@@ -191,7 +191,7 @@ public class CountryHealthIndicatorService {
     private List<CategoryHealthScoreDto> getCategoriesWithIndicators(CountryHealthIndicators countryHealthIndicators,
                                                                      Predicate<? super CategoryHealthScoreDto>
                                                                              phaseFilter) {
-        Map<Integer, Double> nonNullCategoryScore = countryHealthIndicators
+        Map<Integer, Double> CategoryScore = countryHealthIndicators
                 .groupByCategoryIdWithoutNullAndNegativeScores();
         return countryHealthIndicators.groupByCategory()
                 .entrySet()
@@ -200,7 +200,7 @@ public class CountryHealthIndicatorService {
                     Category category = entry.getKey();
                     List<CountryHealthIndicator> indicators = entry.getValue();
                     return new CategoryHealthScoreDto(category,
-                            nonNullCategoryScore.get(category.getId()),
+                            CategoryScore.get(category.getId()) == null ? -1 : CategoryScore.get(category.getId()),
                             indicators);
                 })
                 .filter(phaseFilter)

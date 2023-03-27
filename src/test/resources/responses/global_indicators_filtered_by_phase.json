@@ -11,22 +11,22 @@
     {
       "id": 2,
       "name": "Strategy & Investment",
-      "overallScore": 2.0,
-      "phase": 2,
+      "overallScore": 3.0,
+      "phase": 3,
       "indicators": null
     },
     {
       "id": 3,
       "name": "Legislation, Policy, & Compliance",
-      "overallScore": 2.5,
-      "phase": 3,
+      "overallScore": 4.0,
+      "phase": 4,
       "indicators": null
     },
     {
       "id": 4,
       "name": "Workforce",
-      "overallScore": 1.0,
-      "phase": 1,
+      "overallScore": -1.0,
+      "phase": -1,
       "indicators": null
     }
   ]

@@ -89,7 +89,7 @@ public class CountryHealthIndicatorsTest {
 
     @Test
     public void ShouldgetOverallScoreForMainIndicators() throws Exception {
-        assertEquals(2.0, new CountryHealthIndicators(countryHealthIndicators).getOverallScore(), 0.5);
+        assertEquals(2.6666666666666665, new CountryHealthIndicators(countryHealthIndicators).getOverallScore(), 0.5);
     }
 
 }

@@ -34,8 +34,8 @@
         {
           "id": 2,
           "name": "Strategy & Investment",
-          "overallScore": 2.0,
-          "phase": 2,
+          "overallScore": 3.0,
+          "phase": 3,
           "indicators": [
             {
               "id": 3,
@@ -60,8 +60,8 @@
         {
           "id": 3,
           "name": "Legislation, Policy, & Compliance",
-          "overallScore": 1.0,
-          "phase": 1,
+          "overallScore": -1.0,
+          "phase": -1,
           "indicators": [
             {
               "id": 5,
@@ -95,8 +95,8 @@
         {
           "id": 1,
           "name": "Leadership & Governance",
-          "overallScore": 1.0,
-          "phase": 1,
+          "overallScore": -1.0,
+          "phase": -1,
           "indicators": [
             {
               "id": 1,
@@ -121,8 +121,8 @@
         {
           "id": 2,
           "name": "Strategy & Investment",
-          "overallScore": 1.0,
-          "phase": 1,
+          "overallScore": -1.0,
+          "phase": -1,
           "indicators": [
             {
               "id": 3,
@@ -147,8 +147,8 @@
         {
           "id": 3,
           "name": "Legislation, Policy, & Compliance",
-          "overallScore": 1.0,
-          "phase": 1,
+          "overallScore": -1.0,
+          "phase": -1,
           "indicators": [
             {
               "id": 5,
@@ -208,8 +208,8 @@
         {
           "id": 2,
           "name": "Strategy & Investment",
-          "overallScore": 2.0,
-          "phase": 2,
+          "overallScore": 3.0,
+          "phase": 3,
           "indicators": [
             {
               "id": 3,
@@ -234,8 +234,8 @@
         {
           "id": 3,
           "name": "Legislation, Policy, & Compliance",
-          "overallScore": 1.0,
-          "phase": 1,
+          "overallScore": -1.0,
+          "phase": -1,
           "indicators": [
             {
               "id": 5,

@@ -31,9 +31,9 @@ public class CountryHealthIndicators {
 
     public Map<Integer, Double> groupByCategoryIdWithoutNullAndNegativeScores() {
 
-        return convertingNotAvailableToPhase1(countryHealthIndicators).filter(countryHealthIndicator
+        return convertingNullScoresToNotAvailable(countryHealthIndicators).filter(countryHealthIndicator
                 -> countryHealthIndicator.getIndicator() != null
-                && countryHealthIndicator.getIndicator().getParentId() == null)
+                && countryHealthIndicator.getIndicator().getParentId() == null && countryHealthIndicator.getScore() != -1 )
                 .collect(groupingBy(h -> h.getCategory().getId(),
                         averagingInt(CountryHealthIndicator::getScore)));
     }
@@ -68,12 +68,12 @@ public class CountryHealthIndicators {
                 .filter(healthIndicator -> healthIndicator.isScoreValid());
     }
 
-    private Stream<CountryHealthIndicator> convertingNotAvailableToPhase1(
+    private Stream<CountryHealthIndicator> convertingNullScoresToNotAvailable(
             List<CountryHealthIndicator> newCountryHealthIndicators) {
 
         return countryHealthIndicators.stream().map(row -> {
             return new CountryHealthIndicator(row.getCountryHealthIndicatorId(),
-                    (row.getScore()== null || row.getScore()== -1 ) ? 1 : row.getScore(),
+                    (row.getScore()== null) ? -1 : row.getScore(),
                     row.getIndicator(),row.getCategory());
 
         }).collect(Collectors.toList()).stream();

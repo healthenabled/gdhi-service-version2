@@ -18,6 +18,8 @@ public interface ICountrySummaryRepository extends JpaRepository<CountrySummary,
 
     List<CountrySummary> findByCountrySummaryIdCountryIdAndCountrySummaryIdYear(String countryId, String currentYear);
 
+    List<CountrySummary> findByCountrySummaryIdYearAndCountrySummaryIdStatus(String year, String status);
+
     List<CountrySummary> findByCountrySummaryIdYearOrderByUpdatedAtDesc(String currentYear);
 
     List<CountrySummary> findAllByOrderByUpdatedAtDesc();

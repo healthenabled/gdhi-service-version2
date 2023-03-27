@@ -32,8 +32,8 @@
     {
       "id": 2,
       "name": "Estratégia e Investimento",
-      "overallScore": 2.0,
-      "phase": 2,
+      "overallScore": 3.0,
+      "phase": 3,
       "indicators": [
         {
           "id": 3,
@@ -58,8 +58,8 @@
     {
       "id": 3,
       "name": "Legislação, Política e Conformidade",
-      "overallScore": 1.0,
-      "phase": 1,
+      "overallScore": -1.0,
+      "phase": -1,
       "indicators": [
         {
           "id": 5,

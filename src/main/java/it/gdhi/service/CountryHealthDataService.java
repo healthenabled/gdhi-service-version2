@@ -1,9 +1,5 @@
 package it.gdhi.service;
 
-import java.time.Year;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -137,7 +133,7 @@ public class CountryHealthDataService {
 
     @Transactional
     public void calculatePhaseForAllCountries(String year) {
-        List<CountrySummary> publishedCountries = iCountrySummaryRepository.findByCountrySummaryIdStatus(PUBLISHED.name());
+        List<CountrySummary> publishedCountries = iCountrySummaryRepository.findByCountrySummaryIdYearAndCountrySummaryIdStatus(year ,PUBLISHED.name());
 
         publishedCountries.stream().forEach(country -> calculateAndSaveCountryPhase(country.getCountrySummaryId().getCountryId(), PUBLISHED.name(), year));
     }
