@@ -30,7 +30,9 @@ connect to DB gdhi
 
 6. Execute `sh ./utils/set-up-git-hooks.sh` from base folder to validate commit message format.
 
-7. Upon the server start, hit the following endpoint to populate the country overall phase (Only for Published Countries.)
+7. Execute `sh ./utils/stay-up-to-date-with-master.sh` from pull from main branch everytime before pushing the code.
+
+8. Upon the server start, hit the following endpoint to populate the country overall phase (Only for Published Countries.)
 
 ```
    localhost:8080/api/admin/countries/calculate_phase
