@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -113,12 +114,17 @@ public class CountryController {
     }
 
     @GetMapping("/countries/{uuid}")
+    @ResponseBody
     public GdhiQuestionnaire getQuestionnaireForCountry(HttpServletRequest request,
                                                         @PathVariable("uuid") UUID countryUIID,
                                                         @RequestParam(value = "year", required = false) String year) {
         LanguageCode languageCode = LanguageCode.getValueFor(request.getHeader(USER_LANGUAGE));
-        if (year == null) {
-            year = countryService.fetchTheYearToPrefillData(countryUIID);
+        if (!countryService.checkCountryHasEntryForCurrentYear(countryUIID)) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        } else {
+            if (year == null) {
+                year = countryService.fetchTheYearToPrefillData(countryUIID);
+            }
         }
         return countryService.getDetails(countryUIID, languageCode, false, year);
     }

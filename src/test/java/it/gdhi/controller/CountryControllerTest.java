@@ -7,6 +7,7 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import groovyjarjarantlr4.v4.runtime.RuleDependencies;
 import it.gdhi.dto.CountryHealthScoreDto;
 import it.gdhi.dto.CountrySummaryDto;
 import it.gdhi.dto.CountrySummaryStatusYearDto;
@@ -18,13 +19,18 @@ import it.gdhi.service.CountryHealthIndicatorService;
 import it.gdhi.service.CountryService;
 import it.gdhi.service.DevelopmentIndicatorService;
 import it.gdhi.utils.LanguageCode;
+import org.apache.poi.ss.formula.functions.T;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.function.Executable;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.HttpRequest;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.web.server.ResponseStatusException;
 
 import static it.gdhi.utils.FormStatus.DRAFT;
 import static it.gdhi.utils.LanguageCode.en;
@@ -32,8 +38,7 @@ import static it.gdhi.utils.LanguageCode.fr;
 import static java.util.Collections.emptyList;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
@@ -58,6 +63,7 @@ public class CountryControllerTest {
 
     @Mock
     private CountryHealthIndicatorService countryHealthIndicatorService;
+
 
     @Test
     public void shouldListCountries() {
@@ -260,6 +266,27 @@ public class CountryControllerTest {
         doNothing().when(countryHealthDataService).calculatePhaseForAllCountries(year);
         countryController.calculateCountryPhase(year);
         verify(countryHealthDataService).calculatePhaseForAllCountries(year);
+    }
+
+    @Test
+    public void shouldReturnBadRequestWhenCountryHasNoURLGeneratedForCurrentYear() {
+        UUID countryUUID = UUID.randomUUID();
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        request.addHeader("USER_LANGUAGE", "en");
+        when(countryService.checkCountryHasEntryForCurrentYear(countryUUID)).thenReturn(false);
+
+        assertThrows(ResponseStatusException.class,
+                () -> countryController.getQuestionnaireForCountry(request, countryUUID, getCurrentYear()));
+    }
+
+    @Test
+    public void shouldNotReturnBadRequestWhenCountryHasURLGeneratedForCurrentYear() {
+        UUID countryUUID = UUID.randomUUID();
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        request.addHeader("USER_LANGUAGE", "en");
+        when(countryService.checkCountryHasEntryForCurrentYear(countryUUID)).thenReturn(true);
+
+        assertDoesNotThrow(() -> countryController.getQuestionnaireForCountry(request, countryUUID, getCurrentYear()));
     }
 
 }

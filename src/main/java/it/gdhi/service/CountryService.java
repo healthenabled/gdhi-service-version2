@@ -106,4 +106,11 @@ public class CountryService {
         String countryId = iCountryRepository.findByUniqueId(countryUUID).getId();
         return iCountrySummaryRepository.findFirstByCountryIdAndStatusNotNEWOrderByDesc(countryId) == null ? getCurrentYear() : iCountrySummaryRepository.findFirstByCountryIdAndStatusNotNEWOrderByDesc(countryId);
     }
+
+    public Boolean checkCountryHasEntryForCurrentYear(UUID countryUUID) {
+        String countryId = iCountryRepository.findByUniqueId(countryUUID).getId();
+        List<CountrySummary> countrySummaries = iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdYear(countryId, getCurrentYear());
+        return countrySummaries.size() == 0 ? false : true;
+    }
+
 }

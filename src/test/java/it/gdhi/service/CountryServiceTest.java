@@ -38,6 +38,7 @@ import static it.gdhi.utils.LanguageCode.ar;
 import static it.gdhi.utils.LanguageCode.en;
 import static it.gdhi.utils.Util.*;
 import static java.util.Arrays.asList;
+import static java.util.Collections.emptyList;
 import static java.util.UUID.randomUUID;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
@@ -330,7 +331,7 @@ public class CountryServiceTest {
 
         when(iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdYear(countryId, currentYear)).thenReturn(null);
 
-        when(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdYearAndCountryHealthIndicatorIdStatus(countryId, currentYear, null)).thenReturn(Collections.emptyList());
+        when(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdYearAndCountryHealthIndicatorIdStatus(countryId, currentYear, null)).thenReturn(emptyList());
 
         when(countryDetailRepository.findByUniqueId(countryUUID)).thenReturn(country);
         GdhiQuestionnaire details = countryService.getDetails(countryUUID, LanguageCode.en, false, currentYear);
@@ -421,6 +422,58 @@ public class CountryServiceTest {
 
         assertEquals(expectedYear, actualYear);
     }
+
+    @Test
+    public void shouldReturnFalseWhenCountryHasNoURLGeneratedForCurrentYear() {
+        String countryId = "IND";
+        UUID countryUUID = randomUUID();
+        Country country = new Country(countryId, "India", countryUUID, "IN");
+
+        when(iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdYear(countryId, getCurrentYear())).thenReturn(emptyList());
+        when(countryDetailRepository.findByUniqueId(countryUUID)).thenReturn(country);
+
+        Boolean actualResponse = countryService.checkCountryHasEntryForCurrentYear(countryUUID);
+        Boolean expectedResponse = false;
+
+        assertEquals(expectedResponse, actualResponse);
+    }
+
+    @Test
+    public void shouldReturnTrueWhenCountryHasURLGeneratedForCurrentYear() {
+        String countryId = "IND";
+        UUID countryUUID = randomUUID();
+        Date createdDate = new Date();
+
+        Date updatedDate = new Date();
+
+        Country country = new Country(countryId, "India", countryUUID, "IN");
+        CountrySummary countrySummary = CountrySummary.builder()
+                .countrySummaryId(new CountrySummaryId(countryId, PUBLISHED.name(), getCurrentYear()))
+                .country(new Country(countryId, "INDIA ", countryUUID, "IN"))
+                .summary("summary")
+                .contactName("contactName")
+                .contactDesignation("contact designation")
+                .contactOrganization("contact org")
+                .contactEmail("contact email")
+                .dataFeederName("feeder name")
+                .dataFeederRole("feeder role")
+                .dataFeederEmail("feeder email")
+                .dataApproverName("collector name")
+                .dataApproverRole("collector role")
+                .dataApproverRole("collector email")
+                .countryResourceLinks(asList(new CountryResourceLink(new CountryResourceLinkId(countryId, "link",
+                        PUBLISHED.name(), getCurrentYear()), createdDate, updatedDate)))
+                .build();
+
+        when(iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdYear(countryId, getCurrentYear())).thenReturn(Collections.singletonList(countrySummary));
+        when(countryDetailRepository.findByUniqueId(countryUUID)).thenReturn(country);
+
+        Boolean actualResponse = countryService.checkCountryHasEntryForCurrentYear(countryUUID);
+        Boolean expectedResponse = true;
+
+        assertEquals(expectedResponse, actualResponse);
+    }
+
 
     private Date getUpdatedDate(int year) {
         Calendar calendar = Calendar.getInstance();
