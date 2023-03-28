@@ -1,0 +1,1 @@
+UPDATE i18n.score_definition SET definition = 'Não existe nenhum sistema seguro de feedback do paciente.' WHERE indicator_id =34 AND score =1 AND language_id = 'pt';
