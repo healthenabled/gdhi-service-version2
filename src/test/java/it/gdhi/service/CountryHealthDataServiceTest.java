@@ -816,39 +816,6 @@ public class CountryHealthDataServiceTest {
 
         assertFalse(countryHealthDataService.validateRequiredFields(gdhiQuestionnaire));
     }
-
-    @Test
-    public void shouldReturnFalseIfResourceIsEmpty() {
-        String countryId = "ARG";
-        String countryName = "Argentina";
-        CountrySummaryDto countrySummaryDetailDto = CountrySummaryDto.builder()
-                .summary("Summary 1")
-                .dataFeederEmail("feeder@email.com")
-                .dataFeederName("feeder")
-                .dataFeederRole("feeder role")
-                .contactEmail("contact@test.com")
-                .contactDesignation("some designation")
-                .contactName("some contact name")
-                .contactOrganization("contact org")
-                .dataApproverEmail("approver@email.com")
-                .dataApproverName("Some approver name")
-                .dataApproverRole("some approver role")
-                .govtApproved(true)
-                .countryId(countryId)
-                .countryName(countryName)
-                .build();
-
-        List<HealthIndicatorDto> healthIndicatorDtos = getHealthIndicatorDto(1, "some text");
-        when(categoryIndicatorService.getHealthIndicatorCount()).thenReturn(30);
-
-        GdhiQuestionnaire gdhiQuestionnaire = GdhiQuestionnaire.builder().countryId(countryId)
-                .countrySummary(countrySummaryDetailDto)
-                .healthIndicators(healthIndicatorDtos).build();
-
-        assertFalse(countryHealthDataService.validateRequiredFields(gdhiQuestionnaire));
-
-    }
-
     @Test
     public void shouldReturnFalseIfIndicatorDataIsInvalid() {
         String countryId = "AUS";

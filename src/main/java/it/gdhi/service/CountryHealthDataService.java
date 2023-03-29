@@ -161,7 +161,6 @@ public class CountryHealthDataService {
 
     public boolean validateRequiredFields(GdhiQuestionnaire gdhiQuestionnaire) {
         return verifyFields(gdhiQuestionnaire.getCountrySummary())
-                && verifyResources(gdhiQuestionnaire.getCountrySummary().getResources())
                 && verifyIndicators(gdhiQuestionnaire.getHealthIndicators());
     }
 
@@ -245,16 +244,8 @@ public class CountryHealthDataService {
         );
     }
 
-    private boolean verifyResources(List<String> resources) {
-        return (resources != null && !resources.isEmpty());
-    }
-
     private boolean verifyFields(CountrySummaryDto countrySummary) {
         return StringUtils.hasText(countrySummary.getCountryId())
-                && StringUtils.hasText(countrySummary.getContactEmail())
-                && StringUtils.hasText(countrySummary.getContactDesignation())
-                && StringUtils.hasText(countrySummary.getContactName())
-                && StringUtils.hasText(countrySummary.getContactOrganization())
                 && StringUtils.hasText(countrySummary.getCountryName())
                 && hasValidApproverData(countrySummary)
                 && StringUtils.hasText(countrySummary.getDataFeederEmail())
