@@ -7,6 +7,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @EqualsAndHashCode
 @ToString
 public class YearOnYearDto {

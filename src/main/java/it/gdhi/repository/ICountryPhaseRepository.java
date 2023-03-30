@@ -15,5 +15,5 @@ public interface ICountryPhaseRepository extends JpaRepository<CountryPhase, Cou
     @Query(value = "SELECT year from country_health_data.country_phase c where" +
             " c.country_id = UPPER(?1) " +
             " order by c.updated_at DESC LIMIT ?2", nativeQuery = true)
-    List<String> findByCountryPhaseIdOrderByYearAsc(String countryId , Integer limit);
+    List<String> findByCountryPhaseIdOrderByYearDesc(String countryId , Integer limit);
 }

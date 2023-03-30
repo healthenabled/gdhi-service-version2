@@ -11,7 +11,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
+
 import java.util.List;
 
 import static java.util.Arrays.asList;
@@ -37,7 +37,7 @@ public class ICountryPhaseRepositoryTest {
         addCountryPhase(countryId , 2 , "2022");
         addCountryPhase(countryId, 4 , "2023");
 
-        List<String> actual =  iCountryPhaseRepository.findByCountryPhaseIdOrderByYearAsc(countryId , 2);
+        List<String> actual =  iCountryPhaseRepository.findByCountryPhaseIdOrderByYearDesc(countryId , 2);
         List<String> expected = asList("2023" , "2022");
 
         assertEquals(actual , expected);
