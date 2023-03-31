@@ -38,4 +38,16 @@ public class BffControllerTest {
         verify(bffService).fetchPublishedYearsForACountry(null, defaultLimit);
         verify(bffService).fetchYearOnYearData(bffService.fetchPublishedYearsForACountry(null, defaultLimit), null);
     }
+
+    @Test
+    public void shouldGetPublishedYearsForACountry() {
+        bffController.getPublishedYearsForACountry(null, 1);
+        verify(bffService).fetchPublishedYearsForACountry(null, 1);
+    }
+
+    @Test
+    public void shouldGetFivePublishedYearsForACountryWhenLimitIsNull() {
+        bffController.getPublishedYearsForACountry(null, null);
+        verify(bffService).fetchPublishedYearsForACountry(null, defaultLimit);
+    }
 }

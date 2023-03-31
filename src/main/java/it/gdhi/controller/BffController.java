@@ -36,4 +36,13 @@ public class BffController {
         List<String> years = bffService.fetchPublishedYearsForACountry(countryId, limit);
         return bffService.fetchYearOnYearData(years, countryId);
     }
+
+    @GetMapping("/countries/{id}/published_years")
+    public List<String> getPublishedYearsForACountry(@PathVariable("id") String countryId,
+                                           @RequestParam(value = "no_of_years", required = false) Integer limit) {
+        if (limit == null) {
+            limit = defaultLimit;
+        }
+        return bffService.fetchPublishedYearsForACountry(countryId, limit);
+    }
 }
