@@ -7,6 +7,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import static it.gdhi.utils.ApplicationConstants.defaultLimit;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
@@ -22,5 +23,19 @@ public class BffControllerTest {
     public void shouldGetDistinctYears() {
         bffController.getDistinctYears();
         verify(bffService).fetchDistinctYears();
+    }
+
+    @Test
+    public void shouldGetYearOnYearData() {
+        bffController.getYearOnYearData(null, 1);
+        verify(bffService).fetchPublishedYearsForACountry(null, 1);
+        verify(bffService).fetchYearOnYearData(bffService.fetchPublishedYearsForACountry(null, 1), null);
+    }
+
+    @Test
+    public void shouldGetYearOnYearDataForFiveYearsWhenLimitIsNull() {
+        bffController.getYearOnYearData(null, null);
+        verify(bffService).fetchPublishedYearsForACountry(null, defaultLimit);
+        verify(bffService).fetchYearOnYearData(bffService.fetchPublishedYearsForACountry(null, defaultLimit), null);
     }
 }
