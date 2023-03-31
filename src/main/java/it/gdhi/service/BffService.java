@@ -1,5 +1,7 @@
 package it.gdhi.service;
 
+import java.util.List;
+
 import it.gdhi.dto.YearDto;
 import it.gdhi.dto.YearHealthScoreDto;
 import it.gdhi.dto.YearOnYearDto;
@@ -7,9 +9,6 @@ import it.gdhi.dto.YearScoreDto;
 import it.gdhi.repository.ICountryPhaseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 import static it.gdhi.utils.LanguageCode.en;
 import static it.gdhi.utils.Util.getCurrentYear;
@@ -43,8 +42,17 @@ public class BffService {
     }
 
     public YearOnYearDto fetchYearOnYearData(List<String> years, String countryId) {
-        List<YearScoreDto> yearScoreDtos = years.stream().map(year -> new YearScoreDto(year, new YearHealthScoreDto(countryHealthIndicatorService.fetchCountryHealthScore(countryId, en, year), countryHealthIndicatorService.getGlobalHealthIndicator(null, null, en, year)))).collect(Collectors.toList());
-        return new YearOnYearDto(getCurrentYear(), defaultYearDataService.fetchDefaultYear(), yearScoreDtos);
+        List<YearScoreDto> yearScoreDtos = years.stream().map(year -> getYearScoreDto(countryId, year)).toList();
+        return YearOnYearDto.builder().currentYear(getCurrentYear()).yearOnYearData(yearScoreDtos).defaultYear(defaultYearDataService.fetchDefaultYear()).build();
+    }
+
+    private YearScoreDto getYearScoreDto(String countryId, String year) {
+        return YearScoreDto.builder().year(year).data(getYearHealthScoreDto(countryId, year)).build();
+    }
+
+    private YearHealthScoreDto getYearHealthScoreDto(String countryId, String year) {
+        return YearHealthScoreDto.builder().country(countryHealthIndicatorService.fetchCountryHealthScore(countryId, en, year))
+                .average(countryHealthIndicatorService.getGlobalHealthIndicator(null, null, en, year)).build();
     }
 }
 

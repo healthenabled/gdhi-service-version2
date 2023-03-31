@@ -2,9 +2,7 @@ package it.gdhi.service;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.UUID;
 
-import it.gdhi.controller.HealthIndicatorController;
 import it.gdhi.dto.CategoryHealthScoreDto;
 import it.gdhi.dto.CountryHealthScoreDto;
 import it.gdhi.dto.GlobalHealthScoreDto;
@@ -14,12 +12,6 @@ import it.gdhi.dto.YearHealthScoreDto;
 import it.gdhi.dto.YearOnYearDto;
 import it.gdhi.dto.YearScoreDto;
 import it.gdhi.internationalization.service.HealthIndicatorTranslator;
-import it.gdhi.model.Category;
-import it.gdhi.model.Country;
-import it.gdhi.model.CountryHealthIndicator;
-import it.gdhi.model.CountryPhase;
-import it.gdhi.model.Indicator;
-import it.gdhi.model.id.CountryPhaseId;
 import it.gdhi.repository.ICountryHealthIndicatorRepository;
 import it.gdhi.repository.ICountryPhaseRepository;
 import org.junit.jupiter.api.Test;
@@ -29,7 +21,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static com.google.common.collect.ImmutableList.of;
-import static it.gdhi.utils.FormStatus.PUBLISHED;
 import static it.gdhi.utils.LanguageCode.en;
 import static it.gdhi.utils.Util.getCurrentYear;
 import static java.util.Arrays.asList;
@@ -87,35 +78,13 @@ public class BffServiceTest {
 
     @Test
     public void shouldReturnYearOnYearData() {
-        Category category = Category.builder().id(1).name("Category 1").build();
-        Category category1 = Category.builder().id(2).name("Category 2").build();
         String year = getCurrentYear();
-        CountryHealthIndicator countryHealthIndicator = CountryHealthIndicator.builder()
-                .country(new Country("IND", "India", UUID.randomUUID(), "IN"))
-                .indicator(Indicator.builder().indicatorId(1).build())
-                .category(category).score(5).build();
-
-        CountryHealthIndicator countryHealthIndicator1 = CountryHealthIndicator.builder()
-                .country(new Country("IND", "India", UUID.randomUUID(), "IN"))
-                .indicator(Indicator.builder().indicatorId(1).build())
-                .category(category1).score(2).build();
-
-        CountryHealthIndicator countryHealthIndicator2 = CountryHealthIndicator.builder()
-                .country(new Country("USA", "USA", UUID.randomUUID(), "US"))
-                .indicator(Indicator.builder().indicatorId(1).build())
-                .category(category).score(2).build();
-
-        CountryHealthIndicator countryHealthIndicator3 = CountryHealthIndicator.builder()
-                .country(new Country("USA", "USA", UUID.randomUUID(), "US"))
-                .indicator(Indicator.builder().indicatorId(1).build())
-                .category(category1).score(null).build();
 
         CategoryHealthScoreDto categoryHealthScoreDto1 = new CategoryHealthScoreDto(2, "Category 2", 2.0, 2, of(new IndicatorScoreDto(1, null, null, null, null, 2, null, "Not Available")));
         CategoryHealthScoreDto categoryHealthScoreDto2 = new CategoryHealthScoreDto(1, "Category 1", 5.0, 5, of(new IndicatorScoreDto(1, null, null, null, null, 5, null, "Not Available")));
         CountryHealthScoreDto countryHealthScoreDtoIN = new CountryHealthScoreDto("IND", "India", "IN", of(categoryHealthScoreDto1, categoryHealthScoreDto2), 4, "");
         CategoryHealthScoreDto categoryHealthScoreDto4 = new CategoryHealthScoreDto(2, "Category 2", -1.0, -1, of(new IndicatorScoreDto(1, null, null, null, null, null, null, "Not Available")));
         CategoryHealthScoreDto categoryHealthScoreDto5 = new CategoryHealthScoreDto(1, "Category 1", 2.0, 2, of(new IndicatorScoreDto(1, null, null, null, null, 2, null, "Not Available")));
-        CountryHealthScoreDto countryHealthScoreDtoUS = new CountryHealthScoreDto("USA", "USA", "US", of(categoryHealthScoreDto4, categoryHealthScoreDto5), 2, "");
 
         GlobalHealthScoreDto globalHealthScore = GlobalHealthScoreDto.builder().overAllScore(3).categories(asList(categoryHealthScoreDto1, categoryHealthScoreDto2, categoryHealthScoreDto4, categoryHealthScoreDto5)).build();
         when(countryHealthIndicatorService.getGlobalHealthIndicator(null, null, en, year)).thenReturn(globalHealthScore);
@@ -126,6 +95,31 @@ public class BffServiceTest {
         YearHealthScoreDto data = YearHealthScoreDto.builder().country(countryHealthScoreDtoIN).average(globalHealthScore).build();
         List<YearScoreDto> yearScoreDtos = Collections.singletonList(YearScoreDto.builder().year(year).data(data).build());
         YearOnYearDto expected = YearOnYearDto.builder().currentYear(year).defaultYear(year).yearOnYearData(yearScoreDtos).build();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldReturnYearOnYearDataForMultipleYears() {
+        List<String> years = asList("2023", "2022");
+
+        CategoryHealthScoreDto categoryHealthScoreDto1 = new CategoryHealthScoreDto(2, "Category 2", 2.0, 2, of(new IndicatorScoreDto(1, null, null, null, null, 2, null, "Not Available")));
+        CategoryHealthScoreDto categoryHealthScoreDto2 = new CategoryHealthScoreDto(1, "Category 1", 5.0, 5, of(new IndicatorScoreDto(1, null, null, null, null, 5, null, "Not Available")));
+        CountryHealthScoreDto countryHealthScoreDtoIN = new CountryHealthScoreDto("IND", "India", "IN", of(categoryHealthScoreDto1, categoryHealthScoreDto2), 4, "");
+        CategoryHealthScoreDto categoryHealthScoreDto4 = new CategoryHealthScoreDto(2, "Category 2", -1.0, -1, of(new IndicatorScoreDto(1, null, null, null, null, null, null, "Not Available")));
+        CategoryHealthScoreDto categoryHealthScoreDto5 = new CategoryHealthScoreDto(1, "Category 1", 2.0, 2, of(new IndicatorScoreDto(1, null, null, null, null, 2, null, "Not Available")));
+
+        GlobalHealthScoreDto globalHealthScore = GlobalHealthScoreDto.builder().overAllScore(3).categories(asList(categoryHealthScoreDto1, categoryHealthScoreDto2, categoryHealthScoreDto4, categoryHealthScoreDto5)).build();
+        when(countryHealthIndicatorService.getGlobalHealthIndicator(null, null, en, "2023")).thenReturn(globalHealthScore);
+        when(countryHealthIndicatorService.getGlobalHealthIndicator(null, null, en, "2022")).thenReturn(globalHealthScore);
+        when(countryHealthIndicatorService.fetchCountryHealthScore("IND", en, "2023")).thenReturn(countryHealthScoreDtoIN);
+        when(countryHealthIndicatorService.fetchCountryHealthScore("IND", en, "2022")).thenReturn(countryHealthScoreDtoIN);
+        when(defaultYearDataService.fetchDefaultYear()).thenReturn("2022");
+
+        YearOnYearDto actual = bffService.fetchYearOnYearData(years, "IND");
+        YearHealthScoreDto data1 = YearHealthScoreDto.builder().country(countryHealthScoreDtoIN).average(globalHealthScore).build();
+        YearHealthScoreDto data2 = YearHealthScoreDto.builder().country(countryHealthScoreDtoIN).average(globalHealthScore).build();
+        List<YearScoreDto> yearScoreDtos = asList(YearScoreDto.builder().year("2023").data(data1).build(), YearScoreDto.builder().year("2022").data(data2).build());
+        YearOnYearDto expected = YearOnYearDto.builder().currentYear(getCurrentYear()).defaultYear("2022").yearOnYearData(yearScoreDtos).build();
         assertEquals(expected, actual);
     }
 }
