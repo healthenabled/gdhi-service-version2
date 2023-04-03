@@ -1,5 +1,6 @@
 package it.gdhi.service;
 
+import it.gdhi.internationalization.service.RegionNameTranslator;
 import it.gdhi.model.Region;
 import it.gdhi.repository.ICountryRepository;
 import it.gdhi.repository.IRegionRepository;
@@ -29,6 +30,9 @@ public class RegionServiceTest {
 
     @Mock
     private IRegionRepository iRegionRepository;
+
+    @Mock
+    private RegionNameTranslator regionNameTranslator;
 
     @Test
     public void shouldFetchAllRegions(){
