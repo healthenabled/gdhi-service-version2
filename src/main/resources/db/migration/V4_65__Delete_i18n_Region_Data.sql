@@ -1,0 +1,1 @@
+DELETE FROM i18n.region;
