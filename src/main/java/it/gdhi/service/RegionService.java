@@ -12,9 +12,10 @@ import java.util.List;
 public class RegionService {
 
     @Autowired
-    IRegionRepository iRegionRepository;
-    public List<Region> getAllRegions(LanguageCode languageCode) {
-        List<Region> regionList = iRegionRepository.findAll();
-        return regionList;
+    private IRegionRepository iRegionRepository;
+
+    public List<Region> fetchRegions(LanguageCode languageCode) {
+        List<Region> regions = iRegionRepository.findAll();
+        return regions;
     }
 }
