@@ -14,6 +14,7 @@ import javax.persistence.Table;
 @NoArgsConstructor
 @Getter
 @Slf4j
+@Builder
 public class Region {
 
     @Id

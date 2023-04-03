@@ -22,7 +22,7 @@ public class RegionControllerTest {
     private RegionService regionService;
 
     @Test
-    public void shouldReturnEmptyListWhenThereIsNoData()
+    public void shouldListRegions()
     {
         //Arrange
         MockHttpServletRequest request = new MockHttpServletRequest();
