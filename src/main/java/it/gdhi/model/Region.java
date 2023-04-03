@@ -22,4 +22,8 @@ public class Region {
 
     @Column(name="region_name")
     String regionName;
+
+    public Region makeWithName(String name) {
+        return new Region(this.region_id, name);
+    }
 }
