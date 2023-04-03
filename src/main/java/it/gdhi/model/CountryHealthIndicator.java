@@ -114,7 +114,7 @@ public class CountryHealthIndicator {
     }
 
     public boolean isScoreValid() {
-        return ( score != null && score >=0 );
+        return ( score != null );
     }
 
     public void convertNullScoreToNotAvailable() {

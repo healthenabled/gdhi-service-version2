@@ -56,9 +56,8 @@ public class BenchMarkService {
         List<CountryHealthIndicator> countryHealthIndicator = iCountryHealthIndicatorRepository
                 .findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdYearAndCountryHealthIndicatorIdStatus(countryId, year, PUBLISHED.name());
 
-        return countryHealthIndicator.stream()
-                .filter(indicator -> (indicator.isScoreValid() &&
-                        indicatorBenchmarkScores.containsKey(indicator.getIndicatorId())
+        return countryHealthIndicator.stream().
+                filter(indicator -> (indicator.isScoreValid()
                         && indicator.getIndicator().getParentId() == null))
                 .collect(Collectors.toMap(CountryHealthIndicator::getIndicatorId,
                         indicator -> constructBenchMarkDto(indicator.getScore(),
@@ -66,7 +65,7 @@ public class BenchMarkService {
     }
 
     private BenchmarkDto constructBenchMarkDto(Integer indicatorCountryScore, Double indicatorBenchmarkScore) {
-        Score benchmarkScore = new Score(indicatorBenchmarkScore);
+        Score benchmarkScore = indicatorBenchmarkScore == null ? new Score(-1.0) : new Score(indicatorBenchmarkScore);
         Integer benchmarkPhase = benchmarkScore.convertToPhase();
         String benchmarkValue = indicatorCountryScore > benchmarkPhase ? BENCHMARK_ABOVE_PAR_VALUE :
                 (indicatorCountryScore == benchmarkPhase ? BENCHMARK_AT_PAR_VALUE : BENCHMARK_BELOW_PAR_VALUE);

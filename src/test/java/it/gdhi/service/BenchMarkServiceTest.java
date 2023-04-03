@@ -103,7 +103,7 @@ public class BenchMarkServiceTest {
 
         Map<Integer, BenchmarkDto> benchmarkFor = benchMarkService.getBenchmarkFor(countryId, benchmarkType, year);
 
-        assertEquals(0 , benchmarkFor.size());
+        assertEquals(2 , benchmarkFor.size());
 
     }
 
