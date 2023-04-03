@@ -1,6 +1,5 @@
 package it.gdhi.service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -38,10 +37,10 @@ public class BenchMarkService {
 
         return publishedCountryHealthIndicators.stream()
                 .map(row -> {
-                    row.convertNotAvailableToPhase1();
+                    row.convertNullScoreToNotAvailable();
                     return row;
                 })
-                .filter(indicator -> indicator.getIndicator().getParentId() == null)
+                .filter(indicator -> indicator.getIndicator().getParentId() == null && indicator.getScore() != -1)
                 .collect(groupingBy(CountryHealthIndicator::getIndicatorId,
                         averagingInt(CountryHealthIndicator::getScore)));
     }

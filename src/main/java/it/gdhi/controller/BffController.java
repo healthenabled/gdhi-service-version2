@@ -1,11 +1,16 @@
 package it.gdhi.controller;
 
 import java.util.List;
+import java.util.Map;
 
+import it.gdhi.dto.BenchmarkDto;
 import it.gdhi.dto.YearDto;
 
 import it.gdhi.dto.YearOnYearDto;
 import it.gdhi.service.BffService;
+import it.gdhi.service.CountryHealthDataService;
+import it.gdhi.service.CountryHealthIndicatorService;
+import it.gdhi.service.DefaultYearDataService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +26,12 @@ public class BffController {
 
     @Autowired
     private BffService bffService;
+
+    @Autowired
+    private DefaultYearDataService defaultYearDataService;
+
+    @Autowired
+    private CountryHealthDataService countryHealthDataService;
 
     @GetMapping("/bff/distinct_year")
     public YearDto getDistinctYears() {
@@ -44,5 +55,15 @@ public class BffController {
             limit = defaultLimit;
         }
         return bffService.fetchPublishedYearsForACountry(countryId, limit);
+    }
+
+    @GetMapping("/bff/countries/{id}/benchmark/{type}")
+    public Map<Integer, BenchmarkDto> getBenchmarkDetailsFor(@PathVariable("id") String countryId,
+                                                             @PathVariable("type") Integer benchmarkType,
+                                                             @RequestParam(value = "year", required = false) String year) {
+        if (year == null) {
+            year = defaultYearDataService.fetchDefaultYear();
+        }
+        return countryHealthDataService.getBenchmarkDetailsFor(countryId, benchmarkType, year);
     }
 }

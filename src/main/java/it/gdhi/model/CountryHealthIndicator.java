@@ -117,8 +117,7 @@ public class CountryHealthIndicator {
         return ( score != null && score >=0 );
     }
 
-    public void convertNotAvailableToPhase1() {
-        this.score = (this.score == null || this.score == -1) ? 1 :  this.score ;
-
+    public void convertNullScoreToNotAvailable() {
+        this.score = (this.score == null || this.score == -1) ? -1 :  this.score ;
     }
 }
