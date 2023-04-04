@@ -10,6 +10,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.mock.web.MockHttpServletRequest;
 import java.util.List;
 import static it.gdhi.utils.LanguageCode.en;
+import static it.gdhi.utils.LanguageCode.fr;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -35,4 +36,14 @@ public class RegionControllerTest {
         //Assert
         verify(regionService).fetchRegions(en);
     }
+    @Test
+    public void shouldListRegionsInGivenLanguage() {
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        request.addHeader("USER_LANGUAGE", "fr");
+
+        regionController.fetchRegions(request);
+
+        verify(regionService).fetchRegions(fr);
+    }
+
 }
