@@ -25,15 +25,12 @@ public class RegionControllerTest {
     @Test
     public void shouldListRegions()
     {
-        //Arrange
         MockHttpServletRequest request = new MockHttpServletRequest();
         request.addHeader("USER_LANGUAGE","en");
         Region regionMock = mock(Region.class);
 
-        //Act
         List<Region> regionList = regionController.fetchRegions(request);
 
-        //Assert
         verify(regionService).fetchRegions(en);
     }
     @Test
@@ -45,5 +42,4 @@ public class RegionControllerTest {
 
         verify(regionService).fetchRegions(fr);
     }
-
 }

@@ -40,26 +40,23 @@ public class RegionServiceTest {
 
     @Test
     public void shouldFetchAllRegions(){
-        //Arrange
         String id="AFRO";
         String name="African Region";
-
         List<Region> regions = asList(createRegion(id,name));
-        //Act
+
         when(iRegionRepository.findAll()).thenReturn(regions);
-        //Assert
+
         assertEquals(regions.get(0).getRegion_id(),id);
         assertEquals(regions.get(0).getRegionName(),name);
     }
     @Test
-    public void shouldInvoke() {
+    public void shouldVerifyThatRepositoryLayerIsInvoked() {
         regionService.fetchRegions(en);
         verify(iRegionRepository).findAll();
     }
 
     @Test
     public void shouldFetchRegionsForAGivenLanguage(){
-        //Arrange
         List<Region> regions = new ArrayList<>();
         String id="AFRO";
         String name="African Region";
@@ -76,14 +73,11 @@ public class RegionServiceTest {
         String name4="Région panaméricaine";
         translatedRegions.add(createRegion(id4,name4));
 
-        //Act
         when(iRegionRepository.findAll()).thenReturn(regions);
         when(regionNameTranslator.translate(regions,fr)).thenReturn(translatedRegions);
 
-        //Assert
         assertEquals(regions.get(1).getRegion_id(),id2);
         assertEquals(translatedRegions.get(1).getRegionName(),name4);
     }
-
 }
 
