@@ -1,4 +1,5 @@
 package it.gdhi.internationalization.service;
+import it.gdhi.internationalization.model.RegionTranslation;
 import it.gdhi.internationalization.repository.IRegionTranslationRepository;
 import it.gdhi.model.Region;
 import it.gdhi.utils.LanguageCode;
@@ -23,6 +24,7 @@ public class RegionNameTranslator {
     }
 
     public String getRegionTranslationForLanguage(LanguageCode languageCode, String regionId) {
-        return translationRepository.findByIdRegionIdAndIdLanguageId(languageCode.toString(), regionId).getRegion_name();
+        RegionTranslation regionTranslation = translationRepository.findByIdRegionIdAndIdLanguageId(regionId, languageCode.toString());
+        return regionTranslation.getRegion_name();
     }
 }
