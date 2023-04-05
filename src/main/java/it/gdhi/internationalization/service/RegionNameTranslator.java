@@ -23,6 +23,6 @@ public class RegionNameTranslator {
     }
 
     public String getRegionTranslationForLanguage(LanguageCode languageCode, String regionId) {
-        return translationRepository.findByIdRegionIdAndIdLanguageId(languageCode.toString(), regionId);
+        return translationRepository.findByIdRegionIdAndIdLanguageId(languageCode.toString(), regionId).getRegion_name();
     }
 }

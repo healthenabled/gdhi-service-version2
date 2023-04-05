@@ -22,7 +22,7 @@ public class IRegionTranslationRepositoryTest {
 
     @Test
     public void shouldReturnRegionNameInSpanish() {
-        String region_name = repository.findByIdRegionIdAndIdLanguageId("PAHO", "es");
+        String region_name = repository.findByIdRegionIdAndIdLanguageId("PAHO", "es").getRegion_name();
         assertEquals(region_name, "Región Panamericana");
     }
 }

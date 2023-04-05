@@ -1,6 +1,8 @@
 package it.gdhi.internationalization;
 
 import com.google.common.collect.ImmutableList;
+import it.gdhi.internationalization.model.RegionTranslation;
+import it.gdhi.internationalization.model.RegionTranslationId;
 import it.gdhi.internationalization.repository.IRegionTranslationRepository;
 import it.gdhi.internationalization.service.RegionNameTranslator;
 import it.gdhi.model.Region;
@@ -64,8 +66,14 @@ public class RegionNameTranslatorTest {
         Region afro = createRegion("AFRO", "Région africaine");
         List<Region> expectedRegions = ImmutableList.of(paho, afro);
 
-        when(translationRepository.findByIdRegionIdAndIdLanguageId("fr", paho.getRegion_id())).thenReturn("Région panaméricaine");
-        when(translationRepository.findByIdRegionIdAndIdLanguageId("fr",afro.getRegion_id())).thenReturn("Région africaine");
+        RegionTranslationId regionTranslationIdForPaho = new RegionTranslationId("PAHO","fr");
+        RegionTranslation regionTranslationForPaho = new RegionTranslation(regionTranslationIdForPaho,"Région panaméricaine");
+
+        RegionTranslationId regionTranslationIdForAfro = new RegionTranslationId("PAHO","fr");
+        RegionTranslation regionTranslationForAfro = new RegionTranslation(regionTranslationIdForAfro,"Région africaine");
+
+        when(translationRepository.findByIdRegionIdAndIdLanguageId("fr", paho.getRegion_id())).thenReturn(regionTranslationForPaho);
+        when(translationRepository.findByIdRegionIdAndIdLanguageId("fr",afro.getRegion_id())).thenReturn(regionTranslationForAfro);
         List<Region> actualRegions = translator.translate(expectedRegions, LanguageCode.fr);
 
         assertEquals(expectedRegions, actualRegions);

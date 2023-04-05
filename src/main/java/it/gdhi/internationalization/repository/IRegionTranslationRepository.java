@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface IRegionTranslationRepository extends JpaRepository<RegionTranslation, RegionTranslationId> {
 
-    String findByIdRegionIdAndIdLanguageId(String regionId, String languageId);
+    RegionTranslation findByIdRegionIdAndIdLanguageId(String regionId, String languageId);
 
 }
