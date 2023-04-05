@@ -72,8 +72,8 @@ public class RegionNameTranslatorTest {
         RegionTranslationId regionTranslationIdForAfro = new RegionTranslationId("PAHO","fr");
         RegionTranslation regionTranslationForAfro = new RegionTranslation(regionTranslationIdForAfro,"Région africaine");
 
-        when(translationRepository.findByIdRegionIdAndIdLanguageId("fr", paho.getRegion_id())).thenReturn(regionTranslationForPaho);
-        when(translationRepository.findByIdRegionIdAndIdLanguageId("fr",afro.getRegion_id())).thenReturn(regionTranslationForAfro);
+        when(translationRepository.findByIdRegionIdAndIdLanguageId(paho.getRegion_id(), "fr")).thenReturn(regionTranslationForPaho);
+        when(translationRepository.findByIdRegionIdAndIdLanguageId(afro.getRegion_id(),"fr")).thenReturn(regionTranslationForAfro);
         List<Region> actualRegions = translator.translate(expectedRegions, LanguageCode.fr);
 
         assertEquals(expectedRegions, actualRegions);
