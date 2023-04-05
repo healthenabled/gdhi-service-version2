@@ -35,26 +35,32 @@ public class RegionNameTranslatorTest {
         Region region = Region.builder().region_id(id).regionName(name).build();
         return region;
     }
+    public List<Region> createListOfRegionsInEnglish() {
+        Region paho = createRegion("PAHO", "Pan American Region");
+        Region afro = createRegion("AFRO", "African Region");
+        List<Region> expectedRegions = ImmutableList.of(paho, afro);
+        return expectedRegions;
+    }
+    public List<Region> createListOfRegionsInFrench() {
+        Region paho = createRegion("PAHO", "Région panaméricaine");
+        Region afro = createRegion("AFRO", "Région africaine");
+        List<Region> expectedRegions = ImmutableList.of(paho, afro);
+        return expectedRegions;
+    }
 
     @Test
     public void shouldReturnRegionNamesInEnglishGivenUserLanguageIsNull() {
-        List<Region> expectedRegions = new ArrayList<>();
-        expectedRegions.add(createRegion("PAHO", "Pan American Region"));
+        List<Region> expectedRegions = createListOfRegionsInEnglish();
         List<Region> actualRegions = new ArrayList<>();
-
         actualRegions = translator.translate(expectedRegions, null);
-
         assertEquals(expectedRegions, actualRegions);
     }
 
     @Test
     public void shouldNotInvokeTranslationRepositoryGivenUserLanguageIsNull() {
-        Region paho = createRegion("PAHO", "Pan American Region");
-        Region afro = createRegion("AFRO", "African Region");
-        List<Region> expectedRegions = ImmutableList.of(paho, afro);
+        List<Region> expectedRegions = createListOfRegionsInEnglish();
 
         translator.translate(expectedRegions, null);
-
         verify(translationRepository, never()).findByIdRegionIdAndIdLanguageId(anyString(), anyString());
     }
 
@@ -62,9 +68,7 @@ public class RegionNameTranslatorTest {
     @Test
     public void shouldReturnRegionNamesInFrenchGivenUserLanguageIdIsFr()
     {
-        Region paho = createRegion("PAHO", "Région panaméricaine");
-        Region afro = createRegion("AFRO", "Région africaine");
-        List<Region> expectedRegions = ImmutableList.of(paho, afro);
+        List<Region> expectedRegions = createListOfRegionsInFrench();
 
         RegionTranslationId regionTranslationIdForPaho = new RegionTranslationId("PAHO","fr");
         RegionTranslation regionTranslationForPaho = new RegionTranslation(regionTranslationIdForPaho,"Région panaméricaine");
@@ -72,8 +76,8 @@ public class RegionNameTranslatorTest {
         RegionTranslationId regionTranslationIdForAfro = new RegionTranslationId("PAHO","fr");
         RegionTranslation regionTranslationForAfro = new RegionTranslation(regionTranslationIdForAfro,"Région africaine");
 
-        when(translationRepository.findByIdRegionIdAndIdLanguageId(paho.getRegion_id(), "fr")).thenReturn(regionTranslationForPaho);
-        when(translationRepository.findByIdRegionIdAndIdLanguageId(afro.getRegion_id(),"fr")).thenReturn(regionTranslationForAfro);
+        when(translationRepository.findByIdRegionIdAndIdLanguageId("PAHO", "fr")).thenReturn(regionTranslationForPaho);
+        when(translationRepository.findByIdRegionIdAndIdLanguageId("AFRO","fr")).thenReturn(regionTranslationForAfro);
         List<Region> actualRegions = translator.translate(expectedRegions, LanguageCode.fr);
 
         assertEquals(expectedRegions, actualRegions);

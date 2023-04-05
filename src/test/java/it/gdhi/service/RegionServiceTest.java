@@ -1,5 +1,6 @@
 package it.gdhi.service;
 
+import it.gdhi.internationalization.RegionNameTranslatorTest;
 import it.gdhi.internationalization.service.RegionNameTranslator;
 import it.gdhi.model.Region;
 import it.gdhi.repository.IRegionRepository;
@@ -58,26 +59,16 @@ public class RegionServiceTest {
     @Test
     public void shouldFetchRegionsForAGivenLanguage(){
         List<Region> regions = new ArrayList<>();
-        String id="AFRO";
-        String name="African Region";
-        regions.add(createRegion(id,name));
-        String id2="PAHO";
-        String name2="Pan American Region";
-        regions.add(createRegion(id2,name2));
 
-        List<Region> translatedRegions = new ArrayList<>();
-        String id3 = "AFRO";
-        String name3 = "Région africaine";
-        translatedRegions.add(createRegion(id3,name3));
-        String id4="PAHO";
-        String name4="Région panaméricaine";
-        translatedRegions.add(createRegion(id4,name4));
+        RegionNameTranslatorTest regionNameTranslatorTest = new RegionNameTranslatorTest();
+        List<Region> listOfRegionsInEnglish = regionNameTranslatorTest.createListOfRegionsInEnglish();
+        List<Region> listOfRegionsInFrench = regionNameTranslatorTest.createListOfRegionsInFrench();
 
-        when(iRegionRepository.findAll()).thenReturn(regions);
-        when(regionNameTranslator.translate(regions,fr)).thenReturn(translatedRegions);
+        when(iRegionRepository.findAll()).thenReturn(listOfRegionsInEnglish);
+        when(regionNameTranslator.translate(listOfRegionsInEnglish,fr)).thenReturn(listOfRegionsInFrench);
 
-        assertEquals(regions.get(1).getRegion_id(),id2);
-        assertEquals(translatedRegions.get(1).getRegionName(),name4);
+        assertEquals(listOfRegionsInEnglish.get(1).getRegion_id(),"AFRO");
+        assertEquals(listOfRegionsInFrench.get(1).getRegionName(),"Région africaine");
     }
 }
 
