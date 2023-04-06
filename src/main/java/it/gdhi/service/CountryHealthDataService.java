@@ -11,7 +11,9 @@ import it.gdhi.dto.*;
 import it.gdhi.model.*;
 import it.gdhi.model.id.CountryHealthIndicatorId;
 import it.gdhi.model.id.CountrySummaryId;
+import it.gdhi.model.id.RegionalCategoryId;
 import it.gdhi.model.id.RegionalIndicatorId;
+import it.gdhi.model.CountryHealthIndicators;
 import it.gdhi.repository.*;
 import it.gdhi.utils.FormStatus;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +37,9 @@ public class CountryHealthDataService {
 
     @Autowired
     private IRegionalIndicatorDataRepository iRegionalIndicatorDataRepository;
+
+    @Autowired
+    private IRegionalCategoryDataRepository iRegionalCategoryDataRepository;
 
     @Autowired
     private ICountryRepository iCountryRepository;
@@ -100,6 +105,7 @@ public class CountryHealthDataService {
     public void publish(GdhiQuestionnaire gdhiQuestionnaire, String currentYear) {
         save(gdhiQuestionnaire, PUBLISHED.name());
         saveRegionalIndicatorData(gdhiQuestionnaire.getCountryId(), currentYear);
+        saveRegionalCategoryData(gdhiQuestionnaire.getCountryId(), currentYear);
         calculateAndSaveCountryPhase(gdhiQuestionnaire.getCountryId(), PUBLISHED.name(), currentYear);
     }
 
@@ -128,12 +134,42 @@ public class CountryHealthDataService {
         List<String> countries = iRegionCountryRepository.findByRegionCountryIdRegionId(region);
         List<CountryHealthIndicator> countryHealthIndicators = iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdInAndCountryHealthIndicatorIdYearAndCountryHealthIndicatorIdStatus(countries, currentYear, PUBLISHED.name());
         List<RegionalIndicatorData> regionalIndicatorsData = getRegionalIndicatorsData(countryHealthIndicators, region);
-        iRegionalIndicatorDataRepository.deleteByRegionalIndicatorIdRegionIdAndRegionalIndicatorIdYear(region , currentYear);
+        iRegionalIndicatorDataRepository.deleteByRegionalIndicatorIdRegionIdAndRegionalIndicatorIdYear(region, currentYear);
         if (regionalIndicatorsData != null) {
             regionalIndicatorsData.forEach(regionalIndicator -> {
                 RegionalIndicatorData regionalIndicatorData1 = iRegionalIndicatorDataRepository.save(regionalIndicator);
                 entityManager.flush();
                 entityManager.refresh(regionalIndicatorData1);
+            });
+        }
+    }
+
+    public List<RegionalCategoryData> getRegionalCategoriesData(CountryHealthIndicators countryHealthIndicators, String regionId) {
+        Map<Integer, Double> CategoryScore = countryHealthIndicators.groupByCategoryIdWithoutNullAndNegativeScores();
+
+        List<RegionalCategoryData> regionalCategoryData = countryHealthIndicators.groupByCategory().entrySet().stream().map(entry -> {
+            Category category = entry.getKey();
+            RegionalCategoryId regionalCategoryId = new RegionalCategoryId(regionId, category.getId(), getCurrentYear());
+            Double score = CategoryScore.get(category.getId()) == null ? -1 : CategoryScore.get(category.getId());
+            return new RegionalCategoryData(regionalCategoryId, new Score(score).convertToPhase());
+        }).collect(toList());
+        return regionalCategoryData;
+    }
+
+    @Transactional
+    private void saveRegionalCategoryData(String countryId, String currentYear) {
+        RegionCountry regionCountry = iRegionCountryRepository.findByRegionCountryIdCountryId(countryId);
+        String region = regionCountry.getRegionCountryId().getRegionId();
+        List<String> countries = iRegionCountryRepository.findByRegionCountryIdRegionId(region);
+        List<CountryHealthIndicator> countryHealthIndicators = iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdInAndCountryHealthIndicatorIdYearAndCountryHealthIndicatorIdStatus(countries, currentYear, PUBLISHED.name());
+        CountryHealthIndicators countryHealthIndicators1 = new CountryHealthIndicators(countryHealthIndicators);
+        List<RegionalCategoryData> regionalCategoriesData = getRegionalCategoriesData(countryHealthIndicators1, region);
+        iRegionalCategoryDataRepository.deleteByRegionalCategoryIdRegionIdAndRegionalCategoryIdYear(region, currentYear);
+        if (regionalCategoriesData != null) {
+            regionalCategoriesData.forEach(regionalCategoryData -> {
+                RegionalCategoryData regionalCategoryData1 = iRegionalCategoryDataRepository.save(regionalCategoryData);
+                entityManager.flush();
+                entityManager.refresh(regionalCategoryData1);
             });
         }
     }

@@ -52,6 +52,9 @@ public class CountryHealthDataServiceTest {
     IRegionalIndicatorDataRepository iRegionalIndicatorDataRepository;
 
     @Mock
+    IRegionalCategoryDataRepository iRegionalCategoryDataRepository;
+
+    @Mock
     MailerService mailerService;
     @Mock
     ICountryRepository countryDetailRepository;
@@ -111,13 +114,15 @@ public class CountryHealthDataServiceTest {
         ArgumentCaptor<CountrySummary> summaryCaptor = ArgumentCaptor.forClass(CountrySummary.class);
         ArgumentCaptor<CountryHealthIndicator> healthIndicatorsCaptorList = ArgumentCaptor.forClass(CountryHealthIndicator.class);
         ArgumentCaptor<RegionalIndicatorData> regionalIndicatorDataCaptorList = ArgumentCaptor.forClass(RegionalIndicatorData.class);
+        ArgumentCaptor<RegionalCategoryData> regionalCategoryDataCaptorList = ArgumentCaptor.forClass(RegionalCategoryData.class);
 
         InOrder inOrder = inOrder(iCountryResourceLinkRepository, iCountrySummaryRepository,
-                iCountryHealthIndicatorRepository, iCountryPhaseRepository, iRegionalIndicatorDataRepository);
+                iCountryHealthIndicatorRepository, iCountryPhaseRepository, iRegionalIndicatorDataRepository, iRegionalCategoryDataRepository);
         inOrder.verify(iCountryResourceLinkRepository).deleteByCountryResourceLinkIdCountryIdAndCountryResourceLinkIdYearAndCountryResourceLinkIdStatus(countryId, currentYear, status);
         inOrder.verify(iCountrySummaryRepository).save(summaryCaptor.capture());
         inOrder.verify(iCountryHealthIndicatorRepository).save(healthIndicatorsCaptorList.capture());
         inOrder.verify(iRegionalIndicatorDataRepository).save(regionalIndicatorDataCaptorList.capture());
+        inOrder.verify(iRegionalCategoryDataRepository).save(regionalCategoryDataCaptorList.capture());
         CountrySummary summaryCaptorValue = summaryCaptor.getValue();
         assertThat(summaryCaptorValue.getCountrySummaryId().getCountryId(), is(countryId));
         assertThat(summaryCaptorValue.getSummary(), is("Summary 1"));
