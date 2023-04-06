@@ -3,6 +3,7 @@ package it.gdhi.service;
 import it.gdhi.dto.*;
 import it.gdhi.model.*;
 import it.gdhi.model.id.CountrySummaryId;
+import it.gdhi.model.id.RegionalIndicatorId;
 import it.gdhi.repository.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -1087,6 +1088,49 @@ public class CountryHealthDataServiceTest {
 
         verify(iCountrySummaryRepository).save(any());
 
+    }
+
+    @Test
+    public void shouldGetRegionalIndicatorDataForARegion() {
+        Indicator indicator1 = Indicator.builder().indicatorId(1).parentId(null).build();
+        Indicator indicator2 = Indicator.builder().indicatorId(2).parentId(null).build();
+        Indicator indicator3 = Indicator.builder().indicatorId(3).parentId(null).build();
+        Indicator indicator4 = Indicator.builder().indicatorId(4).parentId(3).build();
+        CountryHealthIndicator countryHealthIndicator1 = CountryHealthIndicator.builder()
+                .indicator(indicator1)
+                .score(3)
+                .category(Category.builder().id(1).indicators(asList(indicator1, indicator2, indicator3, indicator4)).build())
+                .build();
+        CountryHealthIndicator countryHealthIndicator2 = CountryHealthIndicator.builder()
+                .indicator(indicator2)
+                .score(-1)
+                .category(Category.builder().id(2).indicators(asList(indicator1, indicator2, indicator3, indicator4)).build())
+                .build();
+        CountryHealthIndicator countryHealthIndicator3 = CountryHealthIndicator.builder()
+                .indicator(indicator3)
+                .score(2)
+                .category(Category.builder().id(3).indicators(asList(indicator1, indicator2, indicator3, indicator4)).build())
+                .build();
+        CountryHealthIndicator countryHealthIndicator4 = CountryHealthIndicator.builder()
+                .indicator(indicator4)
+                .score(3)
+                .category(Category.builder().id(4).indicators(asList(indicator1, indicator2, indicator3, indicator4)).build())
+                .build();
+        CountryHealthIndicator countryHealthIndicator5 = CountryHealthIndicator.builder()
+                .indicator(indicator1)
+                .score(4)
+                .category(Category.builder().id(1).indicators(asList(indicator1, indicator2, indicator3, indicator4)).build())
+                .build();
+        String region = "PAHO";
+        List<CountryHealthIndicator> countryHealthIndicators = asList(countryHealthIndicator1, countryHealthIndicator2, countryHealthIndicator3, countryHealthIndicator4, countryHealthIndicator5);
+        List<RegionalIndicatorData> regionalIndicatorData = countryHealthDataService.getRegionalIndicatorsData(countryHealthIndicators, region);
+        RegionalIndicatorId regionalIndicatorId = RegionalIndicatorId.builder().regionId(region).indicatorId(1).year(getCurrentYear()).build();
+        RegionalIndicatorId regionalIndicatorId2 = RegionalIndicatorId.builder().regionId(region).indicatorId(3).year(getCurrentYear()).build();
+        RegionalIndicatorData regionalIndicatorData1 = RegionalIndicatorData.builder().regionalIndicatorId(regionalIndicatorId).score(4).build();
+        RegionalIndicatorData regionalIndicatorData2 = RegionalIndicatorData.builder().regionalIndicatorId(regionalIndicatorId2).score(2).build();
+        List<RegionalIndicatorData> expectedRegionalIndicatorData = asList(regionalIndicatorData1, regionalIndicatorData2);
+
+        assertEquals(expectedRegionalIndicatorData, regionalIndicatorData);
     }
 
     private CountrySummary getCountrySummary(String countryId, String statusValue, String countryName,
