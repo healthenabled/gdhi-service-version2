@@ -46,7 +46,6 @@ connect to DB gdhi
     CREATE USER gdhi_test WITH PASSWORD 'testpassword';
     CREATE DATABASE gdhi_test OWNER gdhi_test;
 ```
-
 2. Install uuid extension
 
 connect to DB gdhi_test

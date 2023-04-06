@@ -14,4 +14,6 @@ if [ ! -x .git/hooks/commit-msg ]
 fi
 
 cp ./utils/commit-msg .git/hooks/commit-msg
+cp ./utils/pre-push .git/hooks/pre-push
 chmod +x .git/hooks/commit-msg
+chmod +x .git/hooks/pre-push
