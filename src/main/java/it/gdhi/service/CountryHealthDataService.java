@@ -7,26 +7,12 @@ import java.util.UUID;
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 
-import it.gdhi.dto.BenchmarkDto;
-import it.gdhi.dto.CountrySummaryDto;
-import it.gdhi.dto.CountrySummaryStatusDto;
-import it.gdhi.dto.CountrySummaryStatusYearDto;
-import it.gdhi.dto.CountryUrlGenerationStatusDto;
-import it.gdhi.dto.GdhiQuestionnaire;
-import it.gdhi.dto.HealthIndicatorDto;
-import it.gdhi.model.Country;
-import it.gdhi.model.CountryHealthIndicator;
-import it.gdhi.model.CountryHealthIndicators;
-import it.gdhi.model.CountryPhase;
-import it.gdhi.model.CountrySummary;
-import it.gdhi.model.Score;
+import it.gdhi.dto.*;
+import it.gdhi.model.*;
 import it.gdhi.model.id.CountryHealthIndicatorId;
 import it.gdhi.model.id.CountrySummaryId;
-import it.gdhi.repository.ICountryHealthIndicatorRepository;
-import it.gdhi.repository.ICountryPhaseRepository;
-import it.gdhi.repository.ICountryRepository;
-import it.gdhi.repository.ICountryResourceLinkRepository;
-import it.gdhi.repository.ICountrySummaryRepository;
+import it.gdhi.model.id.RegionalIndicatorId;
+import it.gdhi.repository.*;
 import it.gdhi.utils.FormStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,15 +24,17 @@ import static it.gdhi.utils.FormStatus.NEW;
 import static it.gdhi.utils.FormStatus.PUBLISHED;
 import static it.gdhi.utils.FormStatus.REVIEW_PENDING;
 import static java.util.Objects.isNull;
-import static java.util.stream.Collectors.groupingBy;
-import static java.util.stream.Collectors.toList;
 import static it.gdhi.utils.Util.*;
+import static java.util.stream.Collectors.*;
 
 @Service
 public class CountryHealthDataService {
 
     @Autowired
     private ICountryHealthIndicatorRepository iCountryHealthIndicatorRepository;
+
+    @Autowired
+    private IRegionalIndicatorDataRepository iRegionalIndicatorDataRepository;
 
     @Autowired
     private ICountryRepository iCountryRepository;
@@ -71,6 +59,9 @@ public class CountryHealthDataService {
 
     @Autowired
     CategoryIndicatorService categoryIndicatorService;
+
+    @Autowired
+    private IRegionCountryRepository iRegionCountryRepository;
 
     @Transactional
     public void save(GdhiQuestionnaire gdhiQuestionnaire, String nextStatus) {
@@ -108,7 +99,43 @@ public class CountryHealthDataService {
     @Transactional
     public void publish(GdhiQuestionnaire gdhiQuestionnaire, String currentYear) {
         save(gdhiQuestionnaire, PUBLISHED.name());
+        saveRegionalIndicatorData(gdhiQuestionnaire.getCountryId(), currentYear);
         calculateAndSaveCountryPhase(gdhiQuestionnaire.getCountryId(), PUBLISHED.name(), currentYear);
+    }
+
+    public List<RegionalIndicatorData> getRegionalIndicatorsData(List<CountryHealthIndicator> countryHealthIndicators, String regionId) {
+        Map<Integer, Double> regionalIndicators =
+                countryHealthIndicators.stream()
+                        .map(regionalIndicator -> {
+                            regionalIndicator.convertNullScoreToNotAvailable();
+                            return regionalIndicator;
+                        })
+                        .filter(indicator -> indicator.getIndicator().getParentId() == null && indicator.getScore() != -1)
+                        .collect(groupingBy(CountryHealthIndicator::getIndicatorId,
+                                averagingInt(CountryHealthIndicator::getScore)));
+
+        List<RegionalIndicatorData> regionalIndicatorData = regionalIndicators.entrySet().stream().map(dto -> {
+            RegionalIndicatorId regionalIndicatorId = new RegionalIndicatorId(regionId, dto.getKey(), getCurrentYear());
+            return new RegionalIndicatorData(regionalIndicatorId, new Score(dto.getValue()).convertToPhase());
+        }).collect(toList());
+        return regionalIndicatorData;
+    }
+
+    @Transactional
+    private void saveRegionalIndicatorData(String countryId, String currentYear) {
+        RegionCountry regionCountry = iRegionCountryRepository.findByRegionCountryIdCountryId(countryId);
+        String region = regionCountry.getRegionCountryId().getRegionId();
+        List<String> countries = iRegionCountryRepository.findByRegionCountryIdRegionId(region);
+        List<CountryHealthIndicator> countryHealthIndicators = iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdInAndCountryHealthIndicatorIdYearAndCountryHealthIndicatorIdStatus(countries, currentYear, PUBLISHED.name());
+        List<RegionalIndicatorData> regionalIndicatorsData = getRegionalIndicatorsData(countryHealthIndicators, region);
+        iRegionalIndicatorDataRepository.deleteByRegionalIndicatorIdRegionIdAndRegionalIndicatorIdYear(region , currentYear);
+        if (regionalIndicatorsData != null) {
+            regionalIndicatorsData.forEach(regionalIndicator -> {
+                RegionalIndicatorData regionalIndicatorData1 = iRegionalIndicatorDataRepository.save(regionalIndicator);
+                entityManager.flush();
+                entityManager.refresh(regionalIndicatorData1);
+            });
+        }
     }
 
     @Transactional
@@ -133,7 +160,7 @@ public class CountryHealthDataService {
 
     @Transactional
     public void calculatePhaseForAllCountries(String year) {
-        List<CountrySummary> publishedCountries = iCountrySummaryRepository.findByCountrySummaryIdYearAndCountrySummaryIdStatus(year ,PUBLISHED.name());
+        List<CountrySummary> publishedCountries = iCountrySummaryRepository.findByCountrySummaryIdYearAndCountrySummaryIdStatus(year, PUBLISHED.name());
 
         publishedCountries.stream().forEach(country -> calculateAndSaveCountryPhase(country.getCountrySummaryId().getCountryId(), PUBLISHED.name(), year));
     }

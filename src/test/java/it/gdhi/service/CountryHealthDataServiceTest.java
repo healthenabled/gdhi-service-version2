@@ -43,6 +43,13 @@ public class CountryHealthDataServiceTest {
     ICountryResourceLinkRepository iCountryResourceLinkRepository;
     @Mock
     ICountryHealthIndicatorRepository iCountryHealthIndicatorRepository;
+
+    @Mock
+    IRegionCountryRepository iRegionCountryRepository;
+
+    @Mock
+    IRegionalIndicatorDataRepository iRegionalIndicatorDataRepository;
+
     @Mock
     MailerService mailerService;
     @Mock
@@ -84,19 +91,32 @@ public class CountryHealthDataServiceTest {
                 .score(-1)
                 .category(Category.builder().id(1).indicators(asList(indicator1, indicator2)).build())
                 .build();
+        RegionCountryId regionCountryId = RegionCountryId.builder().countryId("ARG").regionId("PAHO").build();
+        RegionCountry regionCountry = RegionCountry.builder().regionCountryId(regionCountryId).build();
+
+        List<String> countries = asList("ARG");
+        String region = "PAHO";
 
 
         when(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdYearAndCountryHealthIndicatorIdStatus(countryId, currentYear, status))
                 .thenReturn(asList(countryHealthIndicator1, countryHealthIndicator2));
         when(iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdYearAndCountrySummaryIdStatusNot(countryId, currentYear, PUBLISHED.name())).thenReturn(countrySummary);
+        when(iRegionCountryRepository.findByRegionCountryIdCountryId(countryId)).thenReturn(regionCountry);
+        when(iRegionCountryRepository.findByRegionCountryIdRegionId(region)).thenReturn(countries);
+        when(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdInAndCountryHealthIndicatorIdYearAndCountryHealthIndicatorIdStatus(countries, currentYear, PUBLISHED.name())).thenReturn(asList(countryHealthIndicator1, countryHealthIndicator2));
+
         countryHealthDataService.publish(gdhiQuestionnaire, currentYear);
+
         ArgumentCaptor<CountrySummary> summaryCaptor = ArgumentCaptor.forClass(CountrySummary.class);
         ArgumentCaptor<CountryHealthIndicator> healthIndicatorsCaptorList = ArgumentCaptor.forClass(CountryHealthIndicator.class);
+        ArgumentCaptor<RegionalIndicatorData> regionalIndicatorDataCaptorList = ArgumentCaptor.forClass(RegionalIndicatorData.class);
+
         InOrder inOrder = inOrder(iCountryResourceLinkRepository, iCountrySummaryRepository,
-                iCountryHealthIndicatorRepository, iCountryPhaseRepository);
+                iCountryHealthIndicatorRepository, iCountryPhaseRepository, iRegionalIndicatorDataRepository);
         inOrder.verify(iCountryResourceLinkRepository).deleteByCountryResourceLinkIdCountryIdAndCountryResourceLinkIdYearAndCountryResourceLinkIdStatus(countryId, currentYear, status);
         inOrder.verify(iCountrySummaryRepository).save(summaryCaptor.capture());
         inOrder.verify(iCountryHealthIndicatorRepository).save(healthIndicatorsCaptorList.capture());
+        inOrder.verify(iRegionalIndicatorDataRepository).save(regionalIndicatorDataCaptorList.capture());
         CountrySummary summaryCaptorValue = summaryCaptor.getValue();
         assertThat(summaryCaptorValue.getCountrySummaryId().getCountryId(), is(countryId));
         assertThat(summaryCaptorValue.getSummary(), is("Summary 1"));
@@ -816,6 +836,7 @@ public class CountryHealthDataServiceTest {
 
         assertFalse(countryHealthDataService.validateRequiredFields(gdhiQuestionnaire));
     }
+
     @Test
     public void shouldReturnFalseIfIndicatorDataIsInvalid() {
         String countryId = "AUS";
