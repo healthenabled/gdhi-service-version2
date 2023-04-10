@@ -1128,7 +1128,7 @@ public class CountryHealthDataServiceTest {
                 .build();
         String region = "PAHO";
         List<CountryHealthIndicator> countryHealthIndicators = asList(countryHealthIndicator1, countryHealthIndicator2, countryHealthIndicator3, countryHealthIndicator4, countryHealthIndicator5);
-        List<RegionalIndicatorData> regionalIndicatorData = countryHealthDataService.getRegionalIndicatorsData(countryHealthIndicators, region);
+        List<RegionalIndicatorData> regionalIndicatorData = countryHealthDataService.calculateRegionalIndicatorDataFor(countryHealthIndicators, region);
         RegionalIndicatorId regionalIndicatorId = RegionalIndicatorId.builder().regionId(region).indicatorId(1).year(getCurrentYear()).build();
         RegionalIndicatorId regionalIndicatorId2 = RegionalIndicatorId.builder().regionId(region).indicatorId(3).year(getCurrentYear()).build();
         RegionalIndicatorData regionalIndicatorData1 = RegionalIndicatorData.builder().regionalIndicatorId(regionalIndicatorId).score(4).build();
