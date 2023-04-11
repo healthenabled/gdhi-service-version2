@@ -1,0 +1,1 @@
+INSERT INTO regions.regions_countries(region_id, country_id) VALUES ('WPRO','NIU'),('WPRO','COK');
