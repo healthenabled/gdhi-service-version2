@@ -1,5 +1,7 @@
 package it.gdhi.model;
 
+import lombok.Builder;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
@@ -7,6 +9,7 @@ import static java.math.BigDecimal.*;
 import static java.math.RoundingMode.CEILING;
 import static java.util.Objects.isNull;
 
+@Builder
 public class Score {
 
     private Double value;

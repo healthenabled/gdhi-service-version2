@@ -1,6 +1,5 @@
 package it.gdhi.model;
 
-import it.gdhi.model.id.RegionalCategoryId;
 import it.gdhi.model.id.RegionalOverallId;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +23,5 @@ public class RegionalOverallData {
     RegionalOverallId regionalOverallId;
 
     @Column(name = "overall_score")
-    Integer overallScore;
-
+    Integer overAllScore;
 }

@@ -1,9 +1,6 @@
 package it.gdhi.model.id;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -14,6 +11,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Getter
 @Builder
+@EqualsAndHashCode
 public class RegionalOverallId implements Serializable {
 
     @Column(name = "region_id")
