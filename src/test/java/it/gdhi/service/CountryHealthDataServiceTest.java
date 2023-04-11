@@ -19,10 +19,7 @@ import org.mockito.quality.Strictness;
 
 import javax.persistence.EntityManager;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 import static it.gdhi.utils.FormStatus.*;
 import static java.util.Arrays.asList;
@@ -105,7 +102,6 @@ public class CountryHealthDataServiceTest {
 
         List<String> countries = asList("ARG");
         String region = "PAHO";
-
 
         when(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdYearAndCountryHealthIndicatorIdStatus(countryId, currentYear, status))
                 .thenReturn(asList(countryHealthIndicator1, countryHealthIndicator2));
@@ -1103,11 +1099,12 @@ public class CountryHealthDataServiceTest {
     }
 
     @Test
-    public void shouldGetRegionalIndicatorDataForARegion() {
+    public void shouldGetRegionalIndicatorScoreIgnoringSubIndicatorsAndNotAvailableForARegion() {
         Indicator indicator1 = Indicator.builder().indicatorId(1).parentId(null).build();
         Indicator indicator2 = Indicator.builder().indicatorId(2).parentId(null).build();
         Indicator indicator3 = Indicator.builder().indicatorId(3).parentId(null).build();
         Indicator indicator4 = Indicator.builder().indicatorId(4).parentId(3).build();
+
         CountryHealthIndicator countryHealthIndicator1 = CountryHealthIndicator.builder()
                 .indicator(indicator1)
                 .score(3)
@@ -1133,9 +1130,11 @@ public class CountryHealthDataServiceTest {
                 .score(4)
                 .category(Category.builder().id(1).indicators(asList(indicator1, indicator2, indicator3, indicator4)).build())
                 .build();
+
         String region = "PAHO";
         List<CountryHealthIndicator> countryHealthIndicators = asList(countryHealthIndicator1, countryHealthIndicator2, countryHealthIndicator3, countryHealthIndicator4, countryHealthIndicator5);
         List<RegionalIndicatorData> regionalIndicatorData = countryHealthDataService.calculateRegionalIndicatorDataFor(countryHealthIndicators, region);
+
         RegionalIndicatorId regionalIndicatorId = RegionalIndicatorId.builder().regionId(region).indicatorId(1).year(getCurrentYear()).build();
         RegionalIndicatorId regionalIndicatorId2 = RegionalIndicatorId.builder().regionId(region).indicatorId(3).year(getCurrentYear()).build();
         RegionalIndicatorData regionalIndicatorData1 = RegionalIndicatorData.builder().regionalIndicatorId(regionalIndicatorId).score(4).build();
@@ -1146,7 +1145,7 @@ public class CountryHealthDataServiceTest {
     }
 
     @Test
-    public void shouldGetRegionalCategoryDataForARegion() {
+    public void shouldGetRegionalCategoryScoreIgnoringSubIndicatorsAndNotAvailableForARegion() {
         Indicator indicator1 = Indicator.builder().indicatorId(1).parentId(null).build();
         Indicator indicator2 = Indicator.builder().indicatorId(2).parentId(null).build();
         Indicator indicator3 = Indicator.builder().indicatorId(3).parentId(null).build();
@@ -1175,13 +1174,16 @@ public class CountryHealthDataServiceTest {
                 .score(4)
                 .category(category1)
                 .build();
+
         String region = "PAHO";
         CountryHealthIndicators countryHealthIndicators = new CountryHealthIndicators(asList(countryHealthIndicator1, countryHealthIndicator2, countryHealthIndicator3, countryHealthIndicator4));
         List<RegionalCategoryData> regionalCategoryData = countryHealthDataService.calculateRegionalCategoriesDataFor(countryHealthIndicators, region);
+
         RegionalCategoryId regionalCategoryId1 = RegionalCategoryId.builder().regionId(region).categoryId(1).year(getCurrentYear()).build();
         RegionalCategoryId regionalCategoryId2 = RegionalCategoryId.builder().regionId(region).categoryId(2).year(getCurrentYear()).build();
         RegionalCategoryData regionalCategoryData1 = RegionalCategoryData.builder().regionalCategoryId(regionalCategoryId1).score(4).build();
         RegionalCategoryData regionalCategoryData2 = RegionalCategoryData.builder().regionalCategoryId(regionalCategoryId2).score(2).build();
+
         List<RegionalCategoryData> expectedRegionalCategoryData = asList(regionalCategoryData1, regionalCategoryData2);
 
         assertEquals(expectedRegionalCategoryData.size(), regionalCategoryData.size());
@@ -1190,18 +1192,19 @@ public class CountryHealthDataServiceTest {
     }
 
     @Test
-    public void shouldGetRegionalOverallDataForARegion() {
+    public void shouldGetRegionalOverallScoreIgnoringSubIndicatorsAndNotAvailableForARegion() {
         Indicator indicator1 = Indicator.builder().indicatorId(1).parentId(null).build();
         Indicator indicator2 = Indicator.builder().indicatorId(2).parentId(null).build();
         Indicator indicator3 = Indicator.builder().indicatorId(3).parentId(null).build();
         Indicator indicator4 = Indicator.builder().indicatorId(4).parentId(3).build();
+        Indicator indicator5 = Indicator.builder().indicatorId(5).parentId(null).build();
 
-        Category category1 = Category.builder().id(1).indicators((asList(indicator1, indicator2))).build();
-        Category category2 = Category.builder().id(2).indicators((asList(indicator1, indicator2))).build();
+        Category category1 = Category.builder().id(1).indicators((asList(indicator1, indicator3, indicator4))).build();
+        Category category2 = Category.builder().id(2).indicators((asList(indicator2, indicator5))).build();
 
         CountryHealthIndicator countryHealthIndicator1 = CountryHealthIndicator.builder()
                 .indicator(indicator1)
-                .score(3)
+                .score(2)
                 .category(category1)
                 .build();
         CountryHealthIndicator countryHealthIndicator2 = CountryHealthIndicator.builder()
@@ -1211,7 +1214,7 @@ public class CountryHealthDataServiceTest {
                 .build();
         CountryHealthIndicator countryHealthIndicator3 = CountryHealthIndicator.builder()
                 .indicator(indicator3)
-                .score(5)
+                .score(3)
                 .category(category1)
                 .build();
         CountryHealthIndicator countryHealthIndicator4 = CountryHealthIndicator.builder()
@@ -1219,8 +1222,15 @@ public class CountryHealthDataServiceTest {
                 .score(4)
                 .category(category1)
                 .build();
+        CountryHealthIndicator countryHealthIndicator5 = CountryHealthIndicator.builder()
+                .indicator(indicator5)
+                .score(5)
+                .category(category2)
+                .build();
+
         String region = "PAHO";
-        CountryHealthIndicators countryHealthIndicators = new CountryHealthIndicators(asList(countryHealthIndicator1, countryHealthIndicator2, countryHealthIndicator3, countryHealthIndicator4));
+
+        CountryHealthIndicators countryHealthIndicators = new CountryHealthIndicators(asList(countryHealthIndicator1, countryHealthIndicator2, countryHealthIndicator3, countryHealthIndicator4, countryHealthIndicator5));
         RegionalOverallData regionalOverallData = countryHealthDataService.calculateRegionalOverallDataFor(countryHealthIndicators, region);
 
         RegionalOverallId regionalOverallId = RegionalOverallId.builder().regionId(region).year(getCurrentYear()).build();

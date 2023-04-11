@@ -1,8 +1,6 @@
 package it.gdhi.service;
 
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
@@ -107,8 +105,18 @@ public class CountryHealthDataService {
         save(gdhiQuestionnaire, PUBLISHED.name());
         saveRegionalIndicatorData(gdhiQuestionnaire.getCountryId(), currentYear);
         saveRegionalCategoryData(gdhiQuestionnaire.getCountryId(), currentYear);
-        saveOverallData(gdhiQuestionnaire.getCountryId(), currentYear);
+        saveRegionalOverallData(gdhiQuestionnaire.getCountryId(), currentYear);
         calculateAndSaveCountryPhase(gdhiQuestionnaire.getCountryId(), PUBLISHED.name(), currentYear);
+    }
+
+    public Map<String, List<String>> getListOfCountriesAndRegionId(String countryId) {
+        RegionCountry regionCountry = iRegionCountryRepository.findByRegionCountryIdCountryId(countryId);
+        String regionId = regionCountry.getRegionCountryId().getRegionId();
+        List<String> countries = iRegionCountryRepository.findByRegionCountryIdRegionId(regionId);
+
+        Map<String, List<String>> map = new HashMap<>();
+        map.put(regionId, countries);
+        return map;
     }
 
     public List<RegionalIndicatorData> calculateRegionalIndicatorDataFor(List<CountryHealthIndicator> countryHealthIndicators, String regionId) {
@@ -130,12 +138,15 @@ public class CountryHealthDataService {
 
     @Transactional
     private void saveRegionalIndicatorData(String countryId, String currentYear) {
-        RegionCountry regionCountry = iRegionCountryRepository.findByRegionCountryIdCountryId(countryId);
-        String regionId = regionCountry.getRegionCountryId().getRegionId();
-        List<String> countries = iRegionCountryRepository.findByRegionCountryIdRegionId(regionId);
+        Map<String, List<String>> map = getListOfCountriesAndRegionId(countryId);
+        String regionId = map.keySet().stream().toList().get(0);
+        List<String> countries = map.get(regionId);
+
         List<CountryHealthIndicator> countryHealthIndicators = iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdInAndCountryHealthIndicatorIdYearAndCountryHealthIndicatorIdStatus(countries, currentYear, PUBLISHED.name());
         List<RegionalIndicatorData> regionalIndicatorsData = calculateRegionalIndicatorDataFor(countryHealthIndicators, regionId);
+
         iRegionalIndicatorDataRepository.deleteByRegionalIndicatorIdRegionIdAndRegionalIndicatorIdYear(regionId, currentYear);
+
         if (regionalIndicatorsData != null) {
             regionalIndicatorsData.forEach(regionalIndicator -> {
                 RegionalIndicatorData regionalIndicatorData1 = iRegionalIndicatorDataRepository.save(regionalIndicator);
@@ -159,13 +170,16 @@ public class CountryHealthDataService {
 
     @Transactional
     private void saveRegionalCategoryData(String countryId, String currentYear) {
-        RegionCountry regionCountry = iRegionCountryRepository.findByRegionCountryIdCountryId(countryId);
-        String region = regionCountry.getRegionCountryId().getRegionId();
-        List<String> countries = iRegionCountryRepository.findByRegionCountryIdRegionId(region);
+        Map<String, List<String>> map = getListOfCountriesAndRegionId(countryId);
+        String regionId = map.keySet().stream().toList().get(0);
+        List<String> countries = map.get(regionId);
+
         List<CountryHealthIndicator> countryHealthIndicators = iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdInAndCountryHealthIndicatorIdYearAndCountryHealthIndicatorIdStatus(countries, currentYear, PUBLISHED.name());
         CountryHealthIndicators countryHealthIndicators1 = new CountryHealthIndicators(countryHealthIndicators);
-        List<RegionalCategoryData> regionalCategoriesData = calculateRegionalCategoriesDataFor(countryHealthIndicators1, region);
-        iRegionalCategoryDataRepository.deleteByRegionalCategoryIdRegionIdAndRegionalCategoryIdYear(region, currentYear);
+        List<RegionalCategoryData> regionalCategoriesData = calculateRegionalCategoriesDataFor(countryHealthIndicators1, regionId);
+
+        iRegionalCategoryDataRepository.deleteByRegionalCategoryIdRegionIdAndRegionalCategoryIdYear(regionId, currentYear);
+
         if (regionalCategoriesData != null) {
             regionalCategoriesData.forEach(regionalCategoryData -> {
                 RegionalCategoryData regionalCategoryData1 = iRegionalCategoryDataRepository.save(regionalCategoryData);
@@ -184,11 +198,13 @@ public class CountryHealthDataService {
     }
 
     @Transactional
-    private void saveOverallData(String countryId, String year) {
-        RegionCountry regionCountry = iRegionCountryRepository.findByRegionCountryIdCountryId(countryId);
-        String regionId = regionCountry.getRegionCountryId().getRegionId();
-        List<String> countries = iRegionCountryRepository.findByRegionCountryIdRegionId(regionId);
-        List<CountryHealthIndicator> countryHealthIndicators = iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdInAndCountryHealthIndicatorIdYearAndCountryHealthIndicatorIdStatus(countries, year, PUBLISHED.name());
+    private void saveRegionalOverallData(String countryId, String year) {
+        Map<String, List<String>> map = getListOfCountriesAndRegionId(countryId);
+        String regionId = map.keySet().stream().toList().get(0);
+        List<String> countries = map.get(regionId);
+
+        List<CountryHealthIndicator> countryHealthIndicators = iCountryHealthIndicatorRepository.
+                findByCountryHealthIndicatorIdCountryIdInAndCountryHealthIndicatorIdYearAndCountryHealthIndicatorIdStatus(countries, year, PUBLISHED.name());
         CountryHealthIndicators countryHealthIndicators1 = new CountryHealthIndicators(countryHealthIndicators);
         RegionalOverallData regionalOverallData = calculateRegionalOverallDataFor(countryHealthIndicators1, regionId);
         iRegionalOverallRepository.deleteByRegionalOverallIdRegionIdAndRegionalOverallIdYear(regionId, year);
