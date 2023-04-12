@@ -1,7 +1,7 @@
 name: CI/CD Pipeline
 on:
   push:
-    branches: [ "main", "TechDebts" ]
+    branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
 jobs:
