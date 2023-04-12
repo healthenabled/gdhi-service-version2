@@ -19,15 +19,11 @@ import it.gdhi.dto.CountriesHealthScoreDto;
 import it.gdhi.dto.CountryHealthScoreDto;
 import it.gdhi.dto.GlobalHealthScoreDto;
 import it.gdhi.internationalization.service.HealthIndicatorTranslator;
-import it.gdhi.model.Category;
-import it.gdhi.model.CountryHealthIndicator;
-import it.gdhi.model.CountryHealthIndicators;
-import it.gdhi.model.CountryPhase;
-import it.gdhi.model.CountrySummary;
-import it.gdhi.model.Score;
+import it.gdhi.model.*;
 import it.gdhi.repository.ICountryHealthIndicatorRepository;
 import it.gdhi.repository.ICountryPhaseRepository;
 import it.gdhi.repository.ICountrySummaryRepository;
+import it.gdhi.repository.IRegionCountryRepository;
 import it.gdhi.utils.LanguageCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -60,6 +56,9 @@ public class CountryHealthIndicatorService {
     @Autowired
     private HealthIndicatorTranslator healthIndicatorTranslator;
 
+    @Autowired
+    private IRegionCountryRepository iRegionCountryRepository;
+
     public CountryHealthScoreDto fetchCountryHealthScore(String countryId, LanguageCode languageCode, String year) {
         CountryHealthIndicators countryHealthIndicators = new CountryHealthIndicators(iCountryHealthIndicatorRepository
                 .findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdYearAndCountryHealthIndicatorIdStatus(countryId, year, PUBLISHED.name()));
@@ -68,8 +67,8 @@ public class CountryHealthIndicatorService {
         return healthIndicatorTranslator.translateCountryHealthScores(languageCode, countryHealthScoreDto);
     }
 
-    public CountriesHealthScoreDto fetchCountriesHealthScores(Integer categoryId, Integer phase, LanguageCode code, String year) {
-        List<CountryHealthIndicator> countryHealthIndicators = filterByCategoryAndYear(categoryId, year);
+    public CountriesHealthScoreDto fetchCountriesHealthScores(Integer categoryId, Integer phase, String region, LanguageCode code, String year) {
+        List<CountryHealthIndicator> countryHealthIndicators = filterByCategoryAndYearAndRegion(categoryId, year, region);
 
         Map<String, List<CountryHealthIndicator>> groupByCountry = countryHealthIndicators.stream()
                 .collect(groupingBy(CountryHealthIndicator::getCountryId));
@@ -88,8 +87,17 @@ public class CountryHealthIndicatorService {
         return getTranslatedCountriesHealthScore(countriesHealthScoreDto, code);
     }
 
-    private List<CountryHealthIndicator> filterByCategoryAndYear(Integer categoryId, String year) {
-        return (categoryId == null) ? iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdStatusAndCountryHealthIndicatorIdYear(PUBLISHED.name(), year) : iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCategoryIdAndCountryHealthIndicatorIdYearAndCountryHealthIndicatorIdStatus(categoryId, year, PUBLISHED.name());
+    private List<CountryHealthIndicator> filterByCategoryAndYearAndRegion(Integer categoryId, String year, String region) {
+        if (region == null) {
+            return (categoryId == null) ? iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdStatusAndCountryHealthIndicatorIdYear(PUBLISHED.name(), year) : iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCategoryIdAndCountryHealthIndicatorIdYearAndCountryHealthIndicatorIdStatus(categoryId, year, PUBLISHED.name());
+        } else {
+            List<String> countries = fetchCountriesForARegion(region);
+            return (categoryId == null) ? iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdInAndCountryHealthIndicatorIdYearAndCountryHealthIndicatorIdStatus(countries, year, PUBLISHED.name()) : iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdInAndCountryHealthIndicatorIdYearAndCountryHealthIndicatorIdCategoryIdAndCountryHealthIndicatorIdStatus(countries, year, categoryId, PUBLISHED.name());
+        }
+    }
+
+    private List<String> fetchCountriesForARegion(String regionId) {
+        return iRegionCountryRepository.findByRegionCountryIdRegionId(regionId);
     }
 
     private CountriesHealthScoreDto getTranslatedCountriesHealthScore(CountriesHealthScoreDto countriesHealthScoreDto,
@@ -100,8 +108,8 @@ public class CountryHealthIndicatorService {
         return new CountriesHealthScoreDto(countryHealthScores);
     }
 
-    public GlobalHealthScoreDto getGlobalHealthIndicator(Integer categoryId, Integer phase, LanguageCode languageCode, String year) {
-        CountriesHealthScoreDto countries = this.fetchCountriesHealthScores(categoryId, phase, null, year);
+    public GlobalHealthScoreDto getGlobalHealthIndicator(Integer categoryId, Integer phase, String regionId, LanguageCode languageCode, String year) {
+        CountriesHealthScoreDto countries = this.fetchCountriesHealthScores(categoryId, phase, regionId, null, year);
         List<CategoryHealthScoreDto> categories = getCategoriesInCountries(countries);
         Map<Integer, List<CategoryHealthScoreDto>> groupByCategory = categories.stream()
                 .collect(groupingBy(CategoryHealthScoreDto::getId));
@@ -146,7 +154,7 @@ public class CountryHealthIndicatorService {
     }
 
     private CountriesHealthScoreDto fetchCountriesHealthScoresForExcel(LanguageCode languageCode, String year) {
-        return this.fetchCountriesHealthScores(null, null, languageCode, year);
+        return this.fetchCountriesHealthScores(null, null, null, languageCode, year);
     }
 
     private CategoryHealthScoreDto getCategoryHealthScoreDto(Entry<Integer, List<CategoryHealthScoreDto>> entry) {

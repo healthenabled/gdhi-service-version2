@@ -40,17 +40,18 @@ public class BffController {
 
     @GetMapping("/countries/{id}/year_on_year")
     public YearOnYearDto getYearOnYearData(@PathVariable("id") String countryId,
-                                           @RequestParam(value = "no_of_years", required = false) Integer limit) {
+                                           @RequestParam(value = "no_of_years", required = false) Integer limit,
+                                           @RequestParam(value = "regionId", required = false) String regionId) {
         if (limit == null) {
             limit = defaultLimit;
         }
         List<String> years = bffService.fetchPublishedYearsForACountry(countryId, limit);
-        return bffService.fetchYearOnYearData(years, countryId);
+        return bffService.fetchYearOnYearData(years, countryId, regionId);
     }
 
     @GetMapping("/countries/{id}/published_years")
     public List<String> getPublishedYearsForACountry(@PathVariable("id") String countryId,
-                                           @RequestParam(value = "no_of_years", required = false) Integer limit) {
+                                                     @RequestParam(value = "no_of_years", required = false) Integer limit) {
         if (limit == null) {
             limit = defaultLimit;
         }

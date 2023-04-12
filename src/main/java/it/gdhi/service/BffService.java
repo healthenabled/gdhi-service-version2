@@ -41,18 +41,18 @@ public class BffService {
         return iCountryPhaseRepository.findByCountryPhaseIdOrderByYearDesc(countryId, limit);
     }
 
-    public YearOnYearDto fetchYearOnYearData(List<String> years, String countryId) {
-        List<YearScoreDto> yearScoreDtos = years.stream().map(year -> getYearScoreDto(countryId, year)).toList();
+    public YearOnYearDto fetchYearOnYearData(List<String> years, String countryId, String regionId) {
+        List<YearScoreDto> yearScoreDtos = years.stream().map(year -> getYearScoreDto(countryId, year, regionId)).toList();
         return YearOnYearDto.builder().currentYear(getCurrentYear()).yearOnYearData(yearScoreDtos).defaultYear(defaultYearDataService.fetchDefaultYear()).build();
     }
 
-    private YearScoreDto getYearScoreDto(String countryId, String year) {
-        return YearScoreDto.builder().year(year).data(getYearHealthScoreDto(countryId, year)).build();
+    private YearScoreDto getYearScoreDto(String countryId, String year, String regionId) {
+        return YearScoreDto.builder().year(year).data(getYearHealthScoreDto(countryId, year, regionId)).build();
     }
 
-    private YearHealthScoreDto getYearHealthScoreDto(String countryId, String year) {
+    private YearHealthScoreDto getYearHealthScoreDto(String countryId, String year, String regionId) {
         return YearHealthScoreDto.builder().country(countryHealthIndicatorService.fetchCountryHealthScore(countryId, en, year))
-                .average(countryHealthIndicatorService.getGlobalHealthIndicator(null, null, en, year)).build();
+                .average(countryHealthIndicatorService.getGlobalHealthIndicator(null, null, regionId, en, year)).build();
     }
 }
 

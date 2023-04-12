@@ -27,16 +27,16 @@ public class BffControllerTest {
 
     @Test
     public void shouldGetYearOnYearData() {
-        bffController.getYearOnYearData(null, 1);
+        bffController.getYearOnYearData(null, 1,null);
         verify(bffService).fetchPublishedYearsForACountry(null, 1);
-        verify(bffService).fetchYearOnYearData(bffService.fetchPublishedYearsForACountry(null, 1), null);
+        verify(bffService).fetchYearOnYearData(bffService.fetchPublishedYearsForACountry(null, 1), null,null);
     }
 
     @Test
     public void shouldGetYearOnYearDataForFiveYearsWhenLimitIsNull() {
-        bffController.getYearOnYearData(null, null);
+        bffController.getYearOnYearData(null, null,null);
         verify(bffService).fetchPublishedYearsForACountry(null, defaultLimit);
-        verify(bffService).fetchYearOnYearData(bffService.fetchPublishedYearsForACountry(null, defaultLimit), null);
+        verify(bffService).fetchYearOnYearData(bffService.fetchPublishedYearsForACountry(null, defaultLimit), null,null);
     }
 
     @Test
