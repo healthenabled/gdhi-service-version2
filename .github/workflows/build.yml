@@ -7,8 +7,6 @@ on:
 jobs:
   continuous-integration:
     runs-on: ubuntu-latest
-    https://docs:
-      github:
     services:
       # Label used to access the service container
       postgres:
