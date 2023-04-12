@@ -17,6 +17,8 @@ jobs:
           POSTGRES_DB: gdhi_test
           POSTGRES_USER: gdhi_test
           POSTGRES_PASSWORD: testpassword
+          POSTGRES_INITDB_ARGS: "-c 'shared_preload_libraries=uuid-ossp'"
+
         # Set health checks to wait until postgres has started
         options: >-
           --health-cmd pg_isready
