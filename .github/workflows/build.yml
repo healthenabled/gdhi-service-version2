@@ -7,6 +7,27 @@ on:
 jobs:
   continuous-integration:
     runs-on: ubuntu-latest
+    https://docs:
+      github:
+    services:
+      # Label used to access the service container
+      postgres:
+        # Docker Hub image
+        image: postgres
+        # Provide the password for postgres
+        env:
+          POSTGRES_DB: gdhi_test
+          POSTGRES_USER: gdhi_test
+          POSTGRES_PASSWORD: testpassword
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          # Maps tcp port 5432 on service container to the host
+          - 5432:5432
     steps:
       - name: check out code
         uses: actions/checkout@v3
@@ -21,7 +42,7 @@ jobs:
         run: chmod +x gradlew
 
       - name: Run tests without integration and repository tests
-        run: ./gradlew clean build -x bootJar -DincludeIntegrationTestAndRepositoryTest=false -PappVersion=${{ secrets.APPLICATION_VERSION }}
+        run: ./gradlew clean build -x bootJar -PappVersion=${{ secrets.APPLICATION_VERSION }}
 
   upload-artifact-to-s3:
     runs-on: ubuntu-latest
