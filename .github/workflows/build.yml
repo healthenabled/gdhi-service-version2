@@ -43,7 +43,7 @@ jobs:
 
       - name: Add UUID extension
         run: |
-          psql -h localhost -p 5432 -d gdhi_test -U 'gdhi_test' -c "CREATE EXTENSION IF NOT EXISTS \"uuid-ossp\";"
+          psql -h localhost -p 5432 -d gdhi_test -U 'gdhi_test' -W 'testpassword' -c "CREATE EXTENSION IF NOT EXISTS \"uuid-ossp\";"
 
       - name: Run all tests
         run: ./gradlew clean build -x bootJar -PappVersion=${{ secrets.APPLICATION_VERSION }}
