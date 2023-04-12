@@ -7,6 +7,23 @@ on:
 jobs:
   continuous-integration:
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_DB: gdhi_test
+          POSTGRES_USER: gdhi_test
+          POSTGRES_PASSWORD: ${{ secrets.TEST_DB_PASSWORD }}
+
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          # Maps tcp port 5432 on service container to the host
+          - 5432:5432
     steps:
       - name: check out code
         uses: actions/checkout@v3
@@ -20,12 +37,17 @@ jobs:
       - name: grant permissions
         run: chmod +x gradlew
 
-      - name: Run tests without integration and repository tests
-        run: ./gradlew clean build -x bootJar -DincludeIntegrationTestAndRepositoryTest=false -PappVersion=${{ secrets.APPLICATION_VERSION }}
+      - name: Add UUID extension
+        run: |
+          export PGPASSWORD=${{ secrets.TEST_DB_PASSWORD }}
+          psql -h localhost -p 5432 -d gdhi_test -U 'gdhi_test' -c "CREATE EXTENSION IF NOT EXISTS \"uuid-ossp\";"
+
+      - name: Run all tests
+        run: ./gradlew clean build -x bootJar -PappVersion=${{ secrets.APPLICATION_VERSION }}
 
   upload-artifact-to-s3:
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/GDHI-60'
+    if: github.ref == 'refs/heads/main'
     needs: [ continuous-integration ]
     steps:
       - name: check out code
@@ -69,7 +91,7 @@ jobs:
   deploy-to-qa:
     runs-on: ubuntu-latest
     needs: [ upload-artifact-to-s3 ]
-    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/GDHI-60'
+    if: github.ref == 'refs/heads/main'
     steps:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1-node16
