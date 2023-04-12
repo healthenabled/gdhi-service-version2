@@ -13,7 +13,7 @@ jobs:
         env:
           POSTGRES_DB: gdhi_test
           POSTGRES_USER: gdhi_test
-          POSTGRES_PASSWORD: testpassword
+          POSTGRES_PASSWORD: ${{ secrets.TEST_DB_PASSWORD }}
 
         # Set health checks to wait until postgres has started
         options: >-
@@ -37,13 +37,9 @@ jobs:
       - name: grant permissions
         run: chmod +x gradlew
 
-#      - name: Enable UUID extension
-#        run: |
-#          docker exec ${{ job.services.postgres.id }} psql -U gdhi_test gdhi_test -c "CREATE EXTENSION IF NOT EXISTS \"uuid-ossp\";"
-
       - name: Add UUID extension
         run: |
-          export PGPASSWORD=testpassword
+          export PGPASSWORD=${{ secrets.TEST_DB_PASSWORD }}
           psql -h localhost -p 5432 -d gdhi_test -U 'gdhi_test' -c "CREATE EXTENSION IF NOT EXISTS \"uuid-ossp\";"
 
       - name: Run all tests
