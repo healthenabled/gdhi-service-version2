@@ -9,7 +9,6 @@ import it.gdhi.dto.YearDto;
 import it.gdhi.dto.YearOnYearDto;
 import it.gdhi.service.BffService;
 import it.gdhi.service.CountryHealthDataService;
-import it.gdhi.service.CountryHealthIndicatorService;
 import it.gdhi.service.DefaultYearDataService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,9 +38,7 @@ public class BffController {
     }
 
     @GetMapping("/countries/{id}/year_on_year")
-    public YearOnYearDto getYearOnYearData(@PathVariable("id") String countryId,
-                                           @RequestParam(value = "no_of_years", required = false) Integer limit,
-                                           @RequestParam(value = "regionId", required = false) String regionId) {
+    public YearOnYearDto getYearOnYearData(@PathVariable("id") String countryId, @RequestParam(value = "no_of_years", required = false) Integer limit, @RequestParam(value = "regionId", required = false) String regionId) {
         if (limit == null) {
             limit = defaultLimit;
         }
@@ -50,8 +47,7 @@ public class BffController {
     }
 
     @GetMapping("/countries/{id}/published_years")
-    public List<String> getPublishedYearsForACountry(@PathVariable("id") String countryId,
-                                                     @RequestParam(value = "no_of_years", required = false) Integer limit) {
+    public List<String> getPublishedYearsForACountry(@PathVariable("id") String countryId, @RequestParam(value = "no_of_years", required = false) Integer limit) {
         if (limit == null) {
             limit = defaultLimit;
         }
@@ -59,12 +55,10 @@ public class BffController {
     }
 
     @GetMapping("/bff/countries/{id}/benchmark/{type}")
-    public Map<Integer, BenchmarkDto> getBenchmarkDetailsFor(@PathVariable("id") String countryId,
-                                                             @PathVariable("type") Integer benchmarkType,
-                                                             @RequestParam(value = "year", required = false) String year) {
+    public Map<Integer, BenchmarkDto> getBenchmarkDetailsFor(@PathVariable("id") String countryId, @PathVariable("type") Integer benchmarkType, @RequestParam(value = "year", required = false) String year, @RequestParam(value = "regionId", required = false) String regionId) {
         if (year == null) {
             year = defaultYearDataService.fetchDefaultYear();
         }
-        return countryHealthDataService.getBenchmarkDetailsFor(countryId, benchmarkType, year);
+        return countryHealthDataService.getBenchmarkDetailsFor(countryId, benchmarkType, year, regionId);
     }
 }

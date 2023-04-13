@@ -260,8 +260,8 @@ public class CountryHealthDataService {
         return countrySummaryStatusYearDto;
     }
 
-    public Map<Integer, BenchmarkDto> getBenchmarkDetailsFor(String countryId, Integer benchmarkType, String year) {
-        return benchmarkService.getBenchmarkFor(countryId, benchmarkType, year);
+    public Map<Integer, BenchmarkDto> getBenchmarkDetailsFor(String countryId, Integer benchmarkType, String year, String region) {
+        return benchmarkService.getBenchmarkFor(countryId, benchmarkType, year, region);
     }
 
     public boolean validateRequiredFields(GdhiQuestionnaire gdhiQuestionnaire) {

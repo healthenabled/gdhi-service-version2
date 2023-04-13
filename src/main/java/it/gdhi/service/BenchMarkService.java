@@ -10,6 +10,7 @@ import it.gdhi.model.CountryPhase;
 import it.gdhi.model.Score;
 import it.gdhi.repository.ICountryHealthIndicatorRepository;
 import it.gdhi.repository.ICountryPhaseRepository;
+import it.gdhi.repository.IRegionCountryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,8 +31,16 @@ public class BenchMarkService {
     @Autowired
     private ICountryPhaseRepository iCountryPhaseRepository;
 
-    private Map<Integer, Double> calculateBenchmarkScoresForIndicators(Integer benchmarkType, String year) {
-        List<CountryHealthIndicator> countryHealthIndicators = iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdStatusAndCountryHealthIndicatorIdYear(PUBLISHED.name(), year);
+    @Autowired
+    private IRegionCountryRepository iRegionCountryRepository;
+
+    private List<String> fetchCountriesForARegion(String regionId) {
+        return iRegionCountryRepository.findByRegionCountryIdRegionId(regionId);
+    }
+
+    private Map<Integer, Double> calculateBenchmarkScoresForIndicators(Integer benchmarkType, String year, String region) {
+        List<String> countries = fetchCountriesForARegion(region);
+        List<CountryHealthIndicator> countryHealthIndicators = region == null ? iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdStatusAndCountryHealthIndicatorIdYear(PUBLISHED.name(), year) : iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdInAndCountryHealthIndicatorIdYearAndCountryHealthIndicatorIdStatus(countries, year, PUBLISHED.name());
         List<CountryHealthIndicator> publishedCountryHealthIndicators = (benchmarkType == -1) ? countryHealthIndicators : countryHealthIndicators.stream().filter(countryHealthIndicator ->
                 validateCountryHealthIndicatorByPhaseAndYear(countryHealthIndicator, benchmarkType, year)).collect(Collectors.toList());
 
@@ -50,8 +59,8 @@ public class BenchMarkService {
         return countryPhase.getCountryOverallPhase().equals(phase);
     }
 
-    Map<Integer, BenchmarkDto> getBenchmarkFor(String countryId, Integer benchmarkType, String year) {
-        Map<Integer, Double> indicatorBenchmarkScores = calculateBenchmarkScoresForIndicators(benchmarkType, year);
+    Map<Integer, BenchmarkDto> getBenchmarkFor(String countryId, Integer benchmarkType, String year, String region) {
+        Map<Integer, Double> indicatorBenchmarkScores = calculateBenchmarkScoresForIndicators(benchmarkType, year, region);
 
         List<CountryHealthIndicator> countryHealthIndicator = iCountryHealthIndicatorRepository
                 .findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdYearAndCountryHealthIndicatorIdStatus(countryId, year, PUBLISHED.name());

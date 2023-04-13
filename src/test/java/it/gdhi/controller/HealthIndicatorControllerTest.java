@@ -115,4 +115,39 @@ public class HealthIndicatorControllerTest {
         verify(countryHealthIndicatorService).fetchCountriesHealthScores(null, 2, null, en, "2023");
         verify(countryHealthIndicatorService).getGlobalHealthIndicator(null, 2, null, en, "2023");
     }
+    @Test
+    public void shouldInvokeFetchHealthScoresOnGettingRegionInfo(){
+        CountriesHealthScoreDto mockGlobalHealthScore = mock(CountriesHealthScoreDto.class);
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        request.addHeader("USER_LANGUAGE", "fr");
+
+        CountryHealthScoreDto countryHealthScoreDto = mock(CountryHealthScoreDto.class);
+        when(countryHealthScoreDto.getCountryId()).thenReturn("ARG");
+        when(mockGlobalHealthScore.getCountryHealthScores()).thenReturn(singletonList(countryHealthScoreDto));
+        String year = "Version1";
+        String region = "PAHO";
+        when(countryHealthIndicatorService.fetchCountriesHealthScores(4, null, region, fr, year)).thenReturn(mockGlobalHealthScore);
+
+        CountriesHealthScoreDto globalHealthIndicators = healthIndicatorController.getCountriesHealthIndicatorScores(request, 4, null, region, year);
+        int size = globalHealthIndicators.getCountryHealthScores().size();
+
+        assertThat(size, is(1));
+        assertThat(globalHealthIndicators.getCountryHealthScores().get(0).getCountryId(), is(countryHealthScoreDto.getCountryId()));
+        verify(countryHealthIndicatorService).fetchCountriesHealthScores(4, null, region, fr, year);
+    }
+    @Test
+    public void shouldInvokeGetGlobalHealthIndicatorWhenRegionIsNotNull() {
+        GlobalHealthScoreDto expected = mock(GlobalHealthScoreDto.class);
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        request.addHeader("USER_LANGUAGE", "en");
+
+        String year = "Version1";
+        String region = "PAHO";
+
+        when(countryHealthIndicatorService.getGlobalHealthIndicator(null, 2, region, en, year)).thenReturn(expected);
+        GlobalHealthScoreDto actual = healthIndicatorController.getGlobalHealthIndicator(request, null, 2, region,year);
+
+        assertThat(expected, is(actual));
+        verify(countryHealthIndicatorService).getGlobalHealthIndicator(null, 2, region, en, year);
+    }
 }
