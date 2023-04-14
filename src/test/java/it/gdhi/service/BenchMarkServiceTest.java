@@ -36,8 +36,9 @@ public class BenchMarkServiceTest {
 
     @Mock
     ICountryPhaseRepository iCountryPhaseRepository;
+
     @Mock
-    IRegionCountryRepository iRegionCountryRepository;
+    RegionService regionService;
 
     @InjectMocks
     BenchMarkService benchMarkService;
@@ -69,9 +70,9 @@ public class BenchMarkServiceTest {
                         ));
 
         Map<Integer, BenchmarkDto> expectedBenchMark = new HashMap<>();
-        expectedBenchMark.put(indicatorId1, new BenchmarkDto(2, BenchMarkService.BENCHMARK_BELOW_PAR_VALUE));
-        expectedBenchMark.put(indicatorId2, new BenchmarkDto(1, BenchMarkService.BENCHMARK_AT_PAR_VALUE));
-        expectedBenchMark.put(indicatorId3, new BenchmarkDto(2, BenchMarkService.BENCHMARK_ABOVE_PAR_VALUE));
+        expectedBenchMark.put(indicatorId1, new BenchmarkDto(2));
+        expectedBenchMark.put(indicatorId2, new BenchmarkDto(1));
+        expectedBenchMark.put(indicatorId3, new BenchmarkDto(2));
 
         Map<Integer, BenchmarkDto> benchmarkFor = benchMarkService.getBenchmarkFor(countryId, benchmarkType, year, null);
 
@@ -106,19 +107,18 @@ public class BenchMarkServiceTest {
         CountryHealthIndicator countryHealthIndicatorForInd2 = buildCountryHealthIndicator(indicatorId2, countryId, 1);
         CountryHealthIndicator countryHealthIndicatorForInd3 = buildCountryHealthIndicator(indicatorId3, countryId, 3);
 
-        when(iRegionCountryRepository.findByRegionCountryIdRegionId(region)).thenReturn(countries);
-
         when(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdInAndCountryHealthIndicatorIdYearAndCountryHealthIndicatorIdStatus(countries, year, PUBLISHED.name())).thenReturn(asList(countryHealthIndicatorForArg1, countryHealthIndicatorForArg2, countryHealthIndicatorForArg3, countryHealthIndicatorForAtg3, countryHealthIndicatorForAtg2, countryHealthIndicatorForAtg1, countryHealthIndicatorForBhs1, countryHealthIndicatorForBhs2, countryHealthIndicatorForBhs3));
 
         when(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdYearAndCountryHealthIndicatorIdStatus(countryId, year, PUBLISHED.name()))
                 .thenReturn(
                         asList(countryHealthIndicatorForInd1, countryHealthIndicatorForInd2, countryHealthIndicatorForInd3
                         ));
+        when(regionService.fetchCountriesForARegion(region)).thenReturn(countries);
 
         Map<Integer, BenchmarkDto> expectedBenchMark = new HashMap<>();
-        expectedBenchMark.put(indicatorId1, new BenchmarkDto(2, BenchMarkService.BENCHMARK_BELOW_PAR_VALUE));
-        expectedBenchMark.put(indicatorId2, new BenchmarkDto(4, BenchMarkService.BENCHMARK_BELOW_PAR_VALUE));
-        expectedBenchMark.put(indicatorId3, new BenchmarkDto(4, BenchMarkService.BENCHMARK_BELOW_PAR_VALUE));
+        expectedBenchMark.put(indicatorId1, new BenchmarkDto(2));
+        expectedBenchMark.put(indicatorId2, new BenchmarkDto(4));
+        expectedBenchMark.put(indicatorId3, new BenchmarkDto(4));
 
         Map<Integer, BenchmarkDto> benchmarkFor = benchMarkService.getBenchmarkFor(countryId, benchmarkType, year, region);
 
@@ -189,8 +189,8 @@ public class BenchMarkServiceTest {
                         ));
 
         Map<Integer, BenchmarkDto> expectedBenchMark = new HashMap<>();
-        expectedBenchMark.put(indicatorId1, new BenchmarkDto(1, BenchMarkService.BENCHMARK_AT_PAR_VALUE));
-        expectedBenchMark.put(indicatorId2, new BenchmarkDto(1, BenchMarkService.BENCHMARK_AT_PAR_VALUE));
+        expectedBenchMark.put(indicatorId1, new BenchmarkDto(1));
+        expectedBenchMark.put(indicatorId2, new BenchmarkDto(1));
 
         Map<Integer, BenchmarkDto> benchmarkFor = benchMarkService.getBenchmarkFor(countryId, benchmarkType, year, null);
 
@@ -242,9 +242,9 @@ public class BenchMarkServiceTest {
 
 
         Map<Integer, BenchmarkDto> expectedBenchMark = new HashMap<>();
-        expectedBenchMark.put(indicatorId1, new BenchmarkDto(2, BenchMarkService.BENCHMARK_BELOW_PAR_VALUE));
-        expectedBenchMark.put(indicatorId2, new BenchmarkDto(1, BenchMarkService.BENCHMARK_AT_PAR_VALUE));
-        expectedBenchMark.put(indicatorId3, new BenchmarkDto(2, BenchMarkService.BENCHMARK_ABOVE_PAR_VALUE));
+        expectedBenchMark.put(indicatorId1, new BenchmarkDto(2));
+        expectedBenchMark.put(indicatorId2, new BenchmarkDto(1));
+        expectedBenchMark.put(indicatorId3, new BenchmarkDto(2));
 
         Map<Integer, BenchmarkDto> benchmarkFor = benchMarkService.getBenchmarkFor(countryId, benchmarkType, year, null);
 

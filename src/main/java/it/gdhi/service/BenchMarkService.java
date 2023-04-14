@@ -21,10 +21,6 @@ import static java.util.stream.Collectors.groupingBy;
 @Service
 public class BenchMarkService {
 
-    static final String BENCHMARK_AT_PAR_VALUE = "At";
-    static final String BENCHMARK_ABOVE_PAR_VALUE = "Above";
-    static final String BENCHMARK_BELOW_PAR_VALUE = "Below";
-
     @Autowired
     private ICountryHealthIndicatorRepository iCountryHealthIndicatorRepository;
 
@@ -32,15 +28,12 @@ public class BenchMarkService {
     private ICountryPhaseRepository iCountryPhaseRepository;
 
     @Autowired
-    private IRegionCountryRepository iRegionCountryRepository;
-
-    private List<String> fetchCountriesForARegion(String regionId) {
-        return iRegionCountryRepository.findByRegionCountryIdRegionId(regionId);
-    }
+    private RegionService regionService;
 
     private Map<Integer, Double> calculateBenchmarkScoresForIndicators(Integer benchmarkType, String year, String region) {
-        List<String> countries = fetchCountriesForARegion(region);
-        List<CountryHealthIndicator> countryHealthIndicators = region == null ? iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdStatusAndCountryHealthIndicatorIdYear(PUBLISHED.name(), year) : iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdInAndCountryHealthIndicatorIdYearAndCountryHealthIndicatorIdStatus(countries, year, PUBLISHED.name());
+        List<String> countries = regionService.fetchCountriesForARegion(region);
+        List<CountryHealthIndicator> countryHealthIndicators = region == null ? iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdStatusAndCountryHealthIndicatorIdYear(PUBLISHED.name(), year)
+                : iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdInAndCountryHealthIndicatorIdYearAndCountryHealthIndicatorIdStatus(countries, year, PUBLISHED.name());
         List<CountryHealthIndicator> publishedCountryHealthIndicators = (benchmarkType == -1) ? countryHealthIndicators : countryHealthIndicators.stream().filter(countryHealthIndicator ->
                 validateCountryHealthIndicatorByPhaseAndYear(countryHealthIndicator, benchmarkType, year)).collect(Collectors.toList());
 
@@ -69,16 +62,13 @@ public class BenchMarkService {
                 filter(indicator -> (indicator.isScoreValid()
                         && indicator.getIndicator().getParentId() == null))
                 .collect(Collectors.toMap(CountryHealthIndicator::getIndicatorId,
-                        indicator -> constructBenchMarkDto(indicator.getScore(),
+                        indicator -> constructBenchMarkDto(
                                 indicatorBenchmarkScores.get(indicator.getIndicatorId()))));
     }
 
-    private BenchmarkDto constructBenchMarkDto(Integer indicatorCountryScore, Double indicatorBenchmarkScore) {
+    private BenchmarkDto constructBenchMarkDto(Double indicatorBenchmarkScore) {
         Score benchmarkScore = indicatorBenchmarkScore == null ? new Score(-1.0) : new Score(indicatorBenchmarkScore);
         Integer benchmarkPhase = benchmarkScore.convertToPhase();
-        String benchmarkValue = indicatorCountryScore > benchmarkPhase ? BENCHMARK_ABOVE_PAR_VALUE :
-                (indicatorCountryScore == benchmarkPhase ? BENCHMARK_AT_PAR_VALUE : BENCHMARK_BELOW_PAR_VALUE);
-
-        return new BenchmarkDto(benchmarkPhase, benchmarkValue);
+        return new BenchmarkDto(benchmarkPhase);
     }
 }

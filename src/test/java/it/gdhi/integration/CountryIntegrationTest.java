@@ -324,7 +324,7 @@ public class CountryIntegrationTest extends BaseIntegrationTest {
 
         GdhiQuestionnaire gdhiQuestionnaire = response.getBody().as(GdhiQuestionnaire.class);
         assertEquals(gdhiQuestionnaire.getUpdatedDate(), expectedUpdatedDate);
-        assertEquals(gdhiQuestionnaire.getCurrentYear() , currentYear);
+        assertEquals(gdhiQuestionnaire.getCurrentYear(), currentYear);
 
         assertResponse(responseJson, "country_body.json");
     }
@@ -387,7 +387,7 @@ public class CountryIntegrationTest extends BaseIntegrationTest {
 
         GdhiQuestionnaire gdhiQuestionnaire = response.getBody().as(GdhiQuestionnaire.class);
         assertEquals(gdhiQuestionnaire.getUpdatedDate(), expectedUpdatedDate);
-        assertEquals(gdhiQuestionnaire.getCurrentYear() , currentYear);
+        assertEquals(gdhiQuestionnaire.getCurrentYear(), currentYear);
 
         response = given()
                 .contentType("application/json")
@@ -404,7 +404,7 @@ public class CountryIntegrationTest extends BaseIntegrationTest {
         responseJson = response.asString();
         gdhiQuestionnaire = response.getBody().as(GdhiQuestionnaire.class);
         assertEquals(gdhiQuestionnaire.getUpdatedDate(), expectedUpdatedDate);
-        assertEquals(gdhiQuestionnaire.getCurrentYear() , currentYear);
+        assertEquals(gdhiQuestionnaire.getCurrentYear(), currentYear);
 
         assertResponse(responseJson, "country_body_edit.json");
     }
@@ -435,7 +435,7 @@ public class CountryIntegrationTest extends BaseIntegrationTest {
 
         GdhiQuestionnaire gdhiQuestionnaire = response.getBody().as(GdhiQuestionnaire.class);
         assertEquals(gdhiQuestionnaire.getUpdatedDate(), expectedUpdatedDate);
-        assertEquals(gdhiQuestionnaire.getCurrentYear() , currentYear);
+        assertEquals(gdhiQuestionnaire.getCurrentYear(), currentYear);
 
         assertResponse(responseJson, "country_body_review_pending.json");
     }
@@ -589,7 +589,7 @@ public class CountryIntegrationTest extends BaseIntegrationTest {
 
         assertEquals(200, response.getStatusCode());
 
-        assertEquals(response.asString(), "{\"1\":{\"benchmarkScore\":2,\"benchmarkValue\":\"Below\"}}");
+        assertEquals(response.asString(), "{\"1\":{\"benchmarkScore\":2}}");
     }
 
     private void setUpCountryPhase(String countryId, Integer countryPhaseValue, String year) {

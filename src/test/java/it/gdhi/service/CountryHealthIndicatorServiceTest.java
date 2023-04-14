@@ -82,7 +82,7 @@ public class CountryHealthIndicatorServiceTest {
     @Mock
     private HealthIndicatorTranslator indicatorTranslator;
     @Mock
-    private IRegionCountryRepository iRegionCountryRepository;
+    private RegionService regionService;
 
     private void dataSet(String countryId1, int categoryId1, int categoryId2,
                          int indicatorId1, int indicatorId2, int indicatorId3, String year) {
@@ -665,7 +665,7 @@ public class CountryHealthIndicatorServiceTest {
 
         Indicator indicator4 = Indicator.builder().indicatorId(4).rank(4).build();
         CountryHealthIndicator mock4 = CountryHealthIndicator.builder().country(country2).category(category3).indicator(indicator4).score(4).build();
-        when(iRegionCountryRepository.findByRegionCountryIdRegionId(region)).thenReturn(countries);
+        when(regionService.fetchCountriesForARegion(region)).thenReturn(countries);
         when(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdInAndCountryHealthIndicatorIdYearAndCountryHealthIndicatorIdCategoryIdAndCountryHealthIndicatorIdStatus(countries, year, 3, PUBLISHED.name())).thenReturn(asList(mock1, mock3, mock4));
 
         CountrySummary countrySummary = CountrySummary.builder().build();

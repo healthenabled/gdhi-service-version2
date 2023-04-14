@@ -9,5 +9,4 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class BenchmarkDto {
     private Integer benchmarkScore;
-    private String benchmarkValue;
 }

@@ -3,6 +3,7 @@ package it.gdhi.service;
 import it.gdhi.internationalization.RegionNameTranslatorTest;
 import it.gdhi.internationalization.service.RegionNameTranslator;
 import it.gdhi.model.Region;
+import it.gdhi.repository.IRegionCountryRepository;
 import it.gdhi.repository.IRegionRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,6 +14,7 @@ import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static it.gdhi.utils.LanguageCode.en;
@@ -34,22 +36,26 @@ public class RegionServiceTest {
     @Mock
     private RegionNameTranslator regionNameTranslator;
 
-    public Region createRegion(String id, String name){
+    @Mock
+    private IRegionCountryRepository iRegionCountryRepository;
+
+    public Region createRegion(String id, String name) {
         Region region = Region.builder().region_id(id).regionName(name).build();
         return region;
     }
 
     @Test
-    public void shouldFetchAllRegions(){
-        String id="AFRO";
-        String name="African Region";
-        List<Region> regions = asList(createRegion(id,name));
+    public void shouldFetchAllRegions() {
+        String id = "AFRO";
+        String name = "African Region";
+        List<Region> regions = asList(createRegion(id, name));
 
         when(iRegionRepository.findAll()).thenReturn(regions);
 
-        assertEquals(regions.get(0).getRegion_id(),id);
-        assertEquals(regions.get(0).getRegionName(),name);
+        assertEquals(regions.get(0).getRegion_id(), id);
+        assertEquals(regions.get(0).getRegionName(), name);
     }
+
     @Test
     public void shouldVerifyThatRepositoryLayerIsInvoked() {
         regionService.fetchRegions(en);
@@ -57,7 +63,7 @@ public class RegionServiceTest {
     }
 
     @Test
-    public void shouldFetchRegionsForAGivenLanguage(){
+    public void shouldFetchRegionsForAGivenLanguage() {
         List<Region> regions = new ArrayList<>();
 
         RegionNameTranslatorTest regionNameTranslatorTest = new RegionNameTranslatorTest();
@@ -65,10 +71,21 @@ public class RegionServiceTest {
         List<Region> listOfRegionsInFrench = regionNameTranslatorTest.createListOfRegionsInFrench();
 
         when(iRegionRepository.findAll()).thenReturn(listOfRegionsInEnglish);
-        when(regionNameTranslator.translate(listOfRegionsInEnglish,fr)).thenReturn(listOfRegionsInFrench);
+        when(regionNameTranslator.translate(listOfRegionsInEnglish, fr)).thenReturn(listOfRegionsInFrench);
 
-        assertEquals(listOfRegionsInEnglish.get(1).getRegion_id(),"AFRO");
-        assertEquals(listOfRegionsInFrench.get(1).getRegionName(),"Région africaine");
+        assertEquals(listOfRegionsInEnglish.get(1).getRegion_id(), "AFRO");
+        assertEquals(listOfRegionsInFrench.get(1).getRegionName(), "Région africaine");
+    }
+
+    @Test
+    public void shouldFetchCountriesForARegion() {
+        String region = "PAHO";
+        List<String> countries = Arrays.asList("ARG", "ATG", "BHS");
+
+        when(iRegionCountryRepository.findByRegionCountryIdRegionId(region)).thenReturn(countries);
+        List<String> actualCountries = regionService.fetchCountriesForARegion(region);
+
+        assertEquals(countries, actualCountries);
     }
 }
 
