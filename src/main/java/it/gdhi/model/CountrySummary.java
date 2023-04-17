@@ -77,6 +77,26 @@ public class CountrySummary implements Serializable {
                 countrySummaryId.getStatus(), countrySummaryDetailDto, countrySummaryId.getYear());
     }
 
+    public CountrySummary(CountrySummaryId countrySummaryId, CountrySummaryDto countrySummaryDetailDto, Country country) {
+        this.countrySummaryId = countrySummaryId;
+        this.summary = countrySummaryDetailDto.getSummary();
+        this.contactName = countrySummaryDetailDto.getContactName();
+        this.contactDesignation = countrySummaryDetailDto.getContactDesignation();
+        this.contactOrganization = countrySummaryDetailDto.getContactOrganization();
+        this.contactEmail = countrySummaryDetailDto.getContactEmail();
+        this.dataFeederName = countrySummaryDetailDto.getDataFeederName();
+        this.dataFeederRole = countrySummaryDetailDto.getDataFeederRole();
+        this.dataFeederEmail = countrySummaryDetailDto.getDataFeederEmail();
+        this.dataApproverName = countrySummaryDetailDto.getDataApproverName();
+        this.dataApproverRole = countrySummaryDetailDto.getDataApproverRole();
+        this.dataApproverEmail = countrySummaryDetailDto.getDataApproverEmail();
+        this.govtApproved = countrySummaryDetailDto.getGovtApproved();
+        this.countryResourceLinks = transformToResourceLinks(countrySummaryId.getCountryId(),
+                countrySummaryId.getStatus(), countrySummaryDetailDto, countrySummaryId.getYear());
+        this.country = country;
+    }
+
+
     private List<CountryResourceLink> transformToResourceLinks(String countryId,
                                                                String status,
                                                                CountrySummaryDto countrySummaryDetailDto, String year) {

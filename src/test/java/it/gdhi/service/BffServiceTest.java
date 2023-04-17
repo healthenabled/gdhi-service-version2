@@ -1,33 +1,43 @@
 package it.gdhi.service;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 
-import it.gdhi.dto.CategoryHealthScoreDto;
-import it.gdhi.dto.CountryHealthScoreDto;
-import it.gdhi.dto.GlobalHealthScoreDto;
-import it.gdhi.dto.IndicatorScoreDto;
-import it.gdhi.dto.YearDto;
-import it.gdhi.dto.YearHealthScoreDto;
-import it.gdhi.dto.YearOnYearDto;
-import it.gdhi.dto.YearScoreDto;
+import it.gdhi.dto.*;
 import it.gdhi.internationalization.service.HealthIndicatorTranslator;
+import it.gdhi.model.Country;
+import it.gdhi.model.CountrySummary;
+import it.gdhi.model.id.CountrySummaryId;
+import it.gdhi.model.response.CountryStatus;
 import it.gdhi.repository.ICountryHealthIndicatorRepository;
 import it.gdhi.repository.ICountryPhaseRepository;
+import it.gdhi.repository.ICountryRepository;
+import it.gdhi.repository.ICountrySummaryRepository;
+import it.gdhi.utils.FormStatus;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
 
 import static com.google.common.collect.ImmutableList.of;
+import static it.gdhi.utils.FormStatus.DRAFT;
+import static it.gdhi.utils.FormStatus.PUBLISHED;
 import static it.gdhi.utils.LanguageCode.en;
 import static it.gdhi.utils.Util.getCurrentYear;
 import static java.util.Arrays.asList;
+import static java.util.Collections.emptyList;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.when;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class BffServiceTest {
@@ -51,7 +61,19 @@ public class BffServiceTest {
     private CountryHealthIndicatorService countryHealthIndicatorService;
 
     @Mock
+    private CountryHealthDataService countryHealthDataService;
+
+    @Mock
     private HealthIndicatorTranslator indicatorTranslator;
+
+    @Mock
+    private ICountryRepository iCountryRepository;
+
+    @Mock
+    private ICountrySummaryRepository iCountrySummaryRepository;
+
+    @Mock
+    private CategoryIndicatorService categoryIndicatorService;
 
 
     @Test
@@ -145,4 +167,148 @@ public class BffServiceTest {
         YearOnYearDto expected = YearOnYearDto.builder().currentYear(year).defaultYear(year).yearOnYearData(yearScoreDtos).build();
         assertEquals(expected, actual);
     }
+
+    @Test
+    public void shouldReturnTrueWhenCountryURLGenerationStatusIsDraft() {
+        CountryUrlGenerationStatusDto countryUrlGenerationStatusDto = new CountryUrlGenerationStatusDto("IND", false, FormStatus.DRAFT);
+        Boolean actual = bffService.canSubmitDataForCountry(countryUrlGenerationStatusDto);
+
+        assertEquals(true, actual);
+    }
+
+    @Test
+    public void shouldReturnTrueWhenCountryURLGenerationStatusIsNEW() {
+        CountryUrlGenerationStatusDto countryUrlGenerationStatusDto = new CountryUrlGenerationStatusDto("IND", false, FormStatus.NEW);
+        Boolean actual = bffService.canSubmitDataForCountry(countryUrlGenerationStatusDto);
+
+        assertEquals(true, actual);
+    }
+
+    @Test
+    public void shouldReturnTrueWhenCountryURLGenerationStatusIsNullAndSuccessIsTrue() {
+        CountryUrlGenerationStatusDto countryUrlGenerationStatusDto = new CountryUrlGenerationStatusDto("IND", true, null);
+        Boolean actual = bffService.canSubmitDataForCountry(countryUrlGenerationStatusDto);
+
+        assertEquals(true, actual);
+    }
+
+    @Test
+    public void shouldReturnFalseWhenCountryURLGenerationStatusIsReviewPending() {
+        CountryUrlGenerationStatusDto countryUrlGenerationStatusDto = new CountryUrlGenerationStatusDto("IND", false, FormStatus.REVIEW_PENDING);
+        Boolean actual = bffService.canSubmitDataForCountry(countryUrlGenerationStatusDto);
+
+        assertEquals(false, actual);
+    }
+
+    @Test
+    public void shouldReturnFalseWhenCountryURLGenerationStatusIsPublished() {
+        CountryUrlGenerationStatusDto countryUrlGenerationStatusDto = new CountryUrlGenerationStatusDto("IND", false, FormStatus.PUBLISHED);
+        Boolean actual = bffService.canSubmitDataForCountry(countryUrlGenerationStatusDto);
+
+        assertEquals(false, actual);
+    }
+
+    @Test
+    public void shouldSubmitCountryCSVDataWhenQuestionnaireIsGiven() {
+        String countryId = "IND";
+        String countryName = "India";
+        UUID countryUUID = UUID.randomUUID();
+        List<String> resourceLinks = asList("Res 1");
+        String status = DRAFT.name();
+        CountrySummaryDto countrySummaryDetailDto = CountrySummaryDto.builder()
+                .summary("Summary 1")
+                .dataFeederEmail("feeder@email.com")
+                .dataFeederName("feeder")
+                .dataFeederRole("feeder role")
+                .contactEmail("contact@test.com")
+                .contactDesignation("some designation")
+                .contactName("some contact name")
+                .contactOrganization("contact org")
+                .dataApproverEmail("approver@email.com")
+                .dataApproverName("Some approver name")
+                .dataApproverRole("some approver role")
+                .govtApproved(true)
+                .countryId(countryId)
+                .countryName(countryName)
+                .countryAlpha2Code("IN")
+                .resources(resourceLinks)
+                .build();
+        List<HealthIndicatorDto> healthIndicatorDtos = getHealthIndicatorDto(1, "some text");
+        GdhiQuestionnaire gdhiQuestionnaire = GdhiQuestionnaire.builder().countryId(countryId)
+                .countrySummary(countrySummaryDetailDto)
+                .healthIndicators(healthIndicatorDtos).build();
+
+        Country country = new Country(countryId, countryName, countryUUID, "IN");
+        CountryUrlGenerationStatusDto countryUrlGenerationStatusDto = new CountryUrlGenerationStatusDto(countryId, false, DRAFT);
+        GdhiQuestionnaire gdhiQuestionnaire1 = GdhiQuestionnaire.builder().countryId(countryId).status(status).currentYear(getCurrentYear()).dataAvailableForYear("2022").
+                countrySummary(countrySummaryDetailDto).healthIndicators(healthIndicatorDtos).updatedDate("").build();
+
+        when(iCountryRepository.findByName(countryName)).thenReturn(country);
+        when(countryService.fetchTheYearToPrefillData(countryUUID)).thenReturn("2022");
+        when(countryHealthDataService.saveNewCountrySummary(countryUUID)).thenReturn(countryUrlGenerationStatusDto);
+        when(countryHealthDataService.validateRequiredFields(gdhiQuestionnaire1)).thenReturn(true);
+
+        List<GdhiQuestionnaire> gdhiQuestionnaireList = new ArrayList<>();
+        gdhiQuestionnaireList.add(gdhiQuestionnaire);
+        GdhiQuestionnaires gdhiQuestionnaires = new GdhiQuestionnaires(gdhiQuestionnaireList);
+
+        List<CountryStatus> actual = bffService.submitCountryCSVData(gdhiQuestionnaires);
+
+        List<CountryStatus> expected = new ArrayList<>();
+        CountryStatus countryStatus = new CountryStatus(countryName, true, FormStatus.REVIEW_PENDING);
+        expected.add(countryStatus);
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldConstructGDHIQuestionnaireGivenQuestionnaireAndGenerateURLDto() {
+        String countryId = "IND";
+        String countryName = "India";
+        UUID countryUUID = UUID.randomUUID();
+        List<String> resourceLinks = asList("Res 1");
+        String status = DRAFT.name();
+        CountrySummaryDto countrySummaryDetailDto = CountrySummaryDto.builder()
+                .summary("Summary 1")
+                .dataFeederEmail("feeder@email.com")
+                .dataFeederName("feeder")
+                .dataFeederRole("feeder role")
+                .contactEmail("contact@test.com")
+                .contactDesignation("some designation")
+                .contactName("some contact name")
+                .contactOrganization("contact org")
+                .dataApproverEmail("approver@email.com")
+                .dataApproverName("Some approver name")
+                .dataApproverRole("some approver role")
+                .govtApproved(true)
+                .countryId(countryId)
+                .countryName(countryName)
+                .countryAlpha2Code("IN")
+                .resources(resourceLinks)
+                .build();
+        List<HealthIndicatorDto> healthIndicatorDtos = getHealthIndicatorDto(1, "some text");
+        GdhiQuestionnaire gdhiQuestionnaire = GdhiQuestionnaire.builder().countryId(countryId)
+                .countrySummary(countrySummaryDetailDto)
+                .healthIndicators(healthIndicatorDtos).build();
+
+        Country country = new Country(countryId, countryName, countryUUID, "IN");
+        CountryUrlGenerationStatusDto countryUrlGenerationStatusDto = new CountryUrlGenerationStatusDto(countryId, false, DRAFT);
+
+        when(countryService.fetchTheYearToPrefillData(countryUUID)).thenReturn("2022");
+
+        GdhiQuestionnaire expected = bffService.constructGdhiQuestionnaire(gdhiQuestionnaire , countryUrlGenerationStatusDto , country);
+        GdhiQuestionnaire actual = GdhiQuestionnaire.builder().countryId(countryId).status(status).currentYear(getCurrentYear()).dataAvailableForYear("2022").
+                countrySummary(countrySummaryDetailDto).healthIndicators(healthIndicatorDtos).updatedDate("").build();
+
+        assertEquals(expected , actual);
+    }
+
+    private List<HealthIndicatorDto> getHealthIndicatorDto(Integer score, String supportText) {
+        List<HealthIndicatorDto> healthIndicatorDtoList = new ArrayList<>();
+        for (int i = 0; i < 30; i++) {
+            healthIndicatorDtoList.add(new HealthIndicatorDto(1, 1, "DRAFT", score, supportText));
+        }
+        return healthIndicatorDtoList;
+    }
+
 }

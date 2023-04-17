@@ -1,7 +1,11 @@
 package it.gdhi.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
+import it.gdhi.dto.GdhiQuestionnaire;
+import it.gdhi.dto.GdhiQuestionnaires;
 import it.gdhi.service.BffService;
 import it.gdhi.service.CountryHealthDataService;
 import it.gdhi.service.DefaultYearDataService;
@@ -12,8 +16,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static it.gdhi.utils.ApplicationConstants.defaultLimit;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class BffControllerTest {
@@ -98,5 +101,12 @@ public class BffControllerTest {
         bffController.getYearOnYearData(null, 1,"EURO");
         verify(bffService).fetchPublishedYearsForACountry(null, 1);
         verify(bffService).fetchYearOnYearData(bffService.fetchPublishedYearsForACountry(null, 1), null,"EURO");
+    }
+
+    @Test
+    public void shouldSubmitCSVDataWhenListOfQuestionnairesAreGiven() {
+        GdhiQuestionnaires mock = mock(GdhiQuestionnaires.class);
+        bffController.shouldSubmitCSVData(mock);
+        verify(bffService).submitCountryCSVData(mock);
     }
 }

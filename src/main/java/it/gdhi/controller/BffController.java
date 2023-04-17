@@ -1,21 +1,22 @@
 package it.gdhi.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import it.gdhi.dto.BenchmarkDto;
-import it.gdhi.dto.YearDto;
+import it.gdhi.dto.*;
 
-import it.gdhi.dto.YearOnYearDto;
+import it.gdhi.model.Country;
+import it.gdhi.model.response.CountryStatus;
+import it.gdhi.repository.ICountryRepository;
 import it.gdhi.service.BffService;
 import it.gdhi.service.CountryHealthDataService;
+import it.gdhi.service.CountryService;
 import it.gdhi.service.DefaultYearDataService;
+import it.gdhi.utils.FormStatus;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import static it.gdhi.utils.ApplicationConstants.defaultLimit;
 
@@ -61,4 +62,10 @@ public class BffController {
         }
         return countryHealthDataService.getBenchmarkDetailsFor(countryId, benchmarkType, year, regionId);
     }
+
+    @PostMapping("/bff/countries/submit")
+    public List<CountryStatus> shouldSubmitCSVData(@RequestBody GdhiQuestionnaires gdhiQuestionnaires) {
+        return bffService.submitCountryCSVData(gdhiQuestionnaires);
+    }
+
 }
