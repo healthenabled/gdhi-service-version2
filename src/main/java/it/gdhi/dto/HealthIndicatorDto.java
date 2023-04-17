@@ -1,15 +1,13 @@
 package it.gdhi.dto;
 
 import it.gdhi.model.CountryHealthIndicator;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Builder
+@EqualsAndHashCode
 public class HealthIndicatorDto {
 
     private Integer categoryId;

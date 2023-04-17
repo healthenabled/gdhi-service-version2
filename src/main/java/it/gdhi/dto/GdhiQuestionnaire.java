@@ -1,10 +1,7 @@
 package it.gdhi.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
@@ -12,6 +9,7 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Builder
+@EqualsAndHashCode
 public class GdhiQuestionnaire {
 
     private String countryId;

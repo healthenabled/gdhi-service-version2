@@ -6,10 +6,7 @@ import it.gdhi.model.CountryResourceLink;
 import it.gdhi.model.CountrySummary;
 import it.gdhi.utils.JsonDateDeserializer;
 import it.gdhi.utils.JsonDateSerializer;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.Date;
 import java.util.List;
@@ -23,6 +20,7 @@ import static java.util.stream.Collectors.toList;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@EqualsAndHashCode
 public class CountrySummaryDto {
 
     private String countryId;
