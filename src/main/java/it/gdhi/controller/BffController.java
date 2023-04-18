@@ -8,6 +8,7 @@ import it.gdhi.dto.*;
 
 import it.gdhi.model.Country;
 import it.gdhi.model.response.CountryStatus;
+import it.gdhi.model.response.CountryStatuses;
 import it.gdhi.repository.ICountryRepository;
 import it.gdhi.service.BffService;
 import it.gdhi.service.CountryHealthDataService;
@@ -64,7 +65,7 @@ public class BffController {
     }
 
     @PostMapping("/bff/countries/submit")
-    public List<CountryStatus> shouldSubmitCSVData(@RequestBody GdhiQuestionnaires gdhiQuestionnaires) {
+    public CountryStatuses shouldSubmitCSVData(@RequestBody GdhiQuestionnaires gdhiQuestionnaires) {
         return bffService.submitCountryCSVData(gdhiQuestionnaires);
     }
 

@@ -16,4 +16,5 @@ public class CountryStatus {
     private String countryName;
     private boolean success;
     private FormStatus currentStatus;
+    private String message;
 }

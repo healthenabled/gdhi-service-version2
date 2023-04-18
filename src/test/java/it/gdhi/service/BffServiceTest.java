@@ -11,6 +11,7 @@ import it.gdhi.model.Country;
 import it.gdhi.model.CountrySummary;
 import it.gdhi.model.id.CountrySummaryId;
 import it.gdhi.model.response.CountryStatus;
+import it.gdhi.model.response.CountryStatuses;
 import it.gdhi.repository.ICountryHealthIndicatorRepository;
 import it.gdhi.repository.ICountryPhaseRepository;
 import it.gdhi.repository.ICountryRepository;
@@ -251,11 +252,10 @@ public class BffServiceTest {
         gdhiQuestionnaireList.add(gdhiQuestionnaire);
         GdhiQuestionnaires gdhiQuestionnaires = new GdhiQuestionnaires(gdhiQuestionnaireList);
 
-        List<CountryStatus> actual = bffService.submitCountryCSVData(gdhiQuestionnaires);
+        CountryStatuses actual = bffService.submitCountryCSVData(gdhiQuestionnaires);
 
-        List<CountryStatus> expected = new ArrayList<>();
-        CountryStatus countryStatus = new CountryStatus(countryName, true, FormStatus.REVIEW_PENDING);
-        expected.add(countryStatus);
+        CountryStatuses expected = new CountryStatuses();
+        expected.add(countryName, true, REVIEW_PENDING, "");
 
         assertEquals(expected, actual);
     }
@@ -300,11 +300,10 @@ public class BffServiceTest {
         gdhiQuestionnaireList.add(gdhiQuestionnaire);
         GdhiQuestionnaires gdhiQuestionnaires = new GdhiQuestionnaires(gdhiQuestionnaireList);
 
-        List<CountryStatus> actual = bffService.submitCountryCSVData(gdhiQuestionnaires);
+        CountryStatuses actual = bffService.submitCountryCSVData(gdhiQuestionnaires);
 
-        List<CountryStatus> expected = new ArrayList<>();
-        CountryStatus countryStatus = new CountryStatus(countryName, false, PUBLISHED);
-        expected.add(countryStatus);
+        CountryStatuses expected = new CountryStatuses();
+        expected.add(countryName, false, PUBLISHED, "Country is already in " + PUBLISHED + " state");
 
         assertEquals(expected, actual);
     }
@@ -349,11 +348,10 @@ public class BffServiceTest {
         gdhiQuestionnaireList.add(gdhiQuestionnaire);
         GdhiQuestionnaires gdhiQuestionnaires = new GdhiQuestionnaires(gdhiQuestionnaireList);
 
-        List<CountryStatus> actual = bffService.submitCountryCSVData(gdhiQuestionnaires);
+        CountryStatuses actual = bffService.submitCountryCSVData(gdhiQuestionnaires);
 
-        List<CountryStatus> expected = new ArrayList<>();
-        CountryStatus countryStatus = new CountryStatus(countryName, false, REVIEW_PENDING);
-        expected.add(countryStatus);
+        CountryStatuses expected = new CountryStatuses();
+        expected.add(countryName, false, REVIEW_PENDING, "Country is already in " + REVIEW_PENDING + " state");
 
         assertEquals(expected, actual);
     }
@@ -402,11 +400,10 @@ public class BffServiceTest {
         gdhiQuestionnaireList.add(gdhiQuestionnaire);
         GdhiQuestionnaires gdhiQuestionnaires = new GdhiQuestionnaires(gdhiQuestionnaireList);
 
-        List<CountryStatus> actual = bffService.submitCountryCSVData(gdhiQuestionnaires);
+        CountryStatuses actual = bffService.submitCountryCSVData(gdhiQuestionnaires);
 
-        List<CountryStatus> expected = new ArrayList<>();
-        CountryStatus countryStatus = new CountryStatus(countryName, true, FormStatus.REVIEW_PENDING);
-        expected.add(countryStatus);
+        CountryStatuses expected = new CountryStatuses();
+        expected.add(countryName, true, REVIEW_PENDING, "");
 
         assertEquals(expected, actual);
     }
@@ -455,11 +452,10 @@ public class BffServiceTest {
         gdhiQuestionnaireList.add(gdhiQuestionnaire);
         GdhiQuestionnaires gdhiQuestionnaires = new GdhiQuestionnaires(gdhiQuestionnaireList);
 
-        List<CountryStatus> actual = bffService.submitCountryCSVData(gdhiQuestionnaires);
+        CountryStatuses actual = bffService.submitCountryCSVData(gdhiQuestionnaires);
 
-        List<CountryStatus> expected = new ArrayList<>();
-        CountryStatus countryStatus = new CountryStatus(countryName, true, FormStatus.REVIEW_PENDING);
-        expected.add(countryStatus);
+        CountryStatuses expected = new CountryStatuses();
+        expected.add(countryName, true, REVIEW_PENDING, "");
 
         assertEquals(expected, actual);
     }

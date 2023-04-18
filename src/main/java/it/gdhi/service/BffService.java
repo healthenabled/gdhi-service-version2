@@ -10,6 +10,7 @@ import it.gdhi.model.Country;
 import it.gdhi.model.CountrySummary;
 import it.gdhi.model.id.CountrySummaryId;
 import it.gdhi.model.response.CountryStatus;
+import it.gdhi.model.response.CountryStatuses;
 import it.gdhi.repository.ICountryPhaseRepository;
 import it.gdhi.repository.ICountryRepository;
 import it.gdhi.utils.FormStatus;
@@ -69,15 +70,14 @@ public class BffService {
     }
 
     @Transactional
-    public List<CountryStatus> submitCountryCSVData(GdhiQuestionnaires gdhiQuestionnaires) {
-        List<CountryStatus> countryStatuses = new ArrayList<>();
+    public CountryStatuses submitCountryCSVData(GdhiQuestionnaires gdhiQuestionnaires) {
+        CountryStatuses countryStatuses = new CountryStatuses();
         List<GdhiQuestionnaire> gdhiQuestionnaireList = gdhiQuestionnaires.getGdhiQuestionnaires();
         gdhiQuestionnaireList.forEach(gdhiQuestionnaire -> {
             String countryName = gdhiQuestionnaire.getCountrySummary().getCountryName();
             Country country = iCountryRepository.findByName(countryName);
             if (country == null) {
-                CountryStatus countryStatus = new CountryStatus(countryName, false, null);
-                countryStatuses.add(countryStatus);
+                countryStatuses.add(countryName , false , null , "Invalid Country Name");
             } else {
                 CountryUrlGenerationStatusDto countryUrlGenerationStatusDto = countryHealthDataService.saveNewCountrySummary(country.getUniqueId());
                 if (canSubmitDataForCountry(countryUrlGenerationStatusDto)) {
@@ -85,15 +85,12 @@ public class BffService {
                     boolean isValid = countryHealthDataService.validateRequiredFields(gdhiQuestionnaire1);
                     if (isValid) {
                         countryHealthDataService.submit(gdhiQuestionnaire1);
-                        CountryStatus countryStatus = new CountryStatus(countryName, true, FormStatus.REVIEW_PENDING);
-                        countryStatuses.add(countryStatus);
+                        countryStatuses.add(countryName , true , FormStatus.REVIEW_PENDING , "");
                     } else {
-                        CountryStatus countryStatus = new CountryStatus(countryName, false, countryUrlGenerationStatusDto.getExistingStatus());
-                        countryStatuses.add(countryStatus);
+                        countryStatuses.add(countryName , false , countryUrlGenerationStatusDto.getExistingStatus() , "Invalid Questionnaire Data");
                     }
                 } else {
-                    CountryStatus countryStatus = new CountryStatus(countryName, false, countryUrlGenerationStatusDto.getExistingStatus());
-                    countryStatuses.add(countryStatus);
+                    countryStatuses.add(countryName , false , countryUrlGenerationStatusDto.getExistingStatus() , "Country is already in " + countryUrlGenerationStatusDto.getExistingStatus() + " state");
                 }
             }
         });
