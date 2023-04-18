@@ -34,7 +34,8 @@ public class BffService {
 
     @Autowired
     public BffService(CountryService countryService, DefaultYearDataService defaultYearDataService,
-                      ICountryPhaseRepository iCountryPhaseRepository, CountryHealthIndicatorService countryHealthIndicatorService,
+                      ICountryPhaseRepository iCountryPhaseRepository,
+                      CountryHealthIndicatorService countryHealthIndicatorService,
                       ICountryRepository iCountryRepository, CountryHealthDataService countryHealthDataService) {
         this.countryService = countryService;
         this.defaultYearDataService = defaultYearDataService;
@@ -56,7 +57,8 @@ public class BffService {
     }
 
     public YearOnYearDto fetchYearOnYearData(List<String> years, String countryId, String regionId) {
-        List<YearScoreDto> yearScoreDtos = years.stream().map(year -> getYearScoreDto(countryId, year, regionId)).toList();
+        List<YearScoreDto> yearScoreDtos =
+                years.stream().map(year -> getYearScoreDto(countryId, year, regionId)).toList();
         return YearOnYearDto.builder().currentYear(getCurrentYear()).yearOnYearData(yearScoreDtos).defaultYear(defaultYearDataService.fetchDefaultYear()).build();
     }
 
@@ -65,7 +67,8 @@ public class BffService {
     }
 
     private YearHealthScoreDto getYearHealthScoreDto(String countryId, String year, String regionId) {
-        return YearHealthScoreDto.builder().country(countryHealthIndicatorService.fetchCountryHealthScore(countryId, en, year))
+        return YearHealthScoreDto.builder().country(countryHealthIndicatorService.fetchCountryHealthScore(countryId,
+                        en, year))
                 .average(countryHealthIndicatorService.getGlobalHealthIndicator(null, null, regionId, en, year)).build();
     }
 
@@ -76,44 +79,62 @@ public class BffService {
         gdhiQuestionnaireList.forEach(gdhiQuestionnaire -> {
             String countryName = gdhiQuestionnaire.getCountrySummary().getCountryName();
             Country country = iCountryRepository.findByName(countryName);
-            if (country == null) {
-                countryStatuses.add(countryName , false , null , "Invalid Country Name");
-            } else {
-                CountryUrlGenerationStatusDto countryUrlGenerationStatusDto = countryHealthDataService.saveNewCountrySummary(country.getUniqueId());
+            if (!isValidCountry(country)) {
+                countryStatuses.add(countryName, false, null, "Invalid Country Name");
+            }
+            else {
+                CountryUrlGenerationStatusDto countryUrlGenerationStatusDto =
+                        countryHealthDataService.saveNewCountrySummary(country.getUniqueId());
                 if (canSubmitDataForCountry(countryUrlGenerationStatusDto)) {
-                    GdhiQuestionnaire gdhiQuestionnaire1 = constructGdhiQuestionnaire(gdhiQuestionnaire, countryUrlGenerationStatusDto, country);
-                    boolean isValid = countryHealthDataService.validateRequiredFields(gdhiQuestionnaire1);
-                    if (isValid) {
+                    GdhiQuestionnaire gdhiQuestionnaire1 = constructGdhiQuestionnaire(gdhiQuestionnaire,
+                            countryUrlGenerationStatusDto, country);
+                    boolean isValidQuestionnaire = countryHealthDataService.validateRequiredFields(gdhiQuestionnaire1);
+                    if (isValidQuestionnaire) {
                         countryHealthDataService.submit(gdhiQuestionnaire1);
-                        countryStatuses.add(countryName , true , FormStatus.REVIEW_PENDING , "");
-                    } else {
-                        countryStatuses.add(countryName , false , countryUrlGenerationStatusDto.getExistingStatus() , "Invalid Questionnaire Data");
+                        countryStatuses.add(countryName, true, FormStatus.REVIEW_PENDING, "");
                     }
-                } else {
-                    countryStatuses.add(countryName , false , countryUrlGenerationStatusDto.getExistingStatus() , "Country is already in " + countryUrlGenerationStatusDto.getExistingStatus() + " state");
+                    else {
+                        countryStatuses.add(countryName, false, countryUrlGenerationStatusDto.getExistingStatus(),
+                                "Invalid Questionnaire Data");
+                    }
+                }
+                else {
+                    countryStatuses.add(countryName, false, countryUrlGenerationStatusDto.getExistingStatus(),
+                            "Country is already in " + countryUrlGenerationStatusDto.getExistingStatus() + " state");
                 }
             }
         });
         return countryStatuses;
     }
 
+    public boolean isValidCountry(Country country) {
+        return country == null ? false : true;
+    }
+
     public boolean canSubmitDataForCountry(CountryUrlGenerationStatusDto countryUrlGenerationStatusDto) {
         return countryUrlGenerationStatusDto.isSuccess() || countryUrlGenerationStatusDto.getExistingStatus().equals(FormStatus.DRAFT) || countryUrlGenerationStatusDto.getExistingStatus().equals(FormStatus.NEW);
     }
 
-    public GdhiQuestionnaire constructGdhiQuestionnaire(GdhiQuestionnaire gdhiQuestionnaire, CountryUrlGenerationStatusDto countryUrlGenerationStatusDto, Country country) {
-        String status = countryUrlGenerationStatusDto.getExistingStatus() == null ? "NEW" : countryUrlGenerationStatusDto.getExistingStatus().toString();
+    public GdhiQuestionnaire constructGdhiQuestionnaire(GdhiQuestionnaire gdhiQuestionnaire,
+                                                        CountryUrlGenerationStatusDto countryUrlGenerationStatusDto,
+                                                        Country country) {
+        String status = countryUrlGenerationStatusDto.getExistingStatus() == null ? "NEW" :
+                countryUrlGenerationStatusDto.getExistingStatus().toString();
         String yearToPrefillData = countryService.fetchTheYearToPrefillData(country.getUniqueId());
         CountrySummaryDto countrySummaryDto = gdhiQuestionnaire.getCountrySummary();
-        CountrySummaryId countrySummaryId = CountrySummaryId.builder().countryId(country.getId()).status(status).year(getCurrentYear()).build();
+        CountrySummaryId countrySummaryId =
+                CountrySummaryId.builder().countryId(country.getId()).status(status).year(getCurrentYear()).build();
         CountrySummary countrySummary = new CountrySummary(countrySummaryId, countrySummaryDto, country);
 
         GdhiQuestionnaire gdhiQuestionnaire1;
-        CountrySummaryDto countrySummaryDto1 = Optional.ofNullable(countrySummary).map(CountrySummaryDto::new).orElse(null);
+        CountrySummaryDto countrySummaryDto1 =
+                Optional.ofNullable(countrySummary).map(CountrySummaryDto::new).orElse(null);
         String updatedDateStr = countrySummary != null && countrySummary.getUpdatedAt() != null ?
                 new SimpleDateFormat("MMMM yyyy").format(countrySummary.getUpdatedAt()) : "";
 
-        gdhiQuestionnaire1 = new GdhiQuestionnaire(country.getId(), getCurrentYear(), yearToPrefillData, countrySummary.getCountrySummaryId().getStatus(), updatedDateStr, countrySummaryDto1, gdhiQuestionnaire.getHealthIndicators());
+        gdhiQuestionnaire1 = new GdhiQuestionnaire(country.getId(), getCurrentYear(), yearToPrefillData,
+                countrySummary.getCountrySummaryId().getStatus(), updatedDateStr, countrySummaryDto1,
+                gdhiQuestionnaire.getHealthIndicators());
         return gdhiQuestionnaire1;
     }
 

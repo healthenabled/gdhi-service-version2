@@ -102,21 +102,32 @@ public class BffServiceTest {
     public void shouldReturnYearOnYearData() {
         String year = getCurrentYear();
 
-        CategoryHealthScoreDto categoryHealthScoreDto1 = new CategoryHealthScoreDto(2, "Category 2", 2.0, 2, of(new IndicatorScoreDto(1, null, null, null, null, 2, null, "Not Available")));
-        CategoryHealthScoreDto categoryHealthScoreDto2 = new CategoryHealthScoreDto(1, "Category 1", 5.0, 5, of(new IndicatorScoreDto(1, null, null, null, null, 5, null, "Not Available")));
-        CountryHealthScoreDto countryHealthScoreDtoIN = new CountryHealthScoreDto("IND", "India", "IN", of(categoryHealthScoreDto1, categoryHealthScoreDto2), 4, "");
-        CategoryHealthScoreDto categoryHealthScoreDto4 = new CategoryHealthScoreDto(2, "Category 2", -1.0, -1, of(new IndicatorScoreDto(1, null, null, null, null, null, null, "Not Available")));
-        CategoryHealthScoreDto categoryHealthScoreDto5 = new CategoryHealthScoreDto(1, "Category 1", 2.0, 2, of(new IndicatorScoreDto(1, null, null, null, null, 2, null, "Not Available")));
+        CategoryHealthScoreDto categoryHealthScoreDto1 = new CategoryHealthScoreDto(2, "Category 2", 2.0, 2,
+                of(new IndicatorScoreDto(1, null, null, null, null, 2, null, "Not Available")));
+        CategoryHealthScoreDto categoryHealthScoreDto2 = new CategoryHealthScoreDto(1, "Category 1", 5.0, 5,
+                of(new IndicatorScoreDto(1, null, null, null, null, 5, null, "Not Available")));
+        CountryHealthScoreDto countryHealthScoreDtoIN = new CountryHealthScoreDto("IND", "India", "IN",
+                of(categoryHealthScoreDto1, categoryHealthScoreDto2), 4, "");
+        CategoryHealthScoreDto categoryHealthScoreDto4 = new CategoryHealthScoreDto(2, "Category 2", -1.0, -1,
+                of(new IndicatorScoreDto(1, null, null, null, null, null, null, "Not Available")));
+        CategoryHealthScoreDto categoryHealthScoreDto5 = new CategoryHealthScoreDto(1, "Category 1", 2.0, 2,
+                of(new IndicatorScoreDto(1, null, null, null, null, 2, null, "Not Available")));
 
-        GlobalHealthScoreDto globalHealthScore = GlobalHealthScoreDto.builder().overAllScore(3).categories(asList(categoryHealthScoreDto1, categoryHealthScoreDto2, categoryHealthScoreDto4, categoryHealthScoreDto5)).build();
+        GlobalHealthScoreDto globalHealthScore =
+                GlobalHealthScoreDto.builder().overAllScore(3).categories(asList(categoryHealthScoreDto1,
+                        categoryHealthScoreDto2, categoryHealthScoreDto4, categoryHealthScoreDto5)).build();
         when(countryHealthIndicatorService.getGlobalHealthIndicator(null, null, null, en, year)).thenReturn(globalHealthScore);
         when(countryHealthIndicatorService.fetchCountryHealthScore("IND", en, year)).thenReturn(countryHealthScoreDtoIN);
         when(defaultYearDataService.fetchDefaultYear()).thenReturn(year);
 
-        YearOnYearDto actual = bffService.fetchYearOnYearData((Collections.singletonList(getCurrentYear())), "IND", null);
-        YearHealthScoreDto data = YearHealthScoreDto.builder().country(countryHealthScoreDtoIN).average(globalHealthScore).build();
-        List<YearScoreDto> yearScoreDtos = Collections.singletonList(YearScoreDto.builder().year(year).data(data).build());
-        YearOnYearDto expected = YearOnYearDto.builder().currentYear(year).defaultYear(year).yearOnYearData(yearScoreDtos).build();
+        YearOnYearDto actual = bffService.fetchYearOnYearData((Collections.singletonList(getCurrentYear())), "IND",
+                null);
+        YearHealthScoreDto data =
+                YearHealthScoreDto.builder().country(countryHealthScoreDtoIN).average(globalHealthScore).build();
+        List<YearScoreDto> yearScoreDtos =
+                Collections.singletonList(YearScoreDto.builder().year(year).data(data).build());
+        YearOnYearDto expected =
+                YearOnYearDto.builder().currentYear(year).defaultYear(year).yearOnYearData(yearScoreDtos).build();
         assertEquals(expected, actual);
     }
 
@@ -124,13 +135,20 @@ public class BffServiceTest {
     public void shouldReturnYearOnYearDataForMultipleYears() {
         List<String> years = asList("2023", "2022");
 
-        CategoryHealthScoreDto categoryHealthScoreDto1 = new CategoryHealthScoreDto(2, "Category 2", 2.0, 2, of(new IndicatorScoreDto(1, null, null, null, null, 2, null, "Not Available")));
-        CategoryHealthScoreDto categoryHealthScoreDto2 = new CategoryHealthScoreDto(1, "Category 1", 5.0, 5, of(new IndicatorScoreDto(1, null, null, null, null, 5, null, "Not Available")));
-        CountryHealthScoreDto countryHealthScoreDtoIN = new CountryHealthScoreDto("IND", "India", "IN", of(categoryHealthScoreDto1, categoryHealthScoreDto2), 4, "");
-        CategoryHealthScoreDto categoryHealthScoreDto4 = new CategoryHealthScoreDto(2, "Category 2", -1.0, -1, of(new IndicatorScoreDto(1, null, null, null, null, null, null, "Not Available")));
-        CategoryHealthScoreDto categoryHealthScoreDto5 = new CategoryHealthScoreDto(1, "Category 1", 2.0, 2, of(new IndicatorScoreDto(1, null, null, null, null, 2, null, "Not Available")));
+        CategoryHealthScoreDto categoryHealthScoreDto1 = new CategoryHealthScoreDto(2, "Category 2", 2.0, 2,
+                of(new IndicatorScoreDto(1, null, null, null, null, 2, null, "Not Available")));
+        CategoryHealthScoreDto categoryHealthScoreDto2 = new CategoryHealthScoreDto(1, "Category 1", 5.0, 5,
+                of(new IndicatorScoreDto(1, null, null, null, null, 5, null, "Not Available")));
+        CountryHealthScoreDto countryHealthScoreDtoIN = new CountryHealthScoreDto("IND", "India", "IN",
+                of(categoryHealthScoreDto1, categoryHealthScoreDto2), 4, "");
+        CategoryHealthScoreDto categoryHealthScoreDto4 = new CategoryHealthScoreDto(2, "Category 2", -1.0, -1,
+                of(new IndicatorScoreDto(1, null, null, null, null, null, null, "Not Available")));
+        CategoryHealthScoreDto categoryHealthScoreDto5 = new CategoryHealthScoreDto(1, "Category 1", 2.0, 2,
+                of(new IndicatorScoreDto(1, null, null, null, null, 2, null, "Not Available")));
 
-        GlobalHealthScoreDto globalHealthScore = GlobalHealthScoreDto.builder().overAllScore(3).categories(asList(categoryHealthScoreDto1, categoryHealthScoreDto2, categoryHealthScoreDto4, categoryHealthScoreDto5)).build();
+        GlobalHealthScoreDto globalHealthScore =
+                GlobalHealthScoreDto.builder().overAllScore(3).categories(asList(categoryHealthScoreDto1,
+                        categoryHealthScoreDto2, categoryHealthScoreDto4, categoryHealthScoreDto5)).build();
         when(countryHealthIndicatorService.getGlobalHealthIndicator(null, null, null, en, "2023")).thenReturn(globalHealthScore);
         when(countryHealthIndicatorService.getGlobalHealthIndicator(null, null, null, en, "2022")).thenReturn(globalHealthScore);
         when(countryHealthIndicatorService.fetchCountryHealthScore("IND", en, "2023")).thenReturn(countryHealthScoreDtoIN);
@@ -138,10 +156,14 @@ public class BffServiceTest {
         when(defaultYearDataService.fetchDefaultYear()).thenReturn("2022");
 
         YearOnYearDto actual = bffService.fetchYearOnYearData(years, "IND", null);
-        YearHealthScoreDto data1 = YearHealthScoreDto.builder().country(countryHealthScoreDtoIN).average(globalHealthScore).build();
-        YearHealthScoreDto data2 = YearHealthScoreDto.builder().country(countryHealthScoreDtoIN).average(globalHealthScore).build();
-        List<YearScoreDto> yearScoreDtos = asList(YearScoreDto.builder().year("2023").data(data1).build(), YearScoreDto.builder().year("2022").data(data2).build());
-        YearOnYearDto expected = YearOnYearDto.builder().currentYear(getCurrentYear()).defaultYear("2022").yearOnYearData(yearScoreDtos).build();
+        YearHealthScoreDto data1 =
+                YearHealthScoreDto.builder().country(countryHealthScoreDtoIN).average(globalHealthScore).build();
+        YearHealthScoreDto data2 =
+                YearHealthScoreDto.builder().country(countryHealthScoreDtoIN).average(globalHealthScore).build();
+        List<YearScoreDto> yearScoreDtos = asList(YearScoreDto.builder().year("2023").data(data1).build(),
+                YearScoreDto.builder().year("2022").data(data2).build());
+        YearOnYearDto expected =
+                YearOnYearDto.builder().currentYear(getCurrentYear()).defaultYear("2022").yearOnYearData(yearScoreDtos).build();
         assertEquals(expected, actual);
     }
 
@@ -150,27 +172,39 @@ public class BffServiceTest {
         String year = getCurrentYear();
         String region = "PAHO";
 
-        CategoryHealthScoreDto categoryHealthScoreDto1 = new CategoryHealthScoreDto(2, "Category 2", 2.0, 2, of(new IndicatorScoreDto(1, null, null, null, null, 2, null, "Not Available")));
-        CategoryHealthScoreDto categoryHealthScoreDto2 = new CategoryHealthScoreDto(1, "Category 1", 5.0, 5, of(new IndicatorScoreDto(1, null, null, null, null, 5, null, "Not Available")));
-        CountryHealthScoreDto countryHealthScoreDtoIN = new CountryHealthScoreDto("IND", "India", "IN", of(categoryHealthScoreDto1, categoryHealthScoreDto2), 4, "");
-        CategoryHealthScoreDto categoryHealthScoreDto4 = new CategoryHealthScoreDto(2, "Category 2", -1.0, -1, of(new IndicatorScoreDto(1, null, null, null, null, null, null, "Not Available")));
-        CategoryHealthScoreDto categoryHealthScoreDto5 = new CategoryHealthScoreDto(1, "Category 1", 2.0, 2, of(new IndicatorScoreDto(1, null, null, null, null, 2, null, "Not Available")));
+        CategoryHealthScoreDto categoryHealthScoreDto1 = new CategoryHealthScoreDto(2, "Category 2", 2.0, 2,
+                of(new IndicatorScoreDto(1, null, null, null, null, 2, null, "Not Available")));
+        CategoryHealthScoreDto categoryHealthScoreDto2 = new CategoryHealthScoreDto(1, "Category 1", 5.0, 5,
+                of(new IndicatorScoreDto(1, null, null, null, null, 5, null, "Not Available")));
+        CountryHealthScoreDto countryHealthScoreDtoIN = new CountryHealthScoreDto("IND", "India", "IN",
+                of(categoryHealthScoreDto1, categoryHealthScoreDto2), 4, "");
+        CategoryHealthScoreDto categoryHealthScoreDto4 = new CategoryHealthScoreDto(2, "Category 2", -1.0, -1,
+                of(new IndicatorScoreDto(1, null, null, null, null, null, null, "Not Available")));
+        CategoryHealthScoreDto categoryHealthScoreDto5 = new CategoryHealthScoreDto(1, "Category 1", 2.0, 2,
+                of(new IndicatorScoreDto(1, null, null, null, null, 2, null, "Not Available")));
 
-        GlobalHealthScoreDto globalHealthScore = GlobalHealthScoreDto.builder().overAllScore(3).categories(asList(categoryHealthScoreDto1, categoryHealthScoreDto2, categoryHealthScoreDto4, categoryHealthScoreDto5)).build();
+        GlobalHealthScoreDto globalHealthScore =
+                GlobalHealthScoreDto.builder().overAllScore(3).categories(asList(categoryHealthScoreDto1,
+                        categoryHealthScoreDto2, categoryHealthScoreDto4, categoryHealthScoreDto5)).build();
         when(countryHealthIndicatorService.getGlobalHealthIndicator(null, null, region, en, year)).thenReturn(globalHealthScore);
         when(countryHealthIndicatorService.fetchCountryHealthScore("IND", en, year)).thenReturn(countryHealthScoreDtoIN);
         when(defaultYearDataService.fetchDefaultYear()).thenReturn(year);
 
-        YearOnYearDto actual = bffService.fetchYearOnYearData((Collections.singletonList(getCurrentYear())), "IND", region);
-        YearHealthScoreDto data = YearHealthScoreDto.builder().country(countryHealthScoreDtoIN).average(globalHealthScore).build();
-        List<YearScoreDto> yearScoreDtos = Collections.singletonList(YearScoreDto.builder().year(year).data(data).build());
-        YearOnYearDto expected = YearOnYearDto.builder().currentYear(year).defaultYear(year).yearOnYearData(yearScoreDtos).build();
+        YearOnYearDto actual = bffService.fetchYearOnYearData((Collections.singletonList(getCurrentYear())), "IND",
+                region);
+        YearHealthScoreDto data =
+                YearHealthScoreDto.builder().country(countryHealthScoreDtoIN).average(globalHealthScore).build();
+        List<YearScoreDto> yearScoreDtos =
+                Collections.singletonList(YearScoreDto.builder().year(year).data(data).build());
+        YearOnYearDto expected =
+                YearOnYearDto.builder().currentYear(year).defaultYear(year).yearOnYearData(yearScoreDtos).build();
         assertEquals(expected, actual);
     }
 
     @Test
     public void shouldReturnTrueWhenCountryURLGenerationStatusIsDraft() {
-        CountryUrlGenerationStatusDto countryUrlGenerationStatusDto = new CountryUrlGenerationStatusDto("IND", false, FormStatus.DRAFT);
+        CountryUrlGenerationStatusDto countryUrlGenerationStatusDto = new CountryUrlGenerationStatusDto("IND", false,
+                FormStatus.DRAFT);
         Boolean actual = bffService.canSubmitDataForCountry(countryUrlGenerationStatusDto);
 
         assertEquals(true, actual);
@@ -178,7 +212,8 @@ public class BffServiceTest {
 
     @Test
     public void shouldReturnTrueWhenCountryURLGenerationStatusIsNEW() {
-        CountryUrlGenerationStatusDto countryUrlGenerationStatusDto = new CountryUrlGenerationStatusDto("IND", false, FormStatus.NEW);
+        CountryUrlGenerationStatusDto countryUrlGenerationStatusDto = new CountryUrlGenerationStatusDto("IND", false,
+                FormStatus.NEW);
         Boolean actual = bffService.canSubmitDataForCountry(countryUrlGenerationStatusDto);
 
         assertEquals(true, actual);
@@ -186,7 +221,8 @@ public class BffServiceTest {
 
     @Test
     public void shouldReturnTrueWhenCountryURLGenerationStatusIsNullAndSuccessIsTrue() {
-        CountryUrlGenerationStatusDto countryUrlGenerationStatusDto = new CountryUrlGenerationStatusDto("IND", true, null);
+        CountryUrlGenerationStatusDto countryUrlGenerationStatusDto = new CountryUrlGenerationStatusDto("IND", true,
+                null);
         Boolean actual = bffService.canSubmitDataForCountry(countryUrlGenerationStatusDto);
 
         assertEquals(true, actual);
@@ -194,7 +230,8 @@ public class BffServiceTest {
 
     @Test
     public void shouldReturnFalseWhenCountryURLGenerationStatusIsReviewPending() {
-        CountryUrlGenerationStatusDto countryUrlGenerationStatusDto = new CountryUrlGenerationStatusDto("IND", false, FormStatus.REVIEW_PENDING);
+        CountryUrlGenerationStatusDto countryUrlGenerationStatusDto = new CountryUrlGenerationStatusDto("IND", false,
+                FormStatus.REVIEW_PENDING);
         Boolean actual = bffService.canSubmitDataForCountry(countryUrlGenerationStatusDto);
 
         assertEquals(false, actual);
@@ -202,7 +239,8 @@ public class BffServiceTest {
 
     @Test
     public void shouldReturnFalseWhenCountryURLGenerationStatusIsPublished() {
-        CountryUrlGenerationStatusDto countryUrlGenerationStatusDto = new CountryUrlGenerationStatusDto("IND", false, FormStatus.PUBLISHED);
+        CountryUrlGenerationStatusDto countryUrlGenerationStatusDto = new CountryUrlGenerationStatusDto("IND", false,
+                FormStatus.PUBLISHED);
         Boolean actual = bffService.canSubmitDataForCountry(countryUrlGenerationStatusDto);
 
         assertEquals(false, actual);
@@ -239,8 +277,10 @@ public class BffServiceTest {
                 .healthIndicators(healthIndicatorDtos).build();
 
         Country country = new Country(countryId, countryName, countryUUID, "IN");
-        CountryUrlGenerationStatusDto countryUrlGenerationStatusDto = new CountryUrlGenerationStatusDto(countryId, false, DRAFT);
-        GdhiQuestionnaire gdhiQuestionnaire1 = GdhiQuestionnaire.builder().countryId(countryId).status(status).currentYear(getCurrentYear()).dataAvailableForYear("2022").
+        CountryUrlGenerationStatusDto countryUrlGenerationStatusDto = new CountryUrlGenerationStatusDto(countryId,
+                false, DRAFT);
+        GdhiQuestionnaire gdhiQuestionnaire1 =
+                GdhiQuestionnaire.builder().countryId(countryId).status(status).currentYear(getCurrentYear()).dataAvailableForYear("2022").
                 countrySummary(countrySummaryDetailDto).healthIndicators(healthIndicatorDtos).updatedDate("").build();
 
         when(iCountryRepository.findByName(countryName)).thenReturn(country);
@@ -291,7 +331,8 @@ public class BffServiceTest {
                 .healthIndicators(healthIndicatorDtos).build();
 
         Country country = new Country(countryId, countryName, countryUUID, "IN");
-        CountryUrlGenerationStatusDto countryUrlGenerationStatusDto = new CountryUrlGenerationStatusDto(countryId, false, PUBLISHED);
+        CountryUrlGenerationStatusDto countryUrlGenerationStatusDto = new CountryUrlGenerationStatusDto(countryId,
+                false, PUBLISHED);
 
         when(iCountryRepository.findByName(countryName)).thenReturn(country);
         when(countryHealthDataService.saveNewCountrySummary(countryUUID)).thenReturn(countryUrlGenerationStatusDto);
@@ -339,7 +380,8 @@ public class BffServiceTest {
                 .healthIndicators(healthIndicatorDtos).build();
 
         Country country = new Country(countryId, countryName, countryUUID, "IN");
-        CountryUrlGenerationStatusDto countryUrlGenerationStatusDto = new CountryUrlGenerationStatusDto(countryId, false, REVIEW_PENDING);
+        CountryUrlGenerationStatusDto countryUrlGenerationStatusDto = new CountryUrlGenerationStatusDto(countryId,
+                false, REVIEW_PENDING);
 
         when(iCountryRepository.findByName(countryName)).thenReturn(country);
         when(countryHealthDataService.saveNewCountrySummary(countryUUID)).thenReturn(countryUrlGenerationStatusDto);
@@ -387,8 +429,10 @@ public class BffServiceTest {
                 .healthIndicators(healthIndicatorDtos).build();
 
         Country country = new Country(countryId, countryName, countryUUID, "IN");
-        CountryUrlGenerationStatusDto countryUrlGenerationStatusDto = new CountryUrlGenerationStatusDto(countryId, false, NEW);
-        GdhiQuestionnaire gdhiQuestionnaire1 = GdhiQuestionnaire.builder().countryId(countryId).status(status).currentYear(getCurrentYear()).dataAvailableForYear("2022").
+        CountryUrlGenerationStatusDto countryUrlGenerationStatusDto = new CountryUrlGenerationStatusDto(countryId,
+                false, NEW);
+        GdhiQuestionnaire gdhiQuestionnaire1 =
+                GdhiQuestionnaire.builder().countryId(countryId).status(status).currentYear(getCurrentYear()).dataAvailableForYear("2022").
                 countrySummary(countrySummaryDetailDto).healthIndicators(healthIndicatorDtos).updatedDate("").build();
 
         when(iCountryRepository.findByName(countryName)).thenReturn(country);
@@ -439,8 +483,10 @@ public class BffServiceTest {
                 .healthIndicators(healthIndicatorDtos).build();
 
         Country country = new Country(countryId, countryName, countryUUID, "IN");
-        CountryUrlGenerationStatusDto countryUrlGenerationStatusDto = new CountryUrlGenerationStatusDto(countryId, true, null);
-        GdhiQuestionnaire gdhiQuestionnaire1 = GdhiQuestionnaire.builder().countryId(countryId).status(NEW.name()).currentYear(getCurrentYear()).dataAvailableForYear("2022").
+        CountryUrlGenerationStatusDto countryUrlGenerationStatusDto = new CountryUrlGenerationStatusDto(countryId,
+                true, null);
+        GdhiQuestionnaire gdhiQuestionnaire1 =
+                GdhiQuestionnaire.builder().countryId(countryId).status(NEW.name()).currentYear(getCurrentYear()).dataAvailableForYear("2022").
                 countrySummary(countrySummaryDetailDto).healthIndicators(healthIndicatorDtos).updatedDate("").build();
 
         when(iCountryRepository.findByName(countryName)).thenReturn(country);
@@ -491,15 +537,36 @@ public class BffServiceTest {
                 .healthIndicators(healthIndicatorDtos).build();
 
         Country country = new Country(countryId, countryName, countryUUID, "IN");
-        CountryUrlGenerationStatusDto countryUrlGenerationStatusDto = new CountryUrlGenerationStatusDto(countryId, false, DRAFT);
+        CountryUrlGenerationStatusDto countryUrlGenerationStatusDto = new CountryUrlGenerationStatusDto(countryId,
+                false, DRAFT);
 
         when(countryService.fetchTheYearToPrefillData(countryUUID)).thenReturn("2022");
 
-        GdhiQuestionnaire expected = bffService.constructGdhiQuestionnaire(gdhiQuestionnaire, countryUrlGenerationStatusDto, country);
-        GdhiQuestionnaire actual = GdhiQuestionnaire.builder().countryId(countryId).status(status).currentYear(getCurrentYear()).dataAvailableForYear("2022").
+        GdhiQuestionnaire expected = bffService.constructGdhiQuestionnaire(gdhiQuestionnaire,
+                countryUrlGenerationStatusDto, country);
+        GdhiQuestionnaire actual =
+                GdhiQuestionnaire.builder().countryId(countryId).status(status).currentYear(getCurrentYear()).dataAvailableForYear("2022").
                 countrySummary(countrySummaryDetailDto).healthIndicators(healthIndicatorDtos).updatedDate("").build();
 
         assertEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldReturnTrueWhenCountryIsValid() {
+        String countryId = "IND";
+        String countryName = "India";
+        UUID countryUUID = UUID.randomUUID();
+        Country country = new Country(countryId, countryName, countryUUID, "IN");
+
+        boolean actual = bffService.isValidCountry(country);
+        assertEquals(true, actual);
+    }
+
+    @Test
+    public void shouldReturnFalseWhenCountryIsInValid() {
+        Country country = null;
+        boolean actual = bffService.isValidCountry(country);
+        assertEquals(false, actual);
     }
 
     private List<HealthIndicatorDto> getHealthIndicatorDto(Integer score, String supportText) {
