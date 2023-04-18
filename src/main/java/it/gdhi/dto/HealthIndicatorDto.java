@@ -12,8 +12,7 @@ public class HealthIndicatorDto {
 
     private Integer categoryId;
     private Integer indicatorId;
-    private String  status;
-
+    private String status;
     private Integer score;
     private String supportingText;
 

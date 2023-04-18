@@ -81,7 +81,7 @@ public class BffService {
             } else {
                 CountryUrlGenerationStatusDto countryUrlGenerationStatusDto = countryHealthDataService.saveNewCountrySummary(country.getUniqueId());
                 if (canSubmitDataForCountry(countryUrlGenerationStatusDto)) {
-                    GdhiQuestionnaire gdhiQuestionnaire1 = constructGdhiQuestionnaire(gdhiQuestionnaire , countryUrlGenerationStatusDto , country);
+                    GdhiQuestionnaire gdhiQuestionnaire1 = constructGdhiQuestionnaire(gdhiQuestionnaire, countryUrlGenerationStatusDto, country);
                     boolean isValid = countryHealthDataService.validateRequiredFields(gdhiQuestionnaire1);
                     if (isValid) {
                         countryHealthDataService.submit(gdhiQuestionnaire1);
@@ -104,12 +104,12 @@ public class BffService {
         return countryUrlGenerationStatusDto.isSuccess() || countryUrlGenerationStatusDto.getExistingStatus().equals(FormStatus.DRAFT) || countryUrlGenerationStatusDto.getExistingStatus().equals(FormStatus.NEW);
     }
 
-    public GdhiQuestionnaire constructGdhiQuestionnaire(GdhiQuestionnaire gdhiQuestionnaire , CountryUrlGenerationStatusDto countryUrlGenerationStatusDto , Country country) {
+    public GdhiQuestionnaire constructGdhiQuestionnaire(GdhiQuestionnaire gdhiQuestionnaire, CountryUrlGenerationStatusDto countryUrlGenerationStatusDto, Country country) {
         String status = countryUrlGenerationStatusDto.getExistingStatus() == null ? "NEW" : countryUrlGenerationStatusDto.getExistingStatus().toString();
         String yearToPrefillData = countryService.fetchTheYearToPrefillData(country.getUniqueId());
         CountrySummaryDto countrySummaryDto = gdhiQuestionnaire.getCountrySummary();
         CountrySummaryId countrySummaryId = CountrySummaryId.builder().countryId(country.getId()).status(status).year(getCurrentYear()).build();
-        CountrySummary countrySummary = new CountrySummary(countrySummaryId, countrySummaryDto , country);
+        CountrySummary countrySummary = new CountrySummary(countrySummaryId, countrySummaryDto, country);
 
         GdhiQuestionnaire gdhiQuestionnaire1;
         CountrySummaryDto countrySummaryDto1 = Optional.ofNullable(countrySummary).map(CountrySummaryDto::new).orElse(null);

@@ -26,8 +26,7 @@ import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
 
 import static com.google.common.collect.ImmutableList.of;
-import static it.gdhi.utils.FormStatus.DRAFT;
-import static it.gdhi.utils.FormStatus.PUBLISHED;
+import static it.gdhi.utils.FormStatus.*;
 import static it.gdhi.utils.LanguageCode.en;
 import static it.gdhi.utils.Util.getCurrentYear;
 import static java.util.Arrays.asList;
@@ -262,6 +261,210 @@ public class BffServiceTest {
     }
 
     @Test
+    public void shouldNotSubmitCountryCSVDataWhenQuestionnaireForCountryIsAlreadyPublished() {
+        String countryId = "IND";
+        String countryName = "India";
+        UUID countryUUID = UUID.randomUUID();
+        List<String> resourceLinks = asList("Res 1");
+        String status = PUBLISHED.name();
+        CountrySummaryDto countrySummaryDetailDto = CountrySummaryDto.builder()
+                .summary("Summary 1")
+                .dataFeederEmail("feeder@email.com")
+                .dataFeederName("feeder")
+                .dataFeederRole("feeder role")
+                .contactEmail("contact@test.com")
+                .contactDesignation("some designation")
+                .contactName("some contact name")
+                .contactOrganization("contact org")
+                .dataApproverEmail("approver@email.com")
+                .dataApproverName("Some approver name")
+                .dataApproverRole("some approver role")
+                .govtApproved(true)
+                .countryId(countryId)
+                .countryName(countryName)
+                .countryAlpha2Code("IN")
+                .resources(resourceLinks)
+                .build();
+        List<HealthIndicatorDto> healthIndicatorDtos = getHealthIndicatorDto(1, "some text");
+        GdhiQuestionnaire gdhiQuestionnaire = GdhiQuestionnaire.builder().countryId(countryId)
+                .countrySummary(countrySummaryDetailDto)
+                .healthIndicators(healthIndicatorDtos).build();
+
+        Country country = new Country(countryId, countryName, countryUUID, "IN");
+        CountryUrlGenerationStatusDto countryUrlGenerationStatusDto = new CountryUrlGenerationStatusDto(countryId, false, PUBLISHED);
+
+        when(iCountryRepository.findByName(countryName)).thenReturn(country);
+        when(countryHealthDataService.saveNewCountrySummary(countryUUID)).thenReturn(countryUrlGenerationStatusDto);
+
+        List<GdhiQuestionnaire> gdhiQuestionnaireList = new ArrayList<>();
+        gdhiQuestionnaireList.add(gdhiQuestionnaire);
+        GdhiQuestionnaires gdhiQuestionnaires = new GdhiQuestionnaires(gdhiQuestionnaireList);
+
+        List<CountryStatus> actual = bffService.submitCountryCSVData(gdhiQuestionnaires);
+
+        List<CountryStatus> expected = new ArrayList<>();
+        CountryStatus countryStatus = new CountryStatus(countryName, false, PUBLISHED);
+        expected.add(countryStatus);
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldNotSubmitCountryCSVDataWhenQuestionnaireForCountryIsInReviewPending() {
+        String countryId = "IND";
+        String countryName = "India";
+        UUID countryUUID = UUID.randomUUID();
+        List<String> resourceLinks = asList("Res 1");
+        String status = REVIEW_PENDING.name();
+        CountrySummaryDto countrySummaryDetailDto = CountrySummaryDto.builder()
+                .summary("Summary 1")
+                .dataFeederEmail("feeder@email.com")
+                .dataFeederName("feeder")
+                .dataFeederRole("feeder role")
+                .contactEmail("contact@test.com")
+                .contactDesignation("some designation")
+                .contactName("some contact name")
+                .contactOrganization("contact org")
+                .dataApproverEmail("approver@email.com")
+                .dataApproverName("Some approver name")
+                .dataApproverRole("some approver role")
+                .govtApproved(true)
+                .countryId(countryId)
+                .countryName(countryName)
+                .countryAlpha2Code("IN")
+                .resources(resourceLinks)
+                .build();
+        List<HealthIndicatorDto> healthIndicatorDtos = getHealthIndicatorDto(1, "some text");
+        GdhiQuestionnaire gdhiQuestionnaire = GdhiQuestionnaire.builder().countryId(countryId)
+                .countrySummary(countrySummaryDetailDto)
+                .healthIndicators(healthIndicatorDtos).build();
+
+        Country country = new Country(countryId, countryName, countryUUID, "IN");
+        CountryUrlGenerationStatusDto countryUrlGenerationStatusDto = new CountryUrlGenerationStatusDto(countryId, false, REVIEW_PENDING);
+
+        when(iCountryRepository.findByName(countryName)).thenReturn(country);
+        when(countryHealthDataService.saveNewCountrySummary(countryUUID)).thenReturn(countryUrlGenerationStatusDto);
+
+        List<GdhiQuestionnaire> gdhiQuestionnaireList = new ArrayList<>();
+        gdhiQuestionnaireList.add(gdhiQuestionnaire);
+        GdhiQuestionnaires gdhiQuestionnaires = new GdhiQuestionnaires(gdhiQuestionnaireList);
+
+        List<CountryStatus> actual = bffService.submitCountryCSVData(gdhiQuestionnaires);
+
+        List<CountryStatus> expected = new ArrayList<>();
+        CountryStatus countryStatus = new CountryStatus(countryName, false, REVIEW_PENDING);
+        expected.add(countryStatus);
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldSubmitCountryCSVDataWhenQuestionnaireIsGivenAndStatusIsNew() {
+        String countryId = "IND";
+        String countryName = "India";
+        UUID countryUUID = UUID.randomUUID();
+        List<String> resourceLinks = asList("Res 1");
+        String status = NEW.name();
+        CountrySummaryDto countrySummaryDetailDto = CountrySummaryDto.builder()
+                .summary("Summary 1")
+                .dataFeederEmail("feeder@email.com")
+                .dataFeederName("feeder")
+                .dataFeederRole("feeder role")
+                .contactEmail("contact@test.com")
+                .contactDesignation("some designation")
+                .contactName("some contact name")
+                .contactOrganization("contact org")
+                .dataApproverEmail("approver@email.com")
+                .dataApproverName("Some approver name")
+                .dataApproverRole("some approver role")
+                .govtApproved(true)
+                .countryId(countryId)
+                .countryName(countryName)
+                .countryAlpha2Code("IN")
+                .resources(resourceLinks)
+                .build();
+        List<HealthIndicatorDto> healthIndicatorDtos = getHealthIndicatorDto(1, "some text");
+        GdhiQuestionnaire gdhiQuestionnaire = GdhiQuestionnaire.builder().countryId(countryId)
+                .countrySummary(countrySummaryDetailDto)
+                .healthIndicators(healthIndicatorDtos).build();
+
+        Country country = new Country(countryId, countryName, countryUUID, "IN");
+        CountryUrlGenerationStatusDto countryUrlGenerationStatusDto = new CountryUrlGenerationStatusDto(countryId, false, NEW);
+        GdhiQuestionnaire gdhiQuestionnaire1 = GdhiQuestionnaire.builder().countryId(countryId).status(status).currentYear(getCurrentYear()).dataAvailableForYear("2022").
+                countrySummary(countrySummaryDetailDto).healthIndicators(healthIndicatorDtos).updatedDate("").build();
+
+        when(iCountryRepository.findByName(countryName)).thenReturn(country);
+        when(countryService.fetchTheYearToPrefillData(countryUUID)).thenReturn("2022");
+        when(countryHealthDataService.saveNewCountrySummary(countryUUID)).thenReturn(countryUrlGenerationStatusDto);
+        when(countryHealthDataService.validateRequiredFields(gdhiQuestionnaire1)).thenReturn(true);
+
+        List<GdhiQuestionnaire> gdhiQuestionnaireList = new ArrayList<>();
+        gdhiQuestionnaireList.add(gdhiQuestionnaire);
+        GdhiQuestionnaires gdhiQuestionnaires = new GdhiQuestionnaires(gdhiQuestionnaireList);
+
+        List<CountryStatus> actual = bffService.submitCountryCSVData(gdhiQuestionnaires);
+
+        List<CountryStatus> expected = new ArrayList<>();
+        CountryStatus countryStatus = new CountryStatus(countryName, true, FormStatus.REVIEW_PENDING);
+        expected.add(countryStatus);
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldSubmitCountryCSVDataWhenQuestionnaireIsGivenAndStatusIsNull() {
+        String countryId = "IND";
+        String countryName = "India";
+        UUID countryUUID = UUID.randomUUID();
+        List<String> resourceLinks = asList("Res 1");
+        String status = null;
+        CountrySummaryDto countrySummaryDetailDto = CountrySummaryDto.builder()
+                .summary("Summary 1")
+                .dataFeederEmail("feeder@email.com")
+                .dataFeederName("feeder")
+                .dataFeederRole("feeder role")
+                .contactEmail("contact@test.com")
+                .contactDesignation("some designation")
+                .contactName("some contact name")
+                .contactOrganization("contact org")
+                .dataApproverEmail("approver@email.com")
+                .dataApproverName("Some approver name")
+                .dataApproverRole("some approver role")
+                .govtApproved(true)
+                .countryId(countryId)
+                .countryName(countryName)
+                .countryAlpha2Code("IN")
+                .resources(resourceLinks)
+                .build();
+        List<HealthIndicatorDto> healthIndicatorDtos = getHealthIndicatorDto(1, "some text");
+        GdhiQuestionnaire gdhiQuestionnaire = GdhiQuestionnaire.builder().countryId(countryId)
+                .countrySummary(countrySummaryDetailDto)
+                .healthIndicators(healthIndicatorDtos).build();
+
+        Country country = new Country(countryId, countryName, countryUUID, "IN");
+        CountryUrlGenerationStatusDto countryUrlGenerationStatusDto = new CountryUrlGenerationStatusDto(countryId, true, null);
+        GdhiQuestionnaire gdhiQuestionnaire1 = GdhiQuestionnaire.builder().countryId(countryId).status(NEW.name()).currentYear(getCurrentYear()).dataAvailableForYear("2022").
+                countrySummary(countrySummaryDetailDto).healthIndicators(healthIndicatorDtos).updatedDate("").build();
+
+        when(iCountryRepository.findByName(countryName)).thenReturn(country);
+        when(countryService.fetchTheYearToPrefillData(countryUUID)).thenReturn("2022");
+        when(countryHealthDataService.saveNewCountrySummary(countryUUID)).thenReturn(countryUrlGenerationStatusDto);
+        when(countryHealthDataService.validateRequiredFields(gdhiQuestionnaire1)).thenReturn(true);
+
+        List<GdhiQuestionnaire> gdhiQuestionnaireList = new ArrayList<>();
+        gdhiQuestionnaireList.add(gdhiQuestionnaire);
+        GdhiQuestionnaires gdhiQuestionnaires = new GdhiQuestionnaires(gdhiQuestionnaireList);
+
+        List<CountryStatus> actual = bffService.submitCountryCSVData(gdhiQuestionnaires);
+
+        List<CountryStatus> expected = new ArrayList<>();
+        CountryStatus countryStatus = new CountryStatus(countryName, true, FormStatus.REVIEW_PENDING);
+        expected.add(countryStatus);
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
     public void shouldConstructGDHIQuestionnaireGivenQuestionnaireAndGenerateURLDto() {
         String countryId = "IND";
         String countryName = "India";
@@ -296,11 +499,11 @@ public class BffServiceTest {
 
         when(countryService.fetchTheYearToPrefillData(countryUUID)).thenReturn("2022");
 
-        GdhiQuestionnaire expected = bffService.constructGdhiQuestionnaire(gdhiQuestionnaire , countryUrlGenerationStatusDto , country);
+        GdhiQuestionnaire expected = bffService.constructGdhiQuestionnaire(gdhiQuestionnaire, countryUrlGenerationStatusDto, country);
         GdhiQuestionnaire actual = GdhiQuestionnaire.builder().countryId(countryId).status(status).currentYear(getCurrentYear()).dataAvailableForYear("2022").
                 countrySummary(countrySummaryDetailDto).healthIndicators(healthIndicatorDtos).updatedDate("").build();
 
-        assertEquals(expected , actual);
+        assertEquals(expected, actual);
     }
 
     private List<HealthIndicatorDto> getHealthIndicatorDto(Integer score, String supportText) {
