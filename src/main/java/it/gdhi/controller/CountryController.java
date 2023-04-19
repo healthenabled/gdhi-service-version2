@@ -45,6 +45,9 @@ public class CountryController {
     @Autowired
     private DefaultYearDataService defaultYearDataService;
 
+    @Autowired
+    private RegionService regionService;
+
     @GetMapping("/countries")
     public List<Country> getCountries(HttpServletRequest request) {
         LanguageCode languageCode = LanguageCode.getValueFor(request.getHeader(USER_LANGUAGE));
@@ -157,8 +160,6 @@ public class CountryController {
         }
         countryHealthIndicatorService.createHealthIndicatorInExcelFor(countryId, request, response, year);
     }
-
-    //TODO: add integration test for this endpoint
     @PostMapping("/countries/{uuid}/generate_url")
     public CountryUrlGenerationStatusDto saveNewCountrySummary(@PathVariable("uuid") UUID countryUIID)
             throws Exception {
@@ -192,6 +193,7 @@ public class CountryController {
             year = getCurrentYear();
         }
         countryHealthDataService.calculatePhaseForAllCountries(year);
+        regionService.calculatePhaseForAllRegions(year);
     }
 
     @ResponseStatus(value = HttpStatus.NOT_ACCEPTABLE, reason = "User language requested not found")

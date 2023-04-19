@@ -1,50 +1,32 @@
 package it.gdhi.controller;
 
-import java.time.Year;
-import java.util.HashMap;
-import java.util.UUID;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import groovyjarjarantlr4.v4.runtime.RuleDependencies;
-import it.gdhi.dto.CountryHealthScoreDto;
-import it.gdhi.dto.CountrySummaryDto;
-import it.gdhi.dto.CountrySummaryStatusYearDto;
-import it.gdhi.dto.CountryUrlGenerationStatusDto;
-import it.gdhi.dto.GdhiQuestionnaire;
+import it.gdhi.dto.*;
 import it.gdhi.model.DevelopmentIndicator;
-import it.gdhi.service.CountryHealthDataService;
-import it.gdhi.service.CountryHealthIndicatorService;
-import it.gdhi.service.CountryService;
-import it.gdhi.service.DevelopmentIndicatorService;
+import it.gdhi.service.*;
 import it.gdhi.utils.LanguageCode;
-import org.apache.poi.ss.formula.functions.T;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.jupiter.api.function.Executable;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.http.HttpRequest;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.UUID;
+
 import static it.gdhi.utils.FormStatus.DRAFT;
 import static it.gdhi.utils.LanguageCode.en;
 import static it.gdhi.utils.LanguageCode.fr;
+import static it.gdhi.utils.Util.getCurrentYear;
 import static java.util.Collections.emptyList;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import static it.gdhi.utils.Util.*;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class CountryControllerTest {
@@ -63,6 +45,9 @@ public class CountryControllerTest {
 
     @Mock
     private CountryHealthIndicatorService countryHealthIndicatorService;
+
+    @Mock
+    private RegionService regionService;
 
 
     @Test
@@ -262,11 +247,12 @@ public class CountryControllerTest {
     }
 
     @Test
-    public void shouldCalculatePhaseForAllCountriesForAGivenYear() {
+    public void shouldCalculatePhaseForAllCountriesAndRegionsForAGivenYear() {
         String year = "Version1";
         doNothing().when(countryHealthDataService).calculatePhaseForAllCountries(year);
         countryController.calculateCountryPhase(year);
         verify(countryHealthDataService).calculatePhaseForAllCountries(year);
+        verify(regionService).calculatePhaseForAllRegions(year);
     }
 
     @Test
