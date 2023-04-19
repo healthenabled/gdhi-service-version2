@@ -15,9 +15,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 import static it.gdhi.utils.FormStatus.PUBLISHED;
 import static it.gdhi.utils.LanguageCode.en;
@@ -274,5 +272,27 @@ public class RegionServiceTest {
         assertEquals(expectedRegionalOverallData, regionalOverallData);
     }
 
+    @Test
+    public void shouldGetListOfCountriesAndRegionId() {
+        RegionCountryId regionCountryId = new RegionCountryId();
+        regionCountryId.setCountryId("IND");
+        regionCountryId.setRegionId("PAHO");
+        RegionCountry regionCountry1 = new RegionCountry();
+        regionCountry1.setRegionCountryId(regionCountryId);
+
+        List<String> countries = new ArrayList<>();
+        countries.add("IND");
+
+        Map<String, List<String>> expectedMap = new HashMap<>();
+        expectedMap.put("PAHO",countries);
+
+        when(iRegionCountryRepository.findByRegionCountryIdCountryId("IND")).thenReturn(regionCountry1);
+        when(iRegionCountryRepository.findByRegionCountryIdRegionId("PAHO")).thenReturn(countries);
+        Map<String, List<String>> actualMap = regionService.getListOfCountriesAndRegionId("IND");
+
+        assertEquals(expectedMap,actualMap);
+
+
+    }
 }
 
