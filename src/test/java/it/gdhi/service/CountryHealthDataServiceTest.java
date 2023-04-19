@@ -70,7 +70,6 @@ public class CountryHealthDataServiceTest {
     RegionService regionService;
 
     @Test
-    @Disabled
     public void shouldPublishDetailsForACountryForCurrentYear() throws Exception {
         List<String> resourceLinks = Collections.singletonList("Res 1");
         CountrySummaryDto countrySummaryDetailDto = CountrySummaryDto.builder().summary("Summary 1")
@@ -113,19 +112,12 @@ public class CountryHealthDataServiceTest {
         when(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdInAndCountryHealthIndicatorIdYearAndCountryHealthIndicatorIdStatus(countries, currentYear, PUBLISHED.name())).thenReturn(asList(countryHealthIndicator1, countryHealthIndicator2));
 
         countryHealthDataService.publish(gdhiQuestionnaire, currentYear);
-
         ArgumentCaptor<CountrySummary> summaryCaptor = ArgumentCaptor.forClass(CountrySummary.class);
         ArgumentCaptor<CountryHealthIndicator> healthIndicatorsCaptorList = ArgumentCaptor.forClass(CountryHealthIndicator.class);
-        ArgumentCaptor<RegionalIndicatorData> regionalIndicatorDataCaptorList = ArgumentCaptor.forClass(RegionalIndicatorData.class);
-        ArgumentCaptor<RegionalCategoryData> regionalCategoryDataCaptorList = ArgumentCaptor.forClass(RegionalCategoryData.class);
-        ArgumentCaptor<RegionalOverallData> regionalOverallDataCaptorList = ArgumentCaptor.forClass(RegionalOverallData.class);
 
-        InOrder inOrder = inOrder(iCountryResourceLinkRepository, iCountrySummaryRepository, iRegionalIndicatorDataRepository, iRegionalCategoryDataRepository, iRegionalOverallRepository, iCountryHealthIndicatorRepository, iCountryPhaseRepository);
+        InOrder inOrder = inOrder(iCountryResourceLinkRepository, iCountrySummaryRepository, iCountryHealthIndicatorRepository, iCountryPhaseRepository);
         inOrder.verify(iCountryResourceLinkRepository).deleteByCountryResourceLinkIdCountryIdAndCountryResourceLinkIdYearAndCountryResourceLinkIdStatus(countryId, currentYear, status);
         inOrder.verify(iCountrySummaryRepository).save(summaryCaptor.capture());
-        inOrder.verify(iRegionalIndicatorDataRepository).save(regionalIndicatorDataCaptorList.capture());
-        inOrder.verify(iRegionalCategoryDataRepository).save(regionalCategoryDataCaptorList.capture());
-        inOrder.verify(iRegionalOverallRepository).save(regionalOverallDataCaptorList.capture());
         inOrder.verify(iCountryHealthIndicatorRepository).save(healthIndicatorsCaptorList.capture());
         CountrySummary summaryCaptorValue = summaryCaptor.getValue();
         assertThat(summaryCaptorValue.getCountrySummaryId().getCountryId(), is(countryId));

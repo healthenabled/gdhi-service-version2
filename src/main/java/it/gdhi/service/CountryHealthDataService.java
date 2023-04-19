@@ -31,15 +31,6 @@ public class CountryHealthDataService {
     private ICountryHealthIndicatorRepository iCountryHealthIndicatorRepository;
 
     @Autowired
-    private IRegionalIndicatorDataRepository iRegionalIndicatorDataRepository;
-
-    @Autowired
-    private IRegionalCategoryDataRepository iRegionalCategoryDataRepository;
-
-    @Autowired
-    private IRegionalOverallDataRepository iRegionalOverallRepository;
-
-    @Autowired
     private ICountryRepository iCountryRepository;
 
     @Autowired
