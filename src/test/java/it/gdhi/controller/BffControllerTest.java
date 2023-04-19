@@ -1,13 +1,11 @@
 package it.gdhi.controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
-import it.gdhi.dto.GdhiQuestionnaire;
 import it.gdhi.dto.GdhiQuestionnaires;
 import it.gdhi.service.BffService;
 import it.gdhi.service.CountryHealthDataService;
+import it.gdhi.service.CountryService;
 import it.gdhi.service.DefaultYearDataService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,7 +14,9 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static it.gdhi.utils.ApplicationConstants.defaultLimit;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class BffControllerTest {
@@ -26,6 +26,9 @@ public class BffControllerTest {
 
     @Mock
     private BffService bffService;
+
+    @Mock
+    private CountryService countryService;
     @Mock
     private CountryHealthDataService countryHealthDataService;
 
@@ -33,23 +36,29 @@ public class BffControllerTest {
     private DefaultYearDataService defaultYearDataService;
 
     @Test
+    public void shouldGetDistinctYearsWithDefaultLimitWhenLimitIsNull() {
+        bffController.getDistinctYears(null);
+        verify(bffService).fetchDistinctYears(defaultLimit);
+    }
+
+    @Test
     public void shouldGetDistinctYears() {
-        bffController.getDistinctYears();
-        verify(bffService).fetchDistinctYears();
+        bffController.getDistinctYears(5);
+        verify(bffService).fetchDistinctYears(5);
     }
 
     @Test
     public void shouldGetYearOnYearData() {
         bffController.getYearOnYearData(null, 1, null);
-        verify(bffService).fetchPublishedYearsForACountry(null, 1);
-        verify(bffService).fetchYearOnYearData(bffService.fetchPublishedYearsForACountry(null, 1), null, null);
+        verify(countryService).fetchPublishCountriesDistinctYears(1);
+        verify(bffService).fetchYearOnYearData(countryService.fetchPublishCountriesDistinctYears(1), null, null);
     }
 
     @Test
     public void shouldGetYearOnYearDataForFiveYearsWhenLimitIsNull() {
         bffController.getYearOnYearData(null, null, null);
-        verify(bffService).fetchPublishedYearsForACountry(null, defaultLimit);
-        verify(bffService).fetchYearOnYearData(bffService.fetchPublishedYearsForACountry(null, defaultLimit), null, null);
+        verify(countryService).fetchPublishCountriesDistinctYears(defaultLimit);
+        verify(bffService).fetchYearOnYearData(countryService.fetchPublishCountriesDistinctYears(defaultLimit), null, null);
     }
 
     @Test
@@ -96,11 +105,12 @@ public class BffControllerTest {
         bffController.getBenchmarkDetailsFor(countryID, benchmarkType, year, region);
         verify(countryHealthDataService).getBenchmarkDetailsFor(countryID, benchmarkType, year, region);
     }
+
     @Test
-    public void shouldGetYearOnYearDataWhenRegionIsPassed(){
-        bffController.getYearOnYearData(null, 1,"EURO");
-        verify(bffService).fetchPublishedYearsForACountry(null, 1);
-        verify(bffService).fetchYearOnYearData(bffService.fetchPublishedYearsForACountry(null, 1), null,"EURO");
+    public void shouldGetYearOnYearDataWhenRegionIsPassed() {
+        bffController.getYearOnYearData(null, 1, "EURO");
+        verify(countryService).fetchPublishCountriesDistinctYears(1);
+        verify(bffService).fetchYearOnYearData(countryService.fetchPublishCountriesDistinctYears(1), null, "EURO");
     }
 
     @Test

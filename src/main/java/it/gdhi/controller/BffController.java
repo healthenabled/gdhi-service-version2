@@ -1,23 +1,25 @@
 package it.gdhi.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import it.gdhi.dto.*;
-
-import it.gdhi.model.Country;
-import it.gdhi.model.response.CountryStatus;
+import it.gdhi.dto.BenchmarkDto;
+import it.gdhi.dto.GdhiQuestionnaires;
+import it.gdhi.dto.YearDto;
+import it.gdhi.dto.YearOnYearDto;
 import it.gdhi.model.response.CountryStatuses;
-import it.gdhi.repository.ICountryRepository;
 import it.gdhi.service.BffService;
 import it.gdhi.service.CountryHealthDataService;
 import it.gdhi.service.CountryService;
 import it.gdhi.service.DefaultYearDataService;
-import it.gdhi.utils.FormStatus;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import static it.gdhi.utils.ApplicationConstants.defaultLimit;
 
@@ -32,11 +34,17 @@ public class BffController {
     private DefaultYearDataService defaultYearDataService;
 
     @Autowired
+    private CountryService countryService;
+
+    @Autowired
     private CountryHealthDataService countryHealthDataService;
 
     @GetMapping("/bff/distinct_year")
-    public YearDto getDistinctYears() {
-        return bffService.fetchDistinctYears();
+    public YearDto getDistinctYears(@RequestParam(value = "no_of_years", required = false) Integer limit) {
+        if (limit == null) {
+            limit = defaultLimit;
+        }
+        return bffService.fetchDistinctYears(limit);
     }
 
     @GetMapping("/countries/{id}/year_on_year")
@@ -44,7 +52,7 @@ public class BffController {
         if (limit == null) {
             limit = defaultLimit;
         }
-        List<String> years = bffService.fetchPublishedYearsForACountry(countryId, limit);
+        List<String> years = countryService.fetchPublishCountriesDistinctYears(limit);
         return bffService.fetchYearOnYearData(years, countryId, regionId);
     }
 

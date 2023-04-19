@@ -1,23 +1,28 @@
 package it.gdhi.service;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import it.gdhi.dto.*;
+import javax.transaction.Transactional;
+
+import it.gdhi.dto.CountrySummaryDto;
+import it.gdhi.dto.CountryUrlGenerationStatusDto;
+import it.gdhi.dto.GdhiQuestionnaire;
+import it.gdhi.dto.GdhiQuestionnaires;
+import it.gdhi.dto.YearDto;
+import it.gdhi.dto.YearHealthScoreDto;
+import it.gdhi.dto.YearOnYearDto;
+import it.gdhi.dto.YearScoreDto;
 import it.gdhi.model.Country;
 import it.gdhi.model.CountrySummary;
 import it.gdhi.model.id.CountrySummaryId;
-import it.gdhi.model.response.CountryStatus;
 import it.gdhi.model.response.CountryStatuses;
 import it.gdhi.repository.ICountryPhaseRepository;
 import it.gdhi.repository.ICountryRepository;
 import it.gdhi.utils.FormStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.transaction.Transactional;
 
 import static it.gdhi.utils.LanguageCode.en;
 import static it.gdhi.utils.Util.getCurrentYear;
@@ -45,8 +50,8 @@ public class BffService {
         this.countryHealthDataService = countryHealthDataService;
     }
 
-    public YearDto fetchDistinctYears() {
-        List<String> years = countryService.fetchPublishCountriesDistinctYears();
+    public YearDto fetchDistinctYears(Integer limit) {
+        List<String> years = countryService.fetchPublishCountriesDistinctYears(limit);
         String defaultYear = defaultYearDataService.fetchDefaultYear();
         YearDto yearDto = YearDto.builder().years(years).defaultYear(defaultYear).build();
         return yearDto;
@@ -81,8 +86,7 @@ public class BffService {
             Country country = iCountryRepository.findByName(countryName);
             if (!isValidCountry(country)) {
                 countryStatuses.add(countryName, false, null, "Invalid Country Name");
-            }
-            else {
+            } else {
                 CountryUrlGenerationStatusDto countryUrlGenerationStatusDto =
                         countryHealthDataService.saveNewCountrySummary(country.getUniqueId());
                 if (canSubmitDataForCountry(countryUrlGenerationStatusDto)) {
@@ -92,13 +96,11 @@ public class BffService {
                     if (isValidQuestionnaire) {
                         countryHealthDataService.submit(gdhiQuestionnaire1);
                         countryStatuses.add(countryName, true, FormStatus.REVIEW_PENDING, "");
-                    }
-                    else {
+                    } else {
                         countryStatuses.add(countryName, false, countryUrlGenerationStatusDto.getExistingStatus(),
                                 "Invalid Questionnaire Data");
                     }
-                }
-                else {
+                } else {
                     countryStatuses.add(countryName, false, countryUrlGenerationStatusDto.getExistingStatus(),
                             "Country is already in " + countryUrlGenerationStatusDto.getExistingStatus() + " state");
                 }

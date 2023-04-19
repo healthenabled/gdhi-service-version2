@@ -1,6 +1,11 @@
 package it.gdhi.service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import com.google.common.collect.ImmutableList;
@@ -10,12 +15,10 @@ import it.gdhi.dto.HealthIndicatorDto;
 import it.gdhi.internationalization.service.CountryNameTranslator;
 import it.gdhi.model.Country;
 import it.gdhi.model.CountryHealthIndicator;
-import it.gdhi.model.CountryPhase;
 import it.gdhi.model.CountryResourceLink;
 import it.gdhi.model.CountrySummary;
 import it.gdhi.model.Indicator;
 import it.gdhi.model.id.CountryHealthIndicatorId;
-import it.gdhi.model.id.CountryPhaseId;
 import it.gdhi.model.id.CountryResourceLinkId;
 import it.gdhi.model.id.CountrySummaryId;
 import it.gdhi.repository.ICountryHealthIndicatorRepository;
@@ -32,11 +35,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
 
-import static it.gdhi.utils.FormStatus.NEW;
 import static it.gdhi.utils.FormStatus.PUBLISHED;
 import static it.gdhi.utils.LanguageCode.ar;
 import static it.gdhi.utils.LanguageCode.en;
-import static it.gdhi.utils.Util.*;
+import static it.gdhi.utils.Util.getCurrentYear;
 import static java.util.Arrays.asList;
 import static java.util.Collections.emptyList;
 import static java.util.UUID.randomUUID;
@@ -341,16 +343,9 @@ public class CountryServiceTest {
 
     @Test
     public void shouldGetPublishedCountriesDistinctYears() {
-        CountryPhaseId countryPhaseId1 = new CountryPhaseId("IND", "Version1");
-        CountryPhaseId countryPhaseId2 = new CountryPhaseId("AUS", "2023");
-        CountryPhaseId countryPhaseId3 = new CountryPhaseId("PAK", "2023");
-        CountryPhase countryPhaseInd = CountryPhase.builder().countryPhaseId(countryPhaseId1).countryOverallPhase(1).build();
-        CountryPhase countryPhaseAus = CountryPhase.builder().countryPhaseId(countryPhaseId2).countryOverallPhase(2).build();
-        CountryPhase countryPhasePak = CountryPhase.builder().countryPhaseId(countryPhaseId3).countryOverallPhase(3).build();
-
-        when(iCountryPhaseRepository.findAll()).thenReturn(asList(countryPhasePak, countryPhaseAus, countryPhaseInd));
-        List<String> expectedDistinctYears = asList("Version1", "2023");
-        List<String> actualDistinctYears = countryService.fetchPublishCountriesDistinctYears();
+        when(iCountryPhaseRepository.findAllDistinctYearsOrderByUpdatedAtDesc(2)).thenReturn(asList("2023", "Version1"));
+        List<String> expectedDistinctYears = asList("2023", "Version1");
+        List<String> actualDistinctYears = countryService.fetchPublishCountriesDistinctYears(2);
 
         assertEquals(expectedDistinctYears, actualDistinctYears);
     }

@@ -10,7 +10,6 @@ import it.gdhi.dto.HealthIndicatorDto;
 import it.gdhi.internationalization.service.CountryNameTranslator;
 import it.gdhi.model.Country;
 import it.gdhi.model.CountryHealthIndicator;
-import it.gdhi.model.CountryPhase;
 import it.gdhi.model.CountrySummary;
 import it.gdhi.repository.ICountryHealthIndicatorRepository;
 import it.gdhi.repository.ICountryPhaseRepository;
@@ -20,6 +19,7 @@ import it.gdhi.utils.LanguageCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import static it.gdhi.utils.ApplicationConstants.defaultLimit;
 import static it.gdhi.utils.FormStatus.PUBLISHED;
 import static java.util.stream.Collectors.toList;
 import static it.gdhi.utils.Util.*;
@@ -92,13 +92,12 @@ public class CountryService {
         return gdhiQuestionnaire;
     }
 
-    public List<String> fetchPublishCountriesDistinctYears() {
-        List<CountryPhase> countryPhases = iCountryPhaseRepository.findAll();
-        return countryPhases.stream().map(CountryPhase::getYear).distinct().sorted(Comparator.reverseOrder()).collect(Collectors.toList());
+    public List<String> fetchPublishCountriesDistinctYears(Integer limit) {
+        return iCountryPhaseRepository.findAllDistinctYearsOrderByUpdatedAtDesc(limit);
     }
 
     public Boolean validateDefaultYear(String year) {
-        List<String> distinctYears = this.fetchPublishCountriesDistinctYears();
+        List<String> distinctYears = this.fetchPublishCountriesDistinctYears(defaultLimit);
         return distinctYears.contains(year);
     }
 

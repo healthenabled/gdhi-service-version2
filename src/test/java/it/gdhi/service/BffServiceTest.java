@@ -5,12 +5,21 @@ import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
-import it.gdhi.dto.*;
+import it.gdhi.dto.CategoryHealthScoreDto;
+import it.gdhi.dto.CountryHealthScoreDto;
+import it.gdhi.dto.CountrySummaryDto;
+import it.gdhi.dto.CountryUrlGenerationStatusDto;
+import it.gdhi.dto.GdhiQuestionnaire;
+import it.gdhi.dto.GdhiQuestionnaires;
+import it.gdhi.dto.GlobalHealthScoreDto;
+import it.gdhi.dto.HealthIndicatorDto;
+import it.gdhi.dto.IndicatorScoreDto;
+import it.gdhi.dto.YearDto;
+import it.gdhi.dto.YearHealthScoreDto;
+import it.gdhi.dto.YearOnYearDto;
+import it.gdhi.dto.YearScoreDto;
 import it.gdhi.internationalization.service.HealthIndicatorTranslator;
 import it.gdhi.model.Country;
-import it.gdhi.model.CountrySummary;
-import it.gdhi.model.id.CountrySummaryId;
-import it.gdhi.model.response.CountryStatus;
 import it.gdhi.model.response.CountryStatuses;
 import it.gdhi.repository.ICountryHealthIndicatorRepository;
 import it.gdhi.repository.ICountryPhaseRepository;
@@ -19,25 +28,22 @@ import it.gdhi.repository.ICountrySummaryRepository;
 import it.gdhi.utils.FormStatus;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.mockito.junit.jupiter.MockitoSettings;
-import org.mockito.quality.Strictness;
 
 import static com.google.common.collect.ImmutableList.of;
-import static it.gdhi.utils.FormStatus.*;
+import static it.gdhi.utils.FormStatus.DRAFT;
+import static it.gdhi.utils.FormStatus.NEW;
+import static it.gdhi.utils.FormStatus.PUBLISHED;
+import static it.gdhi.utils.FormStatus.REVIEW_PENDING;
 import static it.gdhi.utils.LanguageCode.en;
 import static it.gdhi.utils.Util.getCurrentYear;
 import static java.util.Arrays.asList;
-import static java.util.Collections.emptyList;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class BffServiceTest {
@@ -78,11 +84,11 @@ public class BffServiceTest {
 
     @Test
     public void shouldReturnDistinctYearsAndDefaultYear() {
-        when(countryService.fetchPublishCountriesDistinctYears()).thenReturn(asList("Version1", "2023"));
+        when(countryService.fetchPublishCountriesDistinctYears(2)).thenReturn(asList("Version1", "2023"));
         when(defaultYearDataService.fetchDefaultYear()).thenReturn("2023");
 
         YearDto expectedYearData = YearDto.builder().years(asList("Version1", "2023")).defaultYear("2023").build();
-        YearDto actualYearData = bffService.fetchDistinctYears();
+        YearDto actualYearData = bffService.fetchDistinctYears(2);
 
         assertThat(expectedYearData.getDefaultYear(), equalTo(actualYearData.getDefaultYear()));
         assertThat(expectedYearData.getYears(), equalTo(actualYearData.getYears()));
@@ -281,7 +287,7 @@ public class BffServiceTest {
                 false, DRAFT);
         GdhiQuestionnaire gdhiQuestionnaire1 =
                 GdhiQuestionnaire.builder().countryId(countryId).status(status).currentYear(getCurrentYear()).dataAvailableForYear("2022").
-                countrySummary(countrySummaryDetailDto).healthIndicators(healthIndicatorDtos).updatedDate("").build();
+                        countrySummary(countrySummaryDetailDto).healthIndicators(healthIndicatorDtos).updatedDate("").build();
 
         when(iCountryRepository.findByName(countryName)).thenReturn(country);
         when(countryService.fetchTheYearToPrefillData(countryUUID)).thenReturn("2022");
@@ -433,7 +439,7 @@ public class BffServiceTest {
                 false, NEW);
         GdhiQuestionnaire gdhiQuestionnaire1 =
                 GdhiQuestionnaire.builder().countryId(countryId).status(status).currentYear(getCurrentYear()).dataAvailableForYear("2022").
-                countrySummary(countrySummaryDetailDto).healthIndicators(healthIndicatorDtos).updatedDate("").build();
+                        countrySummary(countrySummaryDetailDto).healthIndicators(healthIndicatorDtos).updatedDate("").build();
 
         when(iCountryRepository.findByName(countryName)).thenReturn(country);
         when(countryService.fetchTheYearToPrefillData(countryUUID)).thenReturn("2022");
@@ -487,7 +493,7 @@ public class BffServiceTest {
                 true, null);
         GdhiQuestionnaire gdhiQuestionnaire1 =
                 GdhiQuestionnaire.builder().countryId(countryId).status(NEW.name()).currentYear(getCurrentYear()).dataAvailableForYear("2022").
-                countrySummary(countrySummaryDetailDto).healthIndicators(healthIndicatorDtos).updatedDate("").build();
+                        countrySummary(countrySummaryDetailDto).healthIndicators(healthIndicatorDtos).updatedDate("").build();
 
         when(iCountryRepository.findByName(countryName)).thenReturn(country);
         when(countryService.fetchTheYearToPrefillData(countryUUID)).thenReturn("2022");
@@ -546,7 +552,7 @@ public class BffServiceTest {
                 countryUrlGenerationStatusDto, country);
         GdhiQuestionnaire actual =
                 GdhiQuestionnaire.builder().countryId(countryId).status(status).currentYear(getCurrentYear()).dataAvailableForYear("2022").
-                countrySummary(countrySummaryDetailDto).healthIndicators(healthIndicatorDtos).updatedDate("").build();
+                        countrySummary(countrySummaryDetailDto).healthIndicators(healthIndicatorDtos).updatedDate("").build();
 
         assertEquals(expected, actual);
     }
