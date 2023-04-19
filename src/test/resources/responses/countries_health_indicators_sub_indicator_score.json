@@ -59,7 +59,7 @@
               "code": "21a",
               "name": "Digital identity management of individuals for health",
               "indicatorDescription": "Specifically, is there a secure master patient index of uniquely identifiable individuals available, accessible and current for use for health-related purposes?",
-              "score": null,
+              "score": -1,
               "supportingText": "sp4",
               "scoreDescription": "Not Available"
             },
@@ -68,7 +68,7 @@
               "code": "21b",
               "name": "Digital identity management of individuals for health",
               "indicatorDescription": "Specifically, is there a secure birth registry of uniquely identifiable individuals available, accessible and current for use for health-related purposes?",
-              "score": null,
+              "score": -1,
               "supportingText": "sp5",
               "scoreDescription": "Not Available"
             },
@@ -77,7 +77,7 @@
               "code": "21c",
               "name": "Digital identity management of individuals for health",
               "indicatorDescription": "Specifically, is there a secure death registry of uniquely identifiable individuals available, accessible and current for use for health-related purposes?",
-              "score": null,
+              "score": -1,
               "supportingText": "sp6",
               "scoreDescription": "Not Available"
             }
