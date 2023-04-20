@@ -24,8 +24,7 @@ import static it.gdhi.utils.Util.getCurrentYear;
 import static org.codehaus.groovy.runtime.InvokerHelper.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 @MockitoSettings(strictness = Strictness.LENIENT)
@@ -166,7 +165,7 @@ public class RegionServiceTest {
 
         String region = "PAHO";
         List<CountryHealthIndicator> countryHealthIndicators = Arrays.asList(countryHealthIndicator1, countryHealthIndicator2, countryHealthIndicator3, countryHealthIndicator4, countryHealthIndicator5);
-        List<RegionalIndicatorData> regionalIndicatorData = regionService.calculateRegionalIndicatorDataFor(countryHealthIndicators, region);
+        List<RegionalIndicatorData> regionalIndicatorData = regionService.calculateRegionalIndicatorDataFor(countryHealthIndicators, region, getCurrentYear());
 
         RegionalIndicatorId regionalIndicatorId = RegionalIndicatorId.builder().regionId(region).indicatorId(1).year(getCurrentYear()).build();
         RegionalIndicatorId regionalIndicatorId2 = RegionalIndicatorId.builder().regionId(region).indicatorId(3).year(getCurrentYear()).build();
@@ -210,7 +209,7 @@ public class RegionServiceTest {
 
         String region = "PAHO";
         CountryHealthIndicators countryHealthIndicators = new CountryHealthIndicators(Arrays.asList(countryHealthIndicator1, countryHealthIndicator2, countryHealthIndicator3, countryHealthIndicator4));
-        List<RegionalCategoryData> regionalCategoryData = regionService.calculateRegionalCategoriesDataFor(countryHealthIndicators, region);
+        List<RegionalCategoryData> regionalCategoryData = regionService.calculateRegionalCategoriesDataFor(countryHealthIndicators, region, getCurrentYear());
 
         RegionalCategoryId regionalCategoryId1 = RegionalCategoryId.builder().regionId(region).categoryId(1).year(getCurrentYear()).build();
         RegionalCategoryId regionalCategoryId2 = RegionalCategoryId.builder().regionId(region).categoryId(2).year(getCurrentYear()).build();
@@ -264,7 +263,7 @@ public class RegionServiceTest {
         String region = "PAHO";
 
         CountryHealthIndicators countryHealthIndicators = new CountryHealthIndicators(Arrays.asList(countryHealthIndicator1, countryHealthIndicator2, countryHealthIndicator3, countryHealthIndicator4, countryHealthIndicator5));
-        RegionalOverallData regionalOverallData = regionService.calculateRegionalOverallDataFor(countryHealthIndicators, region);
+        RegionalOverallData regionalOverallData = regionService.calculateRegionalOverallDataFor(countryHealthIndicators, region, getCurrentYear());
 
         RegionalOverallId regionalOverallId = RegionalOverallId.builder().regionId(region).year(getCurrentYear()).build();
         RegionalOverallData expectedRegionalOverallData = RegionalOverallData.builder().regionalOverallId(regionalOverallId).overAllScore(3).build();
