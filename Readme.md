@@ -56,7 +56,7 @@ connect to DB gdhi_test
 #### Code Style
 
 To ensure your Intellij code style matches the checkstyle in the gradle build.
-1. Download the code style from the contacts repo
+1. Download the code style from the [Contracts Repository](https://github.com/healthenabled/contracts.git)
 2. Go to **preferences** -> **code style** -> **java**
 3. Click on the settings icon, next to the project
 4. Click on the Import Schema -> Intellij IDEA style XML
