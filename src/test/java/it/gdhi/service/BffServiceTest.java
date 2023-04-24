@@ -289,7 +289,7 @@ public class BffServiceTest {
                 GdhiQuestionnaire.builder().countryId(countryId).status(status).currentYear(getCurrentYear()).dataAvailableForYear("2022").
                         countrySummary(countrySummaryDetailDto).healthIndicators(healthIndicatorDtos).updatedDate("").build();
 
-        when(iCountryRepository.findByName(countryName)).thenReturn(country);
+        when(iCountryRepository.findByNameIgnoreCase(countryName)).thenReturn(country);
         when(countryService.fetchTheYearToPrefillData(countryUUID)).thenReturn("2022");
         when(countryHealthDataService.saveNewCountrySummary(countryUUID)).thenReturn(countryUrlGenerationStatusDto);
         when(countryHealthDataService.validateRequiredFields(gdhiQuestionnaire1)).thenReturn(true);
@@ -340,7 +340,7 @@ public class BffServiceTest {
         CountryUrlGenerationStatusDto countryUrlGenerationStatusDto = new CountryUrlGenerationStatusDto(countryId,
                 false, PUBLISHED);
 
-        when(iCountryRepository.findByName(countryName)).thenReturn(country);
+        when(iCountryRepository.findByNameIgnoreCase(countryName)).thenReturn(country);
         when(countryHealthDataService.saveNewCountrySummary(countryUUID)).thenReturn(countryUrlGenerationStatusDto);
 
         List<GdhiQuestionnaire> gdhiQuestionnaireList = new ArrayList<>();
@@ -389,7 +389,7 @@ public class BffServiceTest {
         CountryUrlGenerationStatusDto countryUrlGenerationStatusDto = new CountryUrlGenerationStatusDto(countryId,
                 false, REVIEW_PENDING);
 
-        when(iCountryRepository.findByName(countryName)).thenReturn(country);
+        when(iCountryRepository.findByNameIgnoreCase(countryName)).thenReturn(country);
         when(countryHealthDataService.saveNewCountrySummary(countryUUID)).thenReturn(countryUrlGenerationStatusDto);
 
         List<GdhiQuestionnaire> gdhiQuestionnaireList = new ArrayList<>();
@@ -441,7 +441,7 @@ public class BffServiceTest {
                 GdhiQuestionnaire.builder().countryId(countryId).status(status).currentYear(getCurrentYear()).dataAvailableForYear("2022").
                         countrySummary(countrySummaryDetailDto).healthIndicators(healthIndicatorDtos).updatedDate("").build();
 
-        when(iCountryRepository.findByName(countryName)).thenReturn(country);
+        when(iCountryRepository.findByNameIgnoreCase(countryName)).thenReturn(country);
         when(countryService.fetchTheYearToPrefillData(countryUUID)).thenReturn("2022");
         when(countryHealthDataService.saveNewCountrySummary(countryUUID)).thenReturn(countryUrlGenerationStatusDto);
         when(countryHealthDataService.validateRequiredFields(gdhiQuestionnaire1)).thenReturn(true);
@@ -495,7 +495,7 @@ public class BffServiceTest {
                 GdhiQuestionnaire.builder().countryId(countryId).status(NEW.name()).currentYear(getCurrentYear()).dataAvailableForYear("2022").
                         countrySummary(countrySummaryDetailDto).healthIndicators(healthIndicatorDtos).updatedDate("").build();
 
-        when(iCountryRepository.findByName(countryName)).thenReturn(country);
+        when(iCountryRepository.findByNameIgnoreCase(countryName)).thenReturn(country);
         when(countryService.fetchTheYearToPrefillData(countryUUID)).thenReturn("2022");
         when(countryHealthDataService.saveNewCountrySummary(countryUUID)).thenReturn(countryUrlGenerationStatusDto);
         when(countryHealthDataService.validateRequiredFields(gdhiQuestionnaire1)).thenReturn(true);

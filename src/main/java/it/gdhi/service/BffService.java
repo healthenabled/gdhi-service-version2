@@ -83,7 +83,7 @@ public class BffService {
         List<GdhiQuestionnaire> gdhiQuestionnaireList = gdhiQuestionnaires.getGdhiQuestionnaires();
         gdhiQuestionnaireList.forEach(gdhiQuestionnaire -> {
             String countryName = gdhiQuestionnaire.getCountrySummary().getCountryName();
-            Country country = iCountryRepository.findByName(countryName);
+            Country country = iCountryRepository.findByNameIgnoreCase(countryName);
             if (!isValidCountry(country)) {
                 countryStatuses.add(countryName, false, null, "Invalid Country Name");
             } else {
