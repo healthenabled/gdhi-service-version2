@@ -1,5 +1,7 @@
 package it.gdhi.repository;
 
+import java.util.List;
+
 import it.gdhi.model.RegionalIndicatorData;
 import it.gdhi.model.id.RegionalIndicatorId;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,4 +12,6 @@ import org.springframework.stereotype.Repository;
 public interface IRegionalIndicatorDataRepository extends JpaRepository<RegionalIndicatorData, RegionalIndicatorId> {
     @Modifying
     void deleteByRegionalIndicatorIdRegionIdAndRegionalIndicatorIdYear(String regionId, String currentYear);
+
+    List<RegionalIndicatorData> findByRegionalIndicatorIdRegionIdAndRegionalIndicatorIdYear(String regionId, String year);
 }

@@ -36,18 +36,21 @@ public class BffService {
     private CountryHealthIndicatorService countryHealthIndicatorService;
     private ICountryRepository iCountryRepository;
     private CountryHealthDataService countryHealthDataService;
+    private RegionService regionService;
 
     @Autowired
     public BffService(CountryService countryService, DefaultYearDataService defaultYearDataService,
                       ICountryPhaseRepository iCountryPhaseRepository,
                       CountryHealthIndicatorService countryHealthIndicatorService,
-                      ICountryRepository iCountryRepository, CountryHealthDataService countryHealthDataService) {
+                      ICountryRepository iCountryRepository, CountryHealthDataService countryHealthDataService,
+                      RegionService regionService) {
         this.countryService = countryService;
         this.defaultYearDataService = defaultYearDataService;
         this.iCountryPhaseRepository = iCountryPhaseRepository;
         this.countryHealthIndicatorService = countryHealthIndicatorService;
         this.iCountryRepository = iCountryRepository;
         this.countryHealthDataService = countryHealthDataService;
+        this.regionService = regionService;
     }
 
     public YearDto fetchDistinctYears(Integer limit) {
@@ -74,7 +77,8 @@ public class BffService {
     private YearHealthScoreDto getYearHealthScoreDto(String countryId, String year, String regionId) {
         return YearHealthScoreDto.builder().country(countryHealthIndicatorService.fetchCountryHealthScore(countryId,
                         en, year))
-                .average(countryHealthIndicatorService.getGlobalHealthIndicator(null, null, regionId, en, year)).build();
+                .average((regionId == null) ? countryHealthIndicatorService.getGlobalHealthIndicator(null, null, en, year) :
+                        regionService.fetchRegionalHealthScores(null, regionId, en, year)).build();
     }
 
     @Transactional
@@ -86,7 +90,8 @@ public class BffService {
             Country country = iCountryRepository.findByNameIgnoreCase(countryName);
             if (!isValidCountry(country)) {
                 countryStatuses.add(countryName, false, null, "Invalid Country Name");
-            } else {
+            }
+            else {
                 CountryUrlGenerationStatusDto countryUrlGenerationStatusDto =
                         countryHealthDataService.saveNewCountrySummary(country.getUniqueId());
                 if (canSubmitDataForCountry(countryUrlGenerationStatusDto)) {
@@ -96,11 +101,13 @@ public class BffService {
                     if (isValidQuestionnaire) {
                         countryHealthDataService.submit(gdhiQuestionnaire1);
                         countryStatuses.add(countryName, true, FormStatus.REVIEW_PENDING, "");
-                    } else {
+                    }
+                    else {
                         countryStatuses.add(countryName, false, countryUrlGenerationStatusDto.getExistingStatus(),
                                 "Invalid Questionnaire Data");
                     }
-                } else {
+                }
+                else {
                     countryStatuses.add(countryName, false, countryUrlGenerationStatusDto.getExistingStatus(),
                             "Country is already in " + countryUrlGenerationStatusDto.getExistingStatus() + " state");
                 }

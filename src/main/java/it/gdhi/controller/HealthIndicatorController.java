@@ -25,20 +25,6 @@ public class HealthIndicatorController {
     @Autowired
     private DefaultYearDataService defaultYearDataService;
 
-    @GetMapping("/global_health_indicators")
-    public GlobalHealthScoreDto getGlobalHealthIndicator(
-            HttpServletRequest request,
-            @RequestParam(value = "categoryId", required = false) Integer categoryId,
-            @RequestParam(value = "phase", required = false) Integer score,
-            @RequestParam(value = "regionId", required = false) String regionId,
-            @RequestParam(value = "year", required = false) String year) {
-        LanguageCode languageCode = getLanguageCode(request);
-        if (year == null) {
-            year = defaultYearDataService.fetchDefaultYear();
-        }
-        return countryHealthIndicatorService.getGlobalHealthIndicator(categoryId, score, regionId, languageCode, year);
-    }
-
     @GetMapping("/countries_health_indicator_scores")
     public CountriesHealthScoreDto getCountriesHealthIndicatorScores(
             HttpServletRequest request,
@@ -50,12 +36,11 @@ public class HealthIndicatorController {
         if (year == null) {
             year = defaultYearDataService.fetchDefaultYear();
         }
-        return countryHealthIndicatorService.fetchCountriesHealthScores(categoryId, score, regionId, languageCode, year);
+        return countryHealthIndicatorService.fetchCountriesHealthScores(categoryId, score, languageCode, year);
     }
 
     private LanguageCode getLanguageCode(HttpServletRequest request) {
         return LanguageCode.getValueFor(request.getHeader(USER_LANGUAGE));
     }
-
 
 }

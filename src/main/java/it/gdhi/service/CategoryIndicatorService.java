@@ -34,6 +34,10 @@ public class CategoryIndicatorService {
                 .collect(toList());
     }
 
+    public List<Category> getAllCategories(){
+        return iCategoryRepository.findAllByOrderById();
+    }
+
     Integer getHealthIndicatorCount() {
         List<Category> categoryList = iCategoryRepository.findAllByOrderById();
         AtomicInteger count = new AtomicInteger(0);

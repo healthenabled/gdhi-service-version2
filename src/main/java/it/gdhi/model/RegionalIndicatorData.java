@@ -25,4 +25,7 @@ public class RegionalIndicatorData {
     @Column(name = "score")
     Integer score;
 
+    public Integer getRegionalIndicatorId() {
+        return regionalIndicatorId.getIndicatorId();
+    }
 }

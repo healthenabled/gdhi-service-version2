@@ -1,6 +1,9 @@
 package it.gdhi.service;
 
-import it.gdhi.internationalization.service.RegionNameTranslator;
+import it.gdhi.dto.BenchmarkDto;
+import it.gdhi.dto.CategoryHealthScoreDto;
+import it.gdhi.dto.GlobalHealthScoreDto;
+import it.gdhi.internationalization.service.HealthIndicatorTranslator;
 import it.gdhi.model.*;
 import it.gdhi.model.id.RegionalCategoryId;
 import it.gdhi.model.id.RegionalIndicatorId;
@@ -8,17 +11,24 @@ import it.gdhi.model.id.RegionalOverallId;
 import it.gdhi.repository.*;
 import it.gdhi.utils.LanguageCode;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import static it.gdhi.utils.FormStatus.PUBLISHED;
 import static java.util.stream.Collectors.*;
+
+import it.gdhi.internationalization.service.RegionNameTranslator;
+import it.gdhi.model.Region;
+import it.gdhi.repository.IRegionCountryRepository;
+import it.gdhi.repository.IRegionRepository;
+import org.springframework.stereotype.Service;
 
 @Service
 public class RegionService {
@@ -46,6 +56,13 @@ public class RegionService {
 
     @Autowired
     private IRegionalOverallDataRepository iRegionalOverallRepository;
+    @Autowired
+    private CategoryIndicatorService categoryIndicatorService;
+    @Autowired
+    private BenchMarkService benchmarkService;
+
+    @Autowired
+    private HealthIndicatorTranslator healthIndicatorTranslator;
 
     public List<Region> fetchRegions(LanguageCode languageCode) {
         List<Region> regions = iRegionRepository.findAll();
@@ -54,6 +71,11 @@ public class RegionService {
 
     public List<String> fetchCountriesForARegion(String regionId) {
         return iRegionCountryRepository.findByRegionCountryIdRegionId(regionId);
+    }
+
+    public Integer fetchRegionOverallScore(String regionID, String year) {
+        RegionalOverallData regionalOverallData = iRegionalOverallRepository.findByRegionalOverallIdRegionIdAndRegionalOverallIdYear(regionID, year);
+        return regionalOverallData.getOverAllScore();
     }
 
     public void calculateAndSaveRegionalData(String countryId, String currentYear) {
@@ -139,7 +161,7 @@ public class RegionService {
                             regionalIndicator.convertNullScoreToNotAvailable();
                             return regionalIndicator;
                         })
-                        .filter(indicator -> indicator.getIndicator().getParentId() == null )
+                        .filter(indicator -> indicator.getIndicator().getParentId() == null)
                         .collect(groupingBy(CountryHealthIndicator::getIndicatorId,
                                 averagingInt(CountryHealthIndicator::getScore)));
 
@@ -154,7 +176,7 @@ public class RegionService {
         Double averageOverallScore = CategoryScore.entrySet().stream().mapToDouble(Map.Entry::getValue).average().getAsDouble();
         RegionalOverallData regionalOverallData =
                 RegionalOverallData.builder().regionalOverallId(RegionalOverallId.builder().regionId(regionId).year(year).build())
-                .overAllScore(Score.builder().value(averageOverallScore).build().convertToPhase()).build();
+                        .overAllScore(Score.builder().value(averageOverallScore).build().convertToPhase()).build();
         return regionalOverallData;
     }
 
@@ -242,5 +264,47 @@ public class RegionService {
         Map<String, List<String>> map = new HashMap<>();
         map.put(regionId, countries);
         return map;
+    }
+
+    public List<RegionalCategoryData> fetchRegionalCategoryScores(String regionId, String year) {
+        return iRegionalCategoryDataRepository.findByRegionalCategoryIdRegionIdAndRegionalCategoryIdYearOrderByRegionalCategoryIdCategoryId(regionId, year);
+    }
+
+    public GlobalHealthScoreDto fetchRegionalHealthScores(Integer categoryId, String regionId, LanguageCode languageCode, String year) {
+        List<RegionalCategoryData> regionalCategoriesData = (categoryId == null) ?
+                iRegionalCategoryDataRepository.findByRegionalCategoryIdRegionIdAndRegionalCategoryIdYearOrderByRegionalCategoryIdCategoryId(regionId, year)
+                : Collections.singletonList(iRegionalCategoryDataRepository.
+                findByRegionalCategoryIdRegionIdAndRegionalCategoryIdYearAndRegionalCategoryIdCategoryIdOrderByRegionalCategoryIdCategoryId(regionId, year, categoryId));
+        List<Category> categories = categoryIndicatorService.getAllCategories();
+        List<CategoryHealthScoreDto> categoryHealthScoreDtos =
+                regionalCategoriesData.stream().map(regionalCategoryData -> CategoryHealthScoreDto.builder()
+                        .id(regionalCategoryData.getRegionalCategoryId().getCategoryId())
+                        .name(categories.get(regionalCategoryData.getRegionalCategoryId().getCategoryId() - 1).getName())
+                        .overallScore(null)
+                        .phase(regionalCategoryData.getScore())
+                        .indicators(null)
+                        .build()).collect(Collectors.toList());
+        return translateCategoryNames(new GlobalHealthScoreDto(fetchRegionOverallScore(regionId, year), categoryHealthScoreDtos), languageCode);
+    }
+
+    public Map<Integer, Integer> fetchRegionalIndicatorScoreData(String regionId, String year) {
+        List<RegionalIndicatorData> regionalIndicatorsData =
+                iRegionalIndicatorDataRepository.findByRegionalIndicatorIdRegionIdAndRegionalIndicatorIdYear(regionId, year);
+        return regionalIndicatorsData.stream().collect(Collectors.toMap(RegionalIndicatorData::getRegionalIndicatorId,
+                RegionalIndicatorData::getScore));
+    }
+
+    public Map<Integer, BenchmarkDto> getBenchmarkDetailsForRegion(String countryId, String year, String region) {
+        return benchmarkService.getBenchMarkForRegion(countryId, year, region);
+    }
+
+    private GlobalHealthScoreDto translateCategoryNames(GlobalHealthScoreDto globalHealthScoreDto, LanguageCode code) {
+        globalHealthScoreDto
+                .getCategories()
+                .forEach((category) -> {
+                    String translatedCategory = healthIndicatorTranslator.getTranslatedCategory(category.getName(), code);
+                    category.translateCategoryName(translatedCategory);
+                });
+        return globalHealthScoreDto;
     }
 }

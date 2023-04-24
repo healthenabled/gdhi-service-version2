@@ -55,6 +55,9 @@ public class BffServiceTest {
     private CountryService countryService;
 
     @Mock
+    private RegionService regionService;
+
+    @Mock
     private ICountryPhaseRepository iCountryPhaseRepository;
 
     @Mock
@@ -122,7 +125,7 @@ public class BffServiceTest {
         GlobalHealthScoreDto globalHealthScore =
                 GlobalHealthScoreDto.builder().overAllScore(3).categories(asList(categoryHealthScoreDto1,
                         categoryHealthScoreDto2, categoryHealthScoreDto4, categoryHealthScoreDto5)).build();
-        when(countryHealthIndicatorService.getGlobalHealthIndicator(null, null, null, en, year)).thenReturn(globalHealthScore);
+        when(countryHealthIndicatorService.getGlobalHealthIndicator(null, null, en, year)).thenReturn(globalHealthScore);
         when(countryHealthIndicatorService.fetchCountryHealthScore("IND", en, year)).thenReturn(countryHealthScoreDtoIN);
         when(defaultYearDataService.fetchDefaultYear()).thenReturn(year);
 
@@ -155,8 +158,8 @@ public class BffServiceTest {
         GlobalHealthScoreDto globalHealthScore =
                 GlobalHealthScoreDto.builder().overAllScore(3).categories(asList(categoryHealthScoreDto1,
                         categoryHealthScoreDto2, categoryHealthScoreDto4, categoryHealthScoreDto5)).build();
-        when(countryHealthIndicatorService.getGlobalHealthIndicator(null, null, null, en, "2023")).thenReturn(globalHealthScore);
-        when(countryHealthIndicatorService.getGlobalHealthIndicator(null, null, null, en, "2022")).thenReturn(globalHealthScore);
+        when(countryHealthIndicatorService.getGlobalHealthIndicator(null, null, en, "2023")).thenReturn(globalHealthScore);
+        when(countryHealthIndicatorService.getGlobalHealthIndicator(null, null, en, "2022")).thenReturn(globalHealthScore);
         when(countryHealthIndicatorService.fetchCountryHealthScore("IND", en, "2023")).thenReturn(countryHealthScoreDtoIN);
         when(countryHealthIndicatorService.fetchCountryHealthScore("IND", en, "2022")).thenReturn(countryHealthScoreDtoIN);
         when(defaultYearDataService.fetchDefaultYear()).thenReturn("2022");
@@ -192,7 +195,7 @@ public class BffServiceTest {
         GlobalHealthScoreDto globalHealthScore =
                 GlobalHealthScoreDto.builder().overAllScore(3).categories(asList(categoryHealthScoreDto1,
                         categoryHealthScoreDto2, categoryHealthScoreDto4, categoryHealthScoreDto5)).build();
-        when(countryHealthIndicatorService.getGlobalHealthIndicator(null, null, region, en, year)).thenReturn(globalHealthScore);
+        when(regionService.fetchRegionalHealthScores(null, region, en, year)).thenReturn(globalHealthScore);
         when(countryHealthIndicatorService.fetchCountryHealthScore("IND", en, year)).thenReturn(countryHealthScoreDtoIN);
         when(defaultYearDataService.fetchDefaultYear()).thenReturn(year);
 

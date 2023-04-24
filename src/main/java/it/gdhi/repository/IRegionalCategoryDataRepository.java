@@ -1,6 +1,9 @@
 package it.gdhi.repository;
 
+import java.util.List;
+
 import it.gdhi.model.RegionalCategoryData;
+import it.gdhi.model.RegionalIndicatorData;
 import it.gdhi.model.id.RegionalCategoryId;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -12,4 +15,7 @@ public interface IRegionalCategoryDataRepository extends JpaRepository<RegionalC
     @Modifying
     void deleteByRegionalCategoryIdRegionIdAndRegionalCategoryIdYear(String regionId, String currentYear);
 
+    List<RegionalCategoryData> findByRegionalCategoryIdRegionIdAndRegionalCategoryIdYearOrderByRegionalCategoryIdCategoryId(String regionId, String year);
+
+    RegionalCategoryData findByRegionalCategoryIdRegionIdAndRegionalCategoryIdYearAndRegionalCategoryIdCategoryIdOrderByRegionalCategoryIdCategoryId(String regionId, String year, Integer categoryId);
 }

@@ -3,17 +3,25 @@ package it.gdhi.controller;
 import java.util.HashMap;
 
 import it.gdhi.dto.GdhiQuestionnaires;
+import it.gdhi.dto.GlobalHealthScoreDto;
 import it.gdhi.service.BffService;
 import it.gdhi.service.CountryHealthDataService;
+import it.gdhi.service.CountryHealthIndicatorService;
 import it.gdhi.service.CountryService;
 import it.gdhi.service.DefaultYearDataService;
+import it.gdhi.service.RegionService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.mock.web.MockHttpServletRequest;
 
 import static it.gdhi.utils.ApplicationConstants.defaultLimit;
+import static it.gdhi.utils.LanguageCode.ar;
+import static it.gdhi.utils.LanguageCode.en;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -34,6 +42,11 @@ public class BffControllerTest {
 
     @Mock
     private DefaultYearDataService defaultYearDataService;
+    @Mock
+    private CountryHealthIndicatorService countryHealthIndicatorService;
+
+    @Mock
+    private RegionService regionService;
 
     @Test
     public void shouldGetDistinctYearsWithDefaultLimitWhenLimitIsNull() {
@@ -79,9 +92,9 @@ public class BffControllerTest {
         Integer benchmarkType = -1;
         String year = "Version1";
         String region = null;
-        when(countryHealthDataService.getBenchmarkDetailsFor(countryID, benchmarkType, year, region)).thenReturn(new HashMap<>());
+        when(countryHealthDataService.getBenchmarkDetailsFor(countryID, benchmarkType, year)).thenReturn(new HashMap<>());
         bffController.getBenchmarkDetailsFor(countryID, benchmarkType, year, region);
-        verify(countryHealthDataService).getBenchmarkDetailsFor(countryID, benchmarkType, year, region);
+        verify(countryHealthDataService).getBenchmarkDetailsFor(countryID, benchmarkType, year);
     }
 
     @Test
@@ -89,10 +102,9 @@ public class BffControllerTest {
         String countryID = "IND";
         Integer benchmarkType = -1;
         String year = "2023";
-        String region = "PAHO";
         when(defaultYearDataService.fetchDefaultYear()).thenReturn(year);
-        bffController.getBenchmarkDetailsFor(countryID, benchmarkType, null, region);
-        verify(countryHealthDataService).getBenchmarkDetailsFor(countryID, benchmarkType, year, region);
+        bffController.getBenchmarkDetailsFor(countryID, benchmarkType, null, null);
+        verify(countryHealthDataService).getBenchmarkDetailsFor(countryID, benchmarkType, year);
     }
 
     @Test
@@ -101,9 +113,9 @@ public class BffControllerTest {
         Integer benchmarkType = -1;
         String year = "Version1";
         String region = "PAHO";
-        when(countryHealthDataService.getBenchmarkDetailsFor(countryID, benchmarkType, year, region)).thenReturn(new HashMap<>());
+        when(regionService.getBenchmarkDetailsForRegion(countryID, year, region)).thenReturn(new HashMap<>());
         bffController.getBenchmarkDetailsFor(countryID, benchmarkType, year, region);
-        verify(countryHealthDataService).getBenchmarkDetailsFor(countryID, benchmarkType, year, region);
+        verify(regionService).getBenchmarkDetailsForRegion(countryID, year, region);
     }
 
     @Test
@@ -118,5 +130,67 @@ public class BffControllerTest {
         GdhiQuestionnaires mock = mock(GdhiQuestionnaires.class);
         bffController.shouldSubmitCSVData(mock);
         verify(bffService).submitCountryCSVData(mock);
+    }
+
+    @Test
+    public void shouldFetchGivenYearWhenYearIsPassed() {
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        request.addHeader("USER_LANGUAGE", "en");
+
+        bffController.getGlobalHealthIndicator(request, null, 2, null, "2023");
+
+        verify(countryHealthIndicatorService).getGlobalHealthIndicator(null, 2, en, "2023");
+    }
+
+    @Test
+    public void shouldFetchDefaultYearWhenYearIsNull() {
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        request.addHeader("USER_LANGUAGE", "en");
+
+        when(defaultYearDataService.fetchDefaultYear()).thenReturn("Version1");
+
+        bffController.getGlobalHealthIndicator(request, null, 2, null, null);
+
+        verify(countryHealthIndicatorService).getGlobalHealthIndicator(null, 2, en, "Version1");
+    }
+
+    @Test
+    public void shouldGetLanguageCodeOfArabicFromHeader() {
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        request.addHeader("USER_LANGUAGE", "ar");
+
+        bffController.getGlobalHealthIndicator(request, null, 2, null, "Version1");
+
+        verify(countryHealthIndicatorService).getGlobalHealthIndicator(null, 2, ar, "Version1");
+    }
+
+    @Test
+    public void shouldInvokeGetGlobalHealthIndicator() {
+        GlobalHealthScoreDto expected = mock(GlobalHealthScoreDto.class);
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        request.addHeader("USER_LANGUAGE", "en");
+
+        String year = "Version1";
+
+        when(countryHealthIndicatorService.getGlobalHealthIndicator(null, 2, en, year)).thenReturn(expected);
+        GlobalHealthScoreDto actual = bffController.getGlobalHealthIndicator(request, null, 2, null, year);
+
+        assertThat(expected, is(actual));
+        verify(countryHealthIndicatorService).getGlobalHealthIndicator(null, 2, en, year);
+    }
+
+    @Test
+    public void shouldInvokeGetRegionalHealthIndicatorWhenRegionIsProvided() {
+        GlobalHealthScoreDto expected = mock(GlobalHealthScoreDto.class);
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        request.addHeader("USER_LANGUAGE", "en");
+        String regionId = "PAHO";
+        String year = "Version1";
+        when(regionService.fetchRegionalHealthScores(null, regionId, en, year)).thenReturn(expected);
+
+        GlobalHealthScoreDto actual = bffController.getGlobalHealthIndicator(request, null, null, regionId, year);
+
+        assertThat(expected, is(actual));
+        verify(regionService).fetchRegionalHealthScores(null, regionId, en, year);
     }
 }

@@ -12,4 +12,6 @@ public interface IRegionalOverallDataRepository extends JpaRepository<RegionalOv
     @Modifying
     void deleteByRegionalOverallIdRegionIdAndRegionalOverallIdYear(String Region, String currentYear);
 
+    RegionalOverallData findByRegionalOverallIdRegionIdAndRegionalOverallIdYear(String region, String year);
+
 }

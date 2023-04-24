@@ -15,6 +15,7 @@ import static java.util.Comparator.comparing;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
+@Builder
 @ToString
 public class CategoryHealthScoreDto {
 

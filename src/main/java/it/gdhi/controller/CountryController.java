@@ -1,30 +1,47 @@
 package it.gdhi.controller;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.UUID;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import com.fasterxml.jackson.annotation.JsonView;
-import it.gdhi.dto.*;
+import it.gdhi.dto.CountryHealthScoreDto;
+import it.gdhi.dto.CountrySummaryDto;
+import it.gdhi.dto.CountrySummaryStatusYearDto;
+import it.gdhi.dto.CountryUrlGenerationStatusDto;
+import it.gdhi.dto.GdhiQuestionnaire;
 import it.gdhi.model.Country;
 import it.gdhi.model.DevelopmentIndicator;
-import it.gdhi.service.*;
+import it.gdhi.service.CountryHealthDataService;
+import it.gdhi.service.CountryHealthIndicatorService;
+import it.gdhi.service.CountryService;
+import it.gdhi.service.DefaultYearDataService;
+import it.gdhi.service.DevelopmentIndicatorService;
+import it.gdhi.service.RegionService;
 import it.gdhi.utils.LanguageCode;
 import it.gdhi.view.DevelopmentIndicatorView;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
 
 import static it.gdhi.utils.FormStatus.DRAFT;
 import static it.gdhi.utils.LanguageCode.USER_LANGUAGE;
-import static it.gdhi.utils.Util.*;
+import static it.gdhi.utils.Util.getCurrentYear;
 
 @RestController
 @Slf4j
@@ -93,7 +110,8 @@ public class CountryController {
         if (isValid) {
             countryHealthDataService.submit(gdhiQuestionnaire);
             return ResponseEntity.status(HttpStatus.CREATED).body(null);
-        } else {
+        }
+        else {
             return ResponseEntity.badRequest().body(null);
         }
     }
@@ -111,7 +129,8 @@ public class CountryController {
         if (isValid && year.equals(getCurrentYear())) {
             countryHealthDataService.publish(gdhiQuestionnaire, year);
             return ResponseEntity.status(HttpStatus.CREATED).body(null);
-        } else {
+        }
+        else {
             return ResponseEntity.badRequest().body(null);
         }
     }
@@ -124,7 +143,8 @@ public class CountryController {
         LanguageCode languageCode = LanguageCode.getValueFor(request.getHeader(USER_LANGUAGE));
         if (!countryService.checkCountryHasEntryForCurrentYear(countryUIID)) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
-        } else {
+        }
+        else {
             if (year == null) {
                 year = countryService.fetchTheYearToPrefillData(countryUIID);
             }
@@ -160,6 +180,7 @@ public class CountryController {
         }
         countryHealthIndicatorService.createHealthIndicatorInExcelFor(countryId, request, response, year);
     }
+
     @PostMapping("/countries/{uuid}/generate_url")
     public CountryUrlGenerationStatusDto saveNewCountrySummary(@PathVariable("uuid") UUID countryUIID)
             throws Exception {
@@ -174,17 +195,6 @@ public class CountryController {
     @GetMapping("/countries/country_status_summaries")
     public CountrySummaryStatusYearDto getAllCountryStatusSummaries() {
         return countryHealthDataService.getAllCountryStatusSummaries();
-    }
-
-    @GetMapping("/countries/{id}/benchmark/{type}")
-    public Map<Integer, BenchmarkDto> getBenchmarkDetailsFor(@PathVariable("id") String countryId,
-                                                             @PathVariable("type") Integer benchmarkType,
-                                                             @RequestParam(value = "year", required = false) String year,
-                                                             @RequestParam(value = "regionId", required = false) String regionId) {
-        if (year == null) {
-            year = defaultYearDataService.fetchDefaultYear();
-        }
-        return countryHealthDataService.getBenchmarkDetailsFor(countryId, benchmarkType, year, regionId);
     }
 
     @GetMapping("/admin/countries/calculate_phase")

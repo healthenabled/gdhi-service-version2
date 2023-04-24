@@ -585,7 +585,7 @@ public class CountryIntegrationTest extends BaseIntegrationTest {
         Response response = given()
                 .contentType("application/json")
                 .when()
-                .get("http://localhost:" + port + "/countries/IND/benchmark/-1?year=" + year);
+                .get("http://localhost:" + port + "/bff/countries/IND/benchmark/-1?year=" + year);
 
         assertEquals(200, response.getStatusCode());
 

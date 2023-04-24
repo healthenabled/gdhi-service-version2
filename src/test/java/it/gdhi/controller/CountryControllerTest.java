@@ -234,18 +234,6 @@ public class CountryControllerTest {
         verify(countryService).getDetails(countryUUID, LanguageCode.en, true, year);
     }
 
-
-    @Test
-    public void shouldGetGlobalBenchmarkDetailsForGivenYear() {
-        String countryID = "IND";
-        Integer benchmarkType = -1;
-        String year = "Version1";
-        String region = null;
-        when(countryHealthDataService.getBenchmarkDetailsFor(countryID, benchmarkType, year, region)).thenReturn(new HashMap<>());
-        countryController.getBenchmarkDetailsFor(countryID, benchmarkType, year, region);
-        verify(countryHealthDataService).getBenchmarkDetailsFor(countryID, benchmarkType, year, region);
-    }
-
     @Test
     public void shouldCalculatePhaseForAllCountriesAndRegionsForAGivenYear() {
         String year = "Version1";
