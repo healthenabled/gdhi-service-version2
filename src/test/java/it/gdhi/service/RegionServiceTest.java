@@ -172,11 +172,12 @@ public class RegionServiceTest {
                 getCurrentYear());
 
         RegionalIndicatorId regionalIndicatorId = RegionalIndicatorId.builder().regionId(region).indicatorId(1).year(getCurrentYear()).build();
-        RegionalIndicatorId regionalIndicatorId2 = RegionalIndicatorId.builder().regionId(region).indicatorId(3).year(getCurrentYear()).build();
+        RegionalIndicatorId regionalIndicatorId2 = RegionalIndicatorId.builder().regionId(region).indicatorId(2).year(getCurrentYear()).build();
+        RegionalIndicatorId regionalIndicatorId3 = RegionalIndicatorId.builder().regionId(region).indicatorId(3).year(getCurrentYear()).build();
         RegionalIndicatorData regionalIndicatorData1 = RegionalIndicatorData.builder().regionalIndicatorId(regionalIndicatorId).score(4).build();
-        RegionalIndicatorData regionalIndicatorData2 = RegionalIndicatorData.builder().regionalIndicatorId(regionalIndicatorId2).score(2).build();
-        List<RegionalIndicatorData> expectedRegionalIndicatorData = Arrays.asList(regionalIndicatorData1, regionalIndicatorData2);
-
+        RegionalIndicatorData regionalIndicatorData2 = RegionalIndicatorData.builder().regionalIndicatorId(regionalIndicatorId2).score(-1).build();
+        RegionalIndicatorData regionalIndicatorData3 = RegionalIndicatorData.builder().regionalIndicatorId(regionalIndicatorId3).score(2).build();
+        List<RegionalIndicatorData> expectedRegionalIndicatorData = Arrays.asList(regionalIndicatorData1, regionalIndicatorData2, regionalIndicatorData3);
         assertEquals(expectedRegionalIndicatorData, regionalIndicatorData);
     }
 

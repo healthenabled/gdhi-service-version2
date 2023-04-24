@@ -88,16 +88,9 @@ public class CountryHealthDataService {
     @Transactional
     public void publish(GdhiQuestionnaire gdhiQuestionnaire, String currentYear) {
         save(gdhiQuestionnaire, PUBLISHED.name());
-        calculateAndSaveRegionalData(gdhiQuestionnaire.getCountryId(), currentYear);
+        regionService.calculateAndSaveRegionalData(gdhiQuestionnaire.getCountryId(), currentYear);
         calculateAndSaveCountryPhase(gdhiQuestionnaire.getCountryId(), PUBLISHED.name(), currentYear);
     }
-
-    public void calculateAndSaveRegionalData(String countryId, String currentYear) {
-        regionService.saveRegionalIndicatorData(countryId, currentYear);
-        regionService.saveRegionalCategoryData(countryId, currentYear);
-        regionService.saveRegionalOverallData(countryId, currentYear);
-    }
-
     @Transactional
     public void submit(GdhiQuestionnaire gdhiQuestionnaire) {
         save(gdhiQuestionnaire, REVIEW_PENDING.name());

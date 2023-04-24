@@ -56,6 +56,12 @@ public class RegionService {
         return iRegionCountryRepository.findByRegionCountryIdRegionId(regionId);
     }
 
+    public void calculateAndSaveRegionalData(String countryId, String currentYear) {
+        saveRegionalIndicatorData(countryId, currentYear);
+        saveRegionalCategoryData(countryId, currentYear);
+        saveRegionalOverallData(countryId, currentYear);
+    }
+
     @Transactional
     private void saveRegionalOverallData(String regionId, List<String> countries, String year) {
 
@@ -133,7 +139,7 @@ public class RegionService {
                             regionalIndicator.convertNullScoreToNotAvailable();
                             return regionalIndicator;
                         })
-                        .filter(indicator -> indicator.getIndicator().getParentId() == null && indicator.getScore() != -1)
+                        .filter(indicator -> indicator.getIndicator().getParentId() == null )
                         .collect(groupingBy(CountryHealthIndicator::getIndicatorId,
                                 averagingInt(CountryHealthIndicator::getScore)));
 
