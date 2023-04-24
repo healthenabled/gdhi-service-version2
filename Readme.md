@@ -52,3 +52,15 @@ connect to DB gdhi_test
 ```
     create extension if not exists "uuid-ossp";
 ```
+
+#### Code Style
+
+To ensure your Intellij code style matches the checkstyle in the gradle build.
+1. Download the code style from the contacts repo
+2. Go to **preferences** -> **code style** -> **java**
+3. Click on the settings icon, next to the project
+4. Click on the Import Schema -> Intellij IDEA style XML
+5. Select the downloaded file
+6. The style is updated, use the Reformat the code using (⌘ ⌥ L).
+
+
