@@ -97,13 +97,15 @@ public class CountryHealthDataService {
     @Transactional
     public void publish(GdhiQuestionnaire gdhiQuestionnaire, String currentYear) {
         save(gdhiQuestionnaire, PUBLISHED.name());
-        regionService.saveRegionalIndicatorData(gdhiQuestionnaire.getCountryId(), currentYear);
-        regionService.saveRegionalCategoryData(gdhiQuestionnaire.getCountryId(), currentYear);
-        regionService.saveRegionalOverallData(gdhiQuestionnaire.getCountryId(), currentYear);
+        calculateAndSaveRegionalData(gdhiQuestionnaire.getCountryId(),currentYear);
         calculateAndSaveCountryPhase(gdhiQuestionnaire.getCountryId(), PUBLISHED.name(), currentYear);
     }
-
-
+    public void calculateAndSaveRegionalData(String countryId, String currentYear)
+    {
+        regionService.saveRegionalIndicatorData(countryId, currentYear);
+        regionService.saveRegionalCategoryData(countryId, currentYear);
+        regionService.saveRegionalOverallData(countryId, currentYear);
+    }
 
     @Transactional
     public void submit(GdhiQuestionnaire gdhiQuestionnaire) {
