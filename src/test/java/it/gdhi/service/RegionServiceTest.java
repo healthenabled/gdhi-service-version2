@@ -90,8 +90,9 @@ public class RegionServiceTest {
 
         assertEquals(countries, actualCountries);
     }
+
     @Test
-    public void shouldSavePhaseForAllRegions(){
+    public void shouldSavePhaseForAllRegions() {
         String id = "AFRO";
         String name = "African Region";
         List<Region> regions = Arrays.asList(createRegion(id, name));
@@ -100,8 +101,9 @@ public class RegionServiceTest {
         when(iRegionRepository.findAll()).thenReturn(regions);
         regionService.calculatePhaseForAllRegions(year);
     }
+
     @Test
-    public void shouldCalculateAndSaveRegionScores(){
+    public void shouldCalculateAndSaveRegionScores() {
         Indicator indicator1 = Indicator.builder().indicatorId(1).parentId(null).build();
         Indicator indicator2 = Indicator.builder().indicatorId(1).parentId(null).build();
         CountryHealthIndicator countryHealthIndicator1 = CountryHealthIndicator.builder()
@@ -164,8 +166,10 @@ public class RegionServiceTest {
                 .build();
 
         String region = "PAHO";
-        List<CountryHealthIndicator> countryHealthIndicators = Arrays.asList(countryHealthIndicator1, countryHealthIndicator2, countryHealthIndicator3, countryHealthIndicator4, countryHealthIndicator5);
-        List<RegionalIndicatorData> regionalIndicatorData = regionService.calculateRegionalIndicatorDataFor(countryHealthIndicators, region, getCurrentYear());
+        List<CountryHealthIndicator> countryHealthIndicators = Arrays.asList(countryHealthIndicator1, countryHealthIndicator2,
+                countryHealthIndicator3, countryHealthIndicator4, countryHealthIndicator5);
+        List<RegionalIndicatorData> regionalIndicatorData = regionService.calculateRegionalIndicatorDataFor(countryHealthIndicators, region,
+                getCurrentYear());
 
         RegionalIndicatorId regionalIndicatorId = RegionalIndicatorId.builder().regionId(region).indicatorId(1).year(getCurrentYear()).build();
         RegionalIndicatorId regionalIndicatorId2 = RegionalIndicatorId.builder().regionId(region).indicatorId(3).year(getCurrentYear()).build();
@@ -208,8 +212,10 @@ public class RegionServiceTest {
                 .build();
 
         String region = "PAHO";
-        CountryHealthIndicators countryHealthIndicators = new CountryHealthIndicators(Arrays.asList(countryHealthIndicator1, countryHealthIndicator2, countryHealthIndicator3, countryHealthIndicator4));
-        List<RegionalCategoryData> regionalCategoryData = regionService.calculateRegionalCategoriesDataFor(countryHealthIndicators, region, getCurrentYear());
+        CountryHealthIndicators countryHealthIndicators = new CountryHealthIndicators(Arrays.asList(countryHealthIndicator1,
+                countryHealthIndicator2, countryHealthIndicator3, countryHealthIndicator4));
+        List<RegionalCategoryData> regionalCategoryData = regionService.calculateRegionalCategoriesDataFor(countryHealthIndicators, region,
+                getCurrentYear());
 
         RegionalCategoryId regionalCategoryId1 = RegionalCategoryId.builder().regionId(region).categoryId(1).year(getCurrentYear()).build();
         RegionalCategoryId regionalCategoryId2 = RegionalCategoryId.builder().regionId(region).categoryId(2).year(getCurrentYear()).build();
@@ -262,7 +268,8 @@ public class RegionServiceTest {
 
         String region = "PAHO";
 
-        CountryHealthIndicators countryHealthIndicators = new CountryHealthIndicators(Arrays.asList(countryHealthIndicator1, countryHealthIndicator2, countryHealthIndicator3, countryHealthIndicator4, countryHealthIndicator5));
+        CountryHealthIndicators countryHealthIndicators = new CountryHealthIndicators(Arrays.asList(countryHealthIndicator1,
+                countryHealthIndicator2, countryHealthIndicator3, countryHealthIndicator4, countryHealthIndicator5));
         RegionalOverallData regionalOverallData = regionService.calculateRegionalOverallDataFor(countryHealthIndicators, region, getCurrentYear());
 
         RegionalOverallId regionalOverallId = RegionalOverallId.builder().regionId(region).year(getCurrentYear()).build();
@@ -283,13 +290,13 @@ public class RegionServiceTest {
         countries.add("IND");
 
         Map<String, List<String>> expectedMap = new HashMap<>();
-        expectedMap.put("PAHO",countries);
+        expectedMap.put("PAHO", countries);
 
         when(iRegionCountryRepository.findByRegionCountryIdCountryId("IND")).thenReturn(regionCountry1);
         when(iRegionCountryRepository.findByRegionCountryIdRegionId("PAHO")).thenReturn(countries);
         Map<String, List<String>> actualMap = regionService.getListOfCountriesAndRegionId("IND");
 
-        assertEquals(expectedMap,actualMap);
+        assertEquals(expectedMap, actualMap);
 
 
     }
