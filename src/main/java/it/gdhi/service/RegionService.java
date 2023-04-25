@@ -271,20 +271,25 @@ public class RegionService {
     }
 
     public GlobalHealthScoreDto fetchRegionalHealthScores(Integer categoryId, String regionId, LanguageCode languageCode, String year) {
-        List<RegionalCategoryData> regionalCategoriesData = (categoryId == null) ?
-                iRegionalCategoryDataRepository.findByRegionalCategoryIdRegionIdAndRegionalCategoryIdYearOrderByRegionalCategoryIdCategoryId(regionId, year)
-                : Collections.singletonList(iRegionalCategoryDataRepository.
-                findByRegionalCategoryIdRegionIdAndRegionalCategoryIdYearAndRegionalCategoryIdCategoryIdOrderByRegionalCategoryIdCategoryId(regionId, year, categoryId));
-        List<Category> categories = categoryIndicatorService.getAllCategories();
-        List<CategoryHealthScoreDto> categoryHealthScoreDtos =
-                regionalCategoriesData.stream().map(regionalCategoryData -> CategoryHealthScoreDto.builder()
-                        .id(regionalCategoryData.getRegionalCategoryId().getCategoryId())
-                        .name(categories.get(regionalCategoryData.getRegionalCategoryId().getCategoryId() - 1).getName())
-                        .overallScore(null)
-                        .phase(regionalCategoryData.getScore())
-                        .indicators(null)
-                        .build()).collect(Collectors.toList());
-        return translateCategoryNames(new GlobalHealthScoreDto(fetchRegionOverallScore(regionId, year), categoryHealthScoreDtos), languageCode);
+        if (isRegionalCategoryDataPresent(regionId, year)) {
+            List<RegionalCategoryData> regionalCategoriesData = (categoryId == null) ?
+                    iRegionalCategoryDataRepository.findByRegionalCategoryIdRegionIdAndRegionalCategoryIdYearOrderByRegionalCategoryIdCategoryId(regionId, year)
+                    : Collections.singletonList(iRegionalCategoryDataRepository.
+                    findByRegionalCategoryIdRegionIdAndRegionalCategoryIdYearAndRegionalCategoryIdCategoryIdOrderByRegionalCategoryIdCategoryId(regionId, year, categoryId));
+            List<Category> categories = categoryIndicatorService.getAllCategories();
+            List<CategoryHealthScoreDto> categoryHealthScoreDtos =
+                    regionalCategoriesData.stream().map(regionalCategoryData -> CategoryHealthScoreDto.builder()
+                            .id(regionalCategoryData.getRegionalCategoryId().getCategoryId())
+                            .name(categories.get(regionalCategoryData.getRegionalCategoryId().getCategoryId() - 1).getName())
+                            .overallScore(null)
+                            .phase(regionalCategoryData.getScore())
+                            .indicators(null)
+                            .build()).collect(Collectors.toList());
+            return translateCategoryNames(new GlobalHealthScoreDto(fetchRegionOverallScore(regionId, year), categoryHealthScoreDtos), languageCode);
+        }
+        else {
+            return new GlobalHealthScoreDto(null, Collections.emptyList());
+        }
     }
 
     public Map<Integer, Integer> fetchRegionalIndicatorScoreData(String regionId, String year) {

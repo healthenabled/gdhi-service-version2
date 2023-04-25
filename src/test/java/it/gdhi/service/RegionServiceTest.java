@@ -374,13 +374,13 @@ public class RegionServiceTest {
 
     @Test
     void shouldGetRegionalHealthScoresWhenRegionIdAndYearIsGiven() {
-        String regionID = "PAHO";
+        String regionId = "PAHO";
         String year = "2023";
-        RegionalCategoryId regionalCategoryId1 = RegionalCategoryId.builder().categoryId(1).regionId(regionID).year(year).build();
-        RegionalCategoryId regionalCategoryId2 = RegionalCategoryId.builder().categoryId(2).regionId(regionID).year(year).build();
+        RegionalCategoryId regionalCategoryId1 = RegionalCategoryId.builder().categoryId(1).regionId(regionId).year(year).build();
+        RegionalCategoryId regionalCategoryId2 = RegionalCategoryId.builder().categoryId(2).regionId(regionId).year(year).build();
         RegionalCategoryData regionalCategoryData1 = RegionalCategoryData.builder().regionalCategoryId(regionalCategoryId1).score(3).build();
         RegionalCategoryData regionalCategoryData2 = RegionalCategoryData.builder().regionalCategoryId(regionalCategoryId2).score(2).build();
-        when(iRegionalCategoryDataRepository.findByRegionalCategoryIdRegionIdAndRegionalCategoryIdYearOrderByRegionalCategoryIdCategoryId(regionID,
+        when(iRegionalCategoryDataRepository.findByRegionalCategoryIdRegionIdAndRegionalCategoryIdYearOrderByRegionalCategoryIdCategoryId(regionId,
                 year))
                 .thenReturn(Arrays.asList(regionalCategoryData1, regionalCategoryData2));
         Indicator indicator1 = new Indicator(5, "Ind 1", "Ind Def 1", 1);
@@ -394,12 +394,14 @@ public class RegionServiceTest {
                 CategoryHealthScoreDto.builder().overallScore(null).phase(3).indicators(null).name("Cat 1").id(1).build();
         CategoryHealthScoreDto categoryHealthScoreDto2 =
                 CategoryHealthScoreDto.builder().overallScore(null).phase(2).indicators(null).name("Cat 2").id(2).build();
-        RegionalOverallId regionalOverallId = RegionalOverallId.builder().regionId(regionID).year(year).build();
+        RegionalOverallId regionalOverallId = RegionalOverallId.builder().regionId(regionId).year(year).build();
         RegionalOverallData regionalOverallData = RegionalOverallData.builder().regionalOverallId(regionalOverallId).overAllScore(3).build();
-        when(iRegionOverallDataRepository.findByRegionalOverallIdRegionIdAndRegionalOverallIdYear(regionID, year)).thenReturn(regionalOverallData);
+        when(iRegionOverallDataRepository.findByRegionalOverallIdRegionIdAndRegionalOverallIdYear(regionId, year)).thenReturn(regionalOverallData);
+        when(iRegionalCategoryDataRepository.findDistinctByRegionalCategoryIdRegionIdOrderByRegionalCategoryIdCategoryId(regionId)).
+                thenReturn(Arrays.asList(regionalCategoryData1, regionalCategoryData2));
 
         List<CategoryHealthScoreDto> expectedRegionalCategoriesScore = Arrays.asList(categoryHealthScoreDto1, categoryHealthScoreDto2);
-        GlobalHealthScoreDto regionalHealthScore = regionService.fetchRegionalHealthScores(null, regionID, en, year);
+        GlobalHealthScoreDto regionalHealthScore = regionService.fetchRegionalHealthScores(null, regionId, en, year);
 
         assertEquals(3, regionalHealthScore.getOverAllScore());
         assertEquals(expectedRegionalCategoriesScore, regionalHealthScore.getCategories());
@@ -430,12 +432,31 @@ public class RegionServiceTest {
         RegionalOverallId regionalOverallId = RegionalOverallId.builder().regionId(regionId).year(year).build();
         RegionalOverallData regionalOverallData = RegionalOverallData.builder().regionalOverallId(regionalOverallId).overAllScore(3).build();
         when(iRegionOverallDataRepository.findByRegionalOverallIdRegionIdAndRegionalOverallIdYear(regionId, year)).thenReturn(regionalOverallData);
+        when(iRegionalCategoryDataRepository.findDistinctByRegionalCategoryIdRegionIdOrderByRegionalCategoryIdCategoryId(regionId)).
+                thenReturn(Arrays.asList(regionalCategoryData1, regionalCategoryData2));
 
         List<CategoryHealthScoreDto> expectedRegionalCategoriesScore = Collections.singletonList(categoryHealthScoreDto2);
         GlobalHealthScoreDto regionalHealthScore = regionService.fetchRegionalHealthScores(2, regionId, en, year);
 
         assertEquals(3, regionalHealthScore.getOverAllScore());
         assertEquals(expectedRegionalCategoriesScore, regionalHealthScore.getCategories());
+    }
+
+    @Test
+    void shouldGetEmptyRegionalHealthScoreWhenRegionDataIsNotAvailableForAGivenYear() {
+        String regionId = "PAHO";
+        String year = "2023";
+        RegionalCategoryId regionalCategoryId1 = RegionalCategoryId.builder().categoryId(1).regionId(regionId).year(year).build();
+        RegionalCategoryId regionalCategoryId2 = RegionalCategoryId.builder().categoryId(2).regionId(regionId).year(year).build();
+        RegionalCategoryData regionalCategoryData1 = RegionalCategoryData.builder().regionalCategoryId(regionalCategoryId1).score(3).build();
+        RegionalCategoryData regionalCategoryData2 = RegionalCategoryData.builder().regionalCategoryId(regionalCategoryId2).score(2).build();
+        when(iRegionalCategoryDataRepository.findDistinctByRegionalCategoryIdRegionIdOrderByRegionalCategoryIdCategoryId(regionId)).
+                thenReturn(Arrays.asList(regionalCategoryData1, regionalCategoryData2));
+
+        GlobalHealthScoreDto regionalHealthScore = regionService.fetchRegionalHealthScores(2, regionId, en, "2024");
+
+        assertEquals(null, regionalHealthScore.getOverAllScore());
+        assertEquals(Collections.emptyList(), regionalHealthScore.getCategories());
     }
 
     @Test
