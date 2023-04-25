@@ -19,7 +19,7 @@ public class RegionNameTranslator {
         if (languageCode == en || languageCode == null) return regions;
 
         return regions.stream()
-                .map(region -> region.makeWithName(getRegionTranslationForLanguage(languageCode, region.getRegion_id())))
+                .map(region -> region.makeWithName(getRegionTranslationForLanguage(languageCode, region.getRegionId())))
                 .collect(toList());
     }
 

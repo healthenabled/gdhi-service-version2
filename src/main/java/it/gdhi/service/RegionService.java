@@ -191,7 +191,7 @@ public class RegionService {
     @Transactional
     public void calculatePhaseForAllRegions(String year) {
         List<Region> regions = iRegionRepository.findAll();
-        regions.stream().forEach(region -> calculateAndSaveRegionScores(region.getRegion_id(), year));
+        regions.stream().forEach(region -> calculateAndSaveRegionScores(region.getRegionId(), year));
     }
 
     @Transactional

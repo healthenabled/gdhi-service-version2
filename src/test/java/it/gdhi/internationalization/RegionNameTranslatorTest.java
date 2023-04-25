@@ -32,7 +32,7 @@ public class RegionNameTranslatorTest {
     private IRegionTranslationRepository translationRepository;
 
     public Region createRegion(String id, String name) {
-        Region region = Region.builder().region_id(id).regionName(name).build();
+        Region region = Region.builder().regionId(id).regionName(name).build();
         return region;
     }
     public List<Region> createListOfRegionsInEnglish() {

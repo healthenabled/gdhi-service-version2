@@ -17,12 +17,12 @@ import javax.persistence.Table;
 public class Region {
 
     @Id
-    String region_id;
+    String regionId;
 
     @Column(name="region_name")
     String regionName;
 
     public Region makeWithName(String name) {
-        return new Region(this.region_id, name);
+        return new Region(this.regionId, name);
     }
 }

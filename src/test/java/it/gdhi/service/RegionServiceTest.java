@@ -78,7 +78,7 @@ public class RegionServiceTest {
     private HealthIndicatorTranslator healthIndicatorTranslator;
 
     public Region createRegion(String id, String name) {
-        Region region = Region.builder().region_id(id).regionName(name).build();
+        Region region = Region.builder().regionId(id).regionName(name).build();
         return region;
     }
 
@@ -90,7 +90,7 @@ public class RegionServiceTest {
 
         when(iRegionRepository.findAll()).thenReturn(regions);
 
-        assertEquals(regions.get(0).getRegion_id(), id);
+        assertEquals(regions.get(0).getRegionId(), id);
         assertEquals(regions.get(0).getRegionName(), name);
     }
 
@@ -111,7 +111,7 @@ public class RegionServiceTest {
         when(iRegionRepository.findAll()).thenReturn(listOfRegionsInEnglish);
         when(regionNameTranslator.translate(listOfRegionsInEnglish, fr)).thenReturn(listOfRegionsInFrench);
 
-        assertEquals(listOfRegionsInEnglish.get(1).getRegion_id(), "AFRO");
+        assertEquals(listOfRegionsInEnglish.get(1).getRegionId(), "AFRO");
         assertEquals(listOfRegionsInFrench.get(1).getRegionName(), "Région africaine");
     }
 
