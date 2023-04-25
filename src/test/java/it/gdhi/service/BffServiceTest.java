@@ -196,6 +196,7 @@ public class BffServiceTest {
                 GlobalHealthScoreDto.builder().overAllScore(3).categories(asList(categoryHealthScoreDto1,
                         categoryHealthScoreDto2, categoryHealthScoreDto4, categoryHealthScoreDto5)).build();
         when(regionService.fetchRegionalHealthScores(null, region, en, year)).thenReturn(globalHealthScore);
+        when(regionService.isRegionalCategoryDataPresent(region, year)).thenReturn(true);
         when(countryHealthIndicatorService.fetchCountryHealthScore("IND", en, year)).thenReturn(countryHealthScoreDtoIN);
         when(defaultYearDataService.fetchDefaultYear()).thenReturn(year);
 

@@ -212,7 +212,8 @@ public class RegionServiceTest {
         RegionalIndicatorData regionalIndicatorData1 = RegionalIndicatorData.builder().regionalIndicatorId(regionalIndicatorId).score(4).build();
         RegionalIndicatorData regionalIndicatorData2 = RegionalIndicatorData.builder().regionalIndicatorId(regionalIndicatorId2).score(-1).build();
         RegionalIndicatorData regionalIndicatorData3 = RegionalIndicatorData.builder().regionalIndicatorId(regionalIndicatorId3).score(2).build();
-        List<RegionalIndicatorData> expectedRegionalIndicatorData = Arrays.asList(regionalIndicatorData1, regionalIndicatorData2, regionalIndicatorData3);
+        List<RegionalIndicatorData> expectedRegionalIndicatorData = Arrays.asList(regionalIndicatorData1, regionalIndicatorData2,
+                regionalIndicatorData3);
         assertEquals(expectedRegionalIndicatorData, regionalIndicatorData);
     }
 
@@ -450,6 +451,21 @@ public class RegionServiceTest {
         Map<Integer, Integer> actualRegionalData = regionService.fetchRegionalIndicatorScoreData(regionID, year);
 
         assertEquals(expectedRegionalData, actualRegionalData);
+    }
+
+    @Test
+    public void shouldVerifyIfRegionalCategoryDataIsPresentForAGivenYearWhenRegionAndYearIsProvided() {
+        String regionID = "PAHO";
+        List<String> years = Arrays.asList("2023", "2022");
+        RegionalCategoryId regionalCategoryId1 = RegionalCategoryId.builder().categoryId(1).regionId(regionID).year("2023").build();
+        RegionalCategoryId regionalCategoryId2 = RegionalCategoryId.builder().categoryId(2).regionId(regionID).year("2022").build();
+        RegionalCategoryData regionalCategoryData1 = RegionalCategoryData.builder().regionalCategoryId(regionalCategoryId1).score(3).build();
+        RegionalCategoryData regionalCategoryData2 = RegionalCategoryData.builder().regionalCategoryId(regionalCategoryId2).score(2).build();
+        when(iRegionalCategoryDataRepository.findDistinctByRegionalCategoryIdRegionIdOrderByRegionalCategoryIdCategoryId(regionID)).
+                thenReturn(Arrays.asList(regionalCategoryData1, regionalCategoryData2));
+
+        assertEquals(true, regionService.isRegionalCategoryDataPresent(regionID, "2022"));
+        assertEquals(false, regionService.isRegionalCategoryDataPresent(regionID, "Version1"));
     }
 }
 

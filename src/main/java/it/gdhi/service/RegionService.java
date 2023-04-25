@@ -307,4 +307,17 @@ public class RegionService {
                 });
         return globalHealthScoreDto;
     }
+
+    public boolean isRegionalCategoryDataPresent(String regionId, String year) {
+        List<RegionalCategoryData> regionalCategoriesData =
+                iRegionalCategoryDataRepository.findDistinctByRegionalCategoryIdRegionIdOrderByRegionalCategoryIdCategoryId(regionId);
+        List<String> years = regionalCategoriesData.stream().map(RegionalCategoryData::getRegionalCategoryId).
+                map(RegionalCategoryId::getYear).distinct().toList();
+        if (years.contains(year)) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 }

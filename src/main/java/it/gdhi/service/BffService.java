@@ -10,6 +10,7 @@ import it.gdhi.dto.CountrySummaryDto;
 import it.gdhi.dto.CountryUrlGenerationStatusDto;
 import it.gdhi.dto.GdhiQuestionnaire;
 import it.gdhi.dto.GdhiQuestionnaires;
+import it.gdhi.dto.GlobalHealthScoreDto;
 import it.gdhi.dto.YearDto;
 import it.gdhi.dto.YearHealthScoreDto;
 import it.gdhi.dto.YearOnYearDto;
@@ -67,7 +68,8 @@ public class BffService {
     public YearOnYearDto fetchYearOnYearData(List<String> years, String countryId, String regionId) {
         List<YearScoreDto> yearScoreDtos =
                 years.stream().map(year -> getYearScoreDto(countryId, year, regionId)).toList();
-        return YearOnYearDto.builder().currentYear(getCurrentYear()).yearOnYearData(yearScoreDtos).defaultYear(defaultYearDataService.fetchDefaultYear()).build();
+        return YearOnYearDto.builder().currentYear(getCurrentYear()).yearOnYearData(yearScoreDtos)
+                .defaultYear(defaultYearDataService.fetchDefaultYear()).build();
     }
 
     private YearScoreDto getYearScoreDto(String countryId, String year, String regionId) {
@@ -77,8 +79,18 @@ public class BffService {
     private YearHealthScoreDto getYearHealthScoreDto(String countryId, String year, String regionId) {
         return YearHealthScoreDto.builder().country(countryHealthIndicatorService.fetchCountryHealthScore(countryId,
                         en, year))
-                .average((regionId == null) ? countryHealthIndicatorService.getGlobalHealthIndicator(null, null, en, year) :
-                        regionService.fetchRegionalHealthScores(null, regionId, en, year)).build();
+                .average(fetchHealthScore(year, regionId)).build();
+    }
+
+    private GlobalHealthScoreDto fetchHealthScore(String year, String regionId) {
+        if (regionId == null) {
+            return countryHealthIndicatorService.getGlobalHealthIndicator(null, null, en, year);
+        }
+        else {
+            return regionService.isRegionalCategoryDataPresent(regionId, year) ? regionService.fetchRegionalHealthScores(null, regionId, en,
+                    year)
+                    : new GlobalHealthScoreDto(null, null);
+        }
     }
 
     @Transactional
