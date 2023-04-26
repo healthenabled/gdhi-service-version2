@@ -1,11 +1,17 @@
 package it.gdhi.controller;
 
+import it.gdhi.dto.RegionCountryDto;
 import it.gdhi.model.Region;
 import it.gdhi.service.RegionService;
 import it.gdhi.utils.LanguageCode;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -23,5 +29,17 @@ public class RegionController {
     public List<Region> fetchRegions(HttpServletRequest request){
         LanguageCode languageCode = LanguageCode.getValueFor(request.getHeader(USER_LANGUAGE));
         return regionService.fetchRegions(languageCode);
+    }
+
+    @GetMapping("/region/{id}")
+    @ResponseBody
+    public List<RegionCountryDto> fetchRegionCountriesData(HttpServletRequest request,
+                                                           @PathVariable("id") String regionId,
+                                                           @RequestParam(value = "list_of_years") List<String> years) {
+        if(years.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+        LanguageCode languageCode = LanguageCode.getValueFor(request.getHeader(USER_LANGUAGE));
+        return regionService.getRegionCountriesData(regionId , years , languageCode);
     }
 }

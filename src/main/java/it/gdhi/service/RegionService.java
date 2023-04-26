@@ -2,7 +2,11 @@ package it.gdhi.service;
 
 import it.gdhi.dto.BenchmarkDto;
 import it.gdhi.dto.CategoryHealthScoreDto;
+import it.gdhi.dto.RegionCountryHealthScoreYearDto;
 import it.gdhi.dto.GlobalHealthScoreDto;
+import it.gdhi.dto.RegionCountryDto;
+import it.gdhi.dto.RegionCountryHealthScoreDto;
+import it.gdhi.internationalization.service.CountryNameTranslator;
 import it.gdhi.internationalization.service.HealthIndicatorTranslator;
 import it.gdhi.model.*;
 import it.gdhi.model.id.RegionalCategoryId;
@@ -22,6 +26,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import static it.gdhi.utils.FormStatus.PUBLISHED;
+import static it.gdhi.utils.LanguageCode.en;
 import static java.util.stream.Collectors.*;
 
 import it.gdhi.internationalization.service.RegionNameTranslator;
@@ -56,13 +61,25 @@ public class RegionService {
 
     @Autowired
     private IRegionalOverallDataRepository iRegionalOverallRepository;
+
     @Autowired
     private CategoryIndicatorService categoryIndicatorService;
+
     @Autowired
     private BenchMarkService benchmarkService;
 
     @Autowired
+    private CountryHealthIndicatorService countryHealthIndicatorService;
+
+    @Autowired
     private HealthIndicatorTranslator healthIndicatorTranslator;
+
+    @Autowired
+    private ICountryRepository iCountryRepository;
+
+    @Autowired
+    private CountryNameTranslator countryNameTranslator;
+
 
     public List<Region> fetchRegions(LanguageCode languageCode) {
         List<Region> regions = iRegionRepository.findAll();
@@ -74,7 +91,8 @@ public class RegionService {
     }
 
     public Integer fetchRegionOverallScore(String regionID, String year) {
-        RegionalOverallData regionalOverallData = iRegionalOverallRepository.findByRegionalOverallIdRegionIdAndRegionalOverallIdYear(regionID, year);
+        RegionalOverallData regionalOverallData =
+                iRegionalOverallRepository.findByRegionalOverallIdRegionIdAndRegionalOverallIdYear(regionID, year);
         return regionalOverallData.getOverAllScore();
     }
 
@@ -91,7 +109,8 @@ public class RegionService {
                 iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdInAndCountryHealthIndicatorIdYearAndCountryHealthIndicatorIdStatus(countries, year, PUBLISHED.name());
         if (countryHealthIndicators.size() > 0) {
             CountryHealthIndicators countryHealthIndicators1 = new CountryHealthIndicators(countryHealthIndicators);
-            RegionalOverallData regionalOverallData = calculateRegionalOverallDataFor(countryHealthIndicators1, regionId, year);
+            RegionalOverallData regionalOverallData = calculateRegionalOverallDataFor(countryHealthIndicators1,
+                    regionId, year);
             iRegionalOverallRepository.deleteByRegionalOverallIdRegionIdAndRegionalOverallIdYear(regionId, year);
             if (regionalOverallData != null) {
                 RegionalOverallData regionalOverallData1 = iRegionalOverallRepository.save(regionalOverallData);
@@ -106,7 +125,8 @@ public class RegionService {
 
         List<CountryHealthIndicator> countryHealthIndicators =
                 iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdInAndCountryHealthIndicatorIdYearAndCountryHealthIndicatorIdStatus(countries, year, PUBLISHED.name());
-        List<RegionalIndicatorData> regionalIndicatorsData = calculateRegionalIndicatorDataFor(countryHealthIndicators, regionId, year);
+        List<RegionalIndicatorData> regionalIndicatorsData =
+                calculateRegionalIndicatorDataFor(countryHealthIndicators, regionId, year);
 
         iRegionalIndicatorDataRepository.deleteByRegionalIndicatorIdRegionIdAndRegionalIndicatorIdYear(regionId, year);
 
@@ -126,13 +146,15 @@ public class RegionService {
                 iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdInAndCountryHealthIndicatorIdYearAndCountryHealthIndicatorIdStatus(countries, year, PUBLISHED.name());
         if (countryHealthIndicators.size() > 0) {
             CountryHealthIndicators countryHealthIndicators1 = new CountryHealthIndicators(countryHealthIndicators);
-            List<RegionalCategoryData> regionalCategoriesData = calculateRegionalCategoriesDataFor(countryHealthIndicators1, regionId, year);
+            List<RegionalCategoryData> regionalCategoriesData =
+                    calculateRegionalCategoriesDataFor(countryHealthIndicators1, regionId, year);
 
             iRegionalCategoryDataRepository.deleteByRegionalCategoryIdRegionIdAndRegionalCategoryIdYear(regionId, year);
 
             if (regionalCategoriesData != null) {
                 regionalCategoriesData.forEach(regionalCategoryData -> {
-                    RegionalCategoryData regionalCategoryData1 = iRegionalCategoryDataRepository.save(regionalCategoryData);
+                    RegionalCategoryData regionalCategoryData1 =
+                            iRegionalCategoryDataRepository.save(regionalCategoryData);
                     entityManager.flush();
                     entityManager.refresh(regionalCategoryData1);
                 });
@@ -144,12 +166,14 @@ public class RegionService {
                                                                          String year) {
         Map<Integer, Double> CategoryScore = countryHealthIndicators.groupByCategoryIdWithoutNullAndNegativeScores();
 
-        List<RegionalCategoryData> regionalCategoryData = countryHealthIndicators.groupByCategory().entrySet().stream().map(entry -> {
-            Category category = entry.getKey();
-            RegionalCategoryId regionalCategoryId = new RegionalCategoryId(regionId, category.getId(), year);
-            Double score = CategoryScore.get(category.getId()) == null ? -1 : CategoryScore.get(category.getId());
-            return new RegionalCategoryData(regionalCategoryId, new Score(score).convertToPhase());
-        }).collect(toList());
+        List<RegionalCategoryData> regionalCategoryData =
+                countryHealthIndicators.groupByCategory().entrySet().stream().map(entry -> {
+                    Category category = entry.getKey();
+                    RegionalCategoryId regionalCategoryId = new RegionalCategoryId(regionId, category.getId(), year);
+                    Double score = CategoryScore.get(category.getId()) == null ? -1 :
+                            CategoryScore.get(category.getId());
+                    return new RegionalCategoryData(regionalCategoryId, new Score(score).convertToPhase());
+                }).collect(toList());
         return regionalCategoryData;
     }
 
@@ -166,14 +190,17 @@ public class RegionService {
                                 averagingInt(CountryHealthIndicator::getScore)));
 
         return regionalIndicators.entrySet().stream().map(dto -> {
-            return RegionalIndicatorData.builder().regionalIndicatorId(new RegionalIndicatorId(regionId, dto.getKey(), year))
+            return RegionalIndicatorData.builder().regionalIndicatorId(new RegionalIndicatorId(regionId, dto.getKey()
+                            , year))
                     .score(new Score(dto.getValue()).convertToPhase()).build();
         }).collect(toList());
     }
 
-    public RegionalOverallData calculateRegionalOverallDataFor(CountryHealthIndicators countryHealthIndicators, String regionId, String year) {
+    public RegionalOverallData calculateRegionalOverallDataFor(CountryHealthIndicators countryHealthIndicators,
+                                                               String regionId, String year) {
         Map<Integer, Double> CategoryScore = countryHealthIndicators.groupByCategoryIdWithoutNullAndNegativeScores();
-        Double averageOverallScore = CategoryScore.entrySet().stream().mapToDouble(Map.Entry::getValue).average().getAsDouble();
+        Double averageOverallScore =
+                CategoryScore.entrySet().stream().mapToDouble(Map.Entry::getValue).average().getAsDouble();
         RegionalOverallData regionalOverallData =
                 RegionalOverallData.builder().regionalOverallId(RegionalOverallId.builder().regionId(regionId).year(year).build())
                         .overAllScore(Score.builder().value(averageOverallScore).build().convertToPhase()).build();
@@ -202,7 +229,8 @@ public class RegionService {
 
         List<CountryHealthIndicator> countryHealthIndicators =
                 iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdInAndCountryHealthIndicatorIdYearAndCountryHealthIndicatorIdStatus(countries, year, PUBLISHED.name());
-        List<RegionalIndicatorData> regionalIndicatorsData = calculateRegionalIndicatorDataFor(countryHealthIndicators, regionId, year);
+        List<RegionalIndicatorData> regionalIndicatorsData =
+                calculateRegionalIndicatorDataFor(countryHealthIndicators, regionId, year);
 
         iRegionalIndicatorDataRepository.deleteByRegionalIndicatorIdRegionIdAndRegionalIndicatorIdYear(regionId, year);
 
@@ -224,7 +252,8 @@ public class RegionService {
         List<CountryHealthIndicator> countryHealthIndicators =
                 iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdInAndCountryHealthIndicatorIdYearAndCountryHealthIndicatorIdStatus(countries, year, PUBLISHED.name());
         CountryHealthIndicators countryHealthIndicators1 = new CountryHealthIndicators(countryHealthIndicators);
-        List<RegionalCategoryData> regionalCategoriesData = calculateRegionalCategoriesDataFor(countryHealthIndicators1, regionId, year);
+        List<RegionalCategoryData> regionalCategoriesData =
+                calculateRegionalCategoriesDataFor(countryHealthIndicators1, regionId, year);
 
         iRegionalCategoryDataRepository.deleteByRegionalCategoryIdRegionIdAndRegionalCategoryIdYear(regionId, year);
 
@@ -247,7 +276,8 @@ public class RegionService {
                 findByCountryHealthIndicatorIdCountryIdInAndCountryHealthIndicatorIdYearAndCountryHealthIndicatorIdStatus(countries, year,
                         PUBLISHED.name());
         CountryHealthIndicators countryHealthIndicators1 = new CountryHealthIndicators(countryHealthIndicators);
-        RegionalOverallData regionalOverallData = calculateRegionalOverallDataFor(countryHealthIndicators1, regionId, year);
+        RegionalOverallData regionalOverallData = calculateRegionalOverallDataFor(countryHealthIndicators1, regionId,
+                year);
         iRegionalOverallRepository.deleteByRegionalOverallIdRegionIdAndRegionalOverallIdYear(regionId, year);
         if (regionalOverallData != null) {
             RegionalOverallData regionalOverallData1 = iRegionalOverallRepository.save(regionalOverallData);
@@ -270,7 +300,8 @@ public class RegionService {
         return iRegionalCategoryDataRepository.findByRegionalCategoryIdRegionIdAndRegionalCategoryIdYearOrderByRegionalCategoryIdCategoryId(regionId, year);
     }
 
-    public GlobalHealthScoreDto fetchRegionalHealthScores(Integer categoryId, String regionId, LanguageCode languageCode, String year) {
+    public GlobalHealthScoreDto fetchRegionalHealthScores(Integer categoryId, String regionId,
+                                                          LanguageCode languageCode, String year) {
         if (isRegionalCategoryDataPresent(regionId, year)) {
             List<RegionalCategoryData> regionalCategoriesData = (categoryId == null) ?
                     iRegionalCategoryDataRepository.findByRegionalCategoryIdRegionIdAndRegionalCategoryIdYearOrderByRegionalCategoryIdCategoryId(regionId, year)
@@ -285,7 +316,8 @@ public class RegionService {
                             .phase(regionalCategoryData.getScore())
                             .indicators(null)
                             .build()).collect(Collectors.toList());
-            return translateCategoryNames(new GlobalHealthScoreDto(fetchRegionOverallScore(regionId, year), categoryHealthScoreDtos), languageCode);
+            return translateCategoryNames(new GlobalHealthScoreDto(fetchRegionOverallScore(regionId, year),
+                    categoryHealthScoreDtos), languageCode);
         }
         else {
             return new GlobalHealthScoreDto(null, Collections.emptyList());
@@ -294,7 +326,8 @@ public class RegionService {
 
     public Map<Integer, Integer> fetchRegionalIndicatorScoreData(String regionId, String year) {
         List<RegionalIndicatorData> regionalIndicatorsData =
-                iRegionalIndicatorDataRepository.findByRegionalIndicatorIdRegionIdAndRegionalIndicatorIdYear(regionId, year);
+                iRegionalIndicatorDataRepository.findByRegionalIndicatorIdRegionIdAndRegionalIndicatorIdYear(regionId
+                        , year);
         return regionalIndicatorsData.stream().collect(Collectors.toMap(RegionalIndicatorData::getRegionalIndicatorId,
                 RegionalIndicatorData::getScore));
     }
@@ -307,7 +340,8 @@ public class RegionService {
         globalHealthScoreDto
                 .getCategories()
                 .forEach((category) -> {
-                    String translatedCategory = healthIndicatorTranslator.getTranslatedCategory(category.getName(), code);
+                    String translatedCategory = healthIndicatorTranslator.getTranslatedCategory(category.getName(),
+                            code);
                     category.translateCategoryName(translatedCategory);
                 });
         return globalHealthScoreDto;
@@ -324,5 +358,31 @@ public class RegionService {
         else {
             return false;
         }
+    }
+
+    public List<RegionCountryDto> getRegionCountriesData(String regionId, List<String> years,
+                                                         LanguageCode languageCode) {
+        List<String> countries = iRegionCountryRepository.findByRegionCountryIdRegionId(regionId);
+        return countries.stream().map(countryId -> {
+            List<RegionCountryHealthScoreYearDto> regionCountryHealthScoreYearDtos =
+                    getRegionCountryHealthScoreYearData(countryId,
+                            years);
+            String countryName = languageCode == en ? iCountryRepository.findById(countryId).getName() :
+                    countryNameTranslator.getCountryTranslationForLanguage(languageCode,
+                            countryId);
+            return RegionCountryDto.builder().
+                    countryId(countryId).
+                    countryName(countryName).
+                    countryYearsData(regionCountryHealthScoreYearDtos).build();
+        }).collect(toList());
+    }
+
+    public List<RegionCountryHealthScoreYearDto> getRegionCountryHealthScoreYearData(String countryId,
+                                                                                     List<String> years) {
+        return years.stream().map(year ->
+                RegionCountryHealthScoreYearDto.builder().year(year).
+                        country(new RegionCountryHealthScoreDto
+                                (countryHealthIndicatorService.fetchCountryHealthScore(countryId, en, year))).
+                        build()).toList();
     }
 }

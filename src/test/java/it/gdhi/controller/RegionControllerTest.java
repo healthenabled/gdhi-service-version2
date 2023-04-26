@@ -7,10 +7,15 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.HttpStatus;
 import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.web.server.ResponseStatusException;
+import java.util.ArrayList;
 import java.util.List;
 import static it.gdhi.utils.LanguageCode.en;
 import static it.gdhi.utils.LanguageCode.fr;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -21,6 +26,7 @@ public class RegionControllerTest {
 
     @Mock
     private RegionService regionService;
+
 
     @Test
     public void shouldListRegions()
@@ -41,5 +47,31 @@ public class RegionControllerTest {
         regionController.fetchRegions(request);
 
         verify(regionService).fetchRegions(fr);
+    }
+
+    @Test
+    public void shouldFetchCountriesHealthScoreDataWhenRegionIdAndListOfYearsIsPassed() {
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        request.addHeader("USER_LANGUAGE","en");
+        String regionId = "PAHO";
+        List<String> years = new ArrayList<>();
+        years.add("2023");
+        years.add("Version1");
+
+        regionController.fetchRegionCountriesData(request , regionId , years);
+        verify(regionService).getRegionCountriesData(regionId , years , en);
+    }
+
+    @Test
+    public void shouldThrowBadRequestWhenListOfYearsIsNotPassed()  throws Exception{
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        request.addHeader("USER_LANGUAGE","en");
+        String regionId = "PAHO";
+        List<String> years = new ArrayList<>();
+
+        // TODO: Add more specific assertion for 400 error code
+        assertThrows(ResponseStatusException.class,
+                () -> regionController.fetchRegionCountriesData(request , regionId , years));
+
     }
 }

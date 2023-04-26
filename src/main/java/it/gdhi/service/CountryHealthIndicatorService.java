@@ -53,9 +53,6 @@ public class CountryHealthIndicatorService {
     private ExcelUtilService excelUtilService;
 
     @Autowired
-    private RegionService regionService;
-
-    @Autowired
     private CategoryIndicatorService categoryIndicatorService;
 
     @Autowired
