@@ -112,4 +112,10 @@ public class CountryService {
         return countrySummaries.size() == 0 ? false : true;
     }
 
+    public String getCountryName(String countryId , LanguageCode languageCode) {
+        return languageCode == LanguageCode.en ? iCountryRepository.findById(countryId).getName() :
+                translator.getCountryTranslationForLanguage(languageCode,
+                        countryId);
+    }
+
 }

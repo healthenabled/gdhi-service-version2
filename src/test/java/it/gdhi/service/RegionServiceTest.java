@@ -98,6 +98,9 @@ public class RegionServiceTest {
     @Mock
     private CountryNameTranslator countryNameTranslator;
 
+    @Mock
+    private CountryService countryService;
+
     public Region createRegion(String id, String name) {
         Region region = Region.builder().regionId(id).regionName(name).build();
         return region;
@@ -612,8 +615,6 @@ public class RegionServiceTest {
         LanguageCode languageCode = en;
 
         List<String> countryIds = Arrays.asList("IND" , "PAK");
-        Country country1 = new Country("IND", "India", UUID.randomUUID(), "IN");
-        Country country2 = new Country("PAK", "Pakistan", UUID.randomUUID(), "PK");
 
         CategoryHealthScoreDto categoryHealthScoreDto1 = new CategoryHealthScoreDto(2, "Category 2", 2.0, 2,
                 of(new IndicatorScoreDto(1, null, null, null, null, 2, null, "Not Available")));
@@ -649,8 +650,8 @@ public class RegionServiceTest {
         when(countryHealthIndicatorService.fetchCountryHealthScore("PAK", en, years.get(0))).thenReturn(countryHealthScoreDtoIN);
         when(countryHealthIndicatorService.fetchCountryHealthScore("PAK", en, years.get(1))).thenReturn(countryHealthScoreDtoIN2);
 
-        when(iCountryRepository.findById("IND")).thenReturn(country1);
-        when(iCountryRepository.findById("PAK")).thenReturn(country2);
+        when(countryService.getCountryName("IND" , languageCode)).thenReturn("India");
+        when(countryService.getCountryName("PAK" , languageCode)).thenReturn("Pakistan");
 
         when(iRegionCountryRepository.findByRegionCountryIdRegionId(regionId)).thenReturn(countryIds);
 
@@ -668,33 +669,5 @@ public class RegionServiceTest {
         assertEquals(expectedResponse , actualResponse);
     }
 
-    @Test
-    public void shouldCallTranslatorMethodWhenLanguageIdIsOtherThanEn() {
-        String regionId = "PAHO";
-        List<String> years = Arrays.asList("2023", "Version1");
-        LanguageCode languageCode = es;
-
-        CategoryHealthScoreDto categoryHealthScoreDto1 = new CategoryHealthScoreDto(2, "Category 2", 2.0, 2,
-                of(new IndicatorScoreDto(1, null, null, null, null, 2, null, "Not Available")));
-        CategoryHealthScoreDto categoryHealthScoreDto2 = new CategoryHealthScoreDto(1, "Category 1", 5.0, 5,
-                of(new IndicatorScoreDto(1, null, null, null, null, 5, null, "Not Available")));
-        CountryHealthScoreDto countryHealthScoreDtoIN = new CountryHealthScoreDto("IND", "India", "IN",
-                of(categoryHealthScoreDto1, categoryHealthScoreDto2), 4, "");
-        CategoryHealthScoreDto categoryHealthScoreDto3 = new CategoryHealthScoreDto(2, "Category 2", 2.0, 2,
-                of(new IndicatorScoreDto(1, null, null, null, null, 2, null, "Not Available")));
-        CategoryHealthScoreDto categoryHealthScoreDto4 = new CategoryHealthScoreDto(1, "Category 1", 5.0, 5,
-                of(new IndicatorScoreDto(1, null, null, null, null, 5, null, "Not Available")));
-        CountryHealthScoreDto countryHealthScoreDtoIN2 = new CountryHealthScoreDto("IND", "India", "IN",
-                of(categoryHealthScoreDto3, categoryHealthScoreDto4), 4, "");
-
-        List<String> countryIds = Arrays.asList("IND");
-
-        when(iRegionCountryRepository.findByRegionCountryIdRegionId(regionId)).thenReturn(countryIds);
-        when(countryHealthIndicatorService.fetchCountryHealthScore("IND", en, years.get(0))).thenReturn(countryHealthScoreDtoIN);
-        when(countryHealthIndicatorService.fetchCountryHealthScore("IND", en, years.get(1))).thenReturn(countryHealthScoreDtoIN2);
-
-        regionService.getRegionCountriesData(regionId , years , languageCode);
-        verify(countryNameTranslator).getCountryTranslationForLanguage(languageCode , "IND");
-    }
 }
 

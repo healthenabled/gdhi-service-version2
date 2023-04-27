@@ -343,7 +343,8 @@ public class CountryServiceTest {
 
     @Test
     public void shouldGetPublishedCountriesDistinctYears() {
-        when(iCountryPhaseRepository.findAllDistinctYearsOrderByUpdatedAtDesc(2)).thenReturn(asList("2023", "Version1"));
+        when(iCountryPhaseRepository.findAllDistinctYearsOrderByUpdatedAtDesc(2)).thenReturn(asList("2023", "Version1"
+        ));
         List<String> expectedDistinctYears = asList("2023", "Version1");
         List<String> actualDistinctYears = countryService.fetchPublishCountriesDistinctYears(2);
 
@@ -424,7 +425,8 @@ public class CountryServiceTest {
         UUID countryUUID = randomUUID();
         Country country = new Country(countryId, "India", countryUUID, "IN");
 
-        when(iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdYear(countryId, getCurrentYear())).thenReturn(emptyList());
+        when(iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdYear(countryId,
+                getCurrentYear())).thenReturn(emptyList());
         when(countryDetailRepository.findByUniqueId(countryUUID)).thenReturn(country);
 
         Boolean actualResponse = countryService.checkCountryHasEntryForCurrentYear(countryUUID);
@@ -460,13 +462,35 @@ public class CountryServiceTest {
                         PUBLISHED.name(), getCurrentYear()), createdDate, updatedDate)))
                 .build();
 
-        when(iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdYear(countryId, getCurrentYear())).thenReturn(Collections.singletonList(countrySummary));
+        when(iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdYear(countryId,
+                getCurrentYear())).thenReturn(Collections.singletonList(countrySummary));
         when(countryDetailRepository.findByUniqueId(countryUUID)).thenReturn(country);
 
         Boolean actualResponse = countryService.checkCountryHasEntryForCurrentYear(countryUUID);
         Boolean expectedResponse = true;
 
         assertEquals(expectedResponse, actualResponse);
+    }
+
+    @Test
+    public void shouldReturnCountryNameWhenCountryIdAndLanguageCodeArePassed() {
+        String countryId = "IND";
+        LanguageCode languageCode = en;
+        Country country = new Country("IND", "India", UUID.randomUUID(), "IN");
+        when(countryDetailRepository.findById(countryId)).thenReturn(country);
+
+        countryService.getCountryName(countryId, languageCode);
+        verify(countryDetailRepository).findById(countryId);
+    }
+
+    @Test
+    public void shouldReturnCountryNameWhenCountryIdAndLanguageCodeArePassedAndLanguageCodeIsFr() {
+        String countryId = "IND";
+        LanguageCode languageCode = LanguageCode.fr;
+        when(translator.getCountryTranslationForLanguage(languageCode, countryId)).thenReturn("Inde");
+
+        countryService.getCountryName(countryId, languageCode);
+        verify(translator).getCountryTranslationForLanguage(languageCode , countryId);
     }
 
 
@@ -478,7 +502,8 @@ public class CountryServiceTest {
         return calendar.getTime();
     }
 
-    private void assertIndicators(List<CountryHealthIndicator> expectedCountryHealthIndicators, List<HealthIndicatorDto> actualHealthIndicators) {
+    private void assertIndicators(List<CountryHealthIndicator> expectedCountryHealthIndicators,
+                                  List<HealthIndicatorDto> actualHealthIndicators) {
         assertEquals(expectedCountryHealthIndicators.size(), actualHealthIndicators.size());
         expectedCountryHealthIndicators.forEach(expected -> {
             HealthIndicatorDto actualIndicator = actualHealthIndicators.stream()

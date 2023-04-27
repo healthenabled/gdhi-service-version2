@@ -80,6 +80,9 @@ public class RegionService {
     @Autowired
     private CountryNameTranslator countryNameTranslator;
 
+    @Autowired
+    private CountryService countryService;
+
 
     public List<Region> fetchRegions(LanguageCode languageCode) {
         List<Region> regions = iRegionRepository.findAll();
@@ -367,9 +370,7 @@ public class RegionService {
             List<RegionCountryHealthScoreYearDto> regionCountryHealthScoreYearDtos =
                     getRegionCountryHealthScoreYearData(countryId,
                             years);
-            String countryName = languageCode == en ? iCountryRepository.findById(countryId).getName() :
-                    countryNameTranslator.getCountryTranslationForLanguage(languageCode,
-                            countryId);
+            String countryName = countryService.getCountryName(countryId , languageCode);
             return RegionCountryDto.builder().
                     countryId(countryId).
                     countryName(countryName).
