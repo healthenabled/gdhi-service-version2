@@ -2,10 +2,11 @@ package it.gdhi.service;
 
 import it.gdhi.dto.BenchmarkDto;
 import it.gdhi.dto.CategoryHealthScoreDto;
-import it.gdhi.dto.RegionCountryHealthScoreYearDto;
+import it.gdhi.dto.RegionCategoriesHealthScoreDto;
+import it.gdhi.dto.RegionCountriesDto;
 import it.gdhi.dto.GlobalHealthScoreDto;
-import it.gdhi.dto.RegionCountryDto;
 import it.gdhi.dto.RegionCountryHealthScoreDto;
+import it.gdhi.dto.RegionCountryHealthScoreYearDto;
 import it.gdhi.internationalization.service.CountryNameTranslator;
 import it.gdhi.internationalization.service.HealthIndicatorTranslator;
 import it.gdhi.model.*;
@@ -25,8 +26,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import static it.gdhi.controller.strategy.FilterStrategy.getCategoryPhaseFilter;
 import static it.gdhi.utils.FormStatus.PUBLISHED;
-import static it.gdhi.utils.LanguageCode.en;
 import static java.util.stream.Collectors.*;
 
 import it.gdhi.internationalization.service.RegionNameTranslator;
@@ -82,6 +83,9 @@ public class RegionService {
 
     @Autowired
     private CountryService countryService;
+
+    @Autowired
+    private ICountryPhaseRepository iCountryPhaseRepository;
 
 
     public List<Region> fetchRegions(LanguageCode languageCode) {
@@ -363,27 +367,65 @@ public class RegionService {
         }
     }
 
-    public List<RegionCountryDto> getRegionCountriesData(String regionId, List<String> years,
-                                                         LanguageCode languageCode) {
+    public RegionCountriesDto getRegionCountriesData(String regionId, List<String> years,
+                                                     LanguageCode languageCode) {
         List<String> countries = iRegionCountryRepository.findByRegionCountryIdRegionId(regionId);
-        return countries.stream().map(countryId -> {
-            List<RegionCountryHealthScoreYearDto> regionCountryHealthScoreYearDtos =
-                    getRegionCountryHealthScoreYearData(countryId,
-                            years);
-            String countryName = countryService.getCountryName(countryId , languageCode);
-            return RegionCountryDto.builder().
-                    countryId(countryId).
-                    countryName(countryName).
-                    countryYearsData(regionCountryHealthScoreYearDtos).build();
-        }).collect(toList());
+        return fetchRegionCountriesHealthScoresForGivenYears(countries, years, languageCode);
     }
 
-    public List<RegionCountryHealthScoreYearDto> getRegionCountryHealthScoreYearData(String countryId,
-                                                                                     List<String> years) {
-        return years.stream().map(year ->
-                RegionCountryHealthScoreYearDto.builder().year(year).
-                        country(new RegionCountryHealthScoreDto
-                                (countryHealthIndicatorService.fetchCountryHealthScore(countryId, en, year))).
-                        build()).toList();
+    public RegionCountriesDto fetchRegionCountriesHealthScoresForGivenYears(List<String> countryIds,
+                                                                            List<String> years,
+                                                                            LanguageCode languageCode) {
+        List<CountryHealthIndicator> countryHealthIndicators = iCountryHealthIndicatorRepository.
+                findByCountryHealthIndicatorIdCountryIdInAndCountryHealthIndicatorIdYearInAndCountryHealthIndicatorIdStatus(countryIds, years, PUBLISHED.name());
+        List<CountryPhase> countryPhases =
+                iCountryPhaseRepository.findByCountryPhaseIdCountryIdInAndCountryPhaseIdYearIn(countryIds, years);
+        return constructResponse(countryHealthIndicators, countryPhases, languageCode);
     }
+
+    public RegionCountriesDto constructResponse(List<CountryHealthIndicator> countryHealthIndicators,
+                                                List<CountryPhase> countryPhases, LanguageCode languageCode) {
+        RegionCountriesDto regionCountriesDto = new RegionCountriesDto();
+        Map<String, Map<String, List<CountryHealthIndicator>>> countryHealthIndicatorsMap =
+                countryHealthIndicators.stream().collect(groupingBy(countryHealthIndicator -> countryHealthIndicator.getCountryHealthIndicatorId().getCountryId(),
+                        groupingBy(countryHealthIndicator -> countryHealthIndicator.getCountryHealthIndicatorId().getYear())));
+
+        countryHealthIndicatorsMap.forEach((countryId, regionCountriesHealthIndicatorsMap) -> {
+            String countryName = countryService.getCountryName(countryId, languageCode);
+            List<RegionCountryHealthScoreYearDto> regionCountryHealthScoreYearDtos =
+                    constructRegionCountryHealthScoreYearDto(countryId, regionCountriesHealthIndicatorsMap,
+                            countryPhases);
+            regionCountriesDto.add(countryId, countryName, regionCountryHealthScoreYearDtos);
+        });
+
+        return regionCountriesDto;
+    }
+
+    public List<RegionCountryHealthScoreYearDto> constructRegionCountryHealthScoreYearDto(String countryId,
+                                                                                          Map<String,
+                                                                                                  List<CountryHealthIndicator>> regionCountryHealthIndicatorsMap, List<CountryPhase> countryPhases) {
+        return regionCountryHealthIndicatorsMap.entrySet().stream().map(year -> {
+            CountryPhase countryPhase = countryPhases.stream().filter(countryPhase1 ->
+                    countryPhase1.getCountryPhaseId().getCountryId().equals(countryId) && countryPhase1.getCountryPhaseId().getYear().equals(year.getKey())
+            ).findFirst().orElse(null);
+
+            RegionCountryHealthScoreDto regionCountryHealthScoreDto =
+                    constructRegionCountryHealthScoreDto(new CountryHealthIndicators(year.getValue()),
+                            countryPhase);
+            return RegionCountryHealthScoreYearDto.builder().year(year.getKey()).country(regionCountryHealthScoreDto).build();
+        }).collect(toList());
+
+    }
+
+    public RegionCountryHealthScoreDto constructRegionCountryHealthScoreDto(CountryHealthIndicators countryHealthIndicators, CountryPhase countryPhase) {
+        List<CategoryHealthScoreDto> categoryDtos =
+                countryHealthIndicatorService.getCategoriesWithIndicators(countryHealthIndicators,
+                        getCategoryPhaseFilter(null, null));
+
+        RegionCategoriesHealthScoreDto regionCategoriesHealthScoreDto =
+                new RegionCategoriesHealthScoreDto(categoryDtos);
+
+        return RegionCountryHealthScoreDto.builder().countryPhase(countryPhase.getCountryOverallPhase()).categories(regionCategoriesHealthScoreDto.getRegionCategoryHealthScoreDtos()).build();
+    }
+
 }

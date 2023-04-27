@@ -21,4 +21,7 @@ public interface ICountryPhaseRepository extends JpaRepository<CountryPhase, Cou
     @Query(value = "SELECT year FROM country_health_data.country_phase GROUP BY year" +
             " ORDER BY MAX(updated_at) DESC LIMIT ?1", nativeQuery = true)
     List<String> findAllDistinctYearsOrderByUpdatedAtDesc(Integer limit);
+
+    List<CountryPhase> findByCountryPhaseIdCountryIdInAndCountryPhaseIdYearIn(List<String> countryId,
+                                                                              List<String> year);
 }

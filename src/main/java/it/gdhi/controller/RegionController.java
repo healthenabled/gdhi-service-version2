@@ -1,6 +1,6 @@
 package it.gdhi.controller;
 
-import it.gdhi.dto.RegionCountryDto;
+import it.gdhi.dto.RegionCountriesDto;
 import it.gdhi.model.Region;
 import it.gdhi.service.RegionService;
 import it.gdhi.utils.LanguageCode;
@@ -33,9 +33,9 @@ public class RegionController {
 
     @GetMapping("/region/{id}")
     @ResponseBody
-    public List<RegionCountryDto> fetchRegionCountriesData(HttpServletRequest request,
-                                                           @PathVariable("id") String regionId,
-                                                           @RequestParam(value = "list_of_years") List<String> years) {
+    public RegionCountriesDto fetchRegionCountriesData(HttpServletRequest request,
+                                                       @PathVariable("id") String regionId,
+                                                       @RequestParam(value = "list_of_years") List<String> years) {
         if(years.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }

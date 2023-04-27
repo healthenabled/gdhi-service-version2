@@ -6,23 +6,21 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 import it.gdhi.dto.CategoryHealthScoreDto;
-import it.gdhi.dto.CountryHealthScoreDto;
 import it.gdhi.dto.GlobalHealthScoreDto;
 import it.gdhi.dto.IndicatorScoreDto;
-import it.gdhi.dto.RegionCountryDto;
+import it.gdhi.dto.RegionCategoriesHealthScoreDto;
+import it.gdhi.dto.RegionCountriesDto;
 import it.gdhi.dto.RegionCountryHealthScoreDto;
 import it.gdhi.dto.RegionCountryHealthScoreYearDto;
 import it.gdhi.internationalization.RegionNameTranslatorTest;
-import it.gdhi.internationalization.service.CountryNameTranslator;
 import it.gdhi.internationalization.service.HealthIndicatorTranslator;
 import it.gdhi.internationalization.service.RegionNameTranslator;
 import it.gdhi.model.Category;
-import it.gdhi.model.Country;
 import it.gdhi.model.CountryHealthIndicator;
 import it.gdhi.model.CountryHealthIndicators;
+import it.gdhi.model.CountryPhase;
 import it.gdhi.model.Indicator;
 import it.gdhi.model.Region;
 import it.gdhi.model.RegionCountry;
@@ -30,11 +28,13 @@ import it.gdhi.model.RegionCountryId;
 import it.gdhi.model.RegionalCategoryData;
 import it.gdhi.model.RegionalIndicatorData;
 import it.gdhi.model.RegionalOverallData;
+import it.gdhi.model.id.CountryHealthIndicatorId;
+import it.gdhi.model.id.CountryPhaseId;
 import it.gdhi.model.id.RegionalCategoryId;
 import it.gdhi.model.id.RegionalIndicatorId;
 import it.gdhi.model.id.RegionalOverallId;
 import it.gdhi.repository.ICountryHealthIndicatorRepository;
-import it.gdhi.repository.ICountryRepository;
+import it.gdhi.repository.ICountryPhaseRepository;
 import it.gdhi.repository.IRegionCountryRepository;
 import it.gdhi.repository.IRegionRepository;
 import it.gdhi.repository.IRegionalCategoryDataRepository;
@@ -52,12 +52,12 @@ import org.mockito.quality.Strictness;
 import static com.google.common.collect.ImmutableList.of;
 import static it.gdhi.utils.FormStatus.PUBLISHED;
 import static it.gdhi.utils.LanguageCode.en;
-import static it.gdhi.utils.LanguageCode.es;
 import static it.gdhi.utils.LanguageCode.fr;
 import static it.gdhi.utils.Util.getCurrentYear;
 import static org.codehaus.groovy.runtime.InvokerHelper.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -93,13 +93,10 @@ public class RegionServiceTest {
     private CountryHealthIndicatorService countryHealthIndicatorService;
 
     @Mock
-    private ICountryRepository iCountryRepository;
-
-    @Mock
-    private CountryNameTranslator countryNameTranslator;
-
-    @Mock
     private CountryService countryService;
+
+    @Mock
+    private ICountryPhaseRepository iCountryPhaseRepository;
 
     public Region createRegion(String id, String name) {
         Region region = Region.builder().regionId(id).regionName(name).build();
@@ -572,101 +569,285 @@ public class RegionServiceTest {
     }
 
     @Test
-    public void shouldReturnRegionCountryHealthScoreYearDataGivenCountryIdAndListOfYears() {
+    public void shouldConstructRegionCountryHealthScoreDtoWhenHealthIndicatorsAndCountryPhaseIsPassed() {
         String countryId = "IND";
-        List<String> years = Arrays.asList("2023", "Version1");
+        String year = "2023";
+
+        CountryHealthIndicator indicator1 = CountryHealthIndicator.builder()
+                .countryHealthIndicatorId(new CountryHealthIndicatorId(countryId, 1, 2, PUBLISHED.name(), year))
+                .indicator(new Indicator(2, "Some indicator", "some code", 1, null, new ArrayList<>(), "some def"))
+                .score(5)
+                .build();
+        CountryHealthIndicator indicator2 = CountryHealthIndicator.builder()
+                .countryHealthIndicatorId(new CountryHealthIndicatorId(countryId, 2, 3, PUBLISHED.name(), year))
+                .indicator(new Indicator(3, "Some indicator", "some code", 2, null, new ArrayList<>(), "some def"))
+                .score(4)
+                .build();
+        List<CountryHealthIndicator> countryHealthIndicators = Arrays.asList(indicator1, indicator2);
+
+        CountryPhaseId countryPhaseId = new CountryPhaseId(countryId, year);
+        CountryPhase countryPhase =
+                CountryPhase.builder().countryPhaseId(countryPhaseId).countryOverallPhase(3).build();
 
         CategoryHealthScoreDto categoryHealthScoreDto1 = new CategoryHealthScoreDto(2, "Category 2", 2.0, 2,
                 of(new IndicatorScoreDto(1, null, null, null, null, 2, null, "Not Available")));
         CategoryHealthScoreDto categoryHealthScoreDto2 = new CategoryHealthScoreDto(1, "Category 1", 5.0, 5,
                 of(new IndicatorScoreDto(1, null, null, null, null, 5, null, "Not Available")));
-        CountryHealthScoreDto countryHealthScoreDtoIN = new CountryHealthScoreDto("IND", "India", "IN",
-                of(categoryHealthScoreDto1, categoryHealthScoreDto2), 4, "");
-        CategoryHealthScoreDto categoryHealthScoreDto3 = new CategoryHealthScoreDto(2, "Category 2", 2.0, 2,
-                of(new IndicatorScoreDto(1, null, null, null, null, 2, null, "Not Available")));
-        CategoryHealthScoreDto categoryHealthScoreDto4 = new CategoryHealthScoreDto(1, "Category 1", 5.0, 5,
-                of(new IndicatorScoreDto(1, null, null, null, null, 5, null, "Not Available")));
-        CountryHealthScoreDto countryHealthScoreDtoIN2 = new CountryHealthScoreDto("IND", "India", "IN",
-                of(categoryHealthScoreDto3, categoryHealthScoreDto4), 4, "");
 
-        when(countryHealthIndicatorService.fetchCountryHealthScore(countryId, en, years.get(0))).thenReturn(countryHealthScoreDtoIN);
-        when(countryHealthIndicatorService.fetchCountryHealthScore(countryId, en, years.get(1))).thenReturn(countryHealthScoreDtoIN2);
+        List<CategoryHealthScoreDto> categoryHealthScoreDtos = new ArrayList<>();
+        categoryHealthScoreDtos.add(categoryHealthScoreDto1);
+        categoryHealthScoreDtos.add(categoryHealthScoreDto2);
 
-        List<RegionCountryHealthScoreYearDto> expectedResponse = new ArrayList<>();
-        RegionCountryHealthScoreYearDto regionCountryHealthScoreYearDto1 =
-                RegionCountryHealthScoreYearDto.builder().year("2023").country(new RegionCountryHealthScoreDto(countryHealthScoreDtoIN)).build();
-        RegionCountryHealthScoreYearDto regionCountryHealthScoreYearDto2 =
-                RegionCountryHealthScoreYearDto.builder().year("Version1").country(new RegionCountryHealthScoreDto(countryHealthScoreDtoIN2)).build();
+        RegionCountryHealthScoreDto regionCountryHealthScoreDto =
+                regionService.constructRegionCountryHealthScoreDto(new CountryHealthIndicators(countryHealthIndicators), countryPhase);
 
-        expectedResponse.add(regionCountryHealthScoreYearDto1);
-        expectedResponse.add(regionCountryHealthScoreYearDto2);
+        RegionCategoriesHealthScoreDto regionCategoriesHealthScoreDto =
+                new RegionCategoriesHealthScoreDto(categoryHealthScoreDtos);
 
-        List<RegionCountryHealthScoreYearDto> actualResponse =
-                regionService.getRegionCountryHealthScoreYearData(countryId , years);
+        RegionCountryHealthScoreDto expectedResponse =
+                RegionCountryHealthScoreDto.builder().countryPhase(3).categories(regionCategoriesHealthScoreDto.getRegionCategoryHealthScoreDtos()).build();
 
-        assertEquals(expectedResponse , actualResponse);
-
+        assertEquals(expectedResponse.getCountryPhase(), regionCountryHealthScoreDto.getCountryPhase());
     }
 
     @Test
-    public void shouldReturnRegionCountriesDataGivenRegionIdAndListOfYears() {
-        String regionId = "PAHO";
-        List<String> years = Arrays.asList("2023", "Version1");
-        LanguageCode languageCode = en;
+    public void shouldConstructRegionCountryHealthScoreYearDtoWhenHealthIndicatorsAndCountryIdAndCountryPhaseArePassed() {
+        String countryId = "IND";
+        String year = "2023";
 
-        List<String> countryIds = Arrays.asList("IND" , "PAK");
+        CountryHealthIndicator indicator1 = CountryHealthIndicator.builder()
+                .countryHealthIndicatorId(new CountryHealthIndicatorId(countryId, 1, 2, PUBLISHED.name(), year))
+                .indicator(new Indicator(2, "Some indicator", "some code", 1, null, new ArrayList<>(), "some def"))
+                .score(5)
+                .build();
+        CountryHealthIndicator indicator2 = CountryHealthIndicator.builder()
+                .countryHealthIndicatorId(new CountryHealthIndicatorId(countryId, 2, 3, PUBLISHED.name(), year))
+                .indicator(new Indicator(3, "Some indicator", "some code", 2, null, new ArrayList<>(), "some def"))
+                .score(4)
+                .build();
+        List<CountryHealthIndicator> countryHealthIndicators = Arrays.asList(indicator1, indicator2);
+
+        Map<String,
+                List<CountryHealthIndicator>> regionCountryHealthIndicatorsMap = new HashMap<>();
+        regionCountryHealthIndicatorsMap.put(year, countryHealthIndicators);
+
+        CountryPhaseId countryPhaseId = new CountryPhaseId(countryId, year);
+        CountryPhase countryPhase =
+                CountryPhase.builder().countryPhaseId(countryPhaseId).countryOverallPhase(3).build();
 
         CategoryHealthScoreDto categoryHealthScoreDto1 = new CategoryHealthScoreDto(2, "Category 2", 2.0, 2,
                 of(new IndicatorScoreDto(1, null, null, null, null, 2, null, "Not Available")));
         CategoryHealthScoreDto categoryHealthScoreDto2 = new CategoryHealthScoreDto(1, "Category 1", 5.0, 5,
                 of(new IndicatorScoreDto(1, null, null, null, null, 5, null, "Not Available")));
-        CountryHealthScoreDto countryHealthScoreDtoIN = new CountryHealthScoreDto("IND", "India", "IN",
-                of(categoryHealthScoreDto1, categoryHealthScoreDto2), 4, "");
-        CategoryHealthScoreDto categoryHealthScoreDto3 = new CategoryHealthScoreDto(2, "Category 2", 2.0, 2,
+
+        List<CategoryHealthScoreDto> categoryHealthScoreDtos = new ArrayList<>();
+        categoryHealthScoreDtos.add(categoryHealthScoreDto1);
+        categoryHealthScoreDtos.add(categoryHealthScoreDto2);
+
+        RegionCategoriesHealthScoreDto regionCategoriesHealthScoreDto =
+                new RegionCategoriesHealthScoreDto(categoryHealthScoreDtos);
+
+        RegionCountryHealthScoreDto regionCountryHealthScoreDto =
+                RegionCountryHealthScoreDto.builder().countryPhase(3).categories(regionCategoriesHealthScoreDto.getRegionCategoryHealthScoreDtos()).build();
+
+        when(countryHealthIndicatorService.getCategoriesWithIndicators(any(), any())).thenReturn(categoryHealthScoreDtos);
+
+        RegionCountryHealthScoreYearDto regionCountryHealthScoreYearDto =
+                RegionCountryHealthScoreYearDto.builder().country(regionCountryHealthScoreDto).year(year).build();
+
+        List<RegionCountryHealthScoreYearDto> actualResponse =
+                regionService.constructRegionCountryHealthScoreYearDto(countryId,
+                        regionCountryHealthIndicatorsMap, asList(countryPhase));
+
+        assertEquals(asList(regionCountryHealthScoreYearDto), actualResponse);
+    }
+
+    @Test
+    public void shouldConstructResponseWhenCountryHealthIndicatorsAndCountryPhaseIsPassed() {
+        String countryId = "IND";
+        String year = "2023";
+        LanguageCode languageCode = en;
+
+        CountryHealthIndicator indicator1 = CountryHealthIndicator.builder()
+                .countryHealthIndicatorId(new CountryHealthIndicatorId(countryId, 1, 2, PUBLISHED.name(), year))
+                .indicator(new Indicator(2, "Some indicator", "some code", 1, null, new ArrayList<>(), "some def"))
+                .score(5)
+                .build();
+        CountryHealthIndicator indicator2 = CountryHealthIndicator.builder()
+                .countryHealthIndicatorId(new CountryHealthIndicatorId(countryId, 2, 3, PUBLISHED.name(), year))
+                .indicator(new Indicator(3, "Some indicator", "some code", 2, null, new ArrayList<>(), "some def"))
+                .score(4)
+                .build();
+        List<CountryHealthIndicator> countryHealthIndicators = Arrays.asList(indicator1, indicator2);
+
+        Map<String,
+                List<CountryHealthIndicator>> regionCountryHealthIndicatorsMap = new HashMap<>();
+        regionCountryHealthIndicatorsMap.put(year, countryHealthIndicators);
+
+        CountryPhaseId countryPhaseId = new CountryPhaseId(countryId, year);
+        CountryPhase countryPhase =
+                CountryPhase.builder().countryPhaseId(countryPhaseId).countryOverallPhase(3).build();
+
+        CategoryHealthScoreDto categoryHealthScoreDto1 = new CategoryHealthScoreDto(2, "Category 2", 2.0, 2,
                 of(new IndicatorScoreDto(1, null, null, null, null, 2, null, "Not Available")));
-        CategoryHealthScoreDto categoryHealthScoreDto4 = new CategoryHealthScoreDto(1, "Category 1", 5.0, 5,
+        CategoryHealthScoreDto categoryHealthScoreDto2 = new CategoryHealthScoreDto(1, "Category 1", 5.0, 5,
                 of(new IndicatorScoreDto(1, null, null, null, null, 5, null, "Not Available")));
-        CountryHealthScoreDto countryHealthScoreDtoIN2 = new CountryHealthScoreDto("IND", "India", "IN",
-                of(categoryHealthScoreDto3, categoryHealthScoreDto4), 4, "");
 
-        List<RegionCountryHealthScoreYearDto> regionCountryHealthScoreIndia = new ArrayList<>();
+        List<CategoryHealthScoreDto> categoryHealthScoreDtos = new ArrayList<>();
+        categoryHealthScoreDtos.add(categoryHealthScoreDto1);
+        categoryHealthScoreDtos.add(categoryHealthScoreDto2);
 
-        RegionCountryHealthScoreYearDto regionCountryHealthScoreYearDto1 =
-                RegionCountryHealthScoreYearDto.builder().year("2023").country(new RegionCountryHealthScoreDto(countryHealthScoreDtoIN)).build();
-        RegionCountryHealthScoreYearDto regionCountryHealthScoreYearDto2 =
-                RegionCountryHealthScoreYearDto.builder().year("Version1").country(new RegionCountryHealthScoreDto(countryHealthScoreDtoIN2)).build();
+        RegionCategoriesHealthScoreDto regionCategoriesHealthScoreDto =
+                new RegionCategoriesHealthScoreDto(categoryHealthScoreDtos);
 
-        regionCountryHealthScoreIndia.add(regionCountryHealthScoreYearDto1);
-        regionCountryHealthScoreIndia.add(regionCountryHealthScoreYearDto2);
+        RegionCountryHealthScoreDto regionCountryHealthScoreDto =
+                RegionCountryHealthScoreDto.builder().countryPhase(3).categories(regionCategoriesHealthScoreDto.getRegionCategoryHealthScoreDtos()).build();
 
-        List<RegionCountryHealthScoreYearDto> regionCountryHealthScorePakistan = new ArrayList<>();
+        RegionCountryHealthScoreYearDto regionCountryHealthScoreYearDto =
+                RegionCountryHealthScoreYearDto.builder().country(regionCountryHealthScoreDto).year(year).build();
 
-        regionCountryHealthScorePakistan.add(regionCountryHealthScoreYearDto1);
-        regionCountryHealthScorePakistan.add(regionCountryHealthScoreYearDto2);
+        RegionCountriesDto regionCountriesDto = new RegionCountriesDto();
 
-        when(countryHealthIndicatorService.fetchCountryHealthScore("IND", en, years.get(0))).thenReturn(countryHealthScoreDtoIN);
-        when(countryHealthIndicatorService.fetchCountryHealthScore("IND", en, years.get(1))).thenReturn(countryHealthScoreDtoIN2);
+        regionCountriesDto.add(countryId, "India", asList(regionCountryHealthScoreYearDto));
 
-        when(countryHealthIndicatorService.fetchCountryHealthScore("PAK", en, years.get(0))).thenReturn(countryHealthScoreDtoIN);
-        when(countryHealthIndicatorService.fetchCountryHealthScore("PAK", en, years.get(1))).thenReturn(countryHealthScoreDtoIN2);
+        when(countryService.getCountryName(countryId, languageCode)).thenReturn("India");
+        when(countryHealthIndicatorService.getCategoriesWithIndicators(any(), any())).thenReturn(categoryHealthScoreDtos);
+        when(regionService.constructRegionCountryHealthScoreYearDto(countryId, regionCountryHealthIndicatorsMap,
+                asList(countryPhase))).thenReturn(asList(regionCountryHealthScoreYearDto));
 
-        when(countryService.getCountryName("IND" , languageCode)).thenReturn("India");
-        when(countryService.getCountryName("PAK" , languageCode)).thenReturn("Pakistan");
+        RegionCountriesDto regionCountriesDto1 = regionService.constructResponse(countryHealthIndicators,
+                asList(countryPhase), languageCode);
 
-        when(iRegionCountryRepository.findByRegionCountryIdRegionId(regionId)).thenReturn(countryIds);
+        assertEquals(regionCountriesDto, regionCountriesDto1);
+    }
 
-        List<RegionCountryDto> expectedResponse = new ArrayList<>();
-        RegionCountryDto regionCountryDto =
-                RegionCountryDto.builder().countryId("IND").countryName("India").countryYearsData(regionCountryHealthScoreIndia).build();
-        RegionCountryDto regionCountryDto1 =
-                RegionCountryDto.builder().countryId("PAK").countryName("Pakistan").countryYearsData(regionCountryHealthScorePakistan).build();
 
-        expectedResponse.add(regionCountryDto);
-        expectedResponse.add(regionCountryDto1);
+    @Test
+    public void shouldFetchRegionCountriesHealthScoresForGivenYearsWhenListOfCountriesAndListOfYearsArePassed() {
+        String countryId = "IND";
+        String year = "2023";
+        LanguageCode languageCode = en;
 
-        List<RegionCountryDto> actualResponse = regionService.getRegionCountriesData(regionId , years , languageCode);
+        CountryHealthIndicator indicator1 = CountryHealthIndicator.builder()
+                .countryHealthIndicatorId(new CountryHealthIndicatorId(countryId, 1, 2, PUBLISHED.name(), year))
+                .indicator(new Indicator(2, "Some indicator", "some code", 1, null, new ArrayList<>(), "some def"))
+                .score(5)
+                .build();
+        CountryHealthIndicator indicator2 = CountryHealthIndicator.builder()
+                .countryHealthIndicatorId(new CountryHealthIndicatorId(countryId, 2, 3, PUBLISHED.name(), year))
+                .indicator(new Indicator(3, "Some indicator", "some code", 2, null, new ArrayList<>(), "some def"))
+                .score(4)
+                .build();
+        List<CountryHealthIndicator> countryHealthIndicators = Arrays.asList(indicator1, indicator2);
 
-        assertEquals(expectedResponse , actualResponse);
+        Map<String,
+                List<CountryHealthIndicator>> regionCountryHealthIndicatorsMap = new HashMap<>();
+        regionCountryHealthIndicatorsMap.put(year, countryHealthIndicators);
+
+        CountryPhaseId countryPhaseId = new CountryPhaseId(countryId, year);
+        CountryPhase countryPhase =
+                CountryPhase.builder().countryPhaseId(countryPhaseId).countryOverallPhase(3).build();
+
+        CategoryHealthScoreDto categoryHealthScoreDto1 = new CategoryHealthScoreDto(2, "Category 2", 2.0, 2,
+                of(new IndicatorScoreDto(1, null, null, null, null, 2, null, "Not Available")));
+        CategoryHealthScoreDto categoryHealthScoreDto2 = new CategoryHealthScoreDto(1, "Category 1", 5.0, 5,
+                of(new IndicatorScoreDto(1, null, null, null, null, 5, null, "Not Available")));
+
+        List<CategoryHealthScoreDto> categoryHealthScoreDtos = new ArrayList<>();
+        categoryHealthScoreDtos.add(categoryHealthScoreDto1);
+        categoryHealthScoreDtos.add(categoryHealthScoreDto2);
+
+        RegionCategoriesHealthScoreDto regionCategoriesHealthScoreDto =
+                new RegionCategoriesHealthScoreDto(categoryHealthScoreDtos);
+
+        RegionCountryHealthScoreDto regionCountryHealthScoreDto =
+                RegionCountryHealthScoreDto.builder().countryPhase(3).categories(regionCategoriesHealthScoreDto.getRegionCategoryHealthScoreDtos()).build();
+
+        RegionCountryHealthScoreYearDto regionCountryHealthScoreYearDto =
+                RegionCountryHealthScoreYearDto.builder().country(regionCountryHealthScoreDto).year(year).build();
+
+        RegionCountriesDto regionCountriesDto = new RegionCountriesDto();
+
+        regionCountriesDto.add(countryId, "India", asList(regionCountryHealthScoreYearDto));
+
+        when(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdInAndCountryHealthIndicatorIdYearInAndCountryHealthIndicatorIdStatus(asList("IND"), asList("2023"), PUBLISHED.name())).thenReturn(countryHealthIndicators);
+        when(iCountryPhaseRepository.findByCountryPhaseIdCountryIdInAndCountryPhaseIdYearIn(asList("IND"), asList(
+                "2023"))).thenReturn(asList(countryPhase));
+        when(countryService.getCountryName(countryId, languageCode)).thenReturn("India");
+        when(countryHealthIndicatorService.getCategoriesWithIndicators(any(), any())).thenReturn(categoryHealthScoreDtos);
+        when(regionService.constructRegionCountryHealthScoreYearDto(countryId, regionCountryHealthIndicatorsMap,
+                asList(countryPhase))).thenReturn(asList(regionCountryHealthScoreYearDto));
+
+        RegionCountriesDto regionCountriesDto1 = regionService.fetchRegionCountriesHealthScoresForGivenYears(asList(
+                "IND"), asList(
+                "2023"), languageCode);
+
+        assertEquals(regionCountriesDto, regionCountriesDto1);
+    }
+
+
+    @Test
+    public void shouldGetRegionCountriesDataWhenRegionIdAndListOfYearsArePassed() {
+        String countryId = "IND";
+        String year = "2023";
+        LanguageCode languageCode = en;
+        String regionId = "SEARO";
+
+        CountryHealthIndicator indicator1 = CountryHealthIndicator.builder()
+                .countryHealthIndicatorId(new CountryHealthIndicatorId(countryId, 1, 2, PUBLISHED.name(), year))
+                .indicator(new Indicator(2, "Some indicator", "some code", 1, null, new ArrayList<>(), "some def"))
+                .score(5)
+                .build();
+        CountryHealthIndicator indicator2 = CountryHealthIndicator.builder()
+                .countryHealthIndicatorId(new CountryHealthIndicatorId(countryId, 2, 3, PUBLISHED.name(), year))
+                .indicator(new Indicator(3, "Some indicator", "some code", 2, null, new ArrayList<>(), "some def"))
+                .score(4)
+                .build();
+        List<CountryHealthIndicator> countryHealthIndicators = Arrays.asList(indicator1, indicator2);
+
+        Map<String,
+                List<CountryHealthIndicator>> regionCountryHealthIndicatorsMap = new HashMap<>();
+        regionCountryHealthIndicatorsMap.put(year, countryHealthIndicators);
+
+        CountryPhaseId countryPhaseId = new CountryPhaseId(countryId, year);
+        CountryPhase countryPhase =
+                CountryPhase.builder().countryPhaseId(countryPhaseId).countryOverallPhase(3).build();
+
+        CategoryHealthScoreDto categoryHealthScoreDto1 = new CategoryHealthScoreDto(2, "Category 2", 2.0, 2,
+                of(new IndicatorScoreDto(1, null, null, null, null, 2, null, "Not Available")));
+        CategoryHealthScoreDto categoryHealthScoreDto2 = new CategoryHealthScoreDto(1, "Category 1", 5.0, 5,
+                of(new IndicatorScoreDto(1, null, null, null, null, 5, null, "Not Available")));
+
+        List<CategoryHealthScoreDto> categoryHealthScoreDtos = new ArrayList<>();
+        categoryHealthScoreDtos.add(categoryHealthScoreDto1);
+        categoryHealthScoreDtos.add(categoryHealthScoreDto2);
+
+        RegionCategoriesHealthScoreDto regionCategoriesHealthScoreDto =
+                new RegionCategoriesHealthScoreDto(categoryHealthScoreDtos);
+
+        RegionCountryHealthScoreDto regionCountryHealthScoreDto =
+                RegionCountryHealthScoreDto.builder().countryPhase(3).categories(regionCategoriesHealthScoreDto.getRegionCategoryHealthScoreDtos()).build();
+
+        RegionCountryHealthScoreYearDto regionCountryHealthScoreYearDto =
+                RegionCountryHealthScoreYearDto.builder().country(regionCountryHealthScoreDto).year(year).build();
+
+        RegionCountriesDto regionCountriesDto = new RegionCountriesDto();
+
+        regionCountriesDto.add(countryId, "India", asList(regionCountryHealthScoreYearDto));
+
+        when(iRegionCountryRepository.findByRegionCountryIdRegionId(regionId)).thenReturn(asList(countryId));
+        when(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdInAndCountryHealthIndicatorIdYearInAndCountryHealthIndicatorIdStatus(asList("IND"), asList("2023"), PUBLISHED.name())).thenReturn(countryHealthIndicators);
+        when(iCountryPhaseRepository.findByCountryPhaseIdCountryIdInAndCountryPhaseIdYearIn(asList("IND"), asList(
+                "2023"))).thenReturn(asList(countryPhase));
+        when(countryService.getCountryName(countryId, languageCode)).thenReturn("India");
+        when(countryHealthIndicatorService.getCategoriesWithIndicators(any(), any())).thenReturn(categoryHealthScoreDtos);
+        when(regionService.constructRegionCountryHealthScoreYearDto(countryId, regionCountryHealthIndicatorsMap,
+                asList(countryPhase))).thenReturn(asList(regionCountryHealthScoreYearDto));
+
+        RegionCountriesDto regionCountriesDto1 = regionService.getRegionCountriesData(regionId, asList(year),
+                languageCode);
+
+        assertEquals(regionCountriesDto, regionCountriesDto1);
     }
 
 }

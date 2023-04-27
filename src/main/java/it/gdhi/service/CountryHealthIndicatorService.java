@@ -193,7 +193,7 @@ public class CountryHealthIndicatorService {
                 categoryDtos, countryPhase != null ? countryPhase.getCountryOverallPhase() : null, updatedDateStr);
     }
 
-    private List<CategoryHealthScoreDto> getCategoriesWithIndicators(CountryHealthIndicators countryHealthIndicators,
+    public List<CategoryHealthScoreDto> getCategoriesWithIndicators(CountryHealthIndicators countryHealthIndicators,
                                                                      Predicate<? super CategoryHealthScoreDto>
                                                                              phaseFilter) {
         Map<Integer, Double> CategoryScore = countryHealthIndicators
