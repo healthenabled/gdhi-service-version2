@@ -1,5 +1,7 @@
 package it.gdhi.model;
 
+import java.util.Date;
+
 import it.gdhi.model.id.RegionalOverallId;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
@@ -7,6 +9,8 @@ import lombok.extern.slf4j.Slf4j;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
 @Entity
@@ -24,4 +28,12 @@ public class RegionalOverallData {
 
     @Column(name = "overall_score")
     Integer overAllScore;
+
+    private Date updatedAt;
+
+    @PreUpdate
+    @PrePersist
+    public void updateTimeStamps() {
+        updatedAt = new Date();
+    }
 }

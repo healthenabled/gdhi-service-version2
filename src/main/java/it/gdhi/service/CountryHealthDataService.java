@@ -164,8 +164,11 @@ public class CountryHealthDataService {
         CountryHealthIndicators countryHealthIndicators = new CountryHealthIndicators(iCountryHealthIndicatorRepository
                 .findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdYearAndCountryHealthIndicatorIdStatus(countryId, year, status));
         Double overallScore = countryHealthIndicators.getOverallScore();
-        Integer countryPhase = new Score(overallScore).convertToPhase();
-        iCountryPhaseRepository.save(new CountryPhase(countryId, countryPhase, year));
+        Integer countryPhaseVal = new Score(overallScore).convertToPhase();
+        CountryPhase countryPhase = iCountryPhaseRepository.findByCountryPhaseIdCountryIdAndCountryPhaseIdYear(countryId, year);
+        if(countryPhase == null || !Objects.equals(countryPhaseVal, countryPhase.getCountryOverallPhase())) {
+            iCountryPhaseRepository.save(new CountryPhase(countryId, countryPhaseVal, year));
+        }
     }
 
     private void removeEntriesWithStatus(String countryId, String currentStatus, String currentYear) {
