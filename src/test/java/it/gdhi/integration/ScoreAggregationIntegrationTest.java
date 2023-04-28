@@ -712,13 +712,14 @@ public class ScoreAggregationIntegrationTest extends BaseIntegrationTest {
         String status = "PUBLISHED";
         addCountrySummary(india, status, "IN", year);
         addCountrySummary(pakistan, status, "PK", year);
+        addCountryPhase(pakistan, 1, year);
         List<HealthIndicatorDto> healthIndicatorDtos = asList(
                 HealthIndicatorDto.builder().categoryId(categoryId1).indicatorId(indicatorId1_1).status(status).score(1).supportingText("sp1").build(),
                 HealthIndicatorDto.builder().categoryId(categoryId1).indicatorId(indicatorId1_2).status(status).score(1).supportingText("sp2").build(),
                 HealthIndicatorDto.builder().categoryId(categoryId2).indicatorId(indicatorId2_1).status(status).score(1).supportingText("sp3").build(),
-                HealthIndicatorDto.builder().categoryId(categoryId7).indicatorId(indicatorId7_1).status(status).score(null).supportingText("sp4").build(),
-                HealthIndicatorDto.builder().categoryId(categoryId7).indicatorId(indicatorId7_2).status(status).score(null).supportingText("sp5").build(),
-                HealthIndicatorDto.builder().categoryId(categoryId7).indicatorId(indicatorId7_3).status(status).score(null).supportingText("sp6").build());
+                HealthIndicatorDto.builder().categoryId(categoryId7).indicatorId(indicatorId7_1).status(status).score(-1).supportingText("sp4").build(),
+                HealthIndicatorDto.builder().categoryId(categoryId7).indicatorId(indicatorId7_2).status(status).score(-1).supportingText("sp5").build(),
+                HealthIndicatorDto.builder().categoryId(categoryId7).indicatorId(indicatorId7_3).status(status).score(-1).supportingText("sp6").build());
 
         setupHealthIndicatorsForCountry(india, healthIndicatorDtos, year);
         healthIndicatorDtos = asList(
@@ -730,12 +731,7 @@ public class ScoreAggregationIntegrationTest extends BaseIntegrationTest {
                 HealthIndicatorDto.builder().categoryId(categoryId7).indicatorId(indicatorId7_3).status(status).score(5).supportingText("sp6").build());
 
         setupHealthIndicatorsForCountry(pakistan, healthIndicatorDtos, year);
-
-        Response calculatePhase = given()
-                .contentType("application/json")
-                .header(USER_LANGUAGE, "en")
-                .when()
-                .get("http://localhost:" + port + "/admin/countries/calculate_phase?year=" + year);
+        addCountryPhase(india, 1, year);
 
         SimpleDateFormat DateFor = new SimpleDateFormat("MMMM yyyy");
         String expectedUpdatedDate = DateFor.format(new Date());
