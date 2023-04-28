@@ -1,0 +1,2 @@
+UPDATE master.health_indicator_scores SET definition = 'Geotagged Health system registries of uniquely identifiable providers, administrators, and public facilities (and private if applicable) are available for all transactions, systematically used, and regularly updated, maintained, monitored, and evaluated.'
+WHERE indicator_id = 18 and score = 5;

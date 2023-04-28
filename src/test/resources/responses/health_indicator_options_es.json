@@ -985,7 +985,7 @@
           {
             "scoreId": 126,
             "score": 5,
-            "scoreDefinition": "Todas las áreas priorizadas a nivel nacional están apoyadas por sistemas de salud digitales a escala nacional (>75 %) con sistemas de monitoreo y evaluación y resultados."
+            "scoreDefinition": "Los registros del sistema de salud geoetiquetados de proveedores, administradores e instalaciones públicas (y privadas si corresponde) identificables de forma única están disponibles para todas las transacciones, se usan sistemáticamente y se actualizan, mantienen, monitorean y evalúan periódicamente."
           }
         ]
       },
