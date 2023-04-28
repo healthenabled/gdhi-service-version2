@@ -276,7 +276,8 @@ public class RegionService {
                 iRegionalOverallRepository.findByRegionalOverallIdRegionIdAndRegionalOverallIdYear(regionId,
                         year);
 
-        if (regionalOverallData != null && !Objects.equals(existingRegionalOverallData.getOverAllScore(), regionalOverallData.getOverAllScore())) {
+        if (regionalOverallData != null && !Objects.equals(existingRegionalOverallData.getOverAllScore(),
+                regionalOverallData.getOverAllScore())) {
             iRegionalOverallRepository.save(regionalOverallData);
         }
     }
@@ -411,9 +412,11 @@ public class RegionService {
                 countryHealthIndicatorService.getCategoriesWithIndicators(countryHealthIndicators,
                         getCategoryPhaseFilter(null, null));
 
-        List<CategoryHealthScoreDto> categoryDtosWithoutIndicators = categoryDtos.stream().map(categoryHealthScoreDto -> {
-            return CategoryHealthScoreDto.builder().id(categoryHealthScoreDto.getId()).phase(categoryHealthScoreDto.getPhase()).overallScore(categoryHealthScoreDto.getOverallScore()).name(categoryHealthScoreDto.getName()).build();
-        }).collect(toList());
+        List<CategoryHealthScoreDto> categoryDtosWithoutIndicators =
+                categoryDtos.stream().map(categoryHealthScoreDto -> {
+                    return CategoryHealthScoreDto.builder().id(categoryHealthScoreDto.getId()).phase(categoryHealthScoreDto.getPhase()).
+                            overallScore(categoryHealthScoreDto.getOverallScore()).name(categoryHealthScoreDto.getName()).build();
+                }).collect(toList());
 
         return RegionCountryHealthScoreDto.builder().countryPhase(countryPhase.getCountryOverallPhase()).categories(categoryDtosWithoutIndicators).build();
     }
