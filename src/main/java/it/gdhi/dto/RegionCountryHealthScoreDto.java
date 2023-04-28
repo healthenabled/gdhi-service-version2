@@ -11,7 +11,7 @@ import lombok.*;
 @Builder
 public class RegionCountryHealthScoreDto {
 
-    private List<RegionCategoryHealthScoreDto> categories;
+    private List<CategoryHealthScoreDto> categories;
 
     private Integer countryPhase;
 

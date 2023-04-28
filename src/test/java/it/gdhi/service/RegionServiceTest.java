@@ -10,7 +10,6 @@ import java.util.Map;
 import it.gdhi.dto.CategoryHealthScoreDto;
 import it.gdhi.dto.GlobalHealthScoreDto;
 import it.gdhi.dto.IndicatorScoreDto;
-import it.gdhi.dto.RegionCategoriesHealthScoreDto;
 import it.gdhi.dto.RegionCountriesDto;
 import it.gdhi.dto.RegionCountryHealthScoreDto;
 import it.gdhi.dto.RegionCountryHealthScoreYearDto;
@@ -598,16 +597,24 @@ public class RegionServiceTest {
         categoryHealthScoreDtos.add(categoryHealthScoreDto1);
         categoryHealthScoreDtos.add(categoryHealthScoreDto2);
 
+        CategoryHealthScoreDto categoryHealthScoreDto3 = new CategoryHealthScoreDto(2, "Category 2", 2.0, 2,
+                null);
+        CategoryHealthScoreDto categoryHealthScoreDto4 = new CategoryHealthScoreDto(1, "Category 1", 5.0, 5,
+                null);
+
+        List<CategoryHealthScoreDto> categoryHealthScoreDtosWithoutIndicators = new ArrayList<>();
+        categoryHealthScoreDtosWithoutIndicators.add(categoryHealthScoreDto3);
+        categoryHealthScoreDtosWithoutIndicators.add(categoryHealthScoreDto4);
+
+        when(countryHealthIndicatorService.getCategoriesWithIndicators(any(), any())).thenReturn(categoryHealthScoreDtos);
+
         RegionCountryHealthScoreDto regionCountryHealthScoreDto =
                 regionService.constructRegionCountryHealthScoreDto(new CountryHealthIndicators(countryHealthIndicators), countryPhase);
 
-        RegionCategoriesHealthScoreDto regionCategoriesHealthScoreDto =
-                new RegionCategoriesHealthScoreDto(categoryHealthScoreDtos);
-
         RegionCountryHealthScoreDto expectedResponse =
-                RegionCountryHealthScoreDto.builder().countryPhase(3).categories(regionCategoriesHealthScoreDto.getRegionCategoryHealthScoreDtos()).build();
+                RegionCountryHealthScoreDto.builder().countryPhase(3).categories(categoryHealthScoreDtosWithoutIndicators).build();
 
-        assertEquals(expectedResponse.getCountryPhase(), regionCountryHealthScoreDto.getCountryPhase());
+        assertEquals(expectedResponse, regionCountryHealthScoreDto);
     }
 
     @Test
@@ -644,11 +651,17 @@ public class RegionServiceTest {
         categoryHealthScoreDtos.add(categoryHealthScoreDto1);
         categoryHealthScoreDtos.add(categoryHealthScoreDto2);
 
-        RegionCategoriesHealthScoreDto regionCategoriesHealthScoreDto =
-                new RegionCategoriesHealthScoreDto(categoryHealthScoreDtos);
+        CategoryHealthScoreDto categoryHealthScoreDto3 = new CategoryHealthScoreDto(2, "Category 2", 2.0, 2,
+                null);
+        CategoryHealthScoreDto categoryHealthScoreDto4 = new CategoryHealthScoreDto(1, "Category 1", 5.0, 5,
+                null);
+
+        List<CategoryHealthScoreDto> categoryHealthScoreDtosWithoutIndicators = new ArrayList<>();
+        categoryHealthScoreDtosWithoutIndicators.add(categoryHealthScoreDto3);
+        categoryHealthScoreDtosWithoutIndicators.add(categoryHealthScoreDto4);
 
         RegionCountryHealthScoreDto regionCountryHealthScoreDto =
-                RegionCountryHealthScoreDto.builder().countryPhase(3).categories(regionCategoriesHealthScoreDto.getRegionCategoryHealthScoreDtos()).build();
+                RegionCountryHealthScoreDto.builder().countryPhase(3).categories(categoryHealthScoreDtosWithoutIndicators).build();
 
         when(countryHealthIndicatorService.getCategoriesWithIndicators(any(), any())).thenReturn(categoryHealthScoreDtos);
 
@@ -697,11 +710,17 @@ public class RegionServiceTest {
         categoryHealthScoreDtos.add(categoryHealthScoreDto1);
         categoryHealthScoreDtos.add(categoryHealthScoreDto2);
 
-        RegionCategoriesHealthScoreDto regionCategoriesHealthScoreDto =
-                new RegionCategoriesHealthScoreDto(categoryHealthScoreDtos);
+        CategoryHealthScoreDto categoryHealthScoreDto3 = new CategoryHealthScoreDto(2, "Category 2", 2.0, 2,
+                null);
+        CategoryHealthScoreDto categoryHealthScoreDto4 = new CategoryHealthScoreDto(1, "Category 1", 5.0, 5,
+                null);
+
+        List<CategoryHealthScoreDto> categoryHealthScoreDtosWithoutIndicators = new ArrayList<>();
+        categoryHealthScoreDtosWithoutIndicators.add(categoryHealthScoreDto3);
+        categoryHealthScoreDtosWithoutIndicators.add(categoryHealthScoreDto4);
 
         RegionCountryHealthScoreDto regionCountryHealthScoreDto =
-                RegionCountryHealthScoreDto.builder().countryPhase(3).categories(regionCategoriesHealthScoreDto.getRegionCategoryHealthScoreDtos()).build();
+                RegionCountryHealthScoreDto.builder().countryPhase(3).categories(categoryHealthScoreDtosWithoutIndicators).build();
 
         RegionCountryHealthScoreYearDto regionCountryHealthScoreYearDto =
                 RegionCountryHealthScoreYearDto.builder().country(regionCountryHealthScoreDto).year(year).build();
@@ -715,7 +734,7 @@ public class RegionServiceTest {
         when(regionService.constructRegionCountryHealthScoreYearDto(countryId, regionCountryHealthIndicatorsMap,
                 asList(countryPhase))).thenReturn(asList(regionCountryHealthScoreYearDto));
 
-        RegionCountriesDto regionCountriesDto1 = regionService.constructResponse(countryHealthIndicators,
+        RegionCountriesDto regionCountriesDto1 = regionService.constructRegionCountriesDto(countryHealthIndicators,
                 asList(countryPhase), languageCode);
 
         assertEquals(regionCountriesDto, regionCountriesDto1);
@@ -757,11 +776,17 @@ public class RegionServiceTest {
         categoryHealthScoreDtos.add(categoryHealthScoreDto1);
         categoryHealthScoreDtos.add(categoryHealthScoreDto2);
 
-        RegionCategoriesHealthScoreDto regionCategoriesHealthScoreDto =
-                new RegionCategoriesHealthScoreDto(categoryHealthScoreDtos);
+        CategoryHealthScoreDto categoryHealthScoreDto3 = new CategoryHealthScoreDto(2, "Category 2", 2.0, 2,
+                null);
+        CategoryHealthScoreDto categoryHealthScoreDto4 = new CategoryHealthScoreDto(1, "Category 1", 5.0, 5,
+                null);
+
+        List<CategoryHealthScoreDto> categoryHealthScoreDtosWithoutIndicators = new ArrayList<>();
+        categoryHealthScoreDtosWithoutIndicators.add(categoryHealthScoreDto3);
+        categoryHealthScoreDtosWithoutIndicators.add(categoryHealthScoreDto4);
 
         RegionCountryHealthScoreDto regionCountryHealthScoreDto =
-                RegionCountryHealthScoreDto.builder().countryPhase(3).categories(regionCategoriesHealthScoreDto.getRegionCategoryHealthScoreDtos()).build();
+                RegionCountryHealthScoreDto.builder().countryPhase(3).categories(categoryHealthScoreDtosWithoutIndicators).build();
 
         RegionCountryHealthScoreYearDto regionCountryHealthScoreYearDto =
                 RegionCountryHealthScoreYearDto.builder().country(regionCountryHealthScoreDto).year(year).build();
@@ -822,11 +847,17 @@ public class RegionServiceTest {
         categoryHealthScoreDtos.add(categoryHealthScoreDto1);
         categoryHealthScoreDtos.add(categoryHealthScoreDto2);
 
-        RegionCategoriesHealthScoreDto regionCategoriesHealthScoreDto =
-                new RegionCategoriesHealthScoreDto(categoryHealthScoreDtos);
+        CategoryHealthScoreDto categoryHealthScoreDto3 = new CategoryHealthScoreDto(2, "Category 2", 2.0, 2,
+                null);
+        CategoryHealthScoreDto categoryHealthScoreDto4 = new CategoryHealthScoreDto(1, "Category 1", 5.0, 5,
+                null);
+
+        List<CategoryHealthScoreDto> categoryHealthScoreDtosWithoutIndicators = new ArrayList<>();
+        categoryHealthScoreDtosWithoutIndicators.add(categoryHealthScoreDto3);
+        categoryHealthScoreDtosWithoutIndicators.add(categoryHealthScoreDto4);
 
         RegionCountryHealthScoreDto regionCountryHealthScoreDto =
-                RegionCountryHealthScoreDto.builder().countryPhase(3).categories(regionCategoriesHealthScoreDto.getRegionCategoryHealthScoreDtos()).build();
+                RegionCountryHealthScoreDto.builder().countryPhase(3).categories(categoryHealthScoreDtosWithoutIndicators).build();
 
         RegionCountryHealthScoreYearDto regionCountryHealthScoreYearDto =
                 RegionCountryHealthScoreYearDto.builder().country(regionCountryHealthScoreDto).year(year).build();

@@ -2,7 +2,6 @@ package it.gdhi.service;
 
 import it.gdhi.dto.BenchmarkDto;
 import it.gdhi.dto.CategoryHealthScoreDto;
-import it.gdhi.dto.RegionCategoriesHealthScoreDto;
 import it.gdhi.dto.RegionCountriesDto;
 import it.gdhi.dto.GlobalHealthScoreDto;
 import it.gdhi.dto.RegionCountryHealthScoreDto;
@@ -369,11 +368,11 @@ public class RegionService {
                 findByCountryHealthIndicatorIdCountryIdInAndCountryHealthIndicatorIdYearInAndCountryHealthIndicatorIdStatus(countryIds, years, PUBLISHED.name());
         List<CountryPhase> countryPhases =
                 iCountryPhaseRepository.findByCountryPhaseIdCountryIdInAndCountryPhaseIdYearIn(countryIds, years);
-        return constructResponse(countryHealthIndicators, countryPhases, languageCode);
+        return constructRegionCountriesDto(countryHealthIndicators, countryPhases, languageCode);
     }
 
-    public RegionCountriesDto constructResponse(List<CountryHealthIndicator> countryHealthIndicators,
-                                                List<CountryPhase> countryPhases, LanguageCode languageCode) {
+    public RegionCountriesDto constructRegionCountriesDto(List<CountryHealthIndicator> countryHealthIndicators,
+                                                          List<CountryPhase> countryPhases, LanguageCode languageCode) {
         RegionCountriesDto regionCountriesDto = new RegionCountriesDto();
         Map<String, Map<String, List<CountryHealthIndicator>>> countryHealthIndicatorsMap =
                 countryHealthIndicators.stream().collect(groupingBy(countryHealthIndicator -> countryHealthIndicator.getCountryHealthIndicatorId().getCountryId(),
@@ -392,16 +391,17 @@ public class RegionService {
 
     public List<RegionCountryHealthScoreYearDto> constructRegionCountryHealthScoreYearDto(String countryId,
                                                                                           Map<String,
-                                                                                                  List<CountryHealthIndicator>> regionCountryHealthIndicatorsMap, List<CountryPhase> countryPhases) {
-        return regionCountryHealthIndicatorsMap.entrySet().stream().map(year -> {
-            CountryPhase countryPhase = countryPhases.stream().filter(countryPhase1 ->
-                    countryPhase1.getCountryPhaseId().getCountryId().equals(countryId) && countryPhase1.getCountryPhaseId().getYear().equals(year.getKey())
+                                                                                                  List<CountryHealthIndicator>> regionCountryHealthIndicatorsMap,
+                                                                                          List<CountryPhase> allCountryPhases) {
+        return regionCountryHealthIndicatorsMap.entrySet().stream().map(regionHealthIndicator -> {
+            CountryPhase countryPhase = allCountryPhases.stream().filter(countryPhase1 ->
+                    countryPhase1.getCountryPhaseId().getCountryId().equals(countryId) && countryPhase1.getCountryPhaseId().getYear().equals(regionHealthIndicator.getKey())
             ).findFirst().orElse(null);
 
             RegionCountryHealthScoreDto regionCountryHealthScoreDto =
-                    constructRegionCountryHealthScoreDto(new CountryHealthIndicators(year.getValue()),
+                    constructRegionCountryHealthScoreDto(new CountryHealthIndicators(regionHealthIndicator.getValue()),
                             countryPhase);
-            return RegionCountryHealthScoreYearDto.builder().year(year.getKey()).country(regionCountryHealthScoreDto).build();
+            return RegionCountryHealthScoreYearDto.builder().year(regionHealthIndicator.getKey()).country(regionCountryHealthScoreDto).build();
         }).collect(toList());
 
     }
@@ -411,10 +411,11 @@ public class RegionService {
                 countryHealthIndicatorService.getCategoriesWithIndicators(countryHealthIndicators,
                         getCategoryPhaseFilter(null, null));
 
-        RegionCategoriesHealthScoreDto regionCategoriesHealthScoreDto =
-                new RegionCategoriesHealthScoreDto(categoryDtos);
+        List<CategoryHealthScoreDto> categoryDtosWithoutIndicators = categoryDtos.stream().map(categoryHealthScoreDto -> {
+            return CategoryHealthScoreDto.builder().id(categoryHealthScoreDto.getId()).phase(categoryHealthScoreDto.getPhase()).overallScore(categoryHealthScoreDto.getOverallScore()).name(categoryHealthScoreDto.getName()).build();
+        }).collect(toList());
 
-        return RegionCountryHealthScoreDto.builder().countryPhase(countryPhase.getCountryOverallPhase()).categories(regionCategoriesHealthScoreDto.getRegionCategoryHealthScoreDtos()).build();
+        return RegionCountryHealthScoreDto.builder().countryPhase(countryPhase.getCountryOverallPhase()).categories(categoryDtosWithoutIndicators).build();
     }
 
 }
