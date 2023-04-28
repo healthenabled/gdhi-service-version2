@@ -24,6 +24,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static it.gdhi.controller.strategy.FilterStrategy.getCategoryPhaseFilter;
@@ -118,11 +119,14 @@ public class RegionService {
             CountryHealthIndicators countryHealthIndicators1 = new CountryHealthIndicators(countryHealthIndicators);
             RegionalOverallData regionalOverallData = calculateRegionalOverallDataFor(countryHealthIndicators1,
                     regionId, year);
-            iRegionalOverallRepository.deleteByRegionalOverallIdRegionIdAndRegionalOverallIdYear(regionId, year);
-            if (regionalOverallData != null) {
-                RegionalOverallData regionalOverallData1 = iRegionalOverallRepository.save(regionalOverallData);
-                entityManager.flush();
-                entityManager.refresh(regionalOverallData1);
+
+            RegionalOverallData existingRegionalOverallData =
+                    iRegionalOverallRepository.findByRegionalOverallIdRegionIdAndRegionalOverallIdYear(regionId,
+                            year);
+
+            if (regionalOverallData != null && !Objects.equals(existingRegionalOverallData.getOverAllScore(),
+                    regionalOverallData.getOverAllScore())) {
+                iRegionalOverallRepository.save(regionalOverallData);
             }
         }
     }
@@ -135,13 +139,9 @@ public class RegionService {
         List<RegionalIndicatorData> regionalIndicatorsData =
                 calculateRegionalIndicatorDataFor(countryHealthIndicators, regionId, year);
 
-        iRegionalIndicatorDataRepository.deleteByRegionalIndicatorIdRegionIdAndRegionalIndicatorIdYear(regionId, year);
-
         if (regionalIndicatorsData != null) {
             regionalIndicatorsData.forEach(regionalIndicator -> {
-                RegionalIndicatorData regionalIndicatorData1 = iRegionalIndicatorDataRepository.save(regionalIndicator);
-                entityManager.flush();
-                entityManager.refresh(regionalIndicatorData1);
+                iRegionalIndicatorDataRepository.save(regionalIndicator);
             });
         }
     }
@@ -156,14 +156,9 @@ public class RegionService {
             List<RegionalCategoryData> regionalCategoriesData =
                     calculateRegionalCategoriesDataFor(countryHealthIndicators1, regionId, year);
 
-            iRegionalCategoryDataRepository.deleteByRegionalCategoryIdRegionIdAndRegionalCategoryIdYear(regionId, year);
-
             if (regionalCategoriesData != null) {
                 regionalCategoriesData.forEach(regionalCategoryData -> {
-                    RegionalCategoryData regionalCategoryData1 =
-                            iRegionalCategoryDataRepository.save(regionalCategoryData);
-                    entityManager.flush();
-                    entityManager.refresh(regionalCategoryData1);
+                    iRegionalCategoryDataRepository.save(regionalCategoryData);
                 });
             }
         }
@@ -239,13 +234,9 @@ public class RegionService {
         List<RegionalIndicatorData> regionalIndicatorsData =
                 calculateRegionalIndicatorDataFor(countryHealthIndicators, regionId, year);
 
-        iRegionalIndicatorDataRepository.deleteByRegionalIndicatorIdRegionIdAndRegionalIndicatorIdYear(regionId, year);
-
         if (regionalIndicatorsData != null) {
             regionalIndicatorsData.forEach(regionalIndicator -> {
-                RegionalIndicatorData regionalIndicatorData1 = iRegionalIndicatorDataRepository.save(regionalIndicator);
-                entityManager.flush();
-                entityManager.refresh(regionalIndicatorData1);
+                iRegionalIndicatorDataRepository.save(regionalIndicator);
             });
         }
     }
@@ -262,13 +253,9 @@ public class RegionService {
         List<RegionalCategoryData> regionalCategoriesData =
                 calculateRegionalCategoriesDataFor(countryHealthIndicators1, regionId, year);
 
-        iRegionalCategoryDataRepository.deleteByRegionalCategoryIdRegionIdAndRegionalCategoryIdYear(regionId, year);
-
         if (regionalCategoriesData != null) {
             regionalCategoriesData.forEach(regionalCategoryData -> {
-                RegionalCategoryData regionalCategoryData1 = iRegionalCategoryDataRepository.save(regionalCategoryData);
-                entityManager.flush();
-                entityManager.refresh(regionalCategoryData1);
+                iRegionalCategoryDataRepository.save(regionalCategoryData);
             });
         }
     }
@@ -285,11 +272,13 @@ public class RegionService {
         CountryHealthIndicators countryHealthIndicators1 = new CountryHealthIndicators(countryHealthIndicators);
         RegionalOverallData regionalOverallData = calculateRegionalOverallDataFor(countryHealthIndicators1, regionId,
                 year);
-        iRegionalOverallRepository.deleteByRegionalOverallIdRegionIdAndRegionalOverallIdYear(regionId, year);
-        if (regionalOverallData != null) {
-            RegionalOverallData regionalOverallData1 = iRegionalOverallRepository.save(regionalOverallData);
-            entityManager.flush();
-            entityManager.refresh(regionalOverallData1);
+
+        RegionalOverallData existingRegionalOverallData =
+                iRegionalOverallRepository.findByRegionalOverallIdRegionIdAndRegionalOverallIdYear(regionId,
+                        year);
+
+        if (regionalOverallData != null && !Objects.equals(existingRegionalOverallData.getOverAllScore(), regionalOverallData.getOverAllScore())) {
+            iRegionalOverallRepository.save(regionalOverallData);
         }
     }
 
