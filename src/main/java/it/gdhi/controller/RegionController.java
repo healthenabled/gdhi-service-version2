@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import java.util.List;
 
+import static it.gdhi.utils.ApplicationConstants.defaultLimit;
 import static it.gdhi.utils.LanguageCode.USER_LANGUAGE;
 
 @RestController
@@ -26,7 +27,7 @@ public class RegionController {
     RegionService regionService;
 
     @GetMapping("/regions")
-    public List<Region> fetchRegions(HttpServletRequest request){
+    public List<Region> fetchRegions(HttpServletRequest request) {
         LanguageCode languageCode = LanguageCode.getValueFor(request.getHeader(USER_LANGUAGE));
         return regionService.fetchRegions(languageCode);
     }
@@ -36,10 +37,19 @@ public class RegionController {
     public RegionCountriesDto fetchRegionCountriesData(HttpServletRequest request,
                                                        @PathVariable("id") String regionId,
                                                        @RequestParam(value = "list_of_years") List<String> years) {
-        if(years.isEmpty()) {
+        if (years.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
         LanguageCode languageCode = LanguageCode.getValueFor(request.getHeader(USER_LANGUAGE));
-        return regionService.getRegionCountriesData(regionId , years , languageCode);
+        return regionService.getRegionCountriesData(regionId, years, languageCode);
+    }
+
+    @GetMapping("/region/{region_id}/get_years")
+    public List<String> getYearsForARegion(@PathVariable("region_id") String regionId,
+                                           @RequestParam(value = "limit") Integer limit) {
+        if(limit == null){
+            limit = defaultLimit;
+        }
+        return regionService.fetchYearsForARegion(regionId, limit);
     }
 }
