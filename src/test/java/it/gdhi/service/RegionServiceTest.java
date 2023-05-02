@@ -881,5 +881,17 @@ public class RegionServiceTest {
         assertEquals(regionCountriesDto, regionCountriesDto1);
     }
 
+    @Test
+    public void shouldFetchYearsForARegion(){
+        String regionId = "PAHO";
+        Integer limit = 5;
+        List<String> expectedYears = Arrays.asList("2023", "2019", "2018");
+        when(iRegionOverallDataRepository.findByRegionIdOrderByUpdatedAtDesc(regionId, limit)).thenReturn(expectedYears);
+
+        List<String> actualYears = regionService.fetchYearsForARegion(regionId, limit);
+
+        assertEquals(expectedYears, actualYears);
+    }
+
 }
 

@@ -421,4 +421,7 @@ public class RegionService {
         return RegionCountryHealthScoreDto.builder().countryPhase(countryPhase.getCountryOverallPhase()).categories(categoryDtosWithoutIndicators).build();
     }
 
+    public List<String> fetchYearsForARegion(String regionId, Integer limit) {
+        return iRegionalOverallRepository.findByRegionIdOrderByUpdatedAtDesc(regionId, limit);
+    }
 }
