@@ -46,8 +46,8 @@ public class RegionController {
 
     @GetMapping("/region/{region_id}/get_years")
     public List<String> getYearsForARegion(@PathVariable("region_id") String regionId,
-                                           @RequestParam(value = "limit") Integer limit) {
-        if(limit == null){
+                                           @RequestParam(value = "limit", required = false) Integer limit) {
+        if (limit == null) {
             limit = defaultLimit;
         }
         return regionService.fetchYearsForARegion(regionId, limit);
