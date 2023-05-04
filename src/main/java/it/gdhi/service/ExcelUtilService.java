@@ -49,9 +49,7 @@ public class ExcelUtilService {
     private static final int BUFFER_SIZE = 4096;
     private static final String HEADER_FORMAT = "attachment; filename=%s";
 
-    @Value("${excelFileLocation}")
-    @Getter
-    private String fileWithPath;
+
 
     /* Default English */
     private LanguageCode languageCode = en;
@@ -69,7 +67,7 @@ public class ExcelUtilService {
         this.indicatorTranslationRepository = indicatorTranslationRepository;
     }
 
-    void convertListToExcel(List<CountryHealthScoreDto> countryHealthScoreDtos, LanguageCode languageCode) {
+    void convertListToExcel(List<CountryHealthScoreDto> countryHealthScoreDtos, LanguageCode languageCode, String filePath) {
         this.languageCode = languageCode;
         List<Category> categories = iCategoryRepository.findAllByOrderById();
 
@@ -88,7 +86,7 @@ public class ExcelUtilService {
             for(int i = 0; i<= noOfColumns; i++) {
                 sheet.autoSizeColumn(i);
             }
-            FileOutputStream fileOutputStream = new FileOutputStream(new File(this.getFileWithPath()));
+            FileOutputStream fileOutputStream = new FileOutputStream(new File(filePath));
             workbook.write(fileOutputStream);
             fileOutputStream.close();
 
@@ -172,13 +170,13 @@ public class ExcelUtilService {
         }
     }
 
-    void downloadFile(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void downloadFile(HttpServletRequest request, HttpServletResponse response, String filePath) throws IOException {
 
-        File fileToDownload = new File(this.getFileWithPath());
+        File fileToDownload = new File(filePath);
         FileInputStream inputStream = new FileInputStream(fileToDownload);
 
         ServletContext context = request.getServletContext();
-        String mimeTypeFromPath = context.getMimeType(this.getFileWithPath());
+        String mimeTypeFromPath = context.getMimeType(filePath);
         String mimeType = mimeTypeFromPath == null ? MIME_TYPE : mimeTypeFromPath;
         String headerValue = String.format(HEADER_FORMAT, fileToDownload.getName());
 

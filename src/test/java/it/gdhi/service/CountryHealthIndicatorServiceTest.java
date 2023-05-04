@@ -28,10 +28,12 @@ import it.gdhi.model.id.CountryPhaseId;
 import it.gdhi.repository.ICountryHealthIndicatorRepository;
 import it.gdhi.repository.ICountryPhaseRepository;
 import it.gdhi.repository.ICountrySummaryRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
@@ -51,9 +53,11 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.anyList;
 import static org.mockito.Mockito.anyString;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -64,6 +68,7 @@ import static org.mockito.Mockito.when;
 public class CountryHealthIndicatorServiceTest {
 
     @InjectMocks
+    @Spy
     CountryHealthIndicatorService countryHealthIndicatorService;
 
     @Mock
@@ -82,6 +87,10 @@ public class CountryHealthIndicatorServiceTest {
     private HealthIndicatorTranslator indicatorTranslator;
     @Mock
     private RegionService regionService;
+    @BeforeEach
+    public void setUp() throws Exception {
+        doReturn("/tmp/Digital Health Data.xlsx").when(countryHealthIndicatorService).getFileWithPath();
+    }
 
     private void dataSet(String countryId1, int categoryId1, int categoryId2,
                          int indicatorId1, int indicatorId2, int indicatorId3, String year) {
@@ -895,8 +904,8 @@ public class CountryHealthIndicatorServiceTest {
         String year = "Version1";
         countryHealthIndicatorService.createGlobalHealthIndicatorInExcel(request, response, year);
 
-        verify(excelUtilService).convertListToExcel(anyList(), any());
-        verify(excelUtilService).downloadFile(request, response);
+        verify(excelUtilService).convertListToExcel(anyList(), any(), eq( "/tmp/Digital Health Data.xlsx"));
+        verify(excelUtilService).downloadFile(request, response,"/tmp/Digital Health Data.xlsx");
     }
 
     @Test
@@ -955,8 +964,8 @@ public class CountryHealthIndicatorServiceTest {
         when(iCountryPhaseRepository.findByCountryPhaseIdCountryIdAndCountryPhaseIdYear(country.getId(), year)).thenReturn(countryPhase);
 
         countryHealthIndicatorService.createHealthIndicatorInExcelFor("IND", request, response, year);
-        verify(excelUtilService).convertListToExcel(anyList(), any());
-        verify(excelUtilService).downloadFile(request, response);
+        verify(excelUtilService).convertListToExcel(anyList(), any(), eq("/tmp/Digital Health Data.xlsx"));
+        verify(excelUtilService).downloadFile(request, response,"/tmp/Digital Health Data.xlsx");
     }
 
     @Test

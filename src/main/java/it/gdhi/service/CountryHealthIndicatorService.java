@@ -24,7 +24,9 @@ import it.gdhi.repository.ICountryHealthIndicatorRepository;
 import it.gdhi.repository.ICountryPhaseRepository;
 import it.gdhi.repository.ICountrySummaryRepository;
 import it.gdhi.utils.LanguageCode;
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import static it.gdhi.controller.strategy.FilterStrategy.getCategoryPhaseFilter;
@@ -57,6 +59,10 @@ public class CountryHealthIndicatorService {
 
     @Autowired
     private HealthIndicatorTranslator healthIndicatorTranslator;
+
+    @Value("${excelFileLocation}")
+    @Getter
+    private String fileWithPath;
 
     public CountryHealthScoreDto fetchCountryHealthScore(String countryId, LanguageCode languageCode, String year) {
         CountryHealthIndicators countryHealthIndicators = new CountryHealthIndicators(iCountryHealthIndicatorRepository
@@ -135,8 +141,8 @@ public class CountryHealthIndicatorService {
         List<CountryHealthScoreDto> countryHealthScores = fetchCountriesHealthScoresForExcel(languageCode, year)
                 .getCountryHealthScores();
 
-        excelUtilService.convertListToExcel(countryHealthScores, languageCode);
-        excelUtilService.downloadFile(request, response);
+        excelUtilService.convertListToExcel(countryHealthScores, languageCode,this.getFileWithPath() );
+        excelUtilService.downloadFile(request, response, this.getFileWithPath());
     }
 
     public void createHealthIndicatorInExcelFor(String countryId,
@@ -146,8 +152,8 @@ public class CountryHealthIndicatorService {
         List countryHealthScoreDtoAsList = new ArrayList<CountryHealthScoreDto>();
 
         countryHealthScoreDtoAsList.add(fetchCountryHealthScore(countryId, languageCode, year));
-        excelUtilService.convertListToExcel(countryHealthScoreDtoAsList, languageCode);
-        excelUtilService.downloadFile(request, response);
+        excelUtilService.convertListToExcel(countryHealthScoreDtoAsList, languageCode, this.getFileWithPath());
+        excelUtilService.downloadFile(request, response, this.getFileWithPath());
     }
 
     private CountriesHealthScoreDto fetchCountriesHealthScoresForExcel(LanguageCode languageCode, String year) {

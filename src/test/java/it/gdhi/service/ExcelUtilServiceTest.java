@@ -58,10 +58,9 @@ public class ExcelUtilServiceTest {
     private ICategoryTranslationRepository categoryTranslationRepository;
     @Mock
     private IIndicatorTranslationRepository indicatorTranslationRepository;
-    @BeforeEach
-    public void setUp() throws Exception {
-        doReturn("/tmp/Digital Health Data.xlsx").when(excelUtilService).getFileWithPath();
-    }
+
+    private String testFilePath = "/tmp/Digital Health Data.xlsx";
+
 
     @Test
     public void shouldVerifyFileIsDownloaded() throws IOException {
@@ -72,7 +71,7 @@ public class ExcelUtilServiceTest {
         when(response.getOutputStream()).thenReturn(outputStream);
         when(request.getServletContext()).thenReturn(servletContext);
 
-        excelUtilService.downloadFile(request, response);
+        excelUtilService.downloadFile(request, response,testFilePath);
 
         verify(request).getServletContext();
         verify(response).setContentType(MIME_TYPE);
@@ -93,7 +92,7 @@ public class ExcelUtilServiceTest {
         when(categoryTranslationRepository.findByLanguageId(en)).thenReturn(of(categoryTranslation));
         when(indicatorTranslationRepository.findByLanguageId(en)).thenReturn(of(indicatorTranslation));
 
-        excelUtilService.convertListToExcel(countryHealthScores, en);
+        excelUtilService.convertListToExcel(countryHealthScores, en,testFilePath);
 
         ArgumentCaptor<XSSFSheet> sheetArgumentCaptor = ArgumentCaptor.forClass(XSSFSheet.class);
         ArgumentCaptor<Map> mapArgumentCaptor = ArgumentCaptor.forClass(Map.class);
@@ -119,7 +118,7 @@ public class ExcelUtilServiceTest {
         when(categoryTranslationRepository.findByLanguageId(en)).thenReturn(of(categoryTranslation));
         when(indicatorTranslationRepository.findByLanguageId(en)).thenReturn(of(indicatorTranslation));
 
-        excelUtilService.convertListToExcel(countryHealthScores, en);
+        excelUtilService.convertListToExcel(countryHealthScores, en, testFilePath);
 
         ArgumentCaptor<XSSFSheet> sheetArgumentCaptor = ArgumentCaptor.forClass(XSSFSheet.class);
         ArgumentCaptor<Map> mapArgumentCaptor = ArgumentCaptor.forClass(Map.class);
@@ -145,7 +144,7 @@ public class ExcelUtilServiceTest {
         when(categoryTranslationRepository.findByLanguageId(en)).thenReturn(of(categoryTranslation));
         when(indicatorTranslationRepository.findByLanguageId(en)).thenReturn(of(indicatorTranslation));
 
-        excelUtilService.convertListToExcel(countryHealthScores, en);
+        excelUtilService.convertListToExcel(countryHealthScores, en, testFilePath);
 
         ArgumentCaptor<XSSFSheet> sheetArgumentCaptor = ArgumentCaptor.forClass(XSSFSheet.class);
         ArgumentCaptor<Map> mapArgumentCaptor = ArgumentCaptor.forClass(Map.class);
@@ -212,7 +211,7 @@ public class ExcelUtilServiceTest {
         when(categoryTranslationRepository.findByLanguageId(fr)).thenReturn(of(categoryTranslation));
         when(indicatorTranslationRepository.findByLanguageId(fr)).thenReturn(of(indicatorTranslation));
 
-        excelUtilService.convertListToExcel(countryHealthScores, fr);
+        excelUtilService.convertListToExcel(countryHealthScores, fr, testFilePath);
 
         ArgumentCaptor<Map> mapArgumentCaptor = ArgumentCaptor.forClass(Map.class);
         verify(excelUtilService).populateHealthIndicatorsWithDefinitionsAndScores(any(), eq(countryHealthScores), mapArgumentCaptor.capture(), eq(2));
