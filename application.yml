@@ -70,4 +70,5 @@ logging:
     file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
     console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
 
-excelFileLocation: "/opt/gdhi/service/Digital Health Data.xlsx"
+excelFileLocation: "/opt/files/Digital Health Data.xlsx"
+csvFileLocation: "/opt/files/Upload_template_Final.xlsx"
