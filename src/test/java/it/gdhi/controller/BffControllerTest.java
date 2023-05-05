@@ -15,7 +15,6 @@ import it.gdhi.service.CountryService;
 import it.gdhi.service.DefaultYearDataService;
 import it.gdhi.service.ExcelUtilService;
 import it.gdhi.service.RegionService;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -37,7 +36,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class BffControllerTest {
+class BffControllerTest {
 
     @InjectMocks
     @Spy
@@ -62,45 +61,45 @@ public class BffControllerTest {
     @Mock
     private ExcelUtilService excelUtilService;
     @Test
-    public void shouldGetDistinctYearsWithDefaultLimitWhenLimitIsNull() {
+     void shouldGetDistinctYearsWithDefaultLimitWhenLimitIsNull() {
         bffController.getDistinctYears(null);
         verify(bffService).fetchDistinctYears(defaultLimit);
     }
 
     @Test
-    public void shouldGetDistinctYears() {
+     void shouldGetDistinctYears() {
         bffController.getDistinctYears(5);
         verify(bffService).fetchDistinctYears(5);
     }
 
     @Test
-    public void shouldGetYearOnYearData() {
+     void shouldGetYearOnYearData() {
         bffController.getYearOnYearData(null, 1, null);
         verify(countryService).fetchPublishCountriesDistinctYears(1);
         verify(bffService).fetchYearOnYearData(countryService.fetchPublishCountriesDistinctYears(1), null, null);
     }
 
     @Test
-    public void shouldGetYearOnYearDataForFiveYearsWhenLimitIsNull() {
+     void shouldGetYearOnYearDataForFiveYearsWhenLimitIsNull() {
         bffController.getYearOnYearData(null, null, null);
         verify(countryService).fetchPublishCountriesDistinctYears(defaultLimit);
         verify(bffService).fetchYearOnYearData(countryService.fetchPublishCountriesDistinctYears(defaultLimit), null, null);
     }
 
     @Test
-    public void shouldGetPublishedYearsForACountry() {
+     void shouldGetPublishedYearsForACountry() {
         bffController.getPublishedYearsForACountry(null, 1);
         verify(bffService).fetchPublishedYearsForACountry(null, 1);
     }
 
     @Test
-    public void shouldGetFivePublishedYearsForACountryWhenLimitIsNull() {
+     void shouldGetFivePublishedYearsForACountryWhenLimitIsNull() {
         bffController.getPublishedYearsForACountry(null, null);
         verify(bffService).fetchPublishedYearsForACountry(null, defaultLimit);
     }
 
     @Test
-    public void shouldGetGlobalBenchmarkDetailsForGivenYear() {
+     void shouldGetGlobalBenchmarkDetailsForGivenYear() {
         String countryID = "IND";
         Integer benchmarkType = -1;
         String year = "Version1";
@@ -111,7 +110,7 @@ public class BffControllerTest {
     }
 
     @Test
-    public void shouldGetGlobalBenchmarkDetailsForDefaultYearWhenYearIsNull() {
+     void shouldGetGlobalBenchmarkDetailsForDefaultYearWhenYearIsNull() {
         String countryID = "IND";
         Integer benchmarkType = -1;
         String year = "2023";
@@ -121,7 +120,7 @@ public class BffControllerTest {
     }
 
     @Test
-    public void shouldGetRegionalBenchmarkDetailsForGivenYearWhenRegionIsGiven() {
+     void shouldGetRegionalBenchmarkDetailsForGivenYearWhenRegionIsGiven() {
         String countryID = "IND";
         Integer benchmarkType = -1;
         String year = "Version1";
@@ -132,21 +131,21 @@ public class BffControllerTest {
     }
 
     @Test
-    public void shouldGetYearOnYearDataWhenRegionIsPassed() {
+     void shouldGetYearOnYearDataWhenRegionIsPassed() {
         bffController.getYearOnYearData(null, 1, "EURO");
         verify(countryService).fetchPublishCountriesDistinctYears(1);
         verify(bffService).fetchYearOnYearData(countryService.fetchPublishCountriesDistinctYears(1), null, "EURO");
     }
 
     @Test
-    public void shouldSubmitCSVDataWhenListOfQuestionnairesAreGiven() {
+     void shouldSubmitCSVDataWhenListOfQuestionnairesAreGiven() {
         GdhiQuestionnaires mock = mock(GdhiQuestionnaires.class);
         bffController.shouldSubmitCSVData(mock);
         verify(bffService).submitCountryCSVData(mock);
     }
 
     @Test
-    public void shouldFetchGivenYearWhenYearIsPassed() {
+     void shouldFetchGivenYearWhenYearIsPassed() {
         MockHttpServletRequest request = new MockHttpServletRequest();
         request.addHeader("USER_LANGUAGE", "en");
 
@@ -156,7 +155,7 @@ public class BffControllerTest {
     }
 
     @Test
-    public void shouldFetchDefaultYearWhenYearIsNull() {
+     void shouldFetchDefaultYearWhenYearIsNull() {
         MockHttpServletRequest request = new MockHttpServletRequest();
         request.addHeader("USER_LANGUAGE", "en");
 
@@ -168,7 +167,7 @@ public class BffControllerTest {
     }
 
     @Test
-    public void shouldGetLanguageCodeOfArabicFromHeader() {
+     void shouldGetLanguageCodeOfArabicFromHeader() {
         MockHttpServletRequest request = new MockHttpServletRequest();
         request.addHeader("USER_LANGUAGE", "ar");
 
@@ -178,7 +177,7 @@ public class BffControllerTest {
     }
 
     @Test
-    public void shouldInvokeGetGlobalHealthIndicator() {
+     void shouldInvokeGetGlobalHealthIndicator() {
         GlobalHealthScoreDto expected = mock(GlobalHealthScoreDto.class);
         MockHttpServletRequest request = new MockHttpServletRequest();
         request.addHeader("USER_LANGUAGE", "en");
@@ -193,7 +192,7 @@ public class BffControllerTest {
     }
 
     @Test
-    public void shouldInvokeGetRegionalHealthIndicatorWhenRegionIsProvided() {
+     void shouldInvokeGetRegionalHealthIndicatorWhenRegionIsProvided() {
         GlobalHealthScoreDto expected = mock(GlobalHealthScoreDto.class);
         MockHttpServletRequest request = new MockHttpServletRequest();
         request.addHeader("USER_LANGUAGE", "en");
@@ -208,7 +207,7 @@ public class BffControllerTest {
     }
 
     @Test
-    public void shouldGetCsvTemplate() throws IOException {
+     void shouldGetCsvTemplate() throws IOException {
         doReturn("/tmp/Digital Health Data.xlsx").when(bffController).getFileWithPath();
         HttpServletRequest request = mock(HttpServletRequest.class);
         HttpServletResponse response = mock(HttpServletResponse.class);
