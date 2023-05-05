@@ -1,9 +1,11 @@
 package it.gdhi.controller;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import it.gdhi.dto.BenchmarkDto;
 import it.gdhi.dto.GdhiQuestionnaires;
@@ -16,10 +18,13 @@ import it.gdhi.service.CountryHealthDataService;
 import it.gdhi.service.CountryHealthIndicatorService;
 import it.gdhi.service.CountryService;
 import it.gdhi.service.DefaultYearDataService;
+import it.gdhi.service.ExcelUtilService;
 import it.gdhi.service.RegionService;
 import it.gdhi.utils.LanguageCode;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -47,6 +52,13 @@ public class BffController {
     private CountryHealthDataService countryHealthDataService;
     @Autowired
     private RegionService regionService;
+
+    @Autowired
+    ExcelUtilService excelUtilService;
+
+    @Value("${csvFileLocation}")
+    @Getter
+    private String fileWithPath;
 
     @Autowired
     private CountryHealthIndicatorService countryHealthIndicatorService;
@@ -122,4 +134,8 @@ public class BffController {
         return LanguageCode.getValueFor(request.getHeader(USER_LANGUAGE));
     }
 
+    @GetMapping("/export_csv_template")
+    public void getCsvTemplate(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        excelUtilService.downloadFile(request,response,this.getFileWithPath());
+    }
 }

@@ -1,6 +1,10 @@
 package it.gdhi.controller;
 
+import java.io.IOException;
 import java.util.HashMap;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import it.gdhi.dto.GdhiQuestionnaires;
 import it.gdhi.dto.GlobalHealthScoreDto;
@@ -9,11 +13,14 @@ import it.gdhi.service.CountryHealthDataService;
 import it.gdhi.service.CountryHealthIndicatorService;
 import it.gdhi.service.CountryService;
 import it.gdhi.service.DefaultYearDataService;
+import it.gdhi.service.ExcelUtilService;
 import it.gdhi.service.RegionService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.mock.web.MockHttpServletRequest;
 
@@ -22,6 +29,9 @@ import static it.gdhi.utils.LanguageCode.ar;
 import static it.gdhi.utils.LanguageCode.en;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -30,6 +40,7 @@ import static org.mockito.Mockito.when;
 public class BffControllerTest {
 
     @InjectMocks
+    @Spy
     private BffController bffController;
 
     @Mock
@@ -48,6 +59,8 @@ public class BffControllerTest {
     @Mock
     private RegionService regionService;
 
+    @Mock
+    private ExcelUtilService excelUtilService;
     @Test
     public void shouldGetDistinctYearsWithDefaultLimitWhenLimitIsNull() {
         bffController.getDistinctYears(null);
@@ -192,5 +205,14 @@ public class BffControllerTest {
 
         assertThat(expected, is(actual));
         verify(regionService).fetchRegionalHealthScores(null, regionId, en, year);
+    }
+
+    @Test
+    public void shouldGetCsvTemplate() throws IOException {
+        doReturn("/tmp/Digital Health Data.xlsx").when(bffController).getFileWithPath();
+        HttpServletRequest request = mock(HttpServletRequest.class);
+        HttpServletResponse response = mock(HttpServletResponse.class);
+        bffController.getCsvTemplate(request,response);
+        verify(excelUtilService).downloadFile(any(),any(),eq("/tmp/Digital Health Data.xlsx"));
     }
 }
