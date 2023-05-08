@@ -276,7 +276,7 @@ public class RegionService {
                 iRegionalOverallRepository.findByRegionalOverallIdRegionIdAndRegionalOverallIdYear(regionId,
                         year);
 
-        if (regionalOverallData != null && !Objects.equals(existingRegionalOverallData.getOverAllScore(),
+        if (existingRegionalOverallData == null || !Objects.equals(existingRegionalOverallData.getOverAllScore(),
                 regionalOverallData.getOverAllScore())) {
             iRegionalOverallRepository.save(regionalOverallData);
         }
