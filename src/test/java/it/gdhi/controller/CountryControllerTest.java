@@ -15,10 +15,11 @@ import org.springframework.web.server.ResponseStatusException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.HashMap;
+
 import java.util.UUID;
 
 import static it.gdhi.utils.FormStatus.DRAFT;
+import static it.gdhi.utils.FormStatus.PUBLISHED;
 import static it.gdhi.utils.LanguageCode.en;
 import static it.gdhi.utils.LanguageCode.fr;
 import static it.gdhi.utils.Util.getCurrentYear;
@@ -130,10 +131,30 @@ public class CountryControllerTest {
     public void shouldPublishHealthIndicatorsForCurrentYear() {
         GdhiQuestionnaire mock = mock(GdhiQuestionnaire.class);
         String year = getCurrentYear();
-        doNothing().when(countryHealthDataService).publish(mock, year);
+        doNothing().when(countryHealthDataService).publishOrUpdateQuestionnaire(mock, year , false);
         when(countryHealthDataService.validateRequiredFields(mock)).thenReturn(true);
         countryController.publishHealthIndicatorsFor(mock, year);
-        verify(countryHealthDataService).publish(mock, year);
+        verify(countryHealthDataService).publishOrUpdateQuestionnaire(mock, year , false);
+    }
+
+    @Test
+    public void shouldRepublishHealthIndicatorsForCurrentYear() {
+        GdhiQuestionnaire mock = mock(GdhiQuestionnaire.class);
+        String year = getCurrentYear();
+        doNothing().when(countryHealthDataService).publishOrUpdateQuestionnaire(mock, year , true);
+        when(countryHealthDataService.validateRequiredFields(mock)).thenReturn(true);
+        countryController.republishHealthIndicatorsFor(mock, year);
+        verify(countryHealthDataService).publishOrUpdateQuestionnaire(mock, year , true);
+    }
+
+    @Test
+    public void shouldReturnBadRequestForInvalidIndicatorsWhenRepublished() {
+        GdhiQuestionnaire mock = mock(GdhiQuestionnaire.class);
+        String year = getCurrentYear();
+        when(countryHealthDataService.validateRequiredFields(mock)).thenReturn(false);
+        ResponseEntity expectedResponse = ResponseEntity.badRequest().body(null);
+        ResponseEntity actualResponse = countryController.republishHealthIndicatorsFor(mock, year);
+        assertEquals(expectedResponse, actualResponse);
     }
 
     @Test
