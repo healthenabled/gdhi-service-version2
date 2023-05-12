@@ -110,7 +110,7 @@ public class CountryHealthDataServiceTest {
         when(iRegionCountryRepository.findByRegionCountryIdRegionId(region)).thenReturn(countries);
         when(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdInAndCountryHealthIndicatorIdYearAndCountryHealthIndicatorIdStatus(countries, currentYear, PUBLISHED.name())).thenReturn(asList(countryHealthIndicator1, countryHealthIndicator2));
 
-        countryHealthDataService.publishOrUpdateQuestionnaire(gdhiQuestionnaire, currentYear , false);
+        countryHealthDataService.publish(gdhiQuestionnaire, currentYear);
         ArgumentCaptor<CountrySummary> summaryCaptor = ArgumentCaptor.forClass(CountrySummary.class);
         ArgumentCaptor<CountryHealthIndicator> healthIndicatorsCaptorList = ArgumentCaptor.forClass(CountryHealthIndicator.class);
 
@@ -170,7 +170,7 @@ public class CountryHealthDataServiceTest {
         when(iRegionCountryRepository.findByRegionCountryIdRegionId(region)).thenReturn(countries);
         when(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdInAndCountryHealthIndicatorIdYearAndCountryHealthIndicatorIdStatus(countries, currentYear, PUBLISHED.name())).thenReturn(asList(countryHealthIndicator1, countryHealthIndicator2));
 
-        countryHealthDataService.publishOrUpdateQuestionnaire(gdhiQuestionnaire, currentYear , true);
+        countryHealthDataService.republish(gdhiQuestionnaire, currentYear);
         ArgumentCaptor<CountrySummary> summaryCaptor = ArgumentCaptor.forClass(CountrySummary.class);
         ArgumentCaptor<CountryHealthIndicator> healthIndicatorsCaptorList = ArgumentCaptor.forClass(CountryHealthIndicator.class);
 

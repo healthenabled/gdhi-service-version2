@@ -19,7 +19,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.UUID;
 
 import static it.gdhi.utils.FormStatus.DRAFT;
-import static it.gdhi.utils.FormStatus.PUBLISHED;
 import static it.gdhi.utils.LanguageCode.en;
 import static it.gdhi.utils.LanguageCode.fr;
 import static it.gdhi.utils.Util.getCurrentYear;
@@ -81,7 +80,8 @@ public class CountryControllerTest {
 
         when(countryHealthIndicatorService.fetchCountryHealthScore(countryId, LanguageCode.en, year)).thenReturn(countryHealthScoreMock);
 
-        CountryHealthScoreDto healthIndicatorForGivenCountryCode = countryController.getHealthIndicatorForGivenCountryCode(request, countryId, year);
+        CountryHealthScoreDto healthIndicatorForGivenCountryCode =
+                countryController.getHealthIndicatorForGivenCountryCode(request, countryId, year);
 
         assertThat(healthIndicatorForGivenCountryCode, is(countryHealthScoreMock));
         verify(countryHealthIndicatorService).fetchCountryHealthScore(countryId, LanguageCode.en, year);
@@ -122,29 +122,29 @@ public class CountryControllerTest {
     @Test
     public void shouldSaveHealthIndicatorsForCurrentYear() {
         GdhiQuestionnaire mock = mock(GdhiQuestionnaire.class);
-        doNothing().when(countryHealthDataService).save(mock, DRAFT.name());
+        doNothing().when(countryHealthDataService).save(mock, DRAFT.name(), getCurrentYear());
         countryController.saveHealthIndicatorsFor(mock);
-        verify(countryHealthDataService).save(mock, DRAFT.name());
+        verify(countryHealthDataService).save(mock, DRAFT.name(), getCurrentYear());
     }
 
     @Test
     public void shouldPublishHealthIndicatorsForCurrentYear() {
         GdhiQuestionnaire mock = mock(GdhiQuestionnaire.class);
         String year = getCurrentYear();
-        doNothing().when(countryHealthDataService).publishOrUpdateQuestionnaire(mock, year , false);
+        doNothing().when(countryHealthDataService).publish(mock, year);
         when(countryHealthDataService.validateRequiredFields(mock)).thenReturn(true);
         countryController.publishHealthIndicatorsFor(mock, year);
-        verify(countryHealthDataService).publishOrUpdateQuestionnaire(mock, year , false);
+        verify(countryHealthDataService).publish(mock, year);
     }
 
     @Test
     public void shouldRepublishHealthIndicatorsForCurrentYear() {
         GdhiQuestionnaire mock = mock(GdhiQuestionnaire.class);
         String year = getCurrentYear();
-        doNothing().when(countryHealthDataService).publishOrUpdateQuestionnaire(mock, year , true);
+        doNothing().when(countryHealthDataService).republish(mock, year);
         when(countryHealthDataService.validateRequiredFields(mock)).thenReturn(true);
         countryController.republishHealthIndicatorsFor(mock, year);
-        verify(countryHealthDataService).publishOrUpdateQuestionnaire(mock, year , true);
+        verify(countryHealthDataService).republish(mock, year);
     }
 
     @Test
@@ -235,7 +235,8 @@ public class CountryControllerTest {
 
     @Test
     public void shouldGetAllCountryStatusSummariesForCurrentYear() {
-        CountrySummaryStatusYearDto countrySummaryStatusYearDto = new CountrySummaryStatusYearDto(getCurrentYear(), emptyList(), emptyList(), emptyList(), emptyList());
+        CountrySummaryStatusYearDto countrySummaryStatusYearDto = new CountrySummaryStatusYearDto(getCurrentYear(),
+                emptyList(), emptyList(), emptyList(), emptyList());
         when(countryHealthDataService.getAllCountryStatusSummaries()).thenReturn(countrySummaryStatusYearDto);
         countryController.getAllCountryStatusSummaries();
         verify(countryHealthDataService).getAllCountryStatusSummaries();

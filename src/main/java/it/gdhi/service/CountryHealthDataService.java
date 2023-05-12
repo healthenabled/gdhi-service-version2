@@ -51,25 +51,20 @@ public class CountryHealthDataService {
     private IRegionCountryRepository iRegionCountryRepository;
 
     @Transactional
-    public void save(GdhiQuestionnaire gdhiQuestionnaire, String nextStatus) {
-        String currentYear = getCurrentYear();
+    public void save(GdhiQuestionnaire gdhiQuestionnaire, String nextStatus , String currentYear) {
         String currentStatus =
                 iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdYearAndCountrySummaryIdStatusNot(gdhiQuestionnaire.getCountryId(), currentYear, PUBLISHED.name()).getStatus();
         if (!nextStatus.equals(currentStatus)) {
             removeEntriesWithStatus(gdhiQuestionnaire.getCountryId(), currentStatus, currentYear);
         }
-        saveCountryContactInfo(gdhiQuestionnaire.getCountryId(),
-                nextStatus, gdhiQuestionnaire.getCountrySummary(), currentYear);
-        saveHealthIndicators(gdhiQuestionnaire.getCountryId(),
-                nextStatus, gdhiQuestionnaire.getHealthIndicators(), currentYear);
+        saveCountryDetails(gdhiQuestionnaire, nextStatus, currentYear);
     }
 
     @Transactional
-    public void saveAndRepublish(GdhiQuestionnaire gdhiQuestionnaire, String nextStatus) {
-        String currentYear = getCurrentYear();
-
+    public void saveCountryDetails(GdhiQuestionnaire gdhiQuestionnaire, String nextStatus, String currentYear) {
         saveCountryContactInfo(gdhiQuestionnaire.getCountryId(),
                 nextStatus, gdhiQuestionnaire.getCountrySummary(), currentYear);
+
         saveHealthIndicators(gdhiQuestionnaire.getCountryId(),
                 nextStatus, gdhiQuestionnaire.getHealthIndicators(), currentYear);
     }
@@ -97,28 +92,35 @@ public class CountryHealthDataService {
     }
 
     @Transactional
-    public void publishOrUpdateQuestionnaire(GdhiQuestionnaire gdhiQuestionnaire, String currentYear,
-                                             boolean isRepublish) {
-        if (isRepublish) {
-            saveAndRepublish(gdhiQuestionnaire, PUBLISHED.name());
-        }
-        else {
-            save(gdhiQuestionnaire, PUBLISHED.name());
-        }
-        regionService.calculateAndSaveRegionalData(gdhiQuestionnaire.getCountryId(), currentYear);
-        calculateAndSaveCountryPhase(gdhiQuestionnaire.getCountryId(), PUBLISHED.name(), currentYear);
+    public void calculateOverallPhase(String countryId, String currentYear) {
+        regionService.calculateAndSaveRegionalData(countryId, currentYear);
+        calculateAndSaveCountryPhase(countryId, PUBLISHED.name(), currentYear);
+    }
+
+    @Transactional
+    public void publish(GdhiQuestionnaire gdhiQuestionnaire, String currentYear) {
+        save(gdhiQuestionnaire, PUBLISHED.name() , currentYear);
+        calculateOverallPhase(gdhiQuestionnaire.getCountryId(), currentYear);
+    }
+
+    @Transactional
+    public void republish(GdhiQuestionnaire gdhiQuestionnaire, String currentYear) {
+        saveCountryDetails(gdhiQuestionnaire, PUBLISHED.name(), currentYear);
+        calculateOverallPhase(gdhiQuestionnaire.getCountryId(), currentYear);
     }
 
     @Transactional
     public void submit(GdhiQuestionnaire gdhiQuestionnaire) {
-        save(gdhiQuestionnaire, REVIEW_PENDING.name());
+        String currentYear = getCurrentYear();
+        save(gdhiQuestionnaire, REVIEW_PENDING.name() , currentYear);
         sendMail(gdhiQuestionnaire.getDataFeederName(), gdhiQuestionnaire.getDataFeederRole(),
                 gdhiQuestionnaire.getContactEmail(), gdhiQuestionnaire.getCountryId());
     }
 
     @Transactional
     public void saveCorrection(GdhiQuestionnaire gdhiQuestionnaire) {
-        save(gdhiQuestionnaire, REVIEW_PENDING.name());
+        String currentYear = getCurrentYear();
+        save(gdhiQuestionnaire, REVIEW_PENDING.name() , currentYear);
     }
 
     @Transactional
@@ -135,7 +137,7 @@ public class CountryHealthDataService {
     public void calculatePhaseForAllCountries(String year) {
         List<CountrySummary> publishedCountries =
                 iCountrySummaryRepository.findByCountrySummaryIdYearAndCountrySummaryIdStatus(year,
-                PUBLISHED.name());
+                        PUBLISHED.name());
 
         publishedCountries.stream().forEach(country -> calculateAndSaveCountryPhase(country.getCountrySummaryId().getCountryId(), PUBLISHED.name(),
                 year));
@@ -236,7 +238,7 @@ public class CountryHealthDataService {
         String currentStatus = null;
         List<CountrySummary> countrySummary =
                 iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdYear(countryId,
-                currentYear);
+                        currentYear);
         List<String> countrySummaryStatuses = countrySummary.stream().map(CountrySummary::getStatus).collect(toList());
         if (!countrySummaryStatuses.isEmpty()) {
             currentStatus = countrySummaryStatuses.size() > 1 ?

@@ -100,7 +100,8 @@ public class CountryController {
 
     @PostMapping("/countries/save")
     public void saveHealthIndicatorsFor(@RequestBody GdhiQuestionnaire gdhiQuestionnaire) {
-        countryHealthDataService.save(gdhiQuestionnaire, DRAFT.name());
+        String currentYear = getCurrentYear();
+        countryHealthDataService.save(gdhiQuestionnaire, DRAFT.name() , currentYear);
     }
 
     @PostMapping("/countries/submit")
@@ -128,7 +129,7 @@ public class CountryController {
         boolean isValid;
         isValid = countryHealthDataService.validateRequiredFields(gdhiQuestionnaire);
         if (isValid && year.equals(getCurrentYear())) {
-            countryHealthDataService.publishOrUpdateQuestionnaire(gdhiQuestionnaire, year , false);
+            countryHealthDataService.publish(gdhiQuestionnaire, year);
             return ResponseEntity.status(HttpStatus.CREATED).body(null);
         }
         else {
@@ -143,7 +144,7 @@ public class CountryController {
         boolean isValid;
         isValid = countryHealthDataService.validateRequiredFields(gdhiQuestionnaire);
         if (isValid && year.equals(getCurrentYear())) {
-            countryHealthDataService.publishOrUpdateQuestionnaire(gdhiQuestionnaire, year , true);
+            countryHealthDataService.republish(gdhiQuestionnaire, year);
             return ResponseEntity.status(HttpStatus.OK).body(null);
         }
         else {
