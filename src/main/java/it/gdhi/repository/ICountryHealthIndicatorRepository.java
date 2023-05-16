@@ -13,17 +13,17 @@ public interface ICountryHealthIndicatorRepository extends JpaRepository<Country
     CountryHealthIndicator save(CountryHealthIndicator countryHealthIndicatorSetupData);
 
     @Modifying
-    void deleteByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdYearAndCountryHealthIndicatorIdStatus(String countryId, String year, String currentStatus);
+    void deleteByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdYearAndStatus(String countryId, String year, String currentStatus);
 
-    List<CountryHealthIndicator> findByCountryHealthIndicatorIdStatusAndCountryHealthIndicatorIdYear(String currentStatus, String year);
+    List<CountryHealthIndicator> findByStatusAndCountryHealthIndicatorIdYear(String currentStatus, String year);
 
-    List<CountryHealthIndicator> findByCountryHealthIndicatorIdCategoryIdAndCountryHealthIndicatorIdYearAndCountryHealthIndicatorIdStatus(Integer categoryId, String year, String currentStatus);
+    List<CountryHealthIndicator> findByCountryHealthIndicatorIdCategoryIdAndCountryHealthIndicatorIdYearAndStatus(Integer categoryId, String year, String currentStatus);
 
-    List<CountryHealthIndicator> findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdYearAndCountryHealthIndicatorIdStatus(String countryId, String year, String currentStatus);
+    List<CountryHealthIndicator> findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdYearAndStatus(String countryId, String year, String currentStatus);
 
-    List<CountryHealthIndicator> findByCountryHealthIndicatorIdCountryIdInAndCountryHealthIndicatorIdYearAndCountryHealthIndicatorIdStatus(List<String> countryId, String year, String status);
+    List<CountryHealthIndicator> findByCountryHealthIndicatorIdCountryIdInAndCountryHealthIndicatorIdYearAndStatus(List<String> countryId, String year, String status);
 
-    List<CountryHealthIndicator> findByCountryHealthIndicatorIdCountryIdInAndCountryHealthIndicatorIdYearInAndCountryHealthIndicatorIdStatus(List<String> countryId, List<String> year, String status);
+    List<CountryHealthIndicator> findByCountryHealthIndicatorIdCountryIdInAndCountryHealthIndicatorIdYearInAndStatus(List<String> countryId, List<String> year, String status);
 
 }
 

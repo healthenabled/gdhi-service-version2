@@ -14,22 +14,20 @@ public interface ICountrySummaryRepository extends JpaRepository<CountrySummary,
 
     CountrySummary save(CountrySummary countrySummary);
 
-    List<CountrySummary> findByCountrySummaryIdStatus(String status);
-
     List<CountrySummary> findByCountrySummaryIdCountryIdAndCountrySummaryIdYear(String countryId, String currentYear);
 
-    List<CountrySummary> findByCountrySummaryIdYearAndCountrySummaryIdStatus(String year, String status);
+    List<CountrySummary> findByStatusAndCountrySummaryIdYear(String year, String status);
 
     List<CountrySummary> findByCountrySummaryIdYearOrderByUpdatedAtDesc(String currentYear);
 
     List<CountrySummary> findAllByOrderByUpdatedAtDesc();
 
     @Modifying
-    void deleteByCountrySummaryIdCountryIdAndCountrySummaryIdYearAndCountrySummaryIdStatus(String countryId, String currentYear, String currentStatus);
+    void deleteByCountrySummaryIdCountryIdAndCountrySummaryIdYearAndStatus(String countryId, String currentYear, String currentStatus);
 
-    CountrySummary findByCountrySummaryIdCountryIdAndCountrySummaryIdYearAndCountrySummaryIdStatusNot(String countryId, String year, String currentStatus);
+    CountrySummary findByCountrySummaryIdCountryIdAndCountrySummaryIdYearAndStatusNot(String countryId, String year, String currentStatus);
 
-    CountrySummary findByCountrySummaryIdCountryIdAndCountrySummaryIdYearAndCountrySummaryIdStatus(String countryId, String year, String currentStatus);
+    CountrySummary findByCountrySummaryIdCountryIdAndCountrySummaryIdYearAndStatus(String countryId, String year, String currentStatus);
 
     @Query(value = "SELECT year from country_health_data.country_summary c where" +
             " c.country_id = UPPER(?1) and " +
