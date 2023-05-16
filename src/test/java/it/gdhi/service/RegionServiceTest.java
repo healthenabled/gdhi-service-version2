@@ -183,7 +183,7 @@ public class RegionServiceTest {
         String region = "PAHO";
 
         when(iRegionCountryRepository.findByRegionCountryIdRegionId(region)).thenReturn(countries);
-        when(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdInAndCountryHealthIndicatorIdYearAndCountryHealthIndicatorIdStatus(countries, year, PUBLISHED.name())).thenReturn(countryHealthIndicators);
+        when(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdInAndCountryHealthIndicatorIdYearAndStatus(countries, year, PUBLISHED.name())).thenReturn(countryHealthIndicators);
 
     }
 
@@ -573,14 +573,16 @@ public class RegionServiceTest {
         String year = "2023";
 
         CountryHealthIndicator indicator1 = CountryHealthIndicator.builder()
-                .countryHealthIndicatorId(new CountryHealthIndicatorId(countryId, 1, 2, PUBLISHED.name(), year))
+                .countryHealthIndicatorId(new CountryHealthIndicatorId(countryId, 1, 2, year))
                 .indicator(new Indicator(2, "Some indicator", "some code", 1, null, new ArrayList<>(), "some def"))
                 .score(5)
+                .status(PUBLISHED.name())
                 .build();
         CountryHealthIndicator indicator2 = CountryHealthIndicator.builder()
-                .countryHealthIndicatorId(new CountryHealthIndicatorId(countryId, 2, 3, PUBLISHED.name(), year))
+                .countryHealthIndicatorId(new CountryHealthIndicatorId(countryId, 2, 3, year))
                 .indicator(new Indicator(3, "Some indicator", "some code", 2, null, new ArrayList<>(), "some def"))
                 .score(4)
+                .status(PUBLISHED.name())
                 .build();
         List<CountryHealthIndicator> countryHealthIndicators = Arrays.asList(indicator1, indicator2);
 
@@ -623,14 +625,16 @@ public class RegionServiceTest {
         String year = "2023";
 
         CountryHealthIndicator indicator1 = CountryHealthIndicator.builder()
-                .countryHealthIndicatorId(new CountryHealthIndicatorId(countryId, 1, 2, PUBLISHED.name(), year))
+                .countryHealthIndicatorId(new CountryHealthIndicatorId(countryId, 1, 2, year))
                 .indicator(new Indicator(2, "Some indicator", "some code", 1, null, new ArrayList<>(), "some def"))
                 .score(5)
+                .status(PUBLISHED.name())
                 .build();
         CountryHealthIndicator indicator2 = CountryHealthIndicator.builder()
-                .countryHealthIndicatorId(new CountryHealthIndicatorId(countryId, 2, 3, PUBLISHED.name(), year))
+                .countryHealthIndicatorId(new CountryHealthIndicatorId(countryId, 2, 3, year))
                 .indicator(new Indicator(3, "Some indicator", "some code", 2, null, new ArrayList<>(), "some def"))
                 .score(4)
+                .status(PUBLISHED.name())
                 .build();
         List<CountryHealthIndicator> countryHealthIndicators = Arrays.asList(indicator1, indicator2);
 
@@ -682,14 +686,16 @@ public class RegionServiceTest {
         LanguageCode languageCode = en;
 
         CountryHealthIndicator indicator1 = CountryHealthIndicator.builder()
-                .countryHealthIndicatorId(new CountryHealthIndicatorId(countryId, 1, 2, PUBLISHED.name(), year))
+                .countryHealthIndicatorId(new CountryHealthIndicatorId(countryId, 1, 2, year))
                 .indicator(new Indicator(2, "Some indicator", "some code", 1, null, new ArrayList<>(), "some def"))
                 .score(5)
+                .status(PUBLISHED.name())
                 .build();
         CountryHealthIndicator indicator2 = CountryHealthIndicator.builder()
-                .countryHealthIndicatorId(new CountryHealthIndicatorId(countryId, 2, 3, PUBLISHED.name(), year))
+                .countryHealthIndicatorId(new CountryHealthIndicatorId(countryId, 2, 3, year))
                 .indicator(new Indicator(3, "Some indicator", "some code", 2, null, new ArrayList<>(), "some def"))
                 .score(4)
+                .status(PUBLISHED.name())
                 .build();
         List<CountryHealthIndicator> countryHealthIndicators = Arrays.asList(indicator1, indicator2);
 
@@ -748,14 +754,16 @@ public class RegionServiceTest {
         LanguageCode languageCode = en;
 
         CountryHealthIndicator indicator1 = CountryHealthIndicator.builder()
-                .countryHealthIndicatorId(new CountryHealthIndicatorId(countryId, 1, 2, PUBLISHED.name(), year))
+                .countryHealthIndicatorId(new CountryHealthIndicatorId(countryId, 1, 2, year))
                 .indicator(new Indicator(2, "Some indicator", "some code", 1, null, new ArrayList<>(), "some def"))
                 .score(5)
+                .status(PUBLISHED.name())
                 .build();
         CountryHealthIndicator indicator2 = CountryHealthIndicator.builder()
-                .countryHealthIndicatorId(new CountryHealthIndicatorId(countryId, 2, 3, PUBLISHED.name(), year))
+                .countryHealthIndicatorId(new CountryHealthIndicatorId(countryId, 2, 3, year))
                 .indicator(new Indicator(3, "Some indicator", "some code", 2, null, new ArrayList<>(), "some def"))
                 .score(4)
+                .status(PUBLISHED.name())
                 .build();
         List<CountryHealthIndicator> countryHealthIndicators = Arrays.asList(indicator1, indicator2);
 
@@ -795,7 +803,7 @@ public class RegionServiceTest {
 
         regionCountriesDto.add(countryId, "India", asList(regionCountryHealthScoreYearDto));
 
-        when(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdInAndCountryHealthIndicatorIdYearInAndCountryHealthIndicatorIdStatus(asList("IND"), asList("2023"), PUBLISHED.name())).thenReturn(countryHealthIndicators);
+        when(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdInAndCountryHealthIndicatorIdYearInAndStatus(asList("IND"), asList("2023"), PUBLISHED.name())).thenReturn(countryHealthIndicators);
         when(iCountryPhaseRepository.findByCountryPhaseIdCountryIdInAndCountryPhaseIdYearIn(asList("IND"), asList(
                 "2023"))).thenReturn(asList(countryPhase));
         when(countryService.getCountryName(countryId, languageCode)).thenReturn("India");
@@ -819,14 +827,16 @@ public class RegionServiceTest {
         String regionId = "SEARO";
 
         CountryHealthIndicator indicator1 = CountryHealthIndicator.builder()
-                .countryHealthIndicatorId(new CountryHealthIndicatorId(countryId, 1, 2, PUBLISHED.name(), year))
+                .countryHealthIndicatorId(new CountryHealthIndicatorId(countryId, 1, 2, year))
                 .indicator(new Indicator(2, "Some indicator", "some code", 1, null, new ArrayList<>(), "some def"))
                 .score(5)
+                .status(PUBLISHED.name())
                 .build();
         CountryHealthIndicator indicator2 = CountryHealthIndicator.builder()
-                .countryHealthIndicatorId(new CountryHealthIndicatorId(countryId, 2, 3, PUBLISHED.name(), year))
+                .countryHealthIndicatorId(new CountryHealthIndicatorId(countryId, 2, 3, year))
                 .indicator(new Indicator(3, "Some indicator", "some code", 2, null, new ArrayList<>(), "some def"))
                 .score(4)
+                .status(PUBLISHED.name())
                 .build();
         List<CountryHealthIndicator> countryHealthIndicators = Arrays.asList(indicator1, indicator2);
 
@@ -867,7 +877,7 @@ public class RegionServiceTest {
         regionCountriesDto.add(countryId, "India", asList(regionCountryHealthScoreYearDto));
 
         when(iRegionCountryRepository.findByRegionCountryIdRegionId(regionId)).thenReturn(asList(countryId));
-        when(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdInAndCountryHealthIndicatorIdYearInAndCountryHealthIndicatorIdStatus(asList("IND"), asList("2023"), PUBLISHED.name())).thenReturn(countryHealthIndicators);
+        when(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdInAndCountryHealthIndicatorIdYearInAndStatus(asList("IND"), asList("2023"), PUBLISHED.name())).thenReturn(countryHealthIndicators);
         when(iCountryPhaseRepository.findByCountryPhaseIdCountryIdInAndCountryPhaseIdYearIn(asList("IND"), asList(
                 "2023"))).thenReturn(asList(countryPhase));
         when(countryService.getCountryName(countryId, languageCode)).thenReturn("India");

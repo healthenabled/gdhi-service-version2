@@ -66,7 +66,7 @@ public class CountryHealthIndicatorService {
 
     public CountryHealthScoreDto fetchCountryHealthScore(String countryId, LanguageCode languageCode, String year) {
         CountryHealthIndicators countryHealthIndicators = new CountryHealthIndicators(iCountryHealthIndicatorRepository
-                .findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdYearAndCountryHealthIndicatorIdStatus(countryId, year, PUBLISHED.name()));
+                .findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdYearAndStatus(countryId, year, PUBLISHED.name()));
         CountryHealthScoreDto countryHealthScoreDto = constructCountryHealthScore(countryId, countryHealthIndicators,
                 getCategoryPhaseFilter(null, null), year);
         return healthIndicatorTranslator.translateCountryHealthScores(languageCode, countryHealthScoreDto);
@@ -98,8 +98,8 @@ public class CountryHealthIndicatorService {
 
     private List<CountryHealthIndicator> filterByCategoryAndYear(Integer categoryId, String year) {
         return (categoryId == null)
-                ? iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdStatusAndCountryHealthIndicatorIdYear(PUBLISHED.name(), year)
-                : iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCategoryIdAndCountryHealthIndicatorIdYearAndCountryHealthIndicatorIdStatus(categoryId, year, PUBLISHED.name());
+                ? iCountryHealthIndicatorRepository.findByStatusAndCountryHealthIndicatorIdYear(PUBLISHED.name(), year)
+                : iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCategoryIdAndCountryHealthIndicatorIdYearAndStatus(categoryId, year, PUBLISHED.name());
     }
 
 
@@ -191,7 +191,7 @@ public class CountryHealthIndicatorService {
         List<CategoryHealthScoreDto> categoryDtos = getCategoriesWithIndicators(countryHealthIndicators, phaseFilter);
         CountryPhase countryPhase = iCountryPhaseRepository.findByCountryPhaseIdCountryIdAndCountryPhaseIdYear(countryId, year);
         CountrySummary countrySummary = iCountrySummaryRepository.
-                findByCountrySummaryIdCountryIdAndCountrySummaryIdYearAndCountrySummaryIdStatus(countryId, year, PUBLISHED.name());
+                findByCountrySummaryIdCountryIdAndCountrySummaryIdYearAndStatus(countryId, year, PUBLISHED.name());
         String updatedDateStr = countrySummary != null && countrySummary.getUpdatedAt() != null ?
                 new SimpleDateFormat("MMMM yyyy").format(countrySummary.getUpdatedAt()) : "";
         return new CountryHealthScoreDto(countryId, countryHealthIndicators.getCountryName(),

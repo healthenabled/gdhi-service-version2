@@ -53,7 +53,7 @@ public class CountryHealthDataService {
     @Transactional
     public void save(GdhiQuestionnaire gdhiQuestionnaire, String nextStatus , String currentYear) {
         String currentStatus =
-                iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdYearAndCountrySummaryIdStatusNot(gdhiQuestionnaire.getCountryId(), currentYear, PUBLISHED.name()).getStatus();
+                iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdYearAndStatusNot(gdhiQuestionnaire.getCountryId(), currentYear, PUBLISHED.name()).getStatus();
         if (!nextStatus.equals(currentStatus)) {
             removeEntriesWithStatus(gdhiQuestionnaire.getCountryId(), currentStatus, currentYear);
         }
@@ -79,9 +79,7 @@ public class CountryHealthDataService {
         String currentStatus = getStatusOfCountrySummary(countryId, currentYear);
 
         if (isNull(currentStatus)) {
-            CountrySummary countrySummary = new CountrySummary(new CountrySummaryId(countryId, NEW.toString(),
-                    currentYear),
-                    new CountrySummaryDto(false));
+            CountrySummary countrySummary = new CountrySummary(new CountrySummaryId(countryId,currentYear), new CountrySummaryDto(false),NEW.toString());
             iCountrySummaryRepository.save(countrySummary);
             statusDto = new CountryUrlGenerationStatusDto(countryId, true, null);
         }
@@ -126,17 +124,17 @@ public class CountryHealthDataService {
     @Transactional
     public void deleteCountryData(UUID countryUUID, String year) {
         String countryId = iCountryRepository.findByUniqueId(countryUUID).getId();
-        iCountryHealthIndicatorRepository.deleteByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdYearAndCountryHealthIndicatorIdStatus(countryId, year, REVIEW_PENDING.name());
-        iCountryResourceLinkRepository.deleteByCountryResourceLinkIdCountryIdAndCountryResourceLinkIdYearAndCountryResourceLinkIdStatus(countryId,
+        iCountryHealthIndicatorRepository.deleteByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdYearAndStatus(countryId, year, REVIEW_PENDING.name());
+        iCountryResourceLinkRepository.deleteByCountryResourceLinkIdCountryIdAndCountryResourceLinkIdYearAndStatus(countryId,
                 year, REVIEW_PENDING.name());
-        iCountrySummaryRepository.deleteByCountrySummaryIdCountryIdAndCountrySummaryIdYearAndCountrySummaryIdStatus(countryId, year,
+        iCountrySummaryRepository.deleteByCountrySummaryIdCountryIdAndCountrySummaryIdYearAndStatus(countryId, year,
                 REVIEW_PENDING.name());
     }
 
     @Transactional
     public void calculatePhaseForAllCountries(String year) {
         List<CountrySummary> publishedCountries =
-                iCountrySummaryRepository.findByCountrySummaryIdYearAndCountrySummaryIdStatus(year,
+                iCountrySummaryRepository.findByStatusAndCountrySummaryIdYear(year,
                         PUBLISHED.name());
 
         publishedCountries.stream().forEach(country -> calculateAndSaveCountryPhase(country.getCountrySummaryId().getCountryId(), PUBLISHED.name(),
@@ -178,14 +176,14 @@ public class CountryHealthDataService {
                                                                     String year) {
         return healthIndicatorDto.stream().map(dto -> {
             CountryHealthIndicatorId countryHealthIndicatorId = new CountryHealthIndicatorId(countryId,
-                    dto.getCategoryId(), dto.getIndicatorId(), status, year);
-            return new CountryHealthIndicator(countryHealthIndicatorId, dto.getScore(), dto.getSupportingText());
+                    dto.getCategoryId(), dto.getIndicatorId(), year);
+            return new CountryHealthIndicator(countryHealthIndicatorId, dto.getScore(), dto.getSupportingText(), status);
         }).collect(toList());
     }
 
     private void calculateAndSaveCountryPhase(String countryId, String status, String year) {
         CountryHealthIndicators countryHealthIndicators = new CountryHealthIndicators(iCountryHealthIndicatorRepository
-                .findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdYearAndCountryHealthIndicatorIdStatus(countryId, year, status));
+                .findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdYearAndStatus(countryId, year, status));
         Double overallScore = countryHealthIndicators.getOverallScore();
         Integer countryPhaseVal = new Score(overallScore).convertToPhase();
         CountryPhase countryPhase =
@@ -197,11 +195,11 @@ public class CountryHealthDataService {
 
     private void removeEntriesWithStatus(String countryId, String currentStatus, String currentYear) {
         if (!currentStatus.equals(NEW.name())) {
-            iCountryHealthIndicatorRepository.deleteByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdYearAndCountryHealthIndicatorIdStatus(countryId, currentYear, currentStatus);
+            iCountryHealthIndicatorRepository.deleteByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdYearAndStatus(countryId, currentYear, currentStatus);
         }
-        iCountryResourceLinkRepository.deleteByCountryResourceLinkIdCountryIdAndCountryResourceLinkIdYearAndCountryResourceLinkIdStatus(countryId,
+        iCountryResourceLinkRepository.deleteByCountryResourceLinkIdCountryIdAndCountryResourceLinkIdYearAndStatus(countryId,
                 currentYear, currentStatus);
-        iCountrySummaryRepository.deleteByCountrySummaryIdCountryIdAndCountrySummaryIdYearAndCountrySummaryIdStatus(countryId, currentYear,
+        iCountrySummaryRepository.deleteByCountrySummaryIdCountryIdAndCountrySummaryIdYearAndStatus(countryId, currentYear,
                 currentStatus);
     }
 
@@ -213,9 +211,9 @@ public class CountryHealthDataService {
 
     private void saveCountryContactInfo(String countryId, String status,
                                         CountrySummaryDto countrySummaryDetailDto, String year) {
-        CountrySummary countrySummary = new CountrySummary(new CountrySummaryId(countryId, status, year),
-                countrySummaryDetailDto);
-        iCountryResourceLinkRepository.deleteByCountryResourceLinkIdCountryIdAndCountryResourceLinkIdYearAndCountryResourceLinkIdStatus(countryId,
+        CountrySummary countrySummary = new CountrySummary(new CountrySummaryId(countryId, year),
+                countrySummaryDetailDto, status);
+        iCountryResourceLinkRepository.deleteByCountryResourceLinkIdCountryIdAndCountryResourceLinkIdYearAndStatus(countryId,
                 year, status);
         entityManager.flush();
         iCountrySummaryRepository.save(countrySummary);

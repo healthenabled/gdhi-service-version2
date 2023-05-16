@@ -49,7 +49,7 @@ public class CountryService {
     }
 
     public CountrySummaryDto fetchCountrySummary(String countryId, String year) {
-        CountrySummary countrySummary = iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdYearAndCountrySummaryIdStatus(countryId, year, PUBLISHED.name());
+        CountrySummary countrySummary = iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdYearAndStatus(countryId, year, PUBLISHED.name());
         return Optional.ofNullable(countrySummary).map(CountrySummaryDto::new).orElse(new CountrySummaryDto());
     }
 
@@ -58,7 +58,7 @@ public class CountryService {
 
         GdhiQuestionnaire gdhiQuestionnaire = null;
 
-        List<CountrySummary> countrySummaries = (!publishedOnly) ? getCountrySummaries(year, countryId) : Collections.singletonList(iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdYearAndCountrySummaryIdStatus(countryId, year, PUBLISHED.name()));
+        List<CountrySummary> countrySummaries = (!publishedOnly) ? getCountrySummaries(year, countryId) : Collections.singletonList(iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdYearAndStatus(countryId, year, PUBLISHED.name()));
 
         if (countrySummaries != null) {
             CountrySummary countrySummary = Optional.ofNullable(countrySummaries.get(0)).get();
@@ -77,7 +77,7 @@ public class CountryService {
     }
 
     private List<CountryHealthIndicator> getCountryHealthIndicators(String countryId, CountrySummary countrySummary, String year) {
-        List<CountryHealthIndicator> countryHealthIndicators = iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdYearAndCountryHealthIndicatorIdStatus(countryId, year, countrySummary.getCountrySummaryId().getStatus());
+        List<CountryHealthIndicator> countryHealthIndicators = iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdYearAndStatus(countryId, year, countrySummary.getStatus());
 
         return countryHealthIndicators.stream().sorted(Comparator.comparing(o -> o.getIndicator().getRank())).collect(Collectors.toList());
     }
@@ -88,7 +88,7 @@ public class CountryService {
         List<HealthIndicatorDto> healthIndicatorDtos = sortedIndicators.stream().map(HealthIndicatorDto::new).collect(toList());
         String updatedDateStr = countrySummary != null && countrySummary.getUpdatedAt() != null ?
                 new SimpleDateFormat("MMMM yyyy").format(countrySummary.getUpdatedAt()) : "";
-        gdhiQuestionnaire = new GdhiQuestionnaire(countryId, getCurrentYear(), year, countrySummary.getCountrySummaryId().getStatus(), updatedDateStr, countrySummaryDto, healthIndicatorDtos);
+        gdhiQuestionnaire = new GdhiQuestionnaire(countryId, getCurrentYear(), year, countrySummary.getStatus(), updatedDateStr, countrySummaryDto, healthIndicatorDtos);
         return gdhiQuestionnaire;
     }
 

@@ -113,7 +113,7 @@ public class RegionService {
     private void saveRegionalOverallData(String regionId, List<String> countries, String year) {
 
         List<CountryHealthIndicator> countryHealthIndicators =
-                iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdInAndCountryHealthIndicatorIdYearAndCountryHealthIndicatorIdStatus(countries, year, PUBLISHED.name());
+                iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdInAndCountryHealthIndicatorIdYearAndStatus(countries, year, PUBLISHED.name());
         if (countryHealthIndicators.size() > 0) {
             CountryHealthIndicators countryHealthIndicators1 = new CountryHealthIndicators(countryHealthIndicators);
             RegionalOverallData regionalOverallData = calculateRegionalOverallDataFor(countryHealthIndicators1,
@@ -134,7 +134,7 @@ public class RegionService {
     private void saveRegionalIndicatorData(String regionId, List<String> countries, String year) {
 
         List<CountryHealthIndicator> countryHealthIndicators =
-                iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdInAndCountryHealthIndicatorIdYearAndCountryHealthIndicatorIdStatus(countries, year, PUBLISHED.name());
+                iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdInAndCountryHealthIndicatorIdYearAndStatus(countries, year, PUBLISHED.name());
         List<RegionalIndicatorData> regionalIndicatorsData =
                 calculateRegionalIndicatorDataFor(countryHealthIndicators, regionId, year);
 
@@ -149,7 +149,7 @@ public class RegionService {
     public void saveRegionalCategoryData(String regionId, List<String> countries, String year) {
 
         List<CountryHealthIndicator> countryHealthIndicators =
-                iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdInAndCountryHealthIndicatorIdYearAndCountryHealthIndicatorIdStatus(countries, year, PUBLISHED.name());
+                iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdInAndCountryHealthIndicatorIdYearAndStatus(countries, year, PUBLISHED.name());
         if (countryHealthIndicators.size() > 0) {
             CountryHealthIndicators countryHealthIndicators1 = new CountryHealthIndicators(countryHealthIndicators);
             List<RegionalCategoryData> regionalCategoriesData =
@@ -229,7 +229,7 @@ public class RegionService {
         List<String> countries = map.get(regionId);
 
         List<CountryHealthIndicator> countryHealthIndicators =
-                iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdInAndCountryHealthIndicatorIdYearAndCountryHealthIndicatorIdStatus(countries, year, PUBLISHED.name());
+                iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdInAndCountryHealthIndicatorIdYearAndStatus(countries, year, PUBLISHED.name());
         List<RegionalIndicatorData> regionalIndicatorsData =
                 calculateRegionalIndicatorDataFor(countryHealthIndicators, regionId, year);
 
@@ -247,7 +247,7 @@ public class RegionService {
         List<String> countries = map.get(regionId);
 
         List<CountryHealthIndicator> countryHealthIndicators =
-                iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdInAndCountryHealthIndicatorIdYearAndCountryHealthIndicatorIdStatus(countries, year, PUBLISHED.name());
+                iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdInAndCountryHealthIndicatorIdYearAndStatus(countries, year, PUBLISHED.name());
         CountryHealthIndicators countryHealthIndicators1 = new CountryHealthIndicators(countryHealthIndicators);
         List<RegionalCategoryData> regionalCategoriesData =
                 calculateRegionalCategoriesDataFor(countryHealthIndicators1, regionId, year);
@@ -266,7 +266,7 @@ public class RegionService {
         List<String> countries = map.get(regionId);
 
         List<CountryHealthIndicator> countryHealthIndicators = iCountryHealthIndicatorRepository.
-                findByCountryHealthIndicatorIdCountryIdInAndCountryHealthIndicatorIdYearAndCountryHealthIndicatorIdStatus(countries, year,
+                findByCountryHealthIndicatorIdCountryIdInAndCountryHealthIndicatorIdYearAndStatus(countries, year,
                         PUBLISHED.name());
         CountryHealthIndicators countryHealthIndicators1 = new CountryHealthIndicators(countryHealthIndicators);
         RegionalOverallData regionalOverallData = calculateRegionalOverallDataFor(countryHealthIndicators1, regionId,
@@ -366,7 +366,7 @@ public class RegionService {
                                                                             List<String> years,
                                                                             LanguageCode languageCode) {
         List<CountryHealthIndicator> countryHealthIndicators = iCountryHealthIndicatorRepository.
-                findByCountryHealthIndicatorIdCountryIdInAndCountryHealthIndicatorIdYearInAndCountryHealthIndicatorIdStatus(countryIds, years, PUBLISHED.name());
+                findByCountryHealthIndicatorIdCountryIdInAndCountryHealthIndicatorIdYearInAndStatus(countryIds, years, PUBLISHED.name());
         List<CountryPhase> countryPhases =
                 iCountryPhaseRepository.findByCountryPhaseIdCountryIdInAndCountryPhaseIdYearIn(countryIds, years);
         return constructRegionCountriesDto(countryHealthIndicators, countryPhases, languageCode);

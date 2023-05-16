@@ -24,52 +24,58 @@ public class CountryHealthIndicatorsTest {
         String year = "Version1";
 
         CountryHealthIndicator countryHealthIndicator = CountryHealthIndicator.builder()
-                .countryHealthIndicatorId(new CountryHealthIndicatorId(india, 1, 1, status, year))
+                .countryHealthIndicatorId(new CountryHealthIndicatorId(india, 1, 1, year))
                 .country(country)
                 .category(Category.builder().id(1).build())
                 .indicator(Indicator.builder().indicatorId(1).build())
                 .score(3)
+                .status(status)
                 .build();
 
         CountryHealthIndicator countryHealthIndicator1 = CountryHealthIndicator.builder()
                 .country(country)
-                .countryHealthIndicatorId(new CountryHealthIndicatorId(india, 1, 2, status, year))
+                .countryHealthIndicatorId(new CountryHealthIndicatorId(india, 1, 2, year))
                 .category(Category.builder().id(1).build())
                 .indicator(Indicator.builder().indicatorId(2).build())
                 .score(3)
+                .status(status)
                 .build();
 
 
         CountryHealthIndicator countryHealthIndicator3 = CountryHealthIndicator.builder()
-                .countryHealthIndicatorId(new CountryHealthIndicatorId(india, 1, 1, status, year))
+                .countryHealthIndicatorId(new CountryHealthIndicatorId(india, 1, 1, year))
                 .country(country)
                 .category(Category.builder().id(1).build())
                 .indicator(Indicator.builder().indicatorId(3).build())
                 .score(2)
+                .status(status)
                 .build();
 
         CountryHealthIndicator countryHealthIndicator2 = CountryHealthIndicator.builder()
-                .countryHealthIndicatorId(new CountryHealthIndicatorId(india, 2, 2, status, year))
+                .countryHealthIndicatorId(new CountryHealthIndicatorId(india, 2, 2, year))
                 .country(country)
                 .category(Category.builder().id(2).build())
                 .indicator(Indicator.builder().indicatorId(4).build())
                 .score(null)
+                .status(status)
                 .build();
 
         CountryHealthIndicator countryHealthIndicator4 = CountryHealthIndicator.builder()
-                .countryHealthIndicatorId(new CountryHealthIndicatorId(india, 1, 21, status, year))
+                .countryHealthIndicatorId(new CountryHealthIndicatorId(india, 1, 21, year))
                 .country(country)
                 .category(Category.builder().id(1).build())
                 .indicator(Indicator.builder().indicatorId(5).parentId(9).build())
                 .score(2)
+                .status(status)
                 .build();
 
         CountryHealthIndicator countryHealthIndicator5 = CountryHealthIndicator.builder()
                 .country(country)
-                .countryHealthIndicatorId(new CountryHealthIndicatorId(india, 2, 2, status, year))
+                .countryHealthIndicatorId(new CountryHealthIndicatorId(india, 2, 2, year))
                 .category(Category.builder().id(2).build())
                 .indicator(Indicator.builder().indicatorId(6).build())
                 .score(null)
+                .status(status)
                 .build();
 
         this.countryHealthIndicators = asList(countryHealthIndicator, countryHealthIndicator1, countryHealthIndicator2,
