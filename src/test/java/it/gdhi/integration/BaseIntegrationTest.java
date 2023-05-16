@@ -50,8 +50,9 @@ public class BaseIntegrationTest {
 
     void setupHealthIndicatorsForCountry(String countryId, List<HealthIndicatorDto> healthIndicatorDtos, String year) {
         healthIndicatorDtos.forEach(healthIndicator -> {
-            CountryHealthIndicatorId countryHealthIndicatorId1 = new CountryHealthIndicatorId(countryId, healthIndicator.getCategoryId(), healthIndicator.getIndicatorId(), healthIndicator.getStatus(), year);
-            CountryHealthIndicator countryHealthIndicatorSetupData1 = new CountryHealthIndicator(countryHealthIndicatorId1, healthIndicator.getScore(), healthIndicator.getSupportingText());
+            CountryHealthIndicatorId countryHealthIndicatorId1 = new CountryHealthIndicatorId(countryId, healthIndicator.getCategoryId(), healthIndicator.getIndicatorId(), year);
+            CountryHealthIndicator countryHealthIndicatorSetupData1 = new CountryHealthIndicator(countryHealthIndicatorId1,
+                    healthIndicator.getScore(), healthIndicator.getSupportingText(),healthIndicator.getStatus());
             healthIndicatorRepository.save(countryHealthIndicatorSetupData1);
         });
     }

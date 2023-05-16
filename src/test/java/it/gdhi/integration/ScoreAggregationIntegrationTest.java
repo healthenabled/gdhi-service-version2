@@ -47,7 +47,7 @@ public class ScoreAggregationIntegrationTest extends BaseIntegrationTest {
     private void addCountrySummary(String countryId, String countryName, String alpha2code, String year) throws Exception {
         String status = "PUBLISHED";
         CountrySummary countrySummary = CountrySummary.builder()
-                .countrySummaryId(new CountrySummaryId(countryId, status, year))
+                .countrySummaryId(new CountrySummaryId(countryId, year))
                 .summary("summary")
                 .country(new Country(countryId, countryName, UUID.randomUUID(), alpha2code))
                 .contactName("contactName")
@@ -62,6 +62,7 @@ public class ScoreAggregationIntegrationTest extends BaseIntegrationTest {
                 .dataFeederRole("coll role")
                 .dataApproverEmail("coll email")
                 .countryResourceLinks(new ArrayList<>())
+                .status(status)
                 .build();
         countrySummaryRepository.save(countrySummary);
     }
