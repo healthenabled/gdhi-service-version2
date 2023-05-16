@@ -21,7 +21,7 @@ public class CountrySummaryStatusDto {
     public CountrySummaryStatusDto(CountrySummary dto) {
         countryName = dto.getCountry().getName();
         countryUUID = dto.getCountry().getUniqueId();
-        status = dto.getCountrySummaryId().getStatus();
+        status = dto.getStatus();
         contactName = dto.getContactName();
         contactEmail = dto.getContactEmail();
     }

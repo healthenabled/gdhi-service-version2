@@ -74,7 +74,7 @@ public class CountryHealthIndicators {
         return countryHealthIndicators.stream().map(row -> {
             return new CountryHealthIndicator(row.getCountryHealthIndicatorId(),
                     (row.getScore()== null) ? -1 : row.getScore(),
-                    row.getIndicator(),row.getCategory());
+                    row.getIndicator(),row.getCategory(),row.getStatus());
 
         }).collect(Collectors.toList()).stream();
 

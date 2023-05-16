@@ -59,24 +59,29 @@ public class CountryHealthIndicator {
     private Date createdAt;
     private Date updatedAt;
 
+    @Column(name = "status")
+    private String status;
+
     public CountryHealthIndicator(CountryHealthIndicatorId countryHealthIndicatorId, Integer indicatorScore) {
         this.countryHealthIndicatorId = countryHealthIndicatorId;
         this.score = indicatorScore;
     }
 
     public CountryHealthIndicator(CountryHealthIndicatorId countryHealthIndicatorId, Integer indicatorScore,
-                                  Indicator indicator, Category category  ) {
+                                  Indicator indicator, Category category , String status ) {
         this.countryHealthIndicatorId = countryHealthIndicatorId;
         this.score = indicatorScore;
         this.indicator =  indicator;
         this.category = category;
+        this.status = status;
     }
 
     public CountryHealthIndicator(CountryHealthIndicatorId countryHealthIndicatorId, Integer indicatorScore,
-                                  String supportingText) {
+                                  String supportingText, String status) {
         this.countryHealthIndicatorId = countryHealthIndicatorId;
         this.score = indicatorScore;
         this.supportingText = supportingText;
+        this.status = status;
     }
 
     public String getIndicatorName() {
