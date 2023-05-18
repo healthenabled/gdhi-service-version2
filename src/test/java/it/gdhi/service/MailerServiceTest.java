@@ -10,6 +10,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.util.ReflectionTestUtils;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -38,23 +40,26 @@ public class MailerServiceTest {
         String name1 = "test1";
         String name2 = "test2";
         UUID uniqueId = UUID.randomUUID();
-        Country country = new Country("Ind", "India", uniqueId,"IN");
+        Country country = new Country("Ind", "India", uniqueId, "IN");
         String feeder = "feeder";
         String feederRole = "feeder role";
         String contactEmail = "contact@test.com";
 
         Map<String, String> address = new HashMap<>();
-        address.put(email1, name1);
-        address.put(email2, name2);
+        address.put(name1, email1);
+        address.put(name2, email2);
         when(mailAddresses.getAddressMap()).thenReturn(address);
         mailerService.send(country, feeder, feederRole, contactEmail);
 
-        verify(mailer).send(email2, format(MailerService.SUBJECT, country.getName()), constructBody(name2, country, feeder,
-                feederRole, contactEmail, "http://test"));
-        verify(mailer).send(email1, format(MailerService.SUBJECT, country.getName()), constructBody(name1, country, feeder, feederRole, contactEmail, "http://test"));
+        verify(mailer).send(email2, format(MailerService.SUBJECT, country.getName()), constructBody(name2, country));
+        verify(mailer).send(email1, format(MailerService.SUBJECT, country.getName()), constructBody(name1, country));
     }
-    private String constructBody(String name, Country country, String feeder, String feederRole, String contactEmail, String path) {
-        return format(MailerService.BODY, name,feeder, feederRole,  country.getName(), contactEmail, format(MailerService.HEALTH_INDICATOR_PATH, path, country.getUniqueId()));
+
+    private String constructBody(String name, Country country) {
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String formattedDateTime = currentDateTime.format(formatter);
+        return format(MailerService.BODY, name, country.getName(), formattedDateTime);
     }
 
 }

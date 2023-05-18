@@ -1,5 +1,8 @@
 package it.gdhi.service;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import it.gdhi.model.Country;
 import it.gdhi.utils.MailAddresses;
 import it.gdhi.utils.Mailer;
@@ -24,37 +27,34 @@ public class MailerService {
     @Value("${frontEndURL}")
     private String frontEndURL;
 
-    static final String SUBJECT = "GDHI has a new response from %s";
+    static final String SUBJECT = "GDHM has a new response from %s";
     static final String HEALTH_INDICATOR_PATH = "%s/admin/health_indicator_questionnaire/%s/review";
-    static final String BODY = "Hello %s  ,\n" +
-            "%s, %s has provided response for %s, in the GDHI website.\n" +
-            "Contact: %s \n" +
-            "For more details visit: %s \n" +
+    static final String BODY = "Hello %s,\n\n" +
+            "The data for %s has been submitted on %s. Please review the data.\n\n" +
             "Regards \n" +
-            "GDHI Team ";
+            "GDHM System";
 
     @Async
     public void send(Country country, String feeder, String feederRole, String contactEmail) {
         mailAddresses.getAddressMap().entrySet().forEach((entry) -> {
-            String email = entry.getKey();
-            String name = entry.getValue();
-            String message = constructBody(country, name, feeder, feederRole, contactEmail);
+            String email = entry.getValue();
+            String name = entry.getKey();
+            String message = constructBody(country, name);
             mailer.send(email, constructSubject(country), message);
             log.info("Mail sent successfully to " + name + " " + email);
         });
     }
 
 
-    private String constructBody(Country country, String name, String feeder, String feederRole, String contactMail) {
-        return format(BODY, name, feeder, feederRole, country.getName(),
-                contactMail, constructHealthIndicatorPath(country));
+    private String constructBody(Country country, String name) {
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String formattedDateTime = currentDateTime.format(formatter);
+
+        return format(BODY, name, country.getName(), formattedDateTime);
     }
 
     private String constructSubject(Country country) {
         return format(SUBJECT, country.getName());
-    }
-
-    private String constructHealthIndicatorPath(Country country) {
-        return format(HEALTH_INDICATOR_PATH, frontEndURL, country.getUniqueId());
     }
 }
