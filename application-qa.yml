@@ -20,7 +20,7 @@ spring:
     host: smtp.gmail.com
     port: 465
     protocol: smtps
-    username: twgdhitest@gmail.com
+    username: gdhi.analytics
     password: xxxxxxxxx
     properties:
       mail:
@@ -57,7 +57,7 @@ frontEndURL: http://localhost:8080
 
 mailer:
   addressMap:
-    pavikrish2988@gmail.com: Name1
+    Admin: info@healthenabled.org
 
 logging:
   level:
