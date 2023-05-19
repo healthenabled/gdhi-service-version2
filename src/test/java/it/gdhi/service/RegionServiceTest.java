@@ -207,18 +207,24 @@ public class RegionServiceTest {
                         indicator4)).build())
                 .build();
         CountryHealthIndicator countryHealthIndicator3 = CountryHealthIndicator.builder()
+                .indicator(indicator2)
+                .score(-1)
+                .category(Category.builder().id(2).indicators(Arrays.asList(indicator1, indicator2, indicator3,
+                        indicator4)).build())
+                .build();
+        CountryHealthIndicator countryHealthIndicator4 = CountryHealthIndicator.builder()
                 .indicator(indicator3)
                 .score(2)
                 .category(Category.builder().id(3).indicators(Arrays.asList(indicator1, indicator2, indicator3,
                         indicator4)).build())
                 .build();
-        CountryHealthIndicator countryHealthIndicator4 = CountryHealthIndicator.builder()
+        CountryHealthIndicator countryHealthIndicator5 = CountryHealthIndicator.builder()
                 .indicator(indicator4)
-                .score(3)
+                .score(5)
                 .category(Category.builder().id(4).indicators(Arrays.asList(indicator1, indicator2, indicator3,
                         indicator4)).build())
                 .build();
-        CountryHealthIndicator countryHealthIndicator5 = CountryHealthIndicator.builder()
+        CountryHealthIndicator countryHealthIndicator6 = CountryHealthIndicator.builder()
                 .indicator(indicator1)
                 .score(4)
                 .category(Category.builder().id(1).indicators(Arrays.asList(indicator1, indicator2, indicator3,
@@ -228,7 +234,7 @@ public class RegionServiceTest {
         String region = "PAHO";
         List<CountryHealthIndicator> countryHealthIndicators = Arrays.asList(countryHealthIndicator1,
                 countryHealthIndicator2,
-                countryHealthIndicator3, countryHealthIndicator4, countryHealthIndicator5);
+                countryHealthIndicator3, countryHealthIndicator4, countryHealthIndicator5, countryHealthIndicator6);
         List<RegionalIndicatorData> regionalIndicatorData =
                 regionService.calculateRegionalIndicatorDataFor(countryHealthIndicators, region,
                         getCurrentYear());
@@ -248,7 +254,9 @@ public class RegionServiceTest {
         List<RegionalIndicatorData> expectedRegionalIndicatorData = Arrays.asList(regionalIndicatorData1,
                 regionalIndicatorData2,
                 regionalIndicatorData3);
-        assertEquals(expectedRegionalIndicatorData, regionalIndicatorData);
+        assertEquals(expectedRegionalIndicatorData.size(), regionalIndicatorData.size());
+        assertTrue(expectedRegionalIndicatorData.containsAll(regionalIndicatorData));
+        assertTrue(regionalIndicatorData.containsAll(expectedRegionalIndicatorData));
     }
 
     @Test

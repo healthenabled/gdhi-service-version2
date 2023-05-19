@@ -24,6 +24,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.OptionalDouble;
 import java.util.stream.Collectors;
 
 import static it.gdhi.controller.strategy.FilterStrategy.getCategoryPhaseFilter;
@@ -186,9 +187,11 @@ public class RegionService {
                             regionalIndicator.convertNullScoreToNotAvailable();
                             return regionalIndicator;
                         })
-                        .filter(indicator -> indicator.getIndicator().getParentId() == null)
+                        .filter(indicator -> indicator.getIndicator().getParentId() == null && indicator.getScore() != -1)
                         .collect(groupingBy(CountryHealthIndicator::getIndicatorId,
                                 averagingInt(CountryHealthIndicator::getScore)));
+
+        regionalIndicators.putAll(defaultToNAWhenAllIndicatorsAreNA(countryHealthIndicators));
 
         return regionalIndicators.entrySet().stream().map(dto -> {
             return RegionalIndicatorData.builder().regionalIndicatorId(new RegionalIndicatorId(regionId, dto.getKey()
@@ -201,11 +204,10 @@ public class RegionService {
                                                                String regionId, String year) {
         Map<Integer, Double> CategoryScore = countryHealthIndicators.groupByCategoryIdWithoutNullAndNegativeScores();
         Double averageOverallScore =
-                CategoryScore.entrySet().stream().mapToDouble(Map.Entry::getValue).average().getAsDouble();
-        RegionalOverallData regionalOverallData =
-                RegionalOverallData.builder().regionalOverallId(RegionalOverallId.builder().regionId(regionId).year(year).build())
-                        .overAllScore(Score.builder().value(averageOverallScore).build().convertToPhase()).build();
-        return regionalOverallData;
+                CategoryScore == null ? -1.0 : CategoryScore.entrySet().stream().mapToDouble(Map.Entry::getValue).average().getAsDouble();
+
+        return RegionalOverallData.builder().regionalOverallId(RegionalOverallId.builder().regionId(regionId).year(year).build())
+                .overAllScore(Score.builder().value(averageOverallScore).build().convertToPhase()).build();
     }
 
     @Transactional
@@ -366,7 +368,8 @@ public class RegionService {
                                                                             List<String> years,
                                                                             LanguageCode languageCode) {
         List<CountryHealthIndicator> countryHealthIndicators = iCountryHealthIndicatorRepository.
-                findByCountryHealthIndicatorIdCountryIdInAndCountryHealthIndicatorIdYearInAndCountryHealthIndicatorIdStatus(countryIds, years, PUBLISHED.name());
+                findByCountryHealthIndicatorIdCountryIdInAndCountryHealthIndicatorIdYearInAndCountryHealthIndicatorIdStatus(countryIds, years,
+                        PUBLISHED.name());
         List<CountryPhase> countryPhases =
                 iCountryPhaseRepository.findByCountryPhaseIdCountryIdInAndCountryPhaseIdYearIn(countryIds, years);
         return constructRegionCountriesDto(countryHealthIndicators, countryPhases, languageCode);
@@ -407,7 +410,8 @@ public class RegionService {
 
     }
 
-    public RegionCountryHealthScoreDto constructRegionCountryHealthScoreDto(CountryHealthIndicators countryHealthIndicators, CountryPhase countryPhase) {
+    public RegionCountryHealthScoreDto constructRegionCountryHealthScoreDto(CountryHealthIndicators countryHealthIndicators,
+                                                                            CountryPhase countryPhase) {
         List<CategoryHealthScoreDto> categoryDtos =
                 countryHealthIndicatorService.getCategoriesWithIndicators(countryHealthIndicators,
                         getCategoryPhaseFilter(null, null));
@@ -423,5 +427,23 @@ public class RegionService {
 
     public List<String> fetchYearsForARegion(String regionId, Integer limit) {
         return iRegionalOverallRepository.findByRegionIdOrderByUpdatedAtDesc(regionId, limit);
+    }
+
+    private Map<Integer, Double> defaultToNAWhenAllIndicatorsAreNA(List<CountryHealthIndicator> countryHealthIndicators) {
+        Map<Integer, List<Integer>> indIdScoresMap = countryHealthIndicators.stream()
+                .filter(indicator -> indicator.getIndicator().getParentId() == null)
+                .collect(groupingBy(CountryHealthIndicator::getIndicatorId, Collectors.mapping(CountryHealthIndicator::getScore, toList())));
+
+        Map<Integer, Double> indIdAvgScoresMap = new HashMap<>();
+        indIdScoresMap.forEach((indId, indScores) -> {
+            if (areAllIndicatorsNA(indScores)) {
+                indIdAvgScoresMap.put(indId, -1.0);
+            }
+        });
+        return indIdAvgScoresMap;
+    }
+
+    private boolean areAllIndicatorsNA(List<Integer> indScores) {
+        return indScores.stream().allMatch(indScore -> indScore == -1);
     }
 }
