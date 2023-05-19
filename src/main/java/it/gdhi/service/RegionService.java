@@ -1,41 +1,53 @@
 package it.gdhi.service;
 
-import it.gdhi.dto.BenchmarkDto;
-import it.gdhi.dto.CategoryHealthScoreDto;
-import it.gdhi.dto.RegionCountriesDto;
-import it.gdhi.dto.GlobalHealthScoreDto;
-import it.gdhi.dto.RegionCountryHealthScoreDto;
-import it.gdhi.dto.RegionCountryHealthScoreYearDto;
-import it.gdhi.internationalization.service.CountryNameTranslator;
-import it.gdhi.internationalization.service.HealthIndicatorTranslator;
-import it.gdhi.model.*;
-import it.gdhi.model.id.RegionalCategoryId;
-import it.gdhi.model.id.RegionalIndicatorId;
-import it.gdhi.model.id.RegionalOverallId;
-import it.gdhi.repository.*;
-import it.gdhi.utils.LanguageCode;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import javax.persistence.EntityManager;
-import javax.transaction.Transactional;
-
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
-import java.util.OptionalDouble;
 import java.util.stream.Collectors;
+
+import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
+
+import it.gdhi.dto.BenchmarkDto;
+import it.gdhi.dto.CategoryHealthScoreDto;
+import it.gdhi.dto.GlobalHealthScoreDto;
+import it.gdhi.dto.RegionCountriesDto;
+import it.gdhi.dto.RegionCountryHealthScoreDto;
+import it.gdhi.dto.RegionCountryHealthScoreYearDto;
+import it.gdhi.internationalization.service.CountryNameTranslator;
+import it.gdhi.internationalization.service.HealthIndicatorTranslator;
+import it.gdhi.internationalization.service.RegionNameTranslator;
+import it.gdhi.model.Category;
+import it.gdhi.model.CountryHealthIndicator;
+import it.gdhi.model.CountryHealthIndicators;
+import it.gdhi.model.CountryPhase;
+import it.gdhi.model.Region;
+import it.gdhi.model.RegionCountry;
+import it.gdhi.model.RegionalCategoryData;
+import it.gdhi.model.RegionalIndicatorData;
+import it.gdhi.model.RegionalOverallData;
+import it.gdhi.model.Score;
+import it.gdhi.model.id.RegionalCategoryId;
+import it.gdhi.model.id.RegionalIndicatorId;
+import it.gdhi.model.id.RegionalOverallId;
+import it.gdhi.repository.ICountryHealthIndicatorRepository;
+import it.gdhi.repository.ICountryPhaseRepository;
+import it.gdhi.repository.ICountryRepository;
+import it.gdhi.repository.IRegionCountryRepository;
+import it.gdhi.repository.IRegionRepository;
+import it.gdhi.repository.IRegionalCategoryDataRepository;
+import it.gdhi.repository.IRegionalIndicatorDataRepository;
+import it.gdhi.repository.IRegionalOverallDataRepository;
+import it.gdhi.utils.LanguageCode;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import static it.gdhi.controller.strategy.FilterStrategy.getCategoryPhaseFilter;
 import static it.gdhi.utils.FormStatus.PUBLISHED;
-import static java.util.stream.Collectors.*;
-
-import it.gdhi.internationalization.service.RegionNameTranslator;
-import it.gdhi.model.Region;
-import it.gdhi.repository.IRegionCountryRepository;
-import it.gdhi.repository.IRegionRepository;
-import org.springframework.stereotype.Service;
+import static java.util.stream.Collectors.averagingInt;
+import static java.util.stream.Collectors.groupingBy;
+import static java.util.stream.Collectors.toList;
 
 @Service
 public class RegionService {
@@ -120,12 +132,7 @@ public class RegionService {
             RegionalOverallData regionalOverallData = calculateRegionalOverallDataFor(countryHealthIndicators1,
                     regionId, year);
 
-            RegionalOverallData existingRegionalOverallData =
-                    iRegionalOverallRepository.findByRegionalOverallIdRegionIdAndRegionalOverallIdYear(regionId,
-                            year);
-
-            if (existingRegionalOverallData == null || !Objects.equals(existingRegionalOverallData.getOverAllScore(),
-                    regionalOverallData.getOverAllScore())) {
+            if (regionalOverallData != null) {
                 iRegionalOverallRepository.save(regionalOverallData);
             }
         }
@@ -274,12 +281,7 @@ public class RegionService {
         RegionalOverallData regionalOverallData = calculateRegionalOverallDataFor(countryHealthIndicators1, regionId,
                 year);
 
-        RegionalOverallData existingRegionalOverallData =
-                iRegionalOverallRepository.findByRegionalOverallIdRegionIdAndRegionalOverallIdYear(regionId,
-                        year);
-
-        if (existingRegionalOverallData == null || !Objects.equals(existingRegionalOverallData.getOverAllScore(),
-                regionalOverallData.getOverAllScore())) {
+        if (regionalOverallData != null) {
             iRegionalOverallRepository.save(regionalOverallData);
         }
     }

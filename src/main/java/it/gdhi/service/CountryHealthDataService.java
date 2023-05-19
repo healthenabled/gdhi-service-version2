@@ -51,7 +51,7 @@ public class CountryHealthDataService {
     private IRegionCountryRepository iRegionCountryRepository;
 
     @Transactional
-    public void save(GdhiQuestionnaire gdhiQuestionnaire, String nextStatus , String currentYear) {
+    public void save(GdhiQuestionnaire gdhiQuestionnaire, String nextStatus, String currentYear) {
         String currentStatus =
                 iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdYearAndCountrySummaryIdStatusNot(gdhiQuestionnaire.getCountryId(), currentYear, PUBLISHED.name()).getStatus();
         if (!nextStatus.equals(currentStatus)) {
@@ -99,7 +99,7 @@ public class CountryHealthDataService {
 
     @Transactional
     public void publish(GdhiQuestionnaire gdhiQuestionnaire, String currentYear) {
-        save(gdhiQuestionnaire, PUBLISHED.name() , currentYear);
+        save(gdhiQuestionnaire, PUBLISHED.name(), currentYear);
         calculateOverallPhase(gdhiQuestionnaire.getCountryId(), currentYear);
     }
 
@@ -112,7 +112,7 @@ public class CountryHealthDataService {
     @Transactional
     public void submit(GdhiQuestionnaire gdhiQuestionnaire) {
         String currentYear = getCurrentYear();
-        save(gdhiQuestionnaire, REVIEW_PENDING.name() , currentYear);
+        save(gdhiQuestionnaire, REVIEW_PENDING.name(), currentYear);
         sendMail(gdhiQuestionnaire.getDataFeederName(), gdhiQuestionnaire.getDataFeederRole(),
                 gdhiQuestionnaire.getContactEmail(), gdhiQuestionnaire.getCountryId());
     }
@@ -120,7 +120,7 @@ public class CountryHealthDataService {
     @Transactional
     public void saveCorrection(GdhiQuestionnaire gdhiQuestionnaire) {
         String currentYear = getCurrentYear();
-        save(gdhiQuestionnaire, REVIEW_PENDING.name() , currentYear);
+        save(gdhiQuestionnaire, REVIEW_PENDING.name(), currentYear);
     }
 
     @Transactional
@@ -188,11 +188,7 @@ public class CountryHealthDataService {
                 .findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdYearAndCountryHealthIndicatorIdStatus(countryId, year, status));
         Double overallScore = countryHealthIndicators.getOverallScore();
         Integer countryPhaseVal = new Score(overallScore).convertToPhase();
-        CountryPhase countryPhase =
-                iCountryPhaseRepository.findByCountryPhaseIdCountryIdAndCountryPhaseIdYear(countryId, year);
-        if (countryPhase == null || !Objects.equals(countryPhaseVal, countryPhase.getCountryOverallPhase())) {
-            iCountryPhaseRepository.save(new CountryPhase(countryId, countryPhaseVal, year));
-        }
+        iCountryPhaseRepository.save(new CountryPhase(countryId, countryPhaseVal, year));
     }
 
     private void removeEntriesWithStatus(String countryId, String currentStatus, String currentYear) {
