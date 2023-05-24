@@ -758,8 +758,8 @@ public class CountryHealthIndicatorServiceTest {
         CategoryHealthScoreDto actualCategory = globalHealthIndicator.getCategories().stream().filter(cat -> cat.getId().equals(category.getId())).findFirst().get();
         assertEquals(4, actualCategory.getPhase().intValue());
         actualCategory = globalHealthIndicator.getCategories().stream().filter(cat -> cat.getId().equals(category1.getId())).findFirst().get();
-        assertEquals(1, actualCategory.getPhase().intValue());
-        assertThat(globalHealthIndicator.getOverAllScore(), is(2));
+        assertEquals(2, actualCategory.getPhase().intValue());
+        assertThat(globalHealthIndicator.getOverAllScore(), is(3));
     }
 
     @Test

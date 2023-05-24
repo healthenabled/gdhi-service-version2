@@ -179,7 +179,7 @@ public class CountryHealthIndicatorService {
 
     private Double getAverageCategoryScore(List<CategoryHealthScoreDto> categoriesHealthScore) {
         OptionalDouble optionalGlobalScore = categoriesHealthScore.stream()
-                .filter(c -> !isNull(c.getOverallScore()))
+                .filter(c -> (!isNull(c.getOverallScore()) && c.getOverallScore() != -1))
                 .mapToDouble(CategoryHealthScoreDto::getOverallScore)
                 .average();
         return optionalGlobalScore.isPresent() ? optionalGlobalScore.getAsDouble() : null;
