@@ -49,4 +49,7 @@ public class CategoryHealthScoreDto {
     public void translateCategoryName(String translatedName) {
         if(isNonNullAndNonEmpty(translatedName)) this.name = translatedName;
     }
+    public void setIndicatorToNull() {
+        this.indicators = null;
+    }
 }

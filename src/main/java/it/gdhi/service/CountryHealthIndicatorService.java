@@ -106,7 +106,10 @@ public class CountryHealthIndicatorService {
     private CountriesHealthScoreDto getTranslatedCountriesHealthScore(CountriesHealthScoreDto countriesHealthScoreDto,
                                                                       LanguageCode code) {
         List<CountryHealthScoreDto> countryHealthScores = countriesHealthScoreDto.getCountryHealthScores().stream()
-                .map(dto -> healthIndicatorTranslator.translateCountryHealthScores(code, dto))
+                .map(dto -> {
+                    dto.getCategories().forEach(CategoryHealthScoreDto::setIndicatorToNull);
+                    return healthIndicatorTranslator.translateCountryHealthScoreCountryNameAndCategory(code, dto);
+                })
                 .collect(toList());
         return new CountriesHealthScoreDto(countryHealthScores);
     }
@@ -141,7 +144,7 @@ public class CountryHealthIndicatorService {
         List<CountryHealthScoreDto> countryHealthScores = fetchCountriesHealthScoresForExcel(languageCode, year)
                 .getCountryHealthScores();
 
-        excelUtilService.convertListToExcel(countryHealthScores, languageCode,this.getFileWithPath() );
+        excelUtilService.convertListToExcel(countryHealthScores, languageCode, this.getFileWithPath());
         excelUtilService.downloadFile(request, response, this.getFileWithPath());
     }
 

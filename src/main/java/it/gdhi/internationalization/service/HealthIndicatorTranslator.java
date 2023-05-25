@@ -90,6 +90,19 @@ public class HealthIndicatorTranslator {
         return countryHealthScore;
     }
 
+    public CountryHealthScoreDto translateCountryHealthScoreCountryNameAndCategory(LanguageCode languageCode,
+                                                                                   CountryHealthScoreDto countryHealthScore) {
+        if(isLocalizationNotRequired(languageCode)) return countryHealthScore;
+
+        translateCountry(languageCode, countryHealthScore);
+        countryHealthScore.getCategories()
+                .forEach(category -> {
+                    translateCategory(languageCode, category);
+                });
+
+        return countryHealthScore;
+    }
+
     private void translateCountry(LanguageCode languageCode, CountryHealthScoreDto countryHealthScore) {
         String translatedCountryName = countryNameTranslator.getCountryTranslationForLanguage(languageCode,
                                                                                     countryHealthScore.getCountryId());

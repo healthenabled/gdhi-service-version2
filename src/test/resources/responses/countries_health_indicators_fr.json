@@ -10,78 +10,21 @@
           "name": "Leadership & Gouvernance",
           "overallScore": 1.5,
           "phase": 2,
-          "indicators": [
-            {
-              "id": 1,
-              "code": "1",
-              "name": "Santé numérique priorisée au niveau national à travers des instances/mécanismes de gouvernance dédiés",
-              "indicatorDescription": "Le pays dispose-t-il d'un département/agence/groupe de travail national distinct pour la santé numérique?",
-              "score": 1,
-              "supportingText": "sp1",
-              "scoreDescription": "Aucun organe de coordination n'existe et/ou une structure de gouvernance naissante pour la santé numérique est constituée au cas par cas."
-            },
-            {
-              "id": 2,
-              "code": "2",
-              "name": "Santé numérique priorisée au niveau national grâce à la planification",
-              "indicatorDescription": "La santé numérique est-elle incluse et budgétisée dans la politique nationale de santé ou les stratégies et/ou plans nationaux pertinents ? Remarque : Cet indicateur se concentre sur l'inclusion de la santé numérique ou de la cybersanté dans la stratégie nationale de santé.",
-              "score": 2,
-              "supportingText": "sp2",
-              "scoreDescription": "Il y a des discussions sur l'inclusion de la santé numérique dans la santé nationale ou d'autres stratégies ou plans nationaux pertinents. Le libellé proposé pour l'inclusion de la santé numérique dans la santé nationale ou les stratégies et/ou plans nationaux pertinents a été élaboré et est en cours d'examen."
-            }
-          ]
+          "indicators": null
         },
         {
           "id": 2,
           "name": "Stratégie & investissement",
           "overallScore": 3.0,
           "phase": 3,
-          "indicators": [
-            {
-              "id": 3,
-              "code": "5",
-              "name": "Stratégie ou cadre national de cybersanté/santé numérique",
-              "indicatorDescription": "Le pays dispose-t-il d'une stratégie ou d'un cadre de cybersanté ou de santé numérique et d'un plan de santé numérique chiffré ?",
-              "score": 3,
-              "supportingText": "sp3",
-              "scoreDescription": "Plan national chiffré de santé numérique élaboré et approuvé."
-            },
-            {
-              "id": 4,
-              "code": "6",
-              "name": "Financement public de la santé numérique",
-              "indicatorDescription": "Le financement public (y compris les prêts) pour la santé numérique est-il suffisant pour les stratégies, les priorités (besoins) ou le plan chiffré de santé numérique du pays ?",
-              "score": null,
-              "supportingText": "sp4",
-              "scoreDescription": "Not Available"
-            }
-          ]
+          "indicators": null
         },
         {
           "id": 3,
           "name": "Législation, politique & conformité",
           "overallScore": -1.0,
           "phase": -1,
-          "indicators": [
-            {
-              "id": 5,
-              "code": "7",
-              "name": "Cadre juridique de la protection des données (sécurité/cybersécurité)",
-              "indicatorDescription": "Existe-t-il une loi sur la sécurité des données (tout au long du cycle de vie des données, par exemple la collecte, le traitement, le stockage, la transmission, l'utilisation et la destruction) qui concerne la santé numérique ?",
-              "score": null,
-              "supportingText": "sp5",
-              "scoreDescription": "Not Available"
-            },
-            {
-              "id": 6,
-              "code": "8",
-              "name": "Lois ou réglementations relatives à la vie privée, au consentement, à la confidentialité et à l'accès aux informations sur la santé (Confidentialité)",
-              "indicatorDescription": "Existe-t-il une loi pour protéger la vie privée des individus, régissant la propriété, le consentement,  l'accès et le partage des données de santé numériques identifiables individuellement ?",
-              "score": null,
-              "supportingText": "sp6",
-              "scoreDescription": "Not Available"
-            }
-          ]
+          "indicators": null
         }
       ],
       "countryPhase": 2,
@@ -97,78 +40,21 @@
           "name": "Leadership & Gouvernance",
           "overallScore": -1.0,
           "phase": -1,
-          "indicators": [
-            {
-              "id": 1,
-              "code": "1",
-              "name": "Santé numérique priorisée au niveau national à travers des instances/mécanismes de gouvernance dédiés",
-              "indicatorDescription": "Le pays dispose-t-il d'un département/agence/groupe de travail national distinct pour la santé numérique?",
-              "score": null,
-              "supportingText": "sp13",
-              "scoreDescription": "Not Available"
-            },
-            {
-              "id": 2,
-              "code": "2",
-              "name": "Santé numérique priorisée au niveau national grâce à la planification",
-              "indicatorDescription": "La santé numérique est-elle incluse et budgétisée dans la politique nationale de santé ou les stratégies et/ou plans nationaux pertinents ? Remarque : Cet indicateur se concentre sur l'inclusion de la santé numérique ou de la cybersanté dans la stratégie nationale de santé.",
-              "score": null,
-              "supportingText": "sp14",
-              "scoreDescription": "Not Available"
-            }
-          ]
+          "indicators": null
         },
         {
           "id": 2,
           "name": "Stratégie & investissement",
           "overallScore": -1.0,
           "phase": -1,
-          "indicators": [
-            {
-              "id": 3,
-              "code": "5",
-              "name": "Stratégie ou cadre national de cybersanté/santé numérique",
-              "indicatorDescription": "Le pays dispose-t-il d'une stratégie ou d'un cadre de cybersanté ou de santé numérique et d'un plan de santé numérique chiffré ?",
-              "score": null,
-              "supportingText": "sp15",
-              "scoreDescription": "Not Available"
-            },
-            {
-              "id": 4,
-              "code": "6",
-              "name": "Financement public de la santé numérique",
-              "indicatorDescription": "Le financement public (y compris les prêts) pour la santé numérique est-il suffisant pour les stratégies, les priorités (besoins) ou le plan chiffré de santé numérique du pays ?",
-              "score": null,
-              "supportingText": "sp16",
-              "scoreDescription": "Not Available"
-            }
-          ]
+          "indicators": null
         },
         {
           "id": 3,
           "name": "Législation, politique & conformité",
           "overallScore": -1.0,
           "phase": -1,
-          "indicators": [
-            {
-              "id": 5,
-              "code": "7",
-              "name": "Cadre juridique de la protection des données (sécurité/cybersécurité)",
-              "indicatorDescription": "Existe-t-il une loi sur la sécurité des données (tout au long du cycle de vie des données, par exemple la collecte, le traitement, le stockage, la transmission, l'utilisation et la destruction) qui concerne la santé numérique ?",
-              "score": null,
-              "supportingText": "sp17",
-              "scoreDescription": "Not Available"
-            },
-            {
-              "id": 6,
-              "code": "8",
-              "name": "Lois ou réglementations relatives à la vie privée, au consentement, à la confidentialité et à l'accès aux informations sur la santé (Confidentialité)",
-              "indicatorDescription": "Existe-t-il une loi pour protéger la vie privée des individus, régissant la propriété, le consentement,  l'accès et le partage des données de santé numériques identifiables individuellement ?",
-              "score": null,
-              "supportingText": "sp18",
-              "scoreDescription": "Not Available"
-            }
-          ]
+          "indicators": null
         }
       ],
       "countryPhase": null,
@@ -184,78 +70,21 @@
           "name": "Leadership & Gouvernance",
           "overallScore": 4.5,
           "phase": 5,
-          "indicators": [
-            {
-              "id": 1,
-              "code": "1",
-              "name": "Santé numérique priorisée au niveau national à travers des instances/mécanismes de gouvernance dédiés",
-              "indicatorDescription": "Le pays dispose-t-il d'un département/agence/groupe de travail national distinct pour la santé numérique?",
-              "score": 4,
-              "supportingText": "sp7",
-              "scoreDescription": "La structure de gouvernance est entièrement fonctionnelle, dirigée par le gouvernement, consulte d'autres ministères et surveille la mise en œuvre de la santé numérique et de la gouvernance des données, y compris l'intelligence artificielle, sur la base d'un plan de travail."
-            },
-            {
-              "id": 2,
-              "code": "2",
-              "name": "Santé numérique priorisée au niveau national grâce à la planification",
-              "indicatorDescription": "La santé numérique est-elle incluse et budgétisée dans la politique nationale de santé ou les stratégies et/ou plans nationaux pertinents ? Remarque : Cet indicateur se concentre sur l'inclusion de la santé numérique ou de la cybersanté dans la stratégie nationale de santé.",
-              "score": 5,
-              "supportingText": "sp8",
-              "scoreDescription": "La santé numérique est mise en œuvre et périodiquement évaluée et optimisée dans la santé nationale ou d'autres stratégies et/ou plans nationaux pertinents."
-            }
-          ]
+          "indicators": null
         },
         {
           "id": 2,
           "name": "Stratégie & investissement",
           "overallScore": 3.0,
           "phase": 3,
-          "indicators": [
-            {
-              "id": 3,
-              "code": "5",
-              "name": "Stratégie ou cadre national de cybersanté/santé numérique",
-              "indicatorDescription": "Le pays dispose-t-il d'une stratégie ou d'un cadre de cybersanté ou de santé numérique et d'un plan de santé numérique chiffré ?",
-              "score": 3,
-              "supportingText": "sp9",
-              "scoreDescription": "Plan national chiffré de santé numérique élaboré et approuvé."
-            },
-            {
-              "id": 4,
-              "code": "6",
-              "name": "Financement public de la santé numérique",
-              "indicatorDescription": "Le financement public (y compris les prêts) pour la santé numérique est-il suffisant pour les stratégies, les priorités (besoins) ou le plan chiffré de santé numérique du pays ?",
-              "score": null,
-              "supportingText": "sp10",
-              "scoreDescription": "Not Available"
-            }
-          ]
+          "indicators": null
         },
         {
           "id": 3,
           "name": "Législation, politique & conformité",
           "overallScore": -1.0,
           "phase": -1,
-          "indicators": [
-            {
-              "id": 5,
-              "code": "7",
-              "name": "Cadre juridique de la protection des données (sécurité/cybersécurité)",
-              "indicatorDescription": "Existe-t-il une loi sur la sécurité des données (tout au long du cycle de vie des données, par exemple la collecte, le traitement, le stockage, la transmission, l'utilisation et la destruction) qui concerne la santé numérique ?",
-              "score": null,
-              "supportingText": "sp11",
-              "scoreDescription": "Not Available"
-            },
-            {
-              "id": 6,
-              "code": "8",
-              "name": "Lois ou réglementations relatives à la vie privée, au consentement, à la confidentialité et à l'accès aux informations sur la santé (Confidentialité)",
-              "indicatorDescription": "Existe-t-il une loi pour protéger la vie privée des individus, régissant la propriété, le consentement,  l'accès et le partage des données de santé numériques identifiables individuellement ?",
-              "score": null,
-              "supportingText": "sp12",
-              "scoreDescription": "Not Available"
-            }
-          ]
+          "indicators": null
         }
       ],
       "countryPhase": 4,

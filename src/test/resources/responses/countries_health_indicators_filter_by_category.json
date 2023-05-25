@@ -10,26 +10,7 @@
           "name": "Leadership & Governance",
           "overallScore": 2.0,
           "phase": 2,
-          "indicators": [
-            {
-              "id": 1,
-              "code": "1",
-              "name": "Digital health prioritized at the national level through dedicated bodies / mechanisms for governance",
-              "indicatorDescription": "Does the country have a separate department / agency / national working group for digital health?",
-              "score": 3,
-              "supportingText": "sp1",
-              "scoreDescription": "Governance structure and any related working groups have a scope of work (SOW) and conduct regular meetings with stakeholder participation and/or consultation."
-            },
-            {
-              "id": 2,
-              "code": "2",
-              "name": "Digital Health prioritized at the national level through planning",
-              "indicatorDescription": "Is digital health included and budgeted for in national health or relevant national strategies and/or plan(s)? Note: The focus of this indicator is on the inclusion of digital health or eHealth in the national health strategy.",
-              "score": 1,
-              "supportingText": "sp2",
-              "scoreDescription": "Digital health is not included in the national health strategy. It is being implemented in an ad hoc fashion in health programs."
-            }
-          ]
+          "indicators": null
         }
       ],
       "countryPhase": 3,
@@ -45,26 +26,7 @@
           "name": "Leadership & Governance",
           "overallScore": -1.0,
           "phase": -1,
-          "indicators": [
-            {
-              "id": 1,
-              "code": "1",
-              "name": "Digital health prioritized at the national level through dedicated bodies / mechanisms for governance",
-              "indicatorDescription": "Does the country have a separate department / agency / national working group for digital health?",
-              "score": null,
-              "supportingText": "sp13",
-              "scoreDescription": "Not Available"
-            },
-            {
-              "id": 2,
-              "code": "2",
-              "name": "Digital Health prioritized at the national level through planning",
-              "indicatorDescription": "Is digital health included and budgeted for in national health or relevant national strategies and/or plan(s)? Note: The focus of this indicator is on the inclusion of digital health or eHealth in the national health strategy.",
-              "score": null,
-              "supportingText": "sp14",
-              "scoreDescription": "Not Available"
-            }
-          ]
+          "indicators": null
         }
       ],
       "countryPhase": null,
@@ -80,26 +42,7 @@
           "name": "Leadership & Governance",
           "overallScore": 3.0,
           "phase": 3,
-          "indicators": [
-            {
-              "id": 1,
-              "code": "1",
-              "name": "Digital health prioritized at the national level through dedicated bodies / mechanisms for governance",
-              "indicatorDescription": "Does the country have a separate department / agency / national working group for digital health?",
-              "score": 1,
-              "supportingText": "sp7",
-              "scoreDescription": "No coordinating body exists and/or nascent governance structure for digital health is constituted on a case-by-case basis."
-            },
-            {
-              "id": 2,
-              "code": "2",
-              "name": "Digital Health prioritized at the national level through planning",
-              "indicatorDescription": "Is digital health included and budgeted for in national health or relevant national strategies and/or plan(s)? Note: The focus of this indicator is on the inclusion of digital health or eHealth in the national health strategy.",
-              "score": 5,
-              "supportingText": "sp8",
-              "scoreDescription": "Digital health is implemented and periodically evaluated and optimized in national health or other relevant national strategies and/or plans."
-            }
-          ]
+          "indicators": null
         }
       ],
       "countryPhase": 3,
