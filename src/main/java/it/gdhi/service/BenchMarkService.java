@@ -33,8 +33,9 @@ public class BenchMarkService {
 
     private Map<Integer, Double> calculateBenchmarkScoresForIndicators(Integer benchmarkType, String year) {
         List<CountryHealthIndicator> countryHealthIndicators =
-                iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdStatusAndCountryHealthIndicatorIdYear(PUBLISHED.name(), year);
-        List<CountryHealthIndicator> publishedCountryHealthIndicators = (benchmarkType == -1) ? countryHealthIndicators :
+                iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdYearAndCountryHealthIndicatorIdStatus(year, PUBLISHED.name());
+        List<CountryHealthIndicator> publishedCountryHealthIndicators = (benchmarkType == -1) ?
+                countryHealthIndicators :
                 countryHealthIndicators.stream().filter(countryHealthIndicator ->
                         validateCountryHealthIndicatorByPhaseAndYear(countryHealthIndicator, benchmarkType, year)).toList();
 
@@ -48,7 +49,8 @@ public class BenchMarkService {
                         averagingInt(CountryHealthIndicator::getScore)));
     }
 
-    private boolean validateCountryHealthIndicatorByPhaseAndYear(CountryHealthIndicator countryHealthIndicator, Integer phase, String year) {
+    private boolean validateCountryHealthIndicatorByPhaseAndYear(CountryHealthIndicator countryHealthIndicator,
+                                                                 Integer phase, String year) {
         CountryPhase countryPhase =
                 iCountryPhaseRepository.findByCountryPhaseIdCountryIdAndCountryPhaseIdYear(countryHealthIndicator.getCountryId(), year);
         return countryPhase.getCountryOverallPhase().equals(phase);
@@ -94,7 +96,8 @@ public class BenchMarkService {
 
     private Map<Integer, Integer> fetchRegionalIndicatorScoreData(String regionId, String year) {
         List<RegionalIndicatorData> regionalIndicatorsData =
-                iRegionalIndicatorDataRepository.findByRegionalIndicatorIdRegionIdAndRegionalIndicatorIdYear(regionId, year);
+                iRegionalIndicatorDataRepository.findByRegionalIndicatorIdRegionIdAndRegionalIndicatorIdYear(regionId
+                        , year);
         return regionalIndicatorsData.stream().collect(Collectors.toMap(RegionalIndicatorData::getRegionalIndicatorId,
                 RegionalIndicatorData::getScore));
     }

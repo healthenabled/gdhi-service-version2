@@ -15,7 +15,8 @@ public interface ICountryHealthIndicatorRepository extends JpaRepository<Country
     @Modifying
     void deleteByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdYearAndCountryHealthIndicatorIdStatus(String countryId, String year, String currentStatus);
 
-    List<CountryHealthIndicator> findByCountryHealthIndicatorIdStatusAndCountryHealthIndicatorIdYear(String currentStatus, String year);
+    List<CountryHealthIndicator> findByCountryHealthIndicatorIdYearAndCountryHealthIndicatorIdStatus(String year,
+                                                                                                     String currentStatus);
 
     List<CountryHealthIndicator> findByCountryHealthIndicatorIdCategoryIdAndCountryHealthIndicatorIdYearAndCountryHealthIndicatorIdStatus(Integer categoryId, String year, String currentStatus);
 
