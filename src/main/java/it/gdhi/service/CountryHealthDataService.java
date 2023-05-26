@@ -51,16 +51,6 @@ public class CountryHealthDataService {
     private IRegionCountryRepository iRegionCountryRepository;
 
     @Transactional
-    public void save(GdhiQuestionnaire gdhiQuestionnaire, String nextStatus, String currentYear) {
-        String currentStatus =
-                iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdYearAndStatusNot(gdhiQuestionnaire.getCountryId(), currentYear, PUBLISHED.name()).getStatus();
-        if (!nextStatus.equals(currentStatus)) {
-            removeEntriesWithStatus(gdhiQuestionnaire.getCountryId(), currentStatus, currentYear);
-        }
-        saveCountryDetails(gdhiQuestionnaire, nextStatus, currentYear);
-    }
-
-    @Transactional
     public void saveCountryDetails(GdhiQuestionnaire gdhiQuestionnaire, String nextStatus, String currentYear) {
         saveCountryContactInfo(gdhiQuestionnaire.getCountryId(),
                 nextStatus, gdhiQuestionnaire.getCountrySummary(), currentYear);
@@ -97,7 +87,7 @@ public class CountryHealthDataService {
 
     @Transactional
     public void publish(GdhiQuestionnaire gdhiQuestionnaire, String currentYear) {
-        save(gdhiQuestionnaire, PUBLISHED.name(), currentYear);
+        saveCountryDetails(gdhiQuestionnaire, PUBLISHED.name(), currentYear);
         calculateOverallPhase(gdhiQuestionnaire.getCountryId(), currentYear);
     }
 
@@ -110,7 +100,7 @@ public class CountryHealthDataService {
     @Transactional
     public void submit(GdhiQuestionnaire gdhiQuestionnaire) {
         String currentYear = getCurrentYear();
-        save(gdhiQuestionnaire, REVIEW_PENDING.name(), currentYear);
+        saveCountryDetails(gdhiQuestionnaire, REVIEW_PENDING.name(), currentYear);
         sendMail(gdhiQuestionnaire.getDataFeederName(), gdhiQuestionnaire.getDataFeederRole(),
                 gdhiQuestionnaire.getContactEmail(), gdhiQuestionnaire.getCountryId());
     }
@@ -118,7 +108,7 @@ public class CountryHealthDataService {
     @Transactional
     public void saveCorrection(GdhiQuestionnaire gdhiQuestionnaire) {
         String currentYear = getCurrentYear();
-        save(gdhiQuestionnaire, REVIEW_PENDING.name(), currentYear);
+        saveCountryDetails(gdhiQuestionnaire, REVIEW_PENDING.name(), currentYear);
     }
 
     @Transactional
@@ -187,16 +177,6 @@ public class CountryHealthDataService {
         Double overallScore = countryHealthIndicators.getOverallScore();
         Integer countryPhaseVal = new Score(overallScore).convertToPhase();
         iCountryPhaseRepository.save(new CountryPhase(countryId, countryPhaseVal, year));
-    }
-
-    private void removeEntriesWithStatus(String countryId, String currentStatus, String currentYear) {
-        if (!currentStatus.equals(NEW.name())) {
-            iCountryHealthIndicatorRepository.deleteByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdYearAndStatus(countryId, currentYear, currentStatus);
-        }
-        iCountryResourceLinkRepository.deleteByCountryResourceLinkIdCountryIdAndCountryResourceLinkIdYearAndStatus(countryId,
-                currentYear, currentStatus);
-        iCountrySummaryRepository.deleteByCountrySummaryIdCountryIdAndCountrySummaryIdYearAndStatus(countryId, currentYear,
-                currentStatus);
     }
 
     private void sendMail(String feederName, String feederRole, String contactEmail, String countryId) {

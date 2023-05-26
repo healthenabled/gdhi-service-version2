@@ -101,7 +101,7 @@ public class CountryController {
     @PostMapping("/countries/save")
     public void saveHealthIndicatorsFor(@RequestBody GdhiQuestionnaire gdhiQuestionnaire) {
         String currentYear = getCurrentYear();
-        countryHealthDataService.save(gdhiQuestionnaire, DRAFT.name() , currentYear);
+        countryHealthDataService.saveCountryDetails(gdhiQuestionnaire, DRAFT.name() , currentYear);
     }
 
     @PostMapping("/countries/submit")

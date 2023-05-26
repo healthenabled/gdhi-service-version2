@@ -122,9 +122,9 @@ public class CountryControllerTest {
     @Test
     public void shouldSaveHealthIndicatorsForCurrentYear() {
         GdhiQuestionnaire mock = mock(GdhiQuestionnaire.class);
-        doNothing().when(countryHealthDataService).save(mock, DRAFT.name(), getCurrentYear());
+        doNothing().when(countryHealthDataService).saveCountryDetails(mock, DRAFT.name(), getCurrentYear());
         countryController.saveHealthIndicatorsFor(mock);
-        verify(countryHealthDataService).save(mock, DRAFT.name(), getCurrentYear());
+        verify(countryHealthDataService).saveCountryDetails(mock, DRAFT.name(), getCurrentYear());
     }
 
     @Test
