@@ -44,6 +44,7 @@ public class CountrySummary implements Serializable {
     private String dataApproverName;
     private String dataApproverRole;
     private String dataApproverEmail;
+    private String status;
     @Column(name = "govt_approved")
     private Boolean govtApproved;
     @Column(insertable = false, updatable = false)
@@ -53,13 +54,13 @@ public class CountrySummary implements Serializable {
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumns({
-            @JoinColumn(name = "country_id", referencedColumnName = "country_id", insertable = false, updatable = false),
-            @JoinColumn(name = "status", referencedColumnName = "status", insertable = false, updatable = false),
+            @JoinColumn(name = "country_id", referencedColumnName = "country_id", insertable = false, updatable =
+                    false),
             @JoinColumn(name = "year", referencedColumnName = "year", insertable = false, updatable = false)
     })
     private List<CountryResourceLink> countryResourceLinks;
 
-    public CountrySummary(CountrySummaryId countrySummaryId, CountrySummaryDto countrySummaryDetailDto) {
+    public CountrySummary(CountrySummaryId countrySummaryId, CountrySummaryDto countrySummaryDetailDto, String status) {
         this.countrySummaryId = countrySummaryId;
         this.summary = countrySummaryDetailDto.getSummary();
         this.contactName = countrySummaryDetailDto.getContactName();
@@ -74,10 +75,13 @@ public class CountrySummary implements Serializable {
         this.dataApproverEmail = countrySummaryDetailDto.getDataApproverEmail();
         this.govtApproved = countrySummaryDetailDto.getGovtApproved();
         this.countryResourceLinks = transformToResourceLinks(countrySummaryId.getCountryId(),
-                countrySummaryId.getStatus(), countrySummaryDetailDto, countrySummaryId.getYear());
+                status, countrySummaryDetailDto, countrySummaryId.getYear());
+        this.status = status;
     }
 
-    public CountrySummary(CountrySummaryId countrySummaryId, CountrySummaryDto countrySummaryDetailDto, Country country) {
+
+    public CountrySummary(CountrySummaryId countrySummaryId, CountrySummaryDto countrySummaryDetailDto,
+                          Country country, String status) {
         this.countrySummaryId = countrySummaryId;
         this.summary = countrySummaryDetailDto.getSummary();
         this.contactName = countrySummaryDetailDto.getContactName();
@@ -92,8 +96,9 @@ public class CountrySummary implements Serializable {
         this.dataApproverEmail = countrySummaryDetailDto.getDataApproverEmail();
         this.govtApproved = countrySummaryDetailDto.getGovtApproved();
         this.countryResourceLinks = transformToResourceLinks(countrySummaryId.getCountryId(),
-                countrySummaryId.getStatus(), countrySummaryDetailDto, countrySummaryId.getYear());
+                status, countrySummaryDetailDto, countrySummaryId.getYear());
         this.country = country;
+        this.status = status;
     }
 
 
@@ -103,12 +108,9 @@ public class CountrySummary implements Serializable {
         List<String> resourceLinks = countrySummaryDetailDto.getResources();
         return ObjectUtils.isEmpty(resourceLinks) ? null : resourceLinks.stream().map(
                         link ->
-                                new CountryResourceLink(new CountryResourceLinkId(countryId, link, status, year), new Date(), null))
+                                new CountryResourceLink(new CountryResourceLinkId(countryId, link, year), new Date(),
+                                        null, status))
                 .collect(toList());
-    }
-
-    public String getStatus() {
-        return this.countrySummaryId.getStatus();
     }
 
     @PreUpdate

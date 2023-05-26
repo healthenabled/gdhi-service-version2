@@ -10,5 +10,5 @@ import org.springframework.stereotype.Repository;
 public interface ICountryResourceLinkRepository extends JpaRepository<CountryResourceLink, CountryResourceLinkId> {
 
     @Modifying
-    void deleteByCountryResourceLinkIdCountryIdAndCountryResourceLinkIdYearAndCountryResourceLinkIdStatus(String countryId, String currentYear, String currentStatus);
+    void deleteByCountryResourceLinkIdCountryIdAndCountryResourceLinkIdYearAndStatus(String countryId, String currentYear, String currentStatus);
 }

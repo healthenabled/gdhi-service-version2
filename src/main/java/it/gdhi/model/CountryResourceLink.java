@@ -25,6 +25,9 @@ public class CountryResourceLink {
     private Date createdAt;
     private Date updatedAt;
 
+    @Column(name = "status")
+    private String status;
+
     public String getLink() {
         return countryResourceLinkId.getLink();
     }

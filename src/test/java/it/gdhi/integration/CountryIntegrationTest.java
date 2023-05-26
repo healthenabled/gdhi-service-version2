@@ -247,9 +247,9 @@ public class CountryIntegrationTest extends BaseIntegrationTest {
 
 
         CountryResourceLink countryResourceLink1 = new CountryResourceLink(new CountryResourceLinkId(countryId,
-                "link1", status, year), new Date(), null);
+                "link1", year), new Date(), null,status);
         CountryResourceLink countryResourceLink2 = new CountryResourceLink(new CountryResourceLinkId(countryId,
-                "link2", status, year), new Date(), null);
+                "link2", year), new Date(), null, status);
 
         List<CountryResourceLink> countryResourceLinks = asList(countryResourceLink1, countryResourceLink2);
 
@@ -272,7 +272,7 @@ public class CountryIntegrationTest extends BaseIntegrationTest {
         String dataAvailableForYear = "2023";
 
         CountryResourceLink countryResourceLink1 = new CountryResourceLink(new CountryResourceLinkId(countryId,
-                "www.example.com", status, currentYear), new Date(), null);
+                "www.example.com", currentYear), new Date(), null,status);
         List<CountryResourceLink> countryResourceLinks = asList(countryResourceLink1);
 
         addCountrySummary(countryId, "India", status, alpha2code, INDIA_UUID, countryResourceLinks, currentYear);
@@ -412,7 +412,6 @@ public class CountryIntegrationTest extends BaseIntegrationTest {
     @Test
     public void shouldSubmitCountryDetails() throws Exception {
         String currentYear = getCurrentYear();
-        String dataAvailableForYear = "2023";
 
         SimpleDateFormat DateFor = new SimpleDateFormat("MMMM yyyy");
         String expectedUpdatedDate = DateFor.format(new Date());
@@ -461,9 +460,9 @@ public class CountryIntegrationTest extends BaseIntegrationTest {
         String year = "2020";
 
         CountryResourceLink countryResourceLink1 = new CountryResourceLink(new CountryResourceLinkId(countryId,
-                "link1", status, year), new Date(), null);
+                "link1", year), new Date(), null,status);
         CountryResourceLink countryResourceLink2 = new CountryResourceLink(new CountryResourceLinkId(countryId,
-                "link2", status, year), new Date(), null);
+                "link2", year), new Date(), null, status);
         Integer categoryId1 = 1;
         Integer categoryId2 = 2;
         Integer categoryId3 = 3;
@@ -520,31 +519,11 @@ public class CountryIntegrationTest extends BaseIntegrationTest {
                 "    \"status\": \"NEW\",\n" +
                 "    \"contactName\": \"contactName\",\n" +
                 "    \"contactEmail\": \"email\"\n" +
-                "  }, {\n" +
-                "    \"countryName\": \"Australia\",\n" +
-                "    \"countryUUID\": \"" + australiaUUID.toString() + "\",\n" +
-                "    \"status\": \"NEW\",\n" +
-                "    \"contactName\": \"contactName\",\n" +
-                "    \"contactEmail\": \"email\"\n" +
                 "  }],\n" +
                 "  \"PUBLISHED\": [{\n" +
                 "    \"countryName\": \"Australia\",\n" +
                 "    \"countryUUID\": \"" + australiaUUID.toString() + "\",\n" +
                 "    \"status\": \"PUBLISHED\",\n" +
-                "    \"contactName\": \"contactName\",\n" +
-                "    \"contactEmail\": \"email\"\n" +
-                "  }],\n" +
-                "  \"DRAFT\": [{\n" +
-                "    \"countryName\": \"Australia\",\n" +
-                "    \"countryUUID\": \"" + australiaUUID.toString() + "\",\n" +
-                "    \"status\": \"DRAFT\",\n" +
-                "    \"contactName\": \"contactName\",\n" +
-                "    \"contactEmail\": \"email\"\n" +
-                "  }],\n" +
-                "  \"REVIEW_PENDING\": [{\n" +
-                "    \"countryName\": \"Australia\",\n" +
-                "    \"countryUUID\": \"" + australiaUUID.toString() + "\",\n" +
-                "    \"status\": \"REVIEW_PENDING\",\n" +
                 "    \"contactName\": \"contactName\",\n" +
                 "    \"contactEmail\": \"email\"\n" +
                 "  }]\n" +
@@ -611,7 +590,7 @@ public class CountryIntegrationTest extends BaseIntegrationTest {
     private void addCountrySummary(String countryId, String countryName, String status, String alpha2Code, UUID
             countryUUID, List<CountryResourceLink> countryResourceLinks, String year) throws Exception {
         CountrySummary countrySummary = CountrySummary.builder()
-                .countrySummaryId(new CountrySummaryId(countryId, status, year))
+                .countrySummaryId(new CountrySummaryId(countryId, year))
                 .summary("summary")
                 .country(new Country(countryId, countryName, countryUUID, alpha2Code))
                 .contactName("contactName")
@@ -627,6 +606,7 @@ public class CountryIntegrationTest extends BaseIntegrationTest {
                 .dataApproverEmail("coll email")
                 .govtApproved(true)
                 .countryResourceLinks(countryResourceLinks)
+                .status(status)
                 .build();
         countrySummaryRepository.save(countrySummary);
     }

@@ -1,16 +1,15 @@
 package it.gdhi.dto;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import it.gdhi.model.CountryResourceLink;
-import it.gdhi.model.CountrySummary;
-import it.gdhi.utils.JsonDateDeserializer;
-import it.gdhi.utils.JsonDateSerializer;
-import lombok.*;
-
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+
+import it.gdhi.model.CountryResourceLink;
+import it.gdhi.model.CountrySummary;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import static it.gdhi.utils.GDHIStringUtil.isNonNullAndNonEmpty;
 import static java.util.Objects.isNull;
@@ -78,6 +77,8 @@ public class CountrySummaryDto {
     }
 
     public void translateCountryName(String translatedCountryName) {
-        if (isNonNullAndNonEmpty(translatedCountryName)) this.countryName = translatedCountryName;
+        if (isNonNullAndNonEmpty(translatedCountryName)) {
+            this.countryName = translatedCountryName;
+        }
     }
 }

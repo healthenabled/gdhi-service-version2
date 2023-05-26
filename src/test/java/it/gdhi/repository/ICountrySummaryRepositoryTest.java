@@ -40,7 +40,7 @@ public class ICountrySummaryRepositoryTest {
                                    List<CountryResourceLink> countryResourceLinkList, String status, String year) {
         // String year = "Version1";
         CountrySummary countrySummary = CountrySummary.builder()
-                .countrySummaryId(new CountrySummaryId(countryId, status, year))
+                .countrySummaryId(new CountrySummaryId(countryId, year))
                 .summary(summary)
                 .country(new Country(countryId, countryName, UUID.randomUUID(), alpha2code))
                 .contactName("Contact Name")
@@ -55,6 +55,7 @@ public class ICountrySummaryRepositoryTest {
                 .dataFeederRole("coll role")
                 .dataApproverEmail("coll email")
                 .countryResourceLinks(countryResourceLinkList)
+                .status(status)
                 .build();
         iCountrySummaryRepository.save(countrySummary);
     }
@@ -67,7 +68,7 @@ public class ICountrySummaryRepositoryTest {
         addCountrySummary(countryId, "INDIA",
                 "IN", "IND summary", new ArrayList<>(), NEW.toString(), "Version1");
         List<CountrySummary> countrySummaries = iCountrySummaryRepository.findAllByOrderByUpdatedAtDesc();
-        assertEquals(countrySummaries.size(), 2);
+        assertEquals(countrySummaries.size(), 1);
     }
 
     @Test

@@ -144,8 +144,8 @@ public class BffService {
         String yearToPrefillData = countryService.fetchTheYearToPrefillData(country.getUniqueId());
         CountrySummaryDto countrySummaryDto = gdhiQuestionnaire.getCountrySummary();
         CountrySummaryId countrySummaryId =
-                CountrySummaryId.builder().countryId(country.getId()).status(status).year(getCurrentYear()).build();
-        CountrySummary countrySummary = new CountrySummary(countrySummaryId, countrySummaryDto, country);
+                CountrySummaryId.builder().countryId(country.getId()).year(getCurrentYear()).build();
+        CountrySummary countrySummary = new CountrySummary(countrySummaryId, countrySummaryDto, country, status);
 
         GdhiQuestionnaire gdhiQuestionnaire1;
         CountrySummaryDto countrySummaryDto1 =
@@ -154,7 +154,7 @@ public class BffService {
                 new SimpleDateFormat("MMMM yyyy").format(countrySummary.getUpdatedAt()) : "";
 
         gdhiQuestionnaire1 = new GdhiQuestionnaire(country.getId(), getCurrentYear(), yearToPrefillData,
-                countrySummary.getCountrySummaryId().getStatus(), updatedDateStr, countrySummaryDto1,
+                countrySummary.getStatus(), updatedDateStr, countrySummaryDto1,
                 gdhiQuestionnaire.getHealthIndicators());
         return gdhiQuestionnaire1;
     }

@@ -33,7 +33,7 @@ public class BenchMarkService {
 
     private Map<Integer, Double> calculateBenchmarkScoresForIndicators(Integer benchmarkType, String year) {
         List<CountryHealthIndicator> countryHealthIndicators =
-                iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdYearAndCountryHealthIndicatorIdStatus(year, PUBLISHED.name());
+                iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdYearAndStatus(year, PUBLISHED.name());
         List<CountryHealthIndicator> publishedCountryHealthIndicators = (benchmarkType == -1) ?
                 countryHealthIndicators :
                 countryHealthIndicators.stream().filter(countryHealthIndicator ->
@@ -49,8 +49,7 @@ public class BenchMarkService {
                         averagingInt(CountryHealthIndicator::getScore)));
     }
 
-    private boolean validateCountryHealthIndicatorByPhaseAndYear(CountryHealthIndicator countryHealthIndicator,
-                                                                 Integer phase, String year) {
+    private boolean validateCountryHealthIndicatorByPhaseAndYear(CountryHealthIndicator countryHealthIndicator, Integer phase, String year) {
         CountryPhase countryPhase =
                 iCountryPhaseRepository.findByCountryPhaseIdCountryIdAndCountryPhaseIdYear(countryHealthIndicator.getCountryId(), year);
         return countryPhase.getCountryOverallPhase().equals(phase);
@@ -58,7 +57,7 @@ public class BenchMarkService {
 
     public Map<Integer, BenchmarkDto> getBenchmarkFor(String countryId, Integer benchmarkType, String year) {
         List<CountryHealthIndicator> countryHealthIndicator = iCountryHealthIndicatorRepository
-                .findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdYearAndCountryHealthIndicatorIdStatus(countryId, year,
+                .findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdYearAndStatus(countryId, year,
                         PUBLISHED.name());
         Map<Integer, Double> indicatorBenchmarkScores = calculateBenchmarkScoresForIndicators(benchmarkType, year);
 
@@ -72,7 +71,7 @@ public class BenchMarkService {
 
     public Map<Integer, BenchmarkDto> getBenchMarkForRegion(String countryId, String year, String region) {
         List<CountryHealthIndicator> countryHealthIndicator = iCountryHealthIndicatorRepository
-                .findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdYearAndCountryHealthIndicatorIdStatus(countryId, year,
+                .findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdYearAndStatus(countryId, year,
                         PUBLISHED.name());
         Map<Integer, Integer> regionalIndicatorBenchmarkScores = fetchRegionalIndicatorScoreData(region, year);
         return countryHealthIndicator.stream().
@@ -96,8 +95,7 @@ public class BenchMarkService {
 
     private Map<Integer, Integer> fetchRegionalIndicatorScoreData(String regionId, String year) {
         List<RegionalIndicatorData> regionalIndicatorsData =
-                iRegionalIndicatorDataRepository.findByRegionalIndicatorIdRegionIdAndRegionalIndicatorIdYear(regionId
-                        , year);
+                iRegionalIndicatorDataRepository.findByRegionalIndicatorIdRegionIdAndRegionalIndicatorIdYear(regionId, year);
         return regionalIndicatorsData.stream().collect(Collectors.toMap(RegionalIndicatorData::getRegionalIndicatorId,
                 RegionalIndicatorData::getScore));
     }

@@ -21,6 +21,6 @@ public class HealthIndicatorDto {
         this.indicatorId = countryHealthIndicator.getCountryHealthIndicatorId().getIndicatorId();
         this.score = countryHealthIndicator.getScore();
         this.supportingText = countryHealthIndicator.getSupportingText();
-        this.status = countryHealthIndicator.getCountryHealthIndicatorId().getStatus();
+        this.status = countryHealthIndicator.getStatus();
     }
 }

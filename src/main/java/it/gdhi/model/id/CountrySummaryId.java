@@ -19,7 +19,5 @@ public class CountrySummaryId implements Serializable {
     @Column(name = "country_id")
     private String countryId;
 
-    private String status;
-
     private String year;
 }
