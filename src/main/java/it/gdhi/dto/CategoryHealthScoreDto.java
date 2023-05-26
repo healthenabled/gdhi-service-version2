@@ -2,6 +2,7 @@ package it.gdhi.dto;
 
 import it.gdhi.model.Category;
 import it.gdhi.model.CountryHealthIndicator;
+import it.gdhi.model.Indicator;
 import it.gdhi.model.Score;
 import lombok.*;
 
@@ -49,7 +50,9 @@ public class CategoryHealthScoreDto {
     public void translateCategoryName(String translatedName) {
         if(isNonNullAndNonEmpty(translatedName)) this.name = translatedName;
     }
-    public void setIndicatorToNull() {
-        this.indicators = null;
+    public void setIndicatorToNull(List<IndicatorScoreDto> indicators) {
+        indicators = indicators.stream().map(indicatorScoreDto -> IndicatorScoreDto.builder().score(indicatorScoreDto.getScore())
+                .id(indicatorScoreDto.getId()).code(indicatorScoreDto.getCode()).build()).collect(Collectors.toList());
+        this.indicators = indicators;
     }
 }

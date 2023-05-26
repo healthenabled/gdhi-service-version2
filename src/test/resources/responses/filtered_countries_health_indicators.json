@@ -10,7 +10,26 @@
           "name": "Leadership & Governance",
           "overallScore": 2.0,
           "phase": 2,
-          "indicators": null
+          "indicators": [
+            {
+              "id": 1,
+              "code": "1",
+              "name": null,
+              "indicatorDescription": null,
+              "score": 3,
+              "supportingText": null,
+              "scoreDescription": null
+            },
+            {
+              "id": 2,
+              "code": "2",
+              "name": null,
+              "indicatorDescription": null,
+              "score": 1,
+              "supportingText": null,
+              "scoreDescription": null
+            }
+          ]
         }
       ],
       "countryPhase": 3,

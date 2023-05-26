@@ -10,6 +10,7 @@ import static it.gdhi.utils.GDHIStringUtil.isNonNullAndNonEmpty;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
+@Builder
 @ToString
 public class IndicatorScoreDto {
     private Integer id;
