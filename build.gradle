@@ -1,95 +1,95 @@
 plugins {
-	id 'java'
-	id 'jacoco'
-	id 'org.springframework.boot' version '2.7.7'
-	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
-	id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'java'
+    id 'jacoco'
+    id 'org.springframework.boot' version '2.7.7'
+    id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
-def jenkinsBuild = System.getenv("BUILD_NUMBER") ?: "0"
+def appVersion
 
 group = 'gdhi-service'
 version = '2.0'
 sourceCompatibility = '17'
 
 bootJar {
-	archiveBaseName.set('gdhi-service')
-	archiveVersion.set(version+appVersion)
+    archiveBaseName.set('gdhi-service')
+    archiveVersion.set(version + appVersion)
 }
-task setUpGitHooks(type: Exec){
-	commandLine './utils/set-up-git-hooks.sh'
+task setUpGitHooks(type: Exec) {
+    commandLine './utils/set-up-git-hooks.sh'
 }
 
 configurations {
-	compileOnly {
-		extendsFrom annotationProcessor
-	}
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
 }
 
 repositories {
-	mavenCentral()
+    mavenCentral()
 }
 
 jacocoTestReport {
-	dependsOn test
+    dependsOn test
 
-	reports {
-		xml.enabled true
-		html.enabled true
-	}
+    reports {
+        xml.enabled true
+        html.enabled true
+    }
 
-	afterEvaluate {
-		classDirectories.setFrom(classDirectories.files.collect {
-			fileTree(dir: it, exclude: [
-					"it/gdhi/dto/**/CountryDTO.class",
-					"it/gdhi/internationalization/model/**/Country*.class",
-					"it/gdhi/internationalization/model/**/Score*.class"
-			])
-		})
-	}
+    afterEvaluate {
+        classDirectories.setFrom(classDirectories.files.collect {
+            fileTree(dir: it, exclude: [
+                    "it/gdhi/dto/**/CountryDTO.class",
+                    "it/gdhi/internationalization/model/**/Country*.class",
+                    "it/gdhi/internationalization/model/**/Score*.class"
+            ])
+        })
+    }
 }
 
 jacocoTestCoverageVerification {
 
-	violationRules {
-		rule {
-			limit {
-				minimum = 0.85
-			}
-		}
-	}
+    violationRules {
+        rule {
+            limit {
+                minimum = 0.85
+            }
+        }
+    }
 }
 
 test.finalizedBy(jacocoTestReport)
 check.dependsOn jacocoTestCoverageVerification
 
 dependencies {
-	implementation ('org.springframework.boot:spring-boot-starter-web') {
-		exclude module: "spring-boot-starter-tomcat"
-	}
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
-	implementation 'org.springframework.boot:spring-boot-starter-actuator'
-	implementation 'org.springframework.boot:spring-boot-starter-jetty'
-	runtimeOnly 'org.postgresql:postgresql'
-	compileOnly 'org.projectlombok:lombok'
-	annotationProcessor 'org.projectlombok:lombok'
-	implementation 'org.apache.poi:poi:5.2.2'
-	implementation 'org.apache.poi:poi-ooxml:5.2.2'
-	implementation 'org.flywaydb:flyway-core:9.11.0'
-	implementation group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.1'
-	implementation 'org.springframework.boot:spring-boot-starter-mail'
-	testImplementation 'org.jacoco:org.jacoco.core:0.8.5'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testImplementation 'io.rest-assured:rest-assured:4.3.1'
-	testImplementation 'io.rest-assured:json-schema-validator:4.3.1'
-	testImplementation 'io.rest-assured:spring-mock-mvc:5.3.0'
+    implementation('org.springframework.boot:spring-boot-starter-web') {
+        exclude module: "spring-boot-starter-tomcat"
+    }
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.springframework.boot:spring-boot-starter-jetty'
+    runtimeOnly 'org.postgresql:postgresql'
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    implementation 'org.apache.poi:poi:5.2.2'
+    implementation 'org.apache.poi:poi-ooxml:5.2.2'
+    implementation 'org.flywaydb:flyway-core:9.11.0'
+    implementation group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.1'
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
+    testImplementation 'org.jacoco:org.jacoco.core:0.8.5'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'io.rest-assured:rest-assured:4.3.1'
+    testImplementation 'io.rest-assured:json-schema-validator:4.3.1'
+    testImplementation 'io.rest-assured:spring-mock-mvc:5.3.0'
 }
 
 tasks.named('test') {
-	useJUnitPlatform()
-	if (System.properties['includeIntegrationTestAndRepositoryTest']  == 'false') {
-		exclude '**/*IntegrationTest.class',
-				'**/*RepositoryTest.class'
-	}
+    useJUnitPlatform()
+    if (System.properties['includeIntegrationTestAndRepositoryTest'] == 'false') {
+        exclude '**/*IntegrationTest.class',
+                '**/*RepositoryTest.class'
+    }
 }
