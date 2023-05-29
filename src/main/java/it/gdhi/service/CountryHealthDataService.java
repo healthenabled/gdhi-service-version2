@@ -92,12 +92,6 @@ public class CountryHealthDataService {
     }
 
     @Transactional
-    public void republish(GdhiQuestionnaire gdhiQuestionnaire, String currentYear) {
-        saveCountryDetails(gdhiQuestionnaire, PUBLISHED.name(), currentYear);
-        calculateOverallPhase(gdhiQuestionnaire.getCountryId(), currentYear);
-    }
-
-    @Transactional
     public void submit(GdhiQuestionnaire gdhiQuestionnaire) {
         String currentYear = getCurrentYear();
         saveCountryDetails(gdhiQuestionnaire, REVIEW_PENDING.name(), currentYear);
