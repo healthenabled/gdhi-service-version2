@@ -4,8 +4,7 @@ on:
     branches: [ "main" ,"test_pipeline" ]
   pull_request:
     branches: [ "main" ]
-env:
-  APPLICATION_VERSION: ${{ secrets.APPLICATION_VERSION }}
+
 jobs:
   continuous-integration:
     runs-on: ubuntu-latest
@@ -65,7 +64,7 @@ jobs:
         run: chmod +x gradlew
 
       - name: Create fat jar for GDHI-Backend-v2
-        run: ./gradlew clean bootJar
+        run: ./gradlew clean bootJar --stacktrace
         env:
           APPLICATION_VERSION: ${{ secrets.APPLICATION_VERSION }}
 
