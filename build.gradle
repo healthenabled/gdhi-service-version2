@@ -14,7 +14,7 @@ sourceCompatibility = '17'
 
 bootJar {
     archiveBaseName.set('gdhi-service')
-    archiveVersion.set(version + appVersion)
+    archiveVersion.set(version+appVersion)
 }
 task setUpGitHooks(type: Exec) {
     commandLine './utils/set-up-git-hooks.sh'
