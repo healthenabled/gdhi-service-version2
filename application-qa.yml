@@ -57,7 +57,7 @@ frontEndURL: http://localhost:8080
 
 mailer:
   addressMap:
-    Admin: info@healthenabled.org
+    Admin: info@digitalhealthmonitor.org
 
 logging:
   level:
