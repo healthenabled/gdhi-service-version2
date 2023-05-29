@@ -50,7 +50,6 @@ jobs:
         run: sudo su
 
       - name: Create fat jar for GDHI-Backend-v2
-        permissions: read-all|write-all
         run: ./gradlew clean bootJar --stacktrace --info --scan
         env:
           APPLICATION_VERSION: ${{ secrets.APPLICATION_VERSION }}
