@@ -29,7 +29,9 @@ public class DefaultYearDataService {
         Date date = new Date();
         Timestamp timestamp = new Timestamp(date.getTime());
         DefaultYearData defaultYearData = DefaultYearData.builder().year(year).createdAt(timestamp).build();
-        iDefaultYearData.save(defaultYearData);
+        if(!fetchDefaultYear().equals(year)) {
+            iDefaultYearData.save(defaultYearData);
+        }
     }
 
     public String fetchDefaultYear() {
