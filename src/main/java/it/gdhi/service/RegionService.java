@@ -1,40 +1,56 @@
 package it.gdhi.service;
 
-import it.gdhi.dto.BenchmarkDto;
-import it.gdhi.dto.CategoryHealthScoreDto;
-import it.gdhi.dto.RegionCountriesDto;
-import it.gdhi.dto.GlobalHealthScoreDto;
-import it.gdhi.dto.RegionCountryHealthScoreDto;
-import it.gdhi.dto.RegionCountryHealthScoreYearDto;
-import it.gdhi.internationalization.service.CountryNameTranslator;
-import it.gdhi.internationalization.service.HealthIndicatorTranslator;
-import it.gdhi.model.*;
-import it.gdhi.model.id.RegionalCategoryId;
-import it.gdhi.model.id.RegionalIndicatorId;
-import it.gdhi.model.id.RegionalOverallId;
-import it.gdhi.repository.*;
-import it.gdhi.utils.LanguageCode;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import javax.persistence.EntityManager;
-import javax.transaction.Transactional;
-
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.stream.Collectors;
+
+import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
+
+import it.gdhi.dto.BenchmarkDto;
+import it.gdhi.dto.CategoryHealthScoreDto;
+import it.gdhi.dto.GlobalHealthScoreDto;
+import it.gdhi.dto.RegionCountriesDto;
+import it.gdhi.dto.RegionCountryHealthScoreDto;
+import it.gdhi.dto.RegionCountryHealthScoreYearDto;
+import it.gdhi.internationalization.service.CountryNameTranslator;
+import it.gdhi.internationalization.service.HealthIndicatorTranslator;
+import it.gdhi.internationalization.service.RegionNameTranslator;
+import it.gdhi.model.Category;
+import it.gdhi.model.CountryHealthIndicator;
+import it.gdhi.model.CountryHealthIndicators;
+import it.gdhi.model.CountryPhase;
+import it.gdhi.model.CountrySummary;
+import it.gdhi.model.Region;
+import it.gdhi.model.RegionCountry;
+import it.gdhi.model.RegionalCategoryData;
+import it.gdhi.model.RegionalIndicatorData;
+import it.gdhi.model.RegionalOverallData;
+import it.gdhi.model.Score;
+import it.gdhi.model.id.RegionalCategoryId;
+import it.gdhi.model.id.RegionalIndicatorId;
+import it.gdhi.model.id.RegionalOverallId;
+import it.gdhi.repository.ICountryHealthIndicatorRepository;
+import it.gdhi.repository.ICountryPhaseRepository;
+import it.gdhi.repository.ICountryRepository;
+import it.gdhi.repository.ICountrySummaryRepository;
+import it.gdhi.repository.IRegionCountryRepository;
+import it.gdhi.repository.IRegionRepository;
+import it.gdhi.repository.IRegionalCategoryDataRepository;
+import it.gdhi.repository.IRegionalIndicatorDataRepository;
+import it.gdhi.repository.IRegionalOverallDataRepository;
+import it.gdhi.utils.LanguageCode;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import static it.gdhi.controller.strategy.FilterStrategy.getCategoryPhaseFilter;
 import static it.gdhi.utils.FormStatus.PUBLISHED;
-import static java.util.stream.Collectors.*;
-
-import it.gdhi.internationalization.service.RegionNameTranslator;
-import it.gdhi.model.Region;
-import it.gdhi.repository.IRegionCountryRepository;
-import it.gdhi.repository.IRegionRepository;
-import org.springframework.stereotype.Service;
+import static java.util.stream.Collectors.averagingInt;
+import static java.util.stream.Collectors.groupingBy;
+import static java.util.stream.Collectors.toList;
 
 @Service
 public class RegionService {
@@ -87,6 +103,8 @@ public class RegionService {
     @Autowired
     private ICountryPhaseRepository iCountryPhaseRepository;
 
+    @Autowired
+    private ICountrySummaryRepository iCountrySummaryRepository;
 
     public List<Region> fetchRegions(LanguageCode languageCode) {
         List<Region> regions = iRegionRepository.findAll();
@@ -350,17 +368,29 @@ public class RegionService {
     public RegionCountriesDto getRegionCountriesData(String regionId, List<String> years,
                                                      LanguageCode languageCode) {
         List<String> countries = iRegionCountryRepository.findByRegionCountryIdRegionId(regionId);
-        return fetchRegionCountriesHealthScoresForGivenYears(countries, years, languageCode);
+        years = years.stream().distinct().collect(toList());
+        Map<String, List<String>> yearCountryIdsMapWithGovtApprovedData = years.stream().collect(Collectors.toMap(year -> year,
+                year -> getRegionCountriesDataForGovtApproved(countries, year)));
+        return fetchRegionCountriesHealthScoresForGivenYears(languageCode, yearCountryIdsMapWithGovtApprovedData);
     }
 
-    public RegionCountriesDto fetchRegionCountriesHealthScoresForGivenYears(List<String> countryIds,
-                                                                            List<String> years,
-                                                                            LanguageCode languageCode) {
-        List<CountryHealthIndicator> countryHealthIndicators = iCountryHealthIndicatorRepository.
-                findByCountryHealthIndicatorIdCountryIdInAndCountryHealthIndicatorIdYearInAndStatus(countryIds, years, PUBLISHED.name());
-        List<CountryPhase> countryPhases =
-                iCountryPhaseRepository.findByCountryPhaseIdCountryIdInAndCountryPhaseIdYearIn(countryIds, years);
-        return constructRegionCountriesDto(countryHealthIndicators, countryPhases, languageCode);
+    private List<String> getRegionCountriesDataForGovtApproved(List<String> countries, String year) {
+        List<CountrySummary> countrySummariesForGovtApproved =
+                iCountrySummaryRepository.findByCountrySummaryIdCountryIdInAndCountrySummaryIdYearAndStatusAndGovtApproved(countries, year,
+                        PUBLISHED.name(), true);
+        List<String> countriesWithGovtApproved =
+                countrySummariesForGovtApproved.stream().map(countrySummary -> countrySummary.getCountrySummaryId().getCountryId()).collect(toList());
+        return countriesWithGovtApproved;
+    }
+
+    public RegionCountriesDto fetchRegionCountriesHealthScoresForGivenYears(LanguageCode languageCode, Map<String, List<String>> yearCountryIdsMapWithGovtApprovedData) {
+        List<CountryHealthIndicator> countryHealthIndicators = new ArrayList<>();
+        List<CountryPhase> countryPhases = new ArrayList<>();
+        yearCountryIdsMapWithGovtApprovedData.forEach((year, countries) -> {
+            countryHealthIndicators.addAll(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdInAndCountryHealthIndicatorIdYearAndStatus(countries, year, PUBLISHED.name()));
+            countryPhases.addAll(iCountryPhaseRepository.findByCountryPhaseIdCountryIdInAndCountryPhaseIdYear(countries, year));
+        });
+        return constructRegionCountriesDto(countryHealthIndicators,countryPhases,languageCode);
     }
 
     public RegionCountriesDto constructRegionCountriesDto(List<CountryHealthIndicator> countryHealthIndicators,
