@@ -34,4 +34,6 @@ public interface ICountrySummaryRepository extends JpaRepository<CountrySummary,
             " c.status <> 'NEW' order by updated_at DESC LIMIT 1", nativeQuery = true)
     String findFirstByCountryIdAndStatusNotNEWOrderByDesc(String countryId);
 
+    List<CountrySummary> findByCountrySummaryIdCountryIdInAndCountrySummaryIdYearAndStatusAndGovtApproved(List<String> countryIds, String year,
+                                                                                                         String status, Boolean govtApproved);
 }

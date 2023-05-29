@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import it.gdhi.dto.CategoryHealthScoreDto;
 import it.gdhi.dto.GlobalHealthScoreDto;
@@ -17,9 +18,11 @@ import it.gdhi.internationalization.RegionNameTranslatorTest;
 import it.gdhi.internationalization.service.HealthIndicatorTranslator;
 import it.gdhi.internationalization.service.RegionNameTranslator;
 import it.gdhi.model.Category;
+import it.gdhi.model.Country;
 import it.gdhi.model.CountryHealthIndicator;
 import it.gdhi.model.CountryHealthIndicators;
 import it.gdhi.model.CountryPhase;
+import it.gdhi.model.CountrySummary;
 import it.gdhi.model.Indicator;
 import it.gdhi.model.Region;
 import it.gdhi.model.RegionCountry;
@@ -29,11 +32,13 @@ import it.gdhi.model.RegionalIndicatorData;
 import it.gdhi.model.RegionalOverallData;
 import it.gdhi.model.id.CountryHealthIndicatorId;
 import it.gdhi.model.id.CountryPhaseId;
+import it.gdhi.model.id.CountrySummaryId;
 import it.gdhi.model.id.RegionalCategoryId;
 import it.gdhi.model.id.RegionalIndicatorId;
 import it.gdhi.model.id.RegionalOverallId;
 import it.gdhi.repository.ICountryHealthIndicatorRepository;
 import it.gdhi.repository.ICountryPhaseRepository;
+import it.gdhi.repository.ICountrySummaryRepository;
 import it.gdhi.repository.IRegionCountryRepository;
 import it.gdhi.repository.IRegionRepository;
 import it.gdhi.repository.IRegionalCategoryDataRepository;
@@ -96,6 +101,9 @@ public class RegionServiceTest {
 
     @Mock
     private ICountryPhaseRepository iCountryPhaseRepository;
+
+    @Mock
+    private ICountrySummaryRepository iCountrySummaryRepository;
 
     public Region createRegion(String id, String name) {
         Region region = Region.builder().regionId(id).regionName(name).build();
@@ -811,17 +819,20 @@ public class RegionServiceTest {
 
         regionCountriesDto.add(countryId, "India", asList(regionCountryHealthScoreYearDto));
 
-        when(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdInAndCountryHealthIndicatorIdYearInAndStatus(asList("IND"), asList("2023"), PUBLISHED.name())).thenReturn(countryHealthIndicators);
-        when(iCountryPhaseRepository.findByCountryPhaseIdCountryIdInAndCountryPhaseIdYearIn(asList("IND"), asList(
-                "2023"))).thenReturn(asList(countryPhase));
+        when(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdInAndCountryHealthIndicatorIdYearAndStatus(asList("IND"),"2023", PUBLISHED.name())).thenReturn(countryHealthIndicators);
+        when(iCountryPhaseRepository.findByCountryPhaseIdCountryIdInAndCountryPhaseIdYear(asList("IND"), "2023")).thenReturn(asList(countryPhase));
         when(countryService.getCountryName(countryId, languageCode)).thenReturn("India");
         when(countryHealthIndicatorService.getCategoriesWithIndicators(any(), any())).thenReturn(categoryHealthScoreDtos);
         when(regionService.constructRegionCountryHealthScoreYearDto(countryId, regionCountryHealthIndicatorsMap,
                 asList(countryPhase))).thenReturn(asList(regionCountryHealthScoreYearDto));
 
-        RegionCountriesDto regionCountriesDto1 = regionService.fetchRegionCountriesHealthScoresForGivenYears(asList(
-                "IND"), asList(
-                "2023"), languageCode);
+        List<String> countries = new ArrayList<>();
+        countries.add("IND");
+        Map<String, List<String>> yearCountryIdsMapWithGovtApprovedData = new HashMap<>();
+        yearCountryIdsMapWithGovtApprovedData.put("2023",countries);
+
+        RegionCountriesDto regionCountriesDto1 = regionService.fetchRegionCountriesHealthScoresForGivenYears(languageCode,
+                yearCountryIdsMapWithGovtApprovedData);
 
         assertEquals(regionCountriesDto, regionCountriesDto1);
     }
@@ -882,8 +893,29 @@ public class RegionServiceTest {
 
         RegionCountriesDto regionCountriesDto = new RegionCountriesDto();
 
-        regionCountriesDto.add(countryId, "India", asList(regionCountryHealthScoreYearDto));
-
+        String status = "PUBLISHED";
+        List<String> countryIds = new ArrayList<>();
+        countryIds.add("IND");
+        countryIds.add("THA");
+        CountrySummary countrySummary = CountrySummary.builder()
+                .countrySummaryId(new CountrySummaryId(countryId, year))
+                .summary("summary")
+                .country(new Country(countryId, "IND", UUID.randomUUID(), "IND"))
+                .contactName("contactName")
+                .contactDesignation("contactDesignation")
+                .contactOrganization("contactOrganization")
+                .contactEmail("email")
+                .dataFeederName("feeder name")
+                .dataFeederRole("feeder role")
+                .dataFeederEmail("email")
+                .dataApproverName("coll name")
+                .dataApproverRole("coll role")
+                .dataFeederRole("coll role")
+                .dataApproverEmail("coll email")
+                .countryResourceLinks(new ArrayList<>())
+                .status(status)
+                .build();
+        List<CountrySummary> countrySummariesForGovtApproved = asList(countrySummary);
         when(iRegionCountryRepository.findByRegionCountryIdRegionId(regionId)).thenReturn(asList(countryId));
         when(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdInAndCountryHealthIndicatorIdYearInAndStatus(asList("IND"), asList("2023"), PUBLISHED.name())).thenReturn(countryHealthIndicators);
         when(iCountryPhaseRepository.findByCountryPhaseIdCountryIdInAndCountryPhaseIdYearIn(asList("IND"), asList(
@@ -893,6 +925,8 @@ public class RegionServiceTest {
         when(regionService.constructRegionCountryHealthScoreYearDto(countryId, regionCountryHealthIndicatorsMap,
                 asList(countryPhase))).thenReturn(asList(regionCountryHealthScoreYearDto));
 
+        when(iCountrySummaryRepository.findByCountrySummaryIdCountryIdInAndCountrySummaryIdYearAndStatusAndGovtApproved(countryIds, year,
+                PUBLISHED.name(), true)).thenReturn(countrySummariesForGovtApproved);
         RegionCountriesDto regionCountriesDto1 = regionService.getRegionCountriesData(regionId, asList(year),
                 languageCode);
 
