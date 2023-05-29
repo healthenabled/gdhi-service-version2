@@ -43,6 +43,11 @@ jobs:
           export PGPASSWORD=${{ secrets.TEST_DB_PASSWORD }}
           psql -h localhost -p 5432 -d gdhi_test -U 'gdhi_test' -c "CREATE EXTENSION IF NOT EXISTS \"uuid-ossp\";"
 
+      - name: Create fat jar for GDHI-Backend-v2
+        run: ./gradlew clean bootJar --stacktrace --info --scan
+        env:
+          APPLICATION_VERSION: ${{ secrets.APPLICATION_VERSION }}
+
       - name: Run all tests
         run: ./gradlew clean build -x bootJar
 
