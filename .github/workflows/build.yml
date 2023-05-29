@@ -4,6 +4,7 @@ on:
     branches: [ "main" ,"test_pipeline" ]
   pull_request:
     branches: [ "main" ]
+permissions: read-all|write-all
 
 jobs:
   continuous-integration:
@@ -42,6 +43,12 @@ jobs:
         run: |
           export PGPASSWORD=${{ secrets.TEST_DB_PASSWORD }}
           psql -h localhost -p 5432 -d gdhi_test -U 'gdhi_test' -c "CREATE EXTENSION IF NOT EXISTS \"uuid-ossp\";"
+
+      - name: Show the current user
+        run: whoami
+
+      - name: Gain Root User Access
+        run: sudo su
 
       - name: Create fat jar for GDHI-Backend-v2
         run: ./gradlew clean bootJar --stacktrace --info --scan
