@@ -144,7 +144,7 @@ public class CountryController {
         boolean isValid;
         isValid = countryHealthDataService.validateRequiredFields(gdhiQuestionnaire);
         if (isValid && year.equals(getCurrentYear())) {
-            countryHealthDataService.republish(gdhiQuestionnaire, year);
+            countryHealthDataService.publish(gdhiQuestionnaire, year);
             return ResponseEntity.status(HttpStatus.OK).body(null);
         }
         else {

@@ -133,67 +133,6 @@ public class CountryHealthDataServiceTest {
     }
 
     @Test
-    public void shouldRepublishDetailsForACountryForCurrentYear() throws Exception {
-        List<String> resourceLinks = Collections.singletonList("Res 1");
-        String status = PUBLISHED.name();
-        CountrySummaryDto countrySummaryDetailDto = CountrySummaryDto.builder().summary("Summary 1")
-                .resources(resourceLinks).build();
-        String currentYear = getCurrentYear();
-        List<HealthIndicatorDto> healthIndicatorDtos = Collections.singletonList(new HealthIndicatorDto(1, 1, status, 2, "Text"));
-        String countryId = "ARG";
-        GdhiQuestionnaire gdhiQuestionnaire = GdhiQuestionnaire.builder().countryId(countryId)
-                .countrySummary(countrySummaryDetailDto)
-                .healthIndicators(healthIndicatorDtos).build();
-
-        Indicator indicator1 = Indicator.builder().indicatorId(1).parentId(null).build();
-        Indicator indicator2 = Indicator.builder().indicatorId(1).parentId(null).build();
-        CountryHealthIndicator countryHealthIndicator1 = CountryHealthIndicator.builder()
-                .indicator(indicator1)
-                .score(3)
-                .category(Category.builder().id(1).indicators(asList(indicator1, indicator2)).build())
-                .status(status)
-                .build();
-        CountryHealthIndicator countryHealthIndicator2 = CountryHealthIndicator.builder()
-                .indicator(indicator2)
-                .score(-1)
-                .category(Category.builder().id(1).indicators(asList(indicator1, indicator2)).build())
-                .status(status)
-                .build();
-        RegionCountryId regionCountryId = RegionCountryId.builder().countryId("ARG").regionId("PAHO").build();
-        RegionCountry regionCountry = RegionCountry.builder().regionCountryId(regionCountryId).build();
-
-        List<String> countries = asList("ARG");
-        String region = "PAHO";
-
-        when(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdAndCountryHealthIndicatorIdYearAndStatus(countryId, currentYear, status))
-                .thenReturn(asList(countryHealthIndicator1, countryHealthIndicator2));
-        when(iRegionCountryRepository.findByRegionCountryIdCountryId(countryId)).thenReturn(regionCountry);
-        when(iRegionCountryRepository.findByRegionCountryIdRegionId(region)).thenReturn(countries);
-        when(iCountryHealthIndicatorRepository.findByCountryHealthIndicatorIdCountryIdInAndCountryHealthIndicatorIdYearAndStatus(countries, currentYear, PUBLISHED.name())).thenReturn(asList(countryHealthIndicator1, countryHealthIndicator2));
-
-        countryHealthDataService.republish(gdhiQuestionnaire, currentYear);
-        ArgumentCaptor<CountrySummary> summaryCaptor = ArgumentCaptor.forClass(CountrySummary.class);
-        ArgumentCaptor<CountryHealthIndicator> healthIndicatorsCaptorList = ArgumentCaptor.forClass(CountryHealthIndicator.class);
-
-        InOrder inOrder = inOrder(iCountryResourceLinkRepository, iCountrySummaryRepository, iCountryHealthIndicatorRepository, iCountryPhaseRepository);
-        inOrder.verify(iCountryResourceLinkRepository).deleteByCountryResourceLinkIdCountryIdAndCountryResourceLinkIdYearAndStatus(countryId, currentYear, status);
-        inOrder.verify(iCountrySummaryRepository).save(summaryCaptor.capture());
-        inOrder.verify(iCountryHealthIndicatorRepository).save(healthIndicatorsCaptorList.capture());
-        CountrySummary summaryCaptorValue = summaryCaptor.getValue();
-        assertThat(summaryCaptorValue.getCountrySummaryId().getCountryId(), is(countryId));
-        assertThat(summaryCaptorValue.getSummary(), is("Summary 1"));
-        assertThat(summaryCaptorValue.getCountryResourceLinks().get(0).getLink(), is("Res 1"));
-        assertThat(summaryCaptorValue.getStatus(), is("PUBLISHED"));
-        assertThat(healthIndicatorsCaptorList.getValue().getCountryHealthIndicatorId().getCategoryId(), is(1));
-        ArgumentCaptor<CountryPhase> phaseDetailsCaptor = ArgumentCaptor.forClass(CountryPhase.class);
-
-        inOrder.verify(iCountryPhaseRepository).save(phaseDetailsCaptor.capture());
-        assertThat(phaseDetailsCaptor.getValue().getCountryOverallPhase(), is(3));
-        assertThat(phaseDetailsCaptor.getValue().getCountryPhaseId().getCountryId(), is(countryId));
-
-    }
-
-    @Test
     public void shouldSaveAsNewStatusWhenCountryDoesNotHavePublishedDataForCurrentYear() throws Exception {
         String countryId = "ARG";
         UUID countryUUID = UUID.randomUUID();
