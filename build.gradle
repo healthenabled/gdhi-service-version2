@@ -6,7 +6,7 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
-def appVersion
+def appVersion = System.getenv("APPLICATION_VERSION") ?: "0"
 
 group = 'gdhi-service'
 version = '2.0'
