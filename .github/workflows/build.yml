@@ -43,24 +43,11 @@ jobs:
           export PGPASSWORD=${{ secrets.TEST_DB_PASSWORD }}
           psql -h localhost -p 5432 -d gdhi_test -U 'gdhi_test' -c "CREATE EXTENSION IF NOT EXISTS \"uuid-ossp\";"
 
-      - name: Show the current user
-        run: whoami
-
-      - name: Gain Root User Access
-        run: sudo su
-
       - name: Display build number
         run: echo ${{ vars.APPLICATION_VERSION }}
 
-      - name: Print current directory
-        run: pwd
-
-      - run: cd /home/runner/work/gdhi-service-version2/gdhi-service-version2
-      - run: ls -al
-
-
       - name: Create fat jar for GDHI-Backend-v2
-        run: ./gradlew bootJar --stacktrace
+        run: ./gradlew clean bootJar
         env:
           APPLICATION_VERSION: ${{ vars.APPLICATION_VERSION }}
 
@@ -85,7 +72,7 @@ jobs:
         run: chmod +x gradlew
 
       - name: Create fat jar for GDHI-Backend-v2
-        run: ./gradlew clean bootJar --stacktrace --info --scan
+        run: ./gradlew clean bootJar
         env:
           APPLICATION_VERSION: ${{ vars.APPLICATION_VERSION }}
 
@@ -94,12 +81,6 @@ jobs:
         with:
           name: APPLICATION_VERSION
           token: ${{ secrets.REPO_ACCESS_TOKEN }}
-#        uses: gliech/create-github-secret-action@v1
-#        with:
-#          name: APPLICATION_VERSION
-#          value: $((${{ vars.APPLICATION_VERSION }} + 1))
-#          pa_token: ${{ secrets.PA_TOKEN }}
-
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1-node16

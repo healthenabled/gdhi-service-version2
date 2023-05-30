@@ -7,19 +7,15 @@ plugins {
     id "com.github.ManifestClasspath" version "0.1.0-RELEASE"
 }
 
+def appVersion = System.getenv("APPLICATION_VERSION") ? System.getenv("APPLICATION_VERSION") : "0"
 
 group = 'gdhi-service'
 version = '2.0'
 sourceCompatibility = '17'
 
 bootJar {
-    def appVersion = System.getenv("APPLICATION_VERSION") ? System.getenv("APPLICATION_VERSION") : "0"
     archiveBaseName.set('gdhi-service')
     archiveVersion.set(version+appVersion)
-//    destinationDirectory = layout.buildDirectory.dir("libs")
-    println("--------------------" + appVersion)
-    println("--------------------" + archiveFileName.get())
-    println("--------------------" + archiveFile.get())
 }
 task setUpGitHooks(type: Exec) {
     commandLine './utils/set-up-git-hooks.sh'
