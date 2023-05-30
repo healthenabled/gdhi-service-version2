@@ -52,7 +52,7 @@ jobs:
           token: ${{ secrets.REPO_ACCESS_TOKEN }}
       - name: Display build number
         run: echo ${{ vars.APPLICATION_VERSION }}
-        
+
       - name: Create fat jar for GDHI-Backend-v2
         run: ./gradlew clean bootJar
         env:
