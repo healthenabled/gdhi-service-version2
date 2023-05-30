@@ -29,13 +29,13 @@ public class DefaultYearDataService {
         Date date = new Date();
         Timestamp timestamp = new Timestamp(date.getTime());
         DefaultYearData defaultYearData = DefaultYearData.builder().year(year).createdAt(timestamp).build();
-        if(!fetchDefaultYear().equals(year)) {
+        if(fetchDefaultYear() == null || !fetchDefaultYear().equals(year)) {
             iDefaultYearData.save(defaultYearData);
         }
     }
 
     public String fetchDefaultYear() {
         DefaultYearData defaultYearData = iDefaultYearData.findFirstByOrderByCreatedAtDesc();
-        return defaultYearData.getYear();
+        return defaultYearData != null ? defaultYearData.getYear() : null;
     }
 }
