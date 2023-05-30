@@ -49,6 +49,8 @@ jobs:
         uses: action-pack/increment@v2
         with:
           name: APPLICATION_VERSION
+          repository: gdhi-service-version2
+          org: true
           token: ${{ secrets.REPO_ACCESS_TOKEN }}
       - name: Display build number
         run: echo ${{ vars.APPLICATION_VERSION }}
