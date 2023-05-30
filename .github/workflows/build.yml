@@ -50,7 +50,7 @@ jobs:
         run: sudo su
 
       - name: Display build number
-        run: echo ${{ secrets.APPLICATION_VERSION }}
+        run: echo ${{ vars.APPLICATION_VERSION }}
 
       - name: Print current directory
         run: pwd
@@ -62,7 +62,7 @@ jobs:
       - name: Create fat jar for GDHI-Backend-v2
         run: ./gradlew bootJar --stacktrace
         env:
-          APPLICATION_VERSION: ${{ secrets.APPLICATION_VERSION }}
+          APPLICATION_VERSION: ${{ vars.APPLICATION_VERSION }}
 
       - name: Run all tests
         run: ./gradlew clean build -x bootJar
@@ -87,14 +87,19 @@ jobs:
       - name: Create fat jar for GDHI-Backend-v2
         run: ./gradlew clean bootJar --stacktrace --info --scan
         env:
-          APPLICATION_VERSION: ${{ secrets.APPLICATION_VERSION }}
+          APPLICATION_VERSION: ${{ vars.APPLICATION_VERSION }}
 
       - name: Update the version number
-        uses: gliech/create-github-secret-action@v1
+        uses: action-pack/increment@v2
         with:
           name: APPLICATION_VERSION
-          value: $((${{ secrets.APPLICATION_VERSION }} + 1))
-          pa_token: ${{ secrets.PA_TOKEN }}
+          token: ${{ secrets.REPO_ACCESS_TOKEN }}
+#        uses: gliech/create-github-secret-action@v1
+#        with:
+#          name: APPLICATION_VERSION
+#          value: $((${{ vars.APPLICATION_VERSION }} + 1))
+#          pa_token: ${{ secrets.PA_TOKEN }}
+
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1-node16
@@ -108,9 +113,9 @@ jobs:
         run: aws s3 cp gdhi-*.jar s3://${{ secrets.AWS_S3_BUCKET_NAME }}/${{ secrets.AWS_S3_FOLDER }}
 
       - name: Display build number
-        run: echo ${{ secrets.APPLICATION_VERSION }}
+        run: echo ${{ vars.APPLICATION_VERSION }}
         env:
-          APPLICATION_VERSION: ${{ secrets.APPLICATION_VERSION }}
+          APPLICATION_VERSION: ${{ vars.APPLICATION_VERSION }}
 
   deploy-to-qa:
     runs-on: ubuntu-latest
