@@ -20,13 +20,6 @@ bootJar {
     println("--------------------" + archiveFileName.get())
     println("--------------------" + archiveFile.get())
 }
-//bootJar {
-//    archiveBaseName.set('gdhi-service')
-//    archiveVersion.set(version+appVersion)
-//    archiveExtension.set("jar")
-//    destinationDirectory = layout.buildDirectory.dir("libs")
-//    baseName = group
-//}
 task setUpGitHooks(type: Exec) {
     commandLine './utils/set-up-git-hooks.sh'
 }
