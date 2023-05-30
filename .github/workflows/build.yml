@@ -1,7 +1,7 @@
 name: CI/CD Pipeline
 on:
   push:
-    branches: [ "main" ,"test_pipeline" ]
+    branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
 
