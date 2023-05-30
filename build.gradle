@@ -7,7 +7,6 @@ plugins {
 }
 
 
-
 group = 'gdhi-service'
 version = '2.0'
 sourceCompatibility = '17'
@@ -15,12 +14,12 @@ sourceCompatibility = '17'
 bootJar {
     def appVersion = System.getenv("APPLICATION_VERSION") ?: "0"
     archiveBaseName.set('gdhi-service')
-    archiveVersion.set(version+appVersion)
-    archiveFileName.set("Test.jar")
+    archiveVersion.set(version + appVersion)
+    archiveFileName = "build-${version}${appVersion}.jar"
     destinationDirectory = layout.buildDirectory.dir("libs")
-    println("--------------------"+appVersion)
-    println("--------------------"+archiveFileName.get())
-    println("--------------------"+archiveFile.get())
+    println("--------------------" + appVersion)
+    println("--------------------" + archiveFileName.get())
+    println("--------------------" + archiveFile.get())
 }
 //bootJar {
 //    archiveBaseName.set('gdhi-service')
