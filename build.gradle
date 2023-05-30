@@ -12,7 +12,7 @@ version = '2.0'
 sourceCompatibility = '17'
 
 bootJar {
-    def appVersion = System.getenv("APPLICATION_VERSION") ?: "0"
+    def appVersion = System.getenv("APPLICATION_VERSION") ? System.getenv("APPLICATION_VERSION") : "0"
     archiveBaseName.set('gdhi-service')
     archiveVersion.set(version+appVersion)
     destinationDirectory = layout.buildDirectory.dir("libs")
