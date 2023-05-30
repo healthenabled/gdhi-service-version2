@@ -49,6 +49,9 @@ jobs:
       - name: Gain Root User Access
         run: sudo su
 
+      - name: Display build number
+        run: echo ${{ secrets.APPLICATION_VERSION }}
+
       - name: Create fat jar for GDHI-Backend-v2
         run: ./gradlew clean bootJar --stacktrace
         env:
@@ -58,9 +61,7 @@ jobs:
         run: ./gradlew clean build -x bootJar
 
       - name: Create fat jar for GDHI-Backend-v2
-        run: |
-          appVersion="${{ secrets.APP_VERSION }}"
-          ./gradlew clean bootJar -Pversion=$appVersion --stacktrace --info --scan
+        run: ./gradlew clean bootJar --stacktrace --info --scan
         env:
           APPLICATION_VERSION: ${{ secrets.APPLICATION_VERSION }}
 
