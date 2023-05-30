@@ -15,7 +15,7 @@ bootJar {
     def appVersion = System.getenv("APPLICATION_VERSION") ? System.getenv("APPLICATION_VERSION") : "0"
     archiveBaseName.set('gdhi-service')
     archiveVersion.set(version+appVersion)
-    destinationDirectory = layout.buildDirectory.dir("libs")
+//    destinationDirectory = layout.buildDirectory.dir("libs")
     println("--------------------" + appVersion)
     println("--------------------" + archiveFileName.get())
     println("--------------------" + archiveFile.get())

@@ -52,8 +52,14 @@ jobs:
       - name: Display build number
         run: echo ${{ secrets.APPLICATION_VERSION }}
 
+      - name: Print current directory
+        run: pwd
+
+      - run: cd /home/runner/work/gdhi-service-version2/gdhi-service-version2
+      - run: ls -al
+
+
       - name: Create fat jar for GDHI-Backend-v2
-        working-directory: gdhi-service-version2
         run: ./gradlew clean bootJar --stacktrace
         env:
           APPLICATION_VERSION: ${{ secrets.APPLICATION_VERSION }}
