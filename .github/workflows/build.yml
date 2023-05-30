@@ -60,7 +60,7 @@ jobs:
 
 
       - name: Create fat jar for GDHI-Backend-v2
-        run: ./gradlew clean bootJar --stacktrace
+        run: ./gradlew bootJar --stacktrace
         env:
           APPLICATION_VERSION: ${{ secrets.APPLICATION_VERSION }}
 
