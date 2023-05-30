@@ -8,13 +8,13 @@ plugins {
 
 
 group = 'gdhi-service'
-version = '2.00120'
+version = '2.0'
 sourceCompatibility = '17'
 
 bootJar {
     def appVersion = System.getenv("APPLICATION_VERSION") ?: "0"
     archiveBaseName.set('gdhi-service')
-    archiveVersion.set(version)
+    archiveVersion.set(version+appVersion)
     destinationDirectory = layout.buildDirectory.dir("libs")
     println("--------------------" + appVersion)
     println("--------------------" + archiveFileName.get())

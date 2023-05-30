@@ -58,7 +58,9 @@ jobs:
         run: ./gradlew clean build -x bootJar
 
       - name: Create fat jar for GDHI-Backend-v2
-        run: ./gradlew clean bootJar --stacktrace --info --scan
+        run: |
+          appVersion="${{ secrets.APP_VERSION }}"
+          ./gradlew clean bootJar -Pversion=$appVersion --stacktrace --info --scan
         env:
           APPLICATION_VERSION: ${{ secrets.APPLICATION_VERSION }}
 
@@ -79,10 +81,10 @@ jobs:
       - name: grant permissions
         run: chmod +x gradlew
 
-#      - name: Create fat jar for GDHI-Backend-v2
-#        run: ./gradlew clean bootJar --stacktrace --info --scan
-#        env:
-#          APPLICATION_VERSION: ${{ secrets.APPLICATION_VERSION }}
+      #      - name: Create fat jar for GDHI-Backend-v2
+      #        run: ./gradlew clean bootJar --stacktrace --info --scan
+      #        env:
+      #          APPLICATION_VERSION: ${{ secrets.APPLICATION_VERSION }}
 
       - name: Update the version number
         uses: gliech/create-github-secret-action@v1
