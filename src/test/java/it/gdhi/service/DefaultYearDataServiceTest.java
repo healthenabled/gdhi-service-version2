@@ -46,4 +46,15 @@ public class DefaultYearDataServiceTest {
 
         assertEquals(expectedDefaultYear, actualDefaultYear);
     }
+
+    @Test
+    public void shouldReturnNullWhenThereIsNoDefaultYear() {
+        DefaultYearData year2021 = null;
+
+        when(iDefaultYearData.findFirstByOrderByCreatedAtDesc()).thenReturn(year2021);
+        String expectedDefaultYear = null;
+        String actualDefaultYear = defaultYearDataService.fetchDefaultYear();
+
+        assertEquals(expectedDefaultYear, actualDefaultYear);
+    }
 }
