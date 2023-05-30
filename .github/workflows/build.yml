@@ -43,31 +43,8 @@ jobs:
           export PGPASSWORD=${{ secrets.TEST_DB_PASSWORD }}
           psql -h localhost -p 5432 -d gdhi_test -U 'gdhi_test' -c "CREATE EXTENSION IF NOT EXISTS \"uuid-ossp\";"
 
-      - name: Display build number
-        run: echo ${{ vars.APPLICATION_VERSION }}
-
-      - name: Update the version number
-        uses: action-pack/increment@v2
-        with:
-          name: APPLICATION_VERSION
-          repository: gdhi-service-version2
-          token: ${{ secrets.PA_TOKEN }}
-
-      - name: Display build number
-        run: echo ${{ vars.APPLICATION_VERSION }}
-
-      - name: Create fat jar for GDHI-Backend-v2
-        run: ./gradlew clean bootJar
-        env:
-          APPLICATION_VERSION: ${{ vars.APPLICATION_VERSION }}
-
       - name: Run all tests
         run: ./gradlew clean build -x bootJar
-
-
-
-      - name: Display build number
-        run: echo ${{ vars.APPLICATION_VERSION }}
 
   upload-artifact-to-s3:
     runs-on: ubuntu-latest
@@ -95,7 +72,8 @@ jobs:
         uses: action-pack/increment@v2
         with:
           name: APPLICATION_VERSION
-          token: ${{ secrets.REPO_ACCESS_TOKEN }}
+          repository: gdhi-service-version2
+          token: ${{ secrets.PA_TOKEN }}
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1-node16
