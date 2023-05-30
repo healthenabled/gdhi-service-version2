@@ -8,7 +8,7 @@ plugins {
 
 
 group = 'gdhi-service'
-version = '2.0'
+version = ''
 sourceCompatibility = '17'
 
 bootJar {
