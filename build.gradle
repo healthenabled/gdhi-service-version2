@@ -6,19 +6,24 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
-def appVersion = System.getenv("APPLICATION_VERSION") ?: "0"
+
 
 group = 'gdhi-service'
 version = '2.0'
 sourceCompatibility = '17'
 
 bootJar {
+    def appVersion = System.getenv("APPLICATION_VERSION") ?: "0"
     archiveBaseName.set('gdhi-service')
     archiveVersion.set(version+appVersion)
-    archiveExtension.set("jar")
-    destinationDirectory = layout.buildDirectory.dir("${buildDir}/libs")
-    baseName = group
 }
+//bootJar {
+//    archiveBaseName.set('gdhi-service')
+//    archiveVersion.set(version+appVersion)
+//    archiveExtension.set("jar")
+//    destinationDirectory = layout.buildDirectory.dir("libs")
+//    baseName = group
+//}
 task setUpGitHooks(type: Exec) {
     commandLine './utils/set-up-git-hooks.sh'
 }
