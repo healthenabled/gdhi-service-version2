@@ -15,6 +15,7 @@ sourceCompatibility = '17'
 bootJar {
     archiveBaseName.set('gdhi-service')
     archiveVersion.set(version+appVersion)
+    destinationDirectory = layout.buildDirectory.dir("libs")
 }
 task setUpGitHooks(type: Exec) {
     commandLine './utils/set-up-git-hooks.sh'
