@@ -16,6 +16,7 @@ bootJar {
     archiveBaseName.set('gdhi-service')
     archiveVersion.set(version+appVersion)
     destinationDirectory = layout.buildDirectory.dir("libs")
+    baseName = group
 }
 task setUpGitHooks(type: Exec) {
     commandLine './utils/set-up-git-hooks.sh'
