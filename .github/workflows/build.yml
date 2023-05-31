@@ -62,16 +62,6 @@ jobs:
       - name: grant permissions
         run: chmod +x gradlew
 
-      - name: Create fat jar for GDHI-Backend-v2
-        run: ./gradlew clean bootJar -PappVersion=${{ secrets.APPLICATION_VERSION }}
-
-      - name: Update the version number
-        uses: gliech/create-github-secret-action@v1
-        with:
-          name: APPLICATION_VERSION
-          value: $((${{ secrets.APPLICATION_VERSION }} + 1))
-          pa_token: ${{ secrets.PA_TOKEN }}
-
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1-node16
         with:
@@ -79,14 +69,27 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
 
+      - name: Fetch Application Version from AWS parameter store
+        run: echo "APPLICATION_VERSION=`aws ssm get-parameters --name 'qaBuildNumberForService' --query Parameters[0].Value`" >> $GITHUB_ENV;
+
+      - name: Remove quotes from string
+        run: APPLICATION_VERSION=`echo ${{ env.APPLICATION_VERSION }} | tr -d '"'` >> $GITHUB_ENV;
+
+      - name: Create fat jar for GDHI-Backend-v2
+        run: ./gradlew clean bootJar -PappVersion=${{ env.APPLICATION_VERSION }}
+
       - name: Upload Fat Jar to s3
         working-directory: ${{ secrets.JAR_LOCATION }}
         run: aws s3 cp gdhi-*.jar s3://${{ secrets.AWS_S3_BUCKET_NAME }}/${{ secrets.AWS_S3_FOLDER }}
 
+      - name: Increment Application Version Number
+        run: echo "APPLICATION_VERSION=`expr ${{ env.APPLICATION_VERSION }} + 1`" >> $GITHUB_ENV;
+
+      - name: Update Application Version Number in AWS Parameter Store
+        run: aws ssm put-parameter --name "qaBuildNumberForService" --value ${{ env.APPLICATION_VERSION }} --overwrite;
+
       - name: Display build number
-        run: echo ${{ secrets.APPLICATION_VERSION }}
-        env:
-          APPLICATION_VERSION: ${{ secrets.APPLICATION_VERSION }}
+        run: echo "${{ env.APPLICATION_VERSION }}"
 
   deploy-to-qa:
     runs-on: ubuntu-latest
