@@ -84,14 +84,14 @@ jobs:
         working-directory: ${{ secrets.JAR_LOCATION }}
         run: aws s3 cp gdhi-*.jar s3://${{ secrets.AWS_S3_BUCKET_NAME }}/${{ secrets.AWS_S3_FOLDER }}
 
+      - name: Display build number
+        run: echo "${{ env.APPLICATION_VERSION }}"
+
       - name: Increment Application Version Number
         run: echo "APPLICATION_VERSION=`expr ${{ env.APPLICATION_VERSION }} + 1`" >> $GITHUB_ENV;
 
       - name: Update Application Version Number in AWS Parameter Store
         run: aws ssm put-parameter --name "qaBuildNumberForService" --value ${{ env.APPLICATION_VERSION }} --overwrite;
-
-      - name: Display build number
-        run: echo "${{ env.APPLICATION_VERSION }}"
 
   deploy-to-qa:
     runs-on: ubuntu-latest
