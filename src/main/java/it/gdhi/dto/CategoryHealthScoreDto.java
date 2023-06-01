@@ -2,7 +2,6 @@ package it.gdhi.dto;
 
 import it.gdhi.model.Category;
 import it.gdhi.model.CountryHealthIndicator;
-import it.gdhi.model.Indicator;
 import it.gdhi.model.Score;
 import lombok.*;
 

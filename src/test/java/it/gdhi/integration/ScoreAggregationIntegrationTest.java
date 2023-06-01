@@ -11,7 +11,6 @@ import it.gdhi.model.id.CountryPhaseId;
 import it.gdhi.model.id.CountrySummaryId;
 import it.gdhi.repository.ICountryPhaseRepository;
 import it.gdhi.repository.ICountrySummaryRepository;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;

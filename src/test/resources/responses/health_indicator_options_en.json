@@ -561,27 +561,27 @@
           {
             "scoreId": 52,
             "score": 1,
-            "scoreDefinition": "There are no protocols, policies, frameworks, or accepted processes governing AI use in health services."
+            "scoreDefinition": "There are no protocols, policies, frameworks or accepted processes in place to support secure cross-border data exchange and storage in support of public health goals while protecting individual privacy."
           },
           {
             "scoreId": 53,
             "score": 2,
-            "scoreDefinition": "Protocols, policies, frameworks, or accepted processes governing AI use in health service have been proposed and under review."
+            "scoreDefinition": "Protocols, policies, frameworks or accepted processes for cross border data exchange and storage in support of public health goals while protecting individual privacy have been proposed and are under review."
           },
           {
             "scoreId": 54,
             "score": 3,
-            "scoreDefinition": "Protocols, policies, frameworks, or accepted processes governing AI use in health service have been passed but are not fully implemented."
+            "scoreDefinition": "Protocols, policies, frameworks or accepted processes for cross border data exchange and storage in support of public health goals while protecting individual privacy have been passed, but are not fully implemented."
           },
           {
             "scoreId": 55,
             "score": 4,
-            "scoreDefinition": "Protocols, policies, frameworks or accepted processes governing AI use in health service have been implemented but are not consistently enforced."
+            "scoreDefinition": "Protocols, policies, frameworks or accepted processes for cross border data exchange and storage in support of public health goals while protecting individual privacy have been implemented, but not consistently enforced."
           },
           {
             "scoreId": 56,
             "score": 5,
-            "scoreDefinition": "Protocols, policies, frameworks, or accepted processes governing AI use in health service have been implemented and are enforced consistently."
+            "scoreDefinition": "Protocols, policies, frameworks or accepted processes for cross border data exchange and storage in support of public health goals while protecting individual privacy have been implemented and enforced consistently."
           }
         ]
       }

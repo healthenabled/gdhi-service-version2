@@ -1,7 +1,6 @@
 package it.gdhi.controller;
 
 import it.gdhi.dto.CountriesHealthScoreDto;
-import it.gdhi.dto.GlobalHealthScoreDto;
 import it.gdhi.service.CountryHealthIndicatorService;
 import it.gdhi.service.DefaultYearDataService;
 import it.gdhi.utils.LanguageCode;
