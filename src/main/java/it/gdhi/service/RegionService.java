@@ -369,18 +369,18 @@ public class RegionService {
                                                      LanguageCode languageCode) {
         List<String> countries = iRegionCountryRepository.findByRegionCountryIdRegionId(regionId);
         years = years.stream().distinct().collect(toList());
-        Map<String, List<String>> yearCountryIdsMapWithGovtApprovedData = years.stream().collect(Collectors.toMap(year -> year,
-                year -> getRegionCountriesDataForGovtApproved(countries, year)));
-        return fetchRegionCountriesHealthScoresForGivenYears(languageCode, yearCountryIdsMapWithGovtApprovedData);
+        Map<String, List<String>> govtApprovedCountryIdsYearMap = years.stream().collect(Collectors.toMap(year -> year,
+                year -> getGovtApprovedCountriesFor(countries, year)));
+        return fetchRegionCountriesHealthScoresForGivenYears(languageCode, govtApprovedCountryIdsYearMap);
     }
 
-    private List<String> getRegionCountriesDataForGovtApproved(List<String> countries, String year) {
-        List<CountrySummary> countrySummariesForGovtApproved =
+    private List<String> getGovtApprovedCountriesFor(List<String> countries, String year) {
+        List<CountrySummary> govtApprovedCountrySummaries =
                 iCountrySummaryRepository.findByCountrySummaryIdCountryIdInAndCountrySummaryIdYearAndStatusAndGovtApproved(countries, year,
                         PUBLISHED.name(), true);
-        List<String> countriesWithGovtApproved =
-                countrySummariesForGovtApproved.stream().map(countrySummary -> countrySummary.getCountrySummaryId().getCountryId()).collect(toList());
-        return countriesWithGovtApproved;
+        List<String> govtApprovedCountries =
+                govtApprovedCountrySummaries.stream().map(countrySummary -> countrySummary.getCountrySummaryId().getCountryId()).collect(toList());
+        return govtApprovedCountries;
     }
 
     public RegionCountriesDto fetchRegionCountriesHealthScoresForGivenYears(LanguageCode languageCode, Map<String, List<String>> yearCountryIdsMapWithGovtApprovedData) {
