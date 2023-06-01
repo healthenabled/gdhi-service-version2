@@ -2,7 +2,6 @@ package it.gdhi.controller;
 
 import it.gdhi.dto.CountriesHealthScoreDto;
 import it.gdhi.dto.CountryHealthScoreDto;
-import it.gdhi.dto.GlobalHealthScoreDto;
 import it.gdhi.service.CountryHealthIndicatorService;
 import it.gdhi.service.DefaultYearDataService;
 import org.junit.jupiter.api.Test;
@@ -12,8 +11,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.mock.web.MockHttpServletRequest;
 
-import static it.gdhi.utils.LanguageCode.ar;
-import static it.gdhi.utils.LanguageCode.en;
 import static it.gdhi.utils.LanguageCode.fr;
 import static it.gdhi.utils.LanguageCode.pt;
 import static java.util.Collections.singletonList;
