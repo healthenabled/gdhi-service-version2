@@ -63,4 +63,31 @@ To ensure your Intellij code style matches the checkstyle in the gradle build.
 5. Select the downloaded file
 6. The style is updated, use the Reformat the code using (⌘ ⌥ L).
 
+## Deployment
+- We have 3 `environments` of Deployment:
+  - [QA](https://github.com/healthenabled/gdhi-service-version2/deployments/activity_log?environment=QA)
+  - [Showcase](https://github.com/healthenabled/gdhi-service-version2/deployments/activity_log?environment=SHOWCASE) 
+  - [Production](https://github.com/healthenabled/gdhi-service-version2/deployments/activity_log?environment=PROD)
+- We use `github actions` to configure our CI. The code for the same can be found in [`.github/workflows`](https://github.com/healthenabled/gdhi-service-version2/tree/main/.github/workflows) directory. 
+- Below is a sequence diagram for CI/CD of the application:
+```mermaid
+  sequenceDiagram;
+      participant local
+      participant CI
+      participant AWS/S3
+      participant QA
+      participant ShowCase
+      participant Production
+      local-->>local: Pre-push hooks
+      local->>CI: Code push
+      CI-->>CI: Install deps
+      CI-->>CI: Unit tests
+      CI-->>CI: Build the Service and get buildNumber
+      CI->>AWS/S3: Upload build contents
+      AWS/S3->>QA: Codedeploy QA
+      QA-->>QA: Automation tests on QA
+      QA->>ShowCase: Set a buildNumber and trigger deployment(manual)
+      ShowCase->>Production: Promote from Showcase to Production(manual)
+```
+
 
