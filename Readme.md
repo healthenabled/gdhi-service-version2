@@ -6,17 +6,22 @@ This is a Spring Boot application built using Gradle. Works well with Java 17 or
 
 ## Table of Contents
 
-1. **[Setup DB](#Setup DB)**
-2. **[DB Dependencies](#DB Dependencies)**
-3. **[Hooks](#Hooks)**
-4. **[Server Test](#Server Test)**
-5. **[To Run](#To Run)**
-6. **[Setup Test Environment](#Setup Test Environment)**
-7. **[Project Overview](#project-overview)**
-8. **[Code Style](#Code Style)**
-9. **[Deployment](#Deployment)**
+1. **[Pre-requisites](#pre-requisites)**
+2. **[Setup DB](#setup-db)** 
+3. **[DB Dependencies](#db-dependencies)**
+4. **[Hooks](#Hooks)**
+5. **[Server Test](#server-test)**
+6. **[To Run](#to-run)**
+7. **[Setup Test Environment](#setup-test-environment)**
+8. **[Project Overview](#project-overview)**
+9. **[Code Style](#code-style)**
+10. **[Deployment](#Deployment)**
 
-**Setup DB**
+## Pre-requisites
+- Install Java
+- Setup DB
+
+## Setup DB
 
 1. Pull docker image for postgres
 ```
@@ -35,28 +40,28 @@ This is a Spring Boot application built using Gradle. Works well with Java 17 or
     CREATE USER gdhi WITH PASSWORD 'password';
     CREATE DATABASE gdhi OWNER gdhi;
 ```
-**DB Dependencies**
+## DB Dependencies
 
 - Install uuid extension
 ```
     create extension if not exists "uuid-ossp";
 ```
-**Hooks**
+## Hooks
 
 - Execute `sh ./utils/set-up-git-hooks.sh` from base folder to validate commit message format.
 
-**Server Test**
+## Server Test
 - Upon the server start, hit the following endpoint to populate the country overall phase (Only for Published Countries.)
 
 ```
    localhost:8080/api/admin/countries/calculate_phase
 ```
-**To Run**
+## To Run
 
 1. Run by executing
 `./gradlew clean bootRun`
 
-**Setup Test Environment**
+## Setup Test Environment
 1. Create Test user and database
 ```
     CREATE USER gdhi_test WITH PASSWORD 'testpassword';
