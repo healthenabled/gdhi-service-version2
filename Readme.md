@@ -76,7 +76,7 @@ connect to DB gdhi_test
     create extension if not exists "uuid-ossp";
 ```
 ## Project overview
-- This is the backend repo for [GDHM](index.digitalhealthindex.org/). 
+- This is the backend repo for [GDHM](monitor.digitalhealthmonitor.org/). 
 - The project provides a platform to upload digital health metrices of various Countries globally and a way to visualize them. 
 - We have **yearwise** segregation of data to allow comparisons across years.
 - We also have **Regions** which are composed of Countries
