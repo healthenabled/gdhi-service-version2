@@ -2,7 +2,21 @@
 
 [![GDHI-Backend](https://github.com/healthenabled/gdhi-service-version2/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/healthenabled/gdhi-service-version2/actions/workflows/build.yml)
 
-**DB Setup using Postgres Container running in Docker**
+This is a Spring Boot application built using Gradle. Works well with Java 17 or newer.
+
+## Table of Contents
+
+1. **[Setup DB](#Setup DB)**
+2. **[DB Dependencies](#DB Dependencies)**
+3. **[Hooks](#Hooks)**
+4. **[Server Test](#Server Test)**
+5. **[To Run](#To Run)**
+6. **[Setup Test Environment](#Setup Test Environment)**
+7. **[Project Overview](#project-overview)**
+8. **[Code Style](#Code Style)**
+9. **[Deployment](#Deployment)**
+
+**Setup DB**
 
 1. Pull docker image for postgres
 ```
@@ -21,16 +35,18 @@
     CREATE USER gdhi WITH PASSWORD 'password';
     CREATE DATABASE gdhi OWNER gdhi;
 ```
-5. Install uuid extension
+**DB Dependencies**
 
-connect to DB gdhi
+- Install uuid extension
 ```
     create extension if not exists "uuid-ossp";
 ```
+**Hooks**
 
-6. Execute `sh ./utils/set-up-git-hooks.sh` from base folder to validate commit message format.
+- Execute `sh ./utils/set-up-git-hooks.sh` from base folder to validate commit message format.
 
-7. Upon the server start, hit the following endpoint to populate the country overall phase (Only for Published Countries.)
+**Server Test**
+- Upon the server start, hit the following endpoint to populate the country overall phase (Only for Published Countries.)
 
 ```
    localhost:8080/api/admin/countries/calculate_phase
@@ -40,7 +56,7 @@ connect to DB gdhi
 1. Run by executing
 `./gradlew clean bootRun`
 
-**INTEGRATION TESTS**
+**Setup Test Environment**
 1. Create Test user and database
 ```
     CREATE USER gdhi_test WITH PASSWORD 'testpassword';
@@ -52,8 +68,14 @@ connect to DB gdhi_test
 ```
     create extension if not exists "uuid-ossp";
 ```
+## Project overview
+- This is the backend repo for [GDHM](index.digitalhealthindex.org/). 
+- The project provides a platform to upload digital health metrices of various Countries globally and a way to visualize them. 
+- We have **yearwise** segregation of data to allow comparisons across years.
+- We also have **Regions** which are composed of Countries
+- We rely on backend as our source of truth and use the UI for only minor data changes before rendering it on the UI
 
-#### Code Style
+## Code Style
 
 To ensure your Intellij code style matches the checkstyle in the gradle build.
 1. Download the code style from the [Contracts Repository](https://github.com/healthenabled/contracts.git)
