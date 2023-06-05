@@ -5,6 +5,7 @@ import it.gdhi.model.id.CountrySummaryId;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -29,11 +30,11 @@ public interface ICountrySummaryRepository extends JpaRepository<CountrySummary,
 
     CountrySummary findByCountrySummaryIdCountryIdAndCountrySummaryIdYearAndStatus(String countryId, String year, String currentStatus);
 
-    @Query(value = "SELECT year from country_health_data.country_summary c where" +
-            " c.country_id = UPPER(?1) and " +
-            " c.status <> 'NEW' order by updated_at DESC LIMIT 1", nativeQuery = true)
-    String findFirstByCountryIdAndStatusNotNEWOrderByDesc(String countryId);
+    @Query(nativeQuery = true, value = "SELECT year from country_health_data.country_summary c where" +
+            " c.country_id = UPPER(:countryId) and " +
+            " c.status <> 'NEW' order by updated_at DESC LIMIT 1")
+    String findFirstByCountryIdAndStatusNotNEWOrderByDesc(@Param("countryId") String countryId);
 
     List<CountrySummary> findByCountrySummaryIdCountryIdInAndCountrySummaryIdYearAndStatusAndGovtApproved(List<String> countryIds, String year,
-                                                                                                         String status, Boolean govtApproved);
+                                                                                                          String status, Boolean govtApproved);
 }
