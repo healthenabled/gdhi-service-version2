@@ -15,6 +15,7 @@ This is a Spring Boot application built using Gradle. Works well with Java 17 or
 7. **[Project Overview](#project-overview)**
 8. **[Code Style](#code-style)**
 9. **[Deployment](#Deployment)**
+10. **[Troubleshooting](#Troubleshooting)**
 
 ## Pre-requisites
 - Install Java
@@ -92,6 +93,7 @@ To ensure your Intellij code style matches the checkstyle in the gradle build.
 6. The style is updated, use the Reformat the code using (⌘ ⌥ L).
 
 ## Deployment
+
 - We have 3 `environments` of Deployment:
   - [QA](https://github.com/healthenabled/gdhi-service-version2/deployments/activity_log?environment=QA)
   - [Showcase](https://github.com/healthenabled/gdhi-service-version2/deployments/activity_log?environment=SHOWCASE) 
@@ -117,5 +119,21 @@ To ensure your Intellij code style matches the checkstyle in the gradle build.
       QA->>ShowCase: Set a buildNumber and trigger deployment(manual)
       ShowCase->>Production: Promote from Showcase to Production(manual)
 ```
+
+## Troubleshooting
+
+1. Bootrun not working
+- Check if local db is setup
+- Check if docker container is running 
+- Check if there is a migration mismatch in the schema_version table in the public schema
+- Check if java version used is compatible with the backend
+2. All Integration tests and repository tests failing 
+- Check if test db is setup properly
+- Check if there is a migration mismatch in the schema_version table in the public schema
+3. Port already in use 
+- Check if something else is using the port designated to the db
+4. Migration script checksum mismatch error
+- Delete the record and all record below it in schema_version table
+- Rerun bootrun or build
 
 
