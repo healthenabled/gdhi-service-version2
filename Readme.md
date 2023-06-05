@@ -8,14 +8,13 @@ This is a Spring Boot application built using Gradle. Works well with Java 17 or
 
 1. **[Pre-requisites](#pre-requisites)**
 2. **[Setup DB](#setup-db)** 
-3. **[DB Dependencies](#db-dependencies)**
-4. **[Hooks](#Hooks)**
-5. **[Server Test](#server-test)**
-6. **[To Run](#to-run)**
-7. **[Setup Test Environment](#setup-test-environment)**
-8. **[Project Overview](#project-overview)**
-9. **[Code Style](#code-style)**
-10. **[Deployment](#Deployment)**
+3. **[Pre-Commit Hooks](#pre-commit-hooks)**
+4. **[Local Setup](#local-setup)**
+5. **[Gradle Tasks](#gradle-tasks)**
+6. **[Setup Test Environment](#setup-test-environment)**
+7. **[Project Overview](#project-overview)**
+8. **[Code Style](#code-style)**
+9. **[Deployment](#Deployment)**
 
 ## Pre-requisites
 - Install Java
@@ -40,26 +39,28 @@ This is a Spring Boot application built using Gradle. Works well with Java 17 or
     CREATE USER gdhi WITH PASSWORD 'password';
     CREATE DATABASE gdhi OWNER gdhi;
 ```
-## DB Dependencies
-
-- Install uuid extension
+5. Install uuid extension
 ```
     create extension if not exists "uuid-ossp";
 ```
-## Hooks
+## Pre-Commit Hooks
 
 - Execute `sh ./utils/set-up-git-hooks.sh` from base folder to validate commit message format.
 
-## Server Test
+## Local Setup 
 - Upon the server start, hit the following endpoint to populate the country overall phase (Only for Published Countries.)
 
 ```
    localhost:8080/api/admin/countries/calculate_phase
 ```
-## To Run
+## Gradle Tasks
 
 1. Run by executing
 `./gradlew clean bootRun`
+2. To run test 
+`./gradlew clean build`
+3. To build jar file
+`./gradlew clean bootjar`
 
 ## Setup Test Environment
 1. Create Test user and database
