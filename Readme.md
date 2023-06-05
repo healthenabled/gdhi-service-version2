@@ -110,10 +110,10 @@ To ensure your Intellij code style matches the checkstyle in the gradle build.
       participant Production
       local-->>local: Pre-push hooks
       local->>CI: Code push
-      CI-->>CI: Install deps
       CI-->>CI: Unit tests
+      CI-->>CI: Integration tests
       CI-->>CI: Build the Service and get buildNumber
-      CI->>AWS/S3: Upload build contents
+      CI->>AWS/S3: Upload artifacts
       AWS/S3->>QA: Codedeploy QA
       QA-->>QA: Automation tests on QA
       QA->>ShowCase: Set a buildNumber and trigger deployment(manual)
