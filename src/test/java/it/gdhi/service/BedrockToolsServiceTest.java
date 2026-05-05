@@ -154,4 +154,23 @@ public class BedrockToolsServiceTest {
         verify(gdhmAnalyticsService).analyzeCountryPhaseTrends("AFRO", null, 1, 4, null, null,
                 "advanced", null, null);
     }
+
+    @Test
+    public void shouldDispatchCountryRankingAnalyticsToolWithMultipleCountryIds() {
+        ApiInvocationInput input = ApiInvocationInput.builder()
+                .httpMethod("GET")
+                .apiPath("/analytics/country-rankings")
+                .parameters(List.of(
+                        ApiParameter.builder().name("countryId").value("BRA").type("string").build(),
+                        ApiParameter.builder().name("countryId").value("ZAF").type("string").build(),
+                        ApiParameter.builder().name("countryIds").value("KEN,GHA").type("string").build(),
+                        ApiParameter.builder().name("categoryId").value("5").type("integer").build(),
+                        ApiParameter.builder().name("sort").value("highest").type("string").build()))
+                .build();
+
+        service.executeApiInvocation(input);
+
+        verify(gdhmAnalyticsService).rankCountries(null, List.of("BRA", "ZAF", "KEN", "GHA"), 5, null, null,
+                null, null, "highest", null, null, null, null, null);
+    }
 }

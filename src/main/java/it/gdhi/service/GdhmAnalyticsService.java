@@ -125,6 +125,7 @@ public class GdhmAnalyticsService {
 
     public List<BedrockCountryRankingData> rankCountries(
             String regionId,
+            List<String> countryIds,
             Integer categoryId,
             Integer indicatorId,
             String year,
@@ -138,7 +139,7 @@ public class GdhmAnalyticsService {
             Integer secondaryMaxPhase) {
         String effectiveRegionId = RegionAlias.normalize(regionId);
         List<CountryHealthIndicator> indicators = healthIndicatorsFor(year, categoryId);
-        Set<String> scopedCountries = scopedCountryIds(effectiveRegionId, null);
+        Set<String> scopedCountries = scopedCountryIds(effectiveRegionId, countryIds);
         Map<String, Country> countries = countriesById(scopedCountries);
         Map<String, String> regionByCountry = regionByCountryId(scopedCountries);
         Map<String, List<CountryHealthIndicator>> byCountry = indicators.stream()
@@ -369,7 +370,7 @@ public class GdhmAnalyticsService {
 
     private List<BedrockDataCompletenessData> missingCountryData(String year, String regionId, Integer limit) {
         List<CountryHealthIndicator> indicators = healthIndicatorsFor(year, null);
-        Set<String> scopedCountries = scopedCountryIds(regionId, null);
+        Set<String> scopedCountries = scopedCountryIds(regionId, List.of());
         Map<String, Country> countries = countriesById(scopedCountries);
         Map<String, String> regionByCountry = regionByCountryId(scopedCountries);
 
@@ -392,7 +393,7 @@ public class GdhmAnalyticsService {
             Integer phase,
             Integer limit) {
         Integer effectivePhase = phase == null ? 1 : phase;
-        Set<String> scopedCountries = scopedCountryIds(regionId, null);
+        Set<String> scopedCountries = scopedCountryIds(regionId, List.of());
         List<CountryHealthIndicator> indicators = healthIndicatorsFor(year, null);
         return indicators.stream()
                 .filter(indicator -> scopedCountries.isEmpty()
@@ -467,6 +468,17 @@ public class GdhmAnalyticsService {
     private Set<String> scopedCountryIds(String regionId, String countryId) {
         if (StringUtils.hasText(countryId)) {
             return Set.of(countryId.toUpperCase());
+        }
+        return scopedCountryIds(regionId, List.of());
+    }
+
+    private Set<String> scopedCountryIds(String regionId, List<String> countryIds) {
+        if (countryIds != null && !countryIds.isEmpty()) {
+            return countryIds.stream()
+                    .filter(StringUtils::hasText)
+                    .map(String::trim)
+                    .map(String::toUpperCase)
+                    .collect(Collectors.toCollection(HashSet::new));
         }
         if (StringUtils.hasText(regionId)) {
             return new HashSet<>(regionCountryRepository.findByRegionCountryIdRegionId(RegionAlias.normalize(regionId)));

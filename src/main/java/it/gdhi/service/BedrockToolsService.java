@@ -258,6 +258,7 @@ public class BedrockToolsService {
 
     public BedrockToolResponse<List<BedrockCountryRankingData>> rankCountries(
             String regionId,
+            List<String> countryIds,
             Integer categoryId,
             Integer indicatorId,
             String year,
@@ -272,14 +273,14 @@ public class BedrockToolsService {
         String effectiveRegionId = RegionAlias.normalize(regionId);
         String effectiveSort = StringUtils.hasText(sort) ? sort : "highest";
         List<BedrockCountryRankingData> rankings = gdhmAnalyticsService.rankCountries(
-                effectiveRegionId, categoryId, indicatorId, year, minPhase, maxPhase, effectiveSort, limit,
+                effectiveRegionId, countryIds, categoryId, indicatorId, year, minPhase, maxPhase, effectiveSort, limit,
                 secondaryCategoryId, secondaryIndicatorId, secondaryMinPhase, secondaryMaxPhase);
         return BedrockToolResponse.ok("rankCountries", "Ranked countries by GDHM score filters",
-                filters("regionId", effectiveRegionId, "categoryId", categoryId, "indicatorId", indicatorId,
-                        "year", year, "minPhase", minPhase, "maxPhase", maxPhase, "sort", effectiveSort,
-                        "limit", limit, "secondaryCategoryId", secondaryCategoryId, "secondaryIndicatorId",
-                        secondaryIndicatorId, "secondaryMinPhase", secondaryMinPhase, "secondaryMaxPhase",
-                        secondaryMaxPhase),
+                filters("regionId", effectiveRegionId, "countryId", countryIds, "categoryId", categoryId,
+                        "indicatorId", indicatorId, "year", year, "minPhase", minPhase, "maxPhase", maxPhase,
+                        "sort", effectiveSort, "limit", limit, "secondaryCategoryId", secondaryCategoryId,
+                        "secondaryIndicatorId", secondaryIndicatorId, "secondaryMinPhase", secondaryMinPhase,
+                        "secondaryMaxPhase", secondaryMaxPhase),
                 rankings);
     }
 
@@ -365,10 +366,11 @@ public class BedrockToolsService {
                     optionalInteger(parameters, "minSubmissionYears"), optionalInteger(parameters, "limit"));
         }
         if ("/analytics/country-rankings".equals(apiPath)) {
-            return rankCountries(optionalString(parameters, "regionId"), optionalInteger(parameters, "categoryId"),
-                    optionalInteger(parameters, "indicatorId"), optionalString(parameters, "year"),
-                    optionalInteger(parameters, "minPhase"), optionalInteger(parameters, "maxPhase"),
-                    optionalString(parameters, "sort"), optionalInteger(parameters, "limit"),
+            return rankCountries(optionalString(parameters, "regionId"), countryIdValues(parameters),
+                    optionalInteger(parameters, "categoryId"), optionalInteger(parameters, "indicatorId"),
+                    optionalString(parameters, "year"), optionalInteger(parameters, "minPhase"),
+                    optionalInteger(parameters, "maxPhase"), optionalString(parameters, "sort"),
+                    optionalInteger(parameters, "limit"),
                     optionalInteger(parameters, "secondaryCategoryId"),
                     optionalInteger(parameters, "secondaryIndicatorId"),
                     optionalInteger(parameters, "secondaryMinPhase"),
@@ -381,6 +383,12 @@ public class BedrockToolsService {
         }
 
         throw new IllegalArgumentException("Unsupported Bedrock tool path: " + apiPath);
+    }
+
+    private List<String> countryIdValues(Map<String, List<String>> parameters) {
+        List<String> values = new ArrayList<>(listValues(parameters, "countryId"));
+        values.addAll(listValues(parameters, "countryIds"));
+        return values;
     }
 
     public BedrockToolResponse<Map<String, Object>> validationError(Exception ex) {
