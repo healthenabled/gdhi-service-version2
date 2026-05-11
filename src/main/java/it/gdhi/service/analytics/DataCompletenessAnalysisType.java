@@ -19,8 +19,18 @@ public enum DataCompletenessAnalysisType {
 
     public static DataCompletenessAnalysisType from(String value) {
         return Arrays.stream(values())
-                .filter(type -> type.value.equalsIgnoreCase(value))
+                .filter(DataCompletenessAnalysisType::isSupported)
+                .filter(type -> value != null && type.value.equalsIgnoreCase(value))
                 .findFirst()
-                .orElse(MISSING_COUNTRY_DATA);
+                .orElseThrow(() -> new IllegalArgumentException(
+                        "Unknown analysisType '" + value + "'. Supported: " +
+                                Arrays.stream(values())
+                                        .filter(DataCompletenessAnalysisType::isSupported)
+                                        .map(DataCompletenessAnalysisType::value)
+                                        .toList()));
+    }
+
+    public boolean isSupported() {
+        return this != PROXY_ONLY;
     }
 }

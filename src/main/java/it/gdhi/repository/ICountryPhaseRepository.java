@@ -3,6 +3,7 @@ package it.gdhi.repository;
 import it.gdhi.model.CountryPhase;
 import it.gdhi.model.id.CountryPhaseId;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -11,7 +12,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface ICountryPhaseRepository extends JpaRepository<CountryPhase, CountryPhaseId> {
+public interface ICountryPhaseRepository extends JpaRepository<CountryPhase, CountryPhaseId>,
+        JpaSpecificationExecutor<CountryPhase> {
 
     CountryPhase findByCountryPhaseIdCountryIdAndCountryPhaseIdYear(String countryId, String year);
 
@@ -27,9 +29,15 @@ public interface ICountryPhaseRepository extends JpaRepository<CountryPhase, Cou
     List<CountryPhase> findByCountryPhaseIdCountryIdInAndCountryPhaseIdYearIn(List<String> countryId,
                                                                               List<String> year);
 
+    List<CountryPhase> findByCountryPhaseIdCountryIdIn(List<String> countryId);
+
     List<CountryPhase> findByCountryPhaseIdCountryIdInAndCountryPhaseIdYear(List<String> countryId, String year);
 
+    List<CountryPhase> findByCountryPhaseIdYear(String year);
+
     List<CountryPhase> findByCountryPhaseIdYearAndCountryOverallPhase(String year, Integer countryOverallPhase);
+
+    List<CountryPhase> findByLatestTrue();
 
     List<CountryPhase> findByLatestTrueAndCountryOverallPhase(Integer countryOverallPhase);
 
