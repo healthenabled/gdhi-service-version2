@@ -13,10 +13,9 @@ This is a Spring Boot application built using Gradle. Works well with Java 17 or
 5. **[Gradle Tasks](#gradle-tasks)**
 6. **[Setup Test Environment](#setup-test-environment)**
 7. **[Project Overview](#project-overview)**
-8. **[AI Service and Latest Data](#ai-service-and-latest-data)**
-9. **[Code Style](#code-style)**
-10. **[Deployment](#Deployment)**
-11. **[Troubleshooting](#Troubleshooting)**
+8. **[Code Style](#code-style)**
+9. **[Deployment](#Deployment)**
+10. **[Troubleshooting](#Troubleshooting)**
 
 ## Pre-requisites
 - Install Java
@@ -83,12 +82,6 @@ connect to DB gdhi_test
 - We also have **Regions** which are composed of Countries
 - We rely on backend as our source of truth and use the UI for only minor data changes before rendering it on the UI
 
-## AI Service and Latest Data
-
-- The service exposes `POST /ai/stream` as a Server-Sent Events endpoint for Bedrock-backed GDHM chat responses. Requests use `query`, optional `responseId`, and optional `user_language`.
-- When `year` is omitted, country summary, country health scores, countries health indicator scores, and related AI tools use each country's latest published submission instead of only the configured default year.
-- Flyway migration `V4_81__Add_Latest_To_Country_Phase.sql` adds `country_phase.latest`, backfills one latest row per country, and creates a partial unique index to keep only one latest phase row per country.
-
 ## Code Style
 
 To ensure your Intellij code style matches the checkstyle in the gradle build.
@@ -105,9 +98,7 @@ To ensure your Intellij code style matches the checkstyle in the gradle build.
   - [QA](https://github.com/healthenabled/gdhi-service-version2/deployments/activity_log?environment=QA)
   - [Showcase](https://github.com/healthenabled/gdhi-service-version2/deployments/activity_log?environment=SHOWCASE) 
   - [Production](https://github.com/healthenabled/gdhi-service-version2/deployments/activity_log?environment=PROD)
-- We use `github actions` to configure our CI. The code for the same can be found in [`.github/workflows`](https://github.com/healthenabled/gdhi-service-version2/tree/main/.github/workflows) directory.
-- The service is deployed as a Spring Boot JAR through AWS CodeDeploy. This repository does not use Docker or nginx for application deployment.
-- `appspec.yml` points CodeDeploy at `scripts/start_server.sh` and `scripts/stop_server.sh`; those scripts download the chosen JAR from S3 and run it with `java -jar`.
+- We use `github actions` to configure our CI. The code for the same can be found in [`.github/workflows`](https://github.com/healthenabled/gdhi-service-version2/tree/main/.github/workflows) directory. 
 - Below is a sequence diagram for CI/CD of the application:
 ```mermaid
   sequenceDiagram;
@@ -144,3 +135,5 @@ To ensure your Intellij code style matches the checkstyle in the gradle build.
 4. Migration script checksum mismatch error
 - Delete the record and all record below it in schema_version table
 - Rerun bootrun or build
+
+
