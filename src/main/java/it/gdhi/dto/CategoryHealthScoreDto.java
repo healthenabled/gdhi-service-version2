@@ -1,5 +1,7 @@
 package it.gdhi.dto;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import it.gdhi.config.TwoDecimalDoubleSerializer;
 import it.gdhi.model.Category;
 import it.gdhi.model.CountryHealthIndicator;
 import it.gdhi.model.Score;
@@ -23,6 +25,7 @@ public class CategoryHealthScoreDto {
 
     private String name;
 
+    @JsonSerialize(using = TwoDecimalDoubleSerializer.class)
     private Double overallScore;
 
     private Integer phase;

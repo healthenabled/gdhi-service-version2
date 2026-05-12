@@ -96,7 +96,7 @@ public class BffController {
                                                              @RequestParam(value = "year", required = false) String year, @RequestParam(value =
             "regionId", required = false) String regionId) {
         if (year == null) {
-            year = defaultYearDataService.fetchDefaultYear();
+            year = countryService.fetchLatestPublishedYear(countryId);
         }
         if (regionId == null) {
             return countryHealthDataService.getBenchmarkDetailsFor(countryId, benchmarkType, year);
@@ -120,6 +120,9 @@ public class BffController {
             @RequestParam(value = "year", required = false) String year) {
         LanguageCode languageCode = getLanguageCode(request);
         if (year == null) {
+            if (regionId == null) {
+                return countryHealthIndicatorService.getLatestGlobalHealthIndicator(categoryId, score, languageCode);
+            }
             year = defaultYearDataService.fetchDefaultYear();
         }
         if (regionId == null) {
