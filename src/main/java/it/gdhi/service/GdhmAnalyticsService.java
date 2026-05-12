@@ -132,8 +132,6 @@ public class GdhmAnalyticsService {
         Map<String, Country> countries = countriesById(scopedCountries);
         Map<String, String> regionByCountry = regionByCountryId(scopedCountries);
         Map<String, List<CountryHealthIndicator>> byCountry = indicators.stream()
-                .filter(indicator -> scopedCountries.isEmpty()
-                        || scopedCountries.contains(indicator.getCountryHealthIndicatorId().getCountryId()))
                 .collect(Collectors.groupingBy(indicator -> indicator.getCountryHealthIndicatorId().getCountryId()));
 
         return byCountry.entrySet().stream()
@@ -160,7 +158,6 @@ public class GdhmAnalyticsService {
         return switch (DataCompletenessAnalysisType.from(analysisType)) {
             case PHASE_COUNT_BY_INDICATOR -> phaseCountByIndicator(year, effectiveRegionId, phase, limit);
             case MISSING_COUNTRY_DATA -> missingCountryData(year, effectiveRegionId, limit);
-            case PROXY_ONLY -> throw new IllegalArgumentException("analysisType 'proxy_only' is not supported yet.");
         };
     }
 
@@ -170,7 +167,6 @@ public class GdhmAnalyticsService {
 
     public List<String> supportedDataCompletenessAnalysisTypes() {
         return Arrays.stream(DataCompletenessAnalysisType.values())
-                .filter(DataCompletenessAnalysisType::isSupported)
                 .map(DataCompletenessAnalysisType::value)
                 .toList();
     }
@@ -365,8 +361,6 @@ public class GdhmAnalyticsService {
         Map<String, String> regionByCountry = regionByCountryId(scopedCountries);
 
         return indicators.stream()
-                .filter(indicator -> scopedCountries.isEmpty()
-                        || scopedCountries.contains(indicator.getCountryHealthIndicatorId().getCountryId()))
                 .collect(Collectors.groupingBy(indicator -> indicator.getCountryHealthIndicatorId().getCountryId()))
                 .entrySet()
                 .stream()
@@ -386,8 +380,6 @@ public class GdhmAnalyticsService {
         Set<String> scopedCountries = scopedCountryIds(regionId, List.of());
         List<CountryHealthIndicator> indicators = healthIndicatorsFor(year, scopedCountries, null, null);
         return indicators.stream()
-                .filter(indicator -> scopedCountries.isEmpty()
-                        || scopedCountries.contains(indicator.getCountryHealthIndicatorId().getCountryId()))
                 .filter(indicator -> effectivePhase.equals(indicator.getScore()))
                 .collect(Collectors.groupingBy(indicator -> indicator.getCountryHealthIndicatorId().getIndicatorId()))
                 .entrySet()
@@ -448,7 +440,7 @@ public class GdhmAnalyticsService {
             if (!countryIds.isEmpty()) {
                 return countryPhaseRepository.findByCountryPhaseIdCountryIdIn(countryIds);
             }
-            return countryPhaseRepository.findByLatestTrue();
+            throw new IllegalArgumentException("Trend analysis requires a country, region, startYear, or endYear.");
         }
         return countryPhaseRepository.findAll(countryPhaseSpec(countryIds, startYear, endYear));
     }
@@ -462,8 +454,7 @@ public class GdhmAnalyticsService {
                 return countryHealthIndicatorRepository.findAll(healthIndicatorSpec(countryIds, categoryId,
                         indicatorId, null, null));
             }
-            return filterIndicators(countryHealthIndicatorRepository.findLatestByCountryAndCategoryAndStatus(null,
-                    categoryId, PUBLISHED.name()), List.of(), indicatorId);
+            throw new IllegalArgumentException("Trend analysis requires a country, region, startYear, or endYear.");
         }
         return countryHealthIndicatorRepository.findAll(healthIndicatorSpec(countryIds, categoryId, indicatorId,
                 startYear, endYear));

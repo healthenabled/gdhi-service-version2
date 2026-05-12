@@ -54,14 +54,10 @@ public class GdhmAnalyticsServiceTest {
     }
 
     @Test
-    public void shouldUseLatestCountryPhasesForUnboundedOverallTrendQuery() {
-        when(countryPhaseRepository.findByLatestTrue()).thenReturn(List.of(new CountryPhase("BRA", 4, "2024", true)));
+    public void shouldRejectUnboundedOverallTrendQuery() {
+        assertThrows(IllegalArgumentException.class, () -> service.analyzeCountryPhaseTrends(
+                null, null, null, null, null, null, "submitted", null, null));
 
-        List<BedrockCountryPhaseTrendData> trends = service.analyzeCountryPhaseTrends(
-                null, null, null, null, null, null, "submitted", null, null);
-
-        assertEquals(List.of(), trends);
-        verify(countryPhaseRepository).findByLatestTrue();
         verify(countryPhaseRepository, never()).findAll();
     }
 
@@ -84,15 +80,10 @@ public class GdhmAnalyticsServiceTest {
     }
 
     @Test
-    public void shouldUseLatestIndicatorsForUnboundedHealthIndicatorTrendQuery() {
-        when(countryHealthIndicatorRepository.findLatestByCountryAndCategoryAndStatus(null, 5, PUBLISHED.name()))
-                .thenReturn(List.of(indicator("BRA", 5, 14, "2024", 4)));
+    public void shouldRejectUnboundedHealthIndicatorTrendQuery() {
+        assertThrows(IllegalArgumentException.class, () -> service.analyzeCountryPhaseTrends(
+                null, null, 5, null, null, null, "submitted", null, null));
 
-        List<BedrockCountryPhaseTrendData> trends = service.analyzeCountryPhaseTrends(
-                null, null, 5, null, null, null, "submitted", null, null);
-
-        assertEquals(List.of(), trends);
-        verify(countryHealthIndicatorRepository).findLatestByCountryAndCategoryAndStatus(null, 5, PUBLISHED.name());
         verify(countryHealthIndicatorRepository, never()).findByStatus(PUBLISHED.name());
     }
 
