@@ -8,8 +8,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.server.ResponseStatusException;
 import reactor.core.Disposable;
 import software.amazon.awssdk.services.bedrockagentruntime.BedrockAgentRuntimeAsyncClient;
 import software.amazon.awssdk.services.bedrockagentruntime.model.InvokeAgentRequest;
@@ -20,7 +18,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import static it.gdhi.utils.LanguageCode.USER_LANGUAGE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
@@ -96,20 +94,20 @@ public class GdhmAiServiceTest {
     }
 
     @Test
-    public void shouldPropagateBedrockErrorsAsInternalServerErrors() {
+    public void shouldCompleteWithVisibleMessageForBedrockErrors() {
         AIRequest request = new AIRequest();
         request.setResponseId("session-1");
         request.setQuery("Hello");
+        AtomicReference<String> output = new AtomicReference<>();
         AtomicReference<Throwable> error = new AtomicReference<>();
 
-        Disposable disposable = service.streamChat(request).subscribe(ignored -> { }, error::set);
+        Disposable disposable = service.streamChat(request).subscribe(output::set, error::set);
         InvokeAgentResponseHandler handler = captureInvokeAgentResponseHandler();
         handler.exceptionOccurred(new RuntimeException("Bedrock failed"));
         disposable.dispose();
 
-        ResponseStatusException exception = assertInstanceOf(ResponseStatusException.class, error.get());
-        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, exception.getStatus());
-        assertEquals("Bedrock agent invocation failed.", exception.getReason());
+        assertNull(error.get());
+        assertEquals("I ran into a temporary problem while generating the answer. Please try again.", output.get());
     }
 
     private InvokeAgentRequest captureInvokeAgentRequest() {

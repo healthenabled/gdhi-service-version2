@@ -20,6 +20,8 @@ public interface IRegionalOverallDataRepository extends JpaRepository<RegionalOv
 
     @Query(value = "SELECT year from regions.regional_overall_data r where" +
             " r.region_id = UPPER(:regionId) " +
-            " order by r.updated_at DESC LIMIT :limit", nativeQuery = true)
+            " order by r.updated_at DESC, " +
+            " CASE WHEN r.year ~ '^[0-9]{4}$' THEN CAST(r.year AS integer) ELSE 0 END DESC LIMIT :limit",
+            nativeQuery = true)
     List<String> findByRegionIdOrderByUpdatedAtDesc(@Param("regionId") String regionId, @Param("limit") Integer limit);
 }

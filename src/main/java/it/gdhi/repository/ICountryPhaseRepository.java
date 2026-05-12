@@ -19,11 +19,14 @@ public interface ICountryPhaseRepository extends JpaRepository<CountryPhase, Cou
 
     @Query(value = "SELECT year from country_health_data.country_phase c where" +
             " c.country_id = UPPER(:countryId) " +
-            " order by c.updated_at DESC LIMIT :limit", nativeQuery = true)
+            " order by c.updated_at DESC, " +
+            " CASE WHEN c.year ~ '^[0-9]{4}$' THEN CAST(c.year AS integer) ELSE 0 END DESC LIMIT :limit",
+            nativeQuery = true)
     List<String> findByCountryPhaseIdOrderByYearDesc(@Param("countryId") String countryId, @Param("limit") Integer limit);
 
     @Query(value = "SELECT year FROM country_health_data.country_phase GROUP BY year" +
-            " ORDER BY MAX(updated_at) DESC LIMIT :limit", nativeQuery = true)
+            " ORDER BY MAX(updated_at) DESC, CASE WHEN year ~ '^[0-9]{4}$' THEN CAST(year AS integer) ELSE 0 END DESC LIMIT :limit",
+            nativeQuery = true)
     List<String> findAllDistinctYearsOrderByUpdatedAtDesc(@Param("limit") Integer limit);
 
     List<CountryPhase> findByCountryPhaseIdCountryIdInAndCountryPhaseIdYearIn(List<String> countryId,

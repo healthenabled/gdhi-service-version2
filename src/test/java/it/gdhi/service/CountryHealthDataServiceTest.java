@@ -293,16 +293,17 @@ public class CountryHealthDataServiceTest {
 
     @Test
     public void shouldGetAdminViewFormDetailsForCurrentYear() {
+        String currentYear = getCurrentYear();
         CountrySummary countrySummaryIND = getCountrySummary("IND", "PUBLISHED", "INDIA",
                 "IN", "Contact Name 1", "con1@gdhi.com", "Version1");
         CountrySummary countrySummaryARG = getCountrySummary("ARG", "REVIEW_PENDING",
-                "ARGENTINA", "AR", "Contact Name 1", "con1@gdhi.com", "2023");
+                "ARGENTINA", "AR", "Contact Name 1", "con1@gdhi.com", currentYear);
         CountrySummary countrySummaryALG = getCountrySummary("ALG", "NEW", "ALGERIA",
                 "AL", "Contact Name 2", "con2@gdhi.com", "Version1");
         CountrySummary countrySummaryINDNEW = getCountrySummary("IND", "NEW", "INDIA",
-                "IN", "Contact Name 1", "con1@gdhi.com", "2023");
+                "IN", "Contact Name 1", "con1@gdhi.com", currentYear);
 
-        when(iCountrySummaryRepository.findByCountrySummaryIdYearOrderByUpdatedAtDesc("2023")).thenReturn(asList(countrySummaryARG,
+        when(iCountrySummaryRepository.findByCountrySummaryIdYearOrderByUpdatedAtDesc(currentYear)).thenReturn(asList(countrySummaryARG,
                 countrySummaryINDNEW));
         CountrySummaryStatusYearDto adminViewFormDetails = countryHealthDataService.getAllCountryStatusSummaries();
         assertEquals(adminViewFormDetails.getNewStatus().size(), 1);

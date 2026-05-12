@@ -243,7 +243,7 @@ public class CountryIntegrationTest extends BaseIntegrationTest {
         String countryId = INDIA_ID;
         String status = "PUBLISHED";
         String alpha2code = "IN";
-        String year = "Version1";
+        String year = getCurrentYear();
 
 
         CountryResourceLink countryResourceLink1 = new CountryResourceLink(new CountryResourceLinkId(countryId,
@@ -253,7 +253,8 @@ public class CountryIntegrationTest extends BaseIntegrationTest {
 
         List<CountryResourceLink> countryResourceLinks = asList(countryResourceLink1, countryResourceLink2);
 
-        addCountrySummary(countryId, "India", status, alpha2code, INDIA_UUID, countryResourceLinks, "Version1");
+        addCountrySummary(countryId, "India", status, alpha2code, INDIA_UUID, countryResourceLinks, year);
+        setUpCountryPhase(countryId, 2, year);
 
         Response response = given()
                 .contentType("application/json")
@@ -269,7 +270,6 @@ public class CountryIntegrationTest extends BaseIntegrationTest {
         String status = "DRAFT";
         String alpha2code = "IN";
         String currentYear = getCurrentYear();
-        String dataAvailableForYear = "2023";
 
         CountryResourceLink countryResourceLink1 = new CountryResourceLink(new CountryResourceLinkId(countryId,
                 "www.example.com", currentYear), new Date(), null,status);
@@ -365,7 +365,6 @@ public class CountryIntegrationTest extends BaseIntegrationTest {
         addCountrySummary(INDIA_ID, "India", "NEW", "IN", UUID.randomUUID(), new ArrayList<>(), currentYear);
         mailerService = mock(MailerService.class);
         doNothing().when(mailerService).send(any(Country.class), anyString(), anyString(), anyString());
-        String dataAvailableForYear = "2023";
 
         SimpleDateFormat DateFor = new SimpleDateFormat("MMMM yyyy");
         String expectedUpdatedDate = DateFor.format(new Date());
@@ -512,7 +511,7 @@ public class CountryIntegrationTest extends BaseIntegrationTest {
                 .when()
                 .get("http://localhost:" + port + "/countries/country_status_summaries");
 
-        String expectedJson = "{\"currentYear\": \"2023\",\n" +
+        String expectedJson = "{\"currentYear\": \"" + currentYear + "\",\n" +
                 "  \"NEW\": [{\n" +
                 "    \"countryName\": \"India\",\n" +
                 "    \"countryUUID\": \"" + indiaUUID.toString() + "\",\n" +
@@ -573,7 +572,11 @@ public class CountryIntegrationTest extends BaseIntegrationTest {
 
     private void setUpCountryPhase(String countryId, Integer countryPhaseValue, String year) {
         CountryPhaseId countryPhaseId = new CountryPhaseId(countryId, year);
-        CountryPhase countryPhase = CountryPhase.builder().countryPhaseId(countryPhaseId).countryOverallPhase(countryPhaseValue).build();
+        CountryPhase countryPhase = CountryPhase.builder()
+                .countryPhaseId(countryPhaseId)
+                .countryOverallPhase(countryPhaseValue)
+                .latest(true)
+                .build();
         countryPhaseRepository.save(countryPhase);
     }
 
