@@ -4,13 +4,15 @@ import java.util.List;
 
 import it.gdhi.model.CountryHealthIndicator;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ICountryHealthIndicatorRepository extends JpaRepository<CountryHealthIndicator, Long> {
+public interface ICountryHealthIndicatorRepository extends JpaRepository<CountryHealthIndicator, Long>,
+        JpaSpecificationExecutor<CountryHealthIndicator> {
 
     CountryHealthIndicator save(CountryHealthIndicator countryHealthIndicatorSetupData);
 
@@ -27,6 +29,8 @@ public interface ICountryHealthIndicatorRepository extends JpaRepository<Country
     List<CountryHealthIndicator> findByCountryHealthIndicatorIdCountryIdInAndCountryHealthIndicatorIdYearAndStatus(List<String> countryId, String year, String status);
 
     List<CountryHealthIndicator> findByCountryHealthIndicatorIdCountryIdInAndCountryHealthIndicatorIdYearInAndStatus(List<String> countryId, List<String> year, String status);
+
+    List<CountryHealthIndicator> findByStatus(String status);
 
     @Query(value = """
             SELECT hi.*

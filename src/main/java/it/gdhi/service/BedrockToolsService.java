@@ -1,7 +1,10 @@
 package it.gdhi.service;
 
 import it.gdhi.ai.dto.BedrockCountryPhaseData;
+import it.gdhi.ai.dto.BedrockCountryPhaseTrendData;
+import it.gdhi.ai.dto.BedrockCountryRankingData;
 import it.gdhi.ai.dto.BedrockCountrySummaryData;
+import it.gdhi.ai.dto.BedrockDataCompletenessData;
 import it.gdhi.ai.dto.BedrockToolResponse;
 import it.gdhi.dto.CategoryIndicatorDto;
 import it.gdhi.dto.CountriesHealthScoreDto;
@@ -16,6 +19,7 @@ import it.gdhi.model.CountryPhase;
 import it.gdhi.model.Region;
 import it.gdhi.repository.ICountryPhaseRepository;
 import it.gdhi.repository.ICountryRepository;
+import it.gdhi.service.analytics.RegionAlias;
 import it.gdhi.utils.LanguageCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -50,6 +54,7 @@ public class BedrockToolsService {
     private final ICountryPhaseRepository countryPhaseRepository;
     private final ICountryRepository countryRepository;
     private final CountryNameTranslator countryNameTranslator;
+    private final GdhmAnalyticsService gdhmAnalyticsService;
 
     public BedrockToolResponse<List<Country>> listCountries(String languageHeader) {
         LanguageCode languageCode = LanguageCode.getValueFor(languageHeader);
@@ -116,26 +121,28 @@ public class BedrockToolsService {
 
     public BedrockToolResponse<GlobalHealthScoreDto> getGlobalHealthIndicators(
             Integer categoryId, Integer phase, String regionId, String year, String languageHeader) {
-        requireAnyFilter("global health indicators", categoryId, phase, regionId);
+        String effectiveRegionId = RegionAlias.normalize(regionId);
+        requireAnyFilter("global health indicators", categoryId, phase, effectiveRegionId);
         LanguageCode languageCode = LanguageCode.getValueFor(languageHeader);
         String effectiveYear = year;
         GlobalHealthScoreDto dto;
         if (StringUtils.hasText(effectiveYear)) {
-            dto = regionId == null
+            dto = effectiveRegionId == null
                     ? countryHealthIndicatorService.getGlobalHealthIndicator(categoryId, phase, languageCode,
                             effectiveYear)
-                    : regionService.fetchRegionalHealthScores(categoryId, regionId, languageCode, effectiveYear);
+                    : regionService.fetchRegionalHealthScores(categoryId, effectiveRegionId, languageCode,
+                            effectiveYear);
         }
-        else if (regionId == null) {
+        else if (effectiveRegionId == null) {
             effectiveYear = "latest";
             dto = countryHealthIndicatorService.getLatestGlobalHealthIndicator(categoryId, phase, languageCode);
         }
         else {
-            effectiveYear = resolveLatestRegionalYear(regionId);
-            dto = regionService.fetchRegionalHealthScores(categoryId, regionId, languageCode, effectiveYear);
+            effectiveYear = resolveLatestRegionalYear(effectiveRegionId);
+            dto = regionService.fetchRegionalHealthScores(categoryId, effectiveRegionId, languageCode, effectiveYear);
         }
         return BedrockToolResponse.ok("getGlobalHealthIndicators", "Fetched global health indicators",
-                filters("categoryId", categoryId, "phase", phase, "regionId", regionId, "year", effectiveYear,
+                filters("categoryId", categoryId, "phase", phase, "regionId", effectiveRegionId, "year", effectiveYear,
                         "language", languageCode.name()), dto);
     }
 
@@ -168,16 +175,18 @@ public class BedrockToolsService {
     public BedrockToolResponse<RegionCountriesDto> getRegionCountries(
             String regionId, List<String> years, String languageHeader) {
         LanguageCode languageCode = LanguageCode.getValueFor(languageHeader);
-        RegionCountriesDto dto = regionService.getRegionCountriesData(regionId, years, languageCode);
+        String effectiveRegionId = RegionAlias.normalize(regionId);
+        RegionCountriesDto dto = regionService.getRegionCountriesData(effectiveRegionId, years, languageCode);
         return BedrockToolResponse.ok("getRegionCountries", "Fetched region countries data",
-                filters("regionId", regionId, "list_of_years", years, "language", languageCode.name()), dto);
+                filters("regionId", effectiveRegionId, "list_of_years", years, "language", languageCode.name()), dto);
     }
 
     public BedrockToolResponse<List<String>> getRegionYears(String regionId, Integer limit) {
         Integer effectiveLimit = limit == null ? defaultLimit : limit;
-        List<String> years = regionService.fetchYearsForARegion(regionId, effectiveLimit);
+        String effectiveRegionId = RegionAlias.normalize(regionId);
+        List<String> years = regionService.fetchYearsForARegion(effectiveRegionId, effectiveLimit);
         return BedrockToolResponse.ok("getRegionYears", "Fetched region years",
-                filters("regionId", regionId, "limit", effectiveLimit), years);
+                filters("regionId", effectiveRegionId, "limit", effectiveLimit), years);
     }
 
     public BedrockToolResponse<List<CategoryIndicatorDto>> getHealthIndicatorOptions(String languageHeader) {
@@ -223,6 +232,74 @@ public class BedrockToolsService {
 
         return BedrockToolResponse.ok("listCountriesByPhase", "Fetched countries by overall phase",
                 filters("phase", phase, "year", effectiveYear, "language", languageCode.name()), countries);
+    }
+
+    public BedrockToolResponse<List<BedrockCountryPhaseTrendData>> analyzeCountryPhaseTrends(
+            String regionId,
+            String countryId,
+            Integer categoryId,
+            Integer indicatorId,
+            String startYear,
+            String endYear,
+            String direction,
+            Integer minSubmissionYears,
+            Integer limit) {
+        String effectiveRegionId = RegionAlias.normalize(regionId);
+        String effectiveDirection = StringUtils.hasText(direction) ? direction : "advanced";
+        List<BedrockCountryPhaseTrendData> trends = gdhmAnalyticsService.analyzeCountryPhaseTrends(
+                effectiveRegionId, countryId, categoryId, indicatorId, startYear, endYear, effectiveDirection,
+                minSubmissionYears, limit);
+        return BedrockToolResponse.ok("analyzeCountryPhaseTrends", "Analyzed country phase trends",
+                filters("regionId", effectiveRegionId, "countryId", countryId, "categoryId", categoryId,
+                        "indicatorId", indicatorId, "startYear", startYear, "endYear", endYear, "direction",
+                        effectiveDirection, "minSubmissionYears", minSubmissionYears, "limit", limit),
+                trends);
+    }
+
+    public BedrockToolResponse<List<BedrockCountryRankingData>> rankCountries(
+            String regionId,
+            List<String> countryIds,
+            Integer categoryId,
+            Integer indicatorId,
+            String year,
+            Integer minPhase,
+            Integer maxPhase,
+            String sort,
+            Integer limit,
+            Integer secondaryCategoryId,
+            Integer secondaryIndicatorId,
+            Integer secondaryMinPhase,
+            Integer secondaryMaxPhase) {
+        String effectiveRegionId = RegionAlias.normalize(regionId);
+        String effectiveSort = StringUtils.hasText(sort) ? sort : "highest";
+        List<BedrockCountryRankingData> rankings = gdhmAnalyticsService.rankCountries(
+                effectiveRegionId, countryIds, categoryId, indicatorId, year, minPhase, maxPhase, effectiveSort, limit,
+                secondaryCategoryId, secondaryIndicatorId, secondaryMinPhase, secondaryMaxPhase);
+        return BedrockToolResponse.ok("rankCountries", "Ranked countries by GDHM score filters",
+                filters("regionId", effectiveRegionId, "countryId", countryIds, "categoryId", categoryId,
+                        "indicatorId", indicatorId, "year", year, "minPhase", minPhase, "maxPhase", maxPhase,
+                        "sort", effectiveSort, "limit", limit, "secondaryCategoryId", secondaryCategoryId,
+                        "secondaryIndicatorId", secondaryIndicatorId, "secondaryMinPhase", secondaryMinPhase,
+                        "secondaryMaxPhase", secondaryMaxPhase),
+                rankings);
+    }
+
+    public BedrockToolResponse<List<BedrockDataCompletenessData>> analyzeDataCompleteness(
+            String analysisType,
+            String year,
+            String regionId,
+            Integer phase,
+            Integer limit) {
+        if (!StringUtils.hasText(analysisType)) {
+            throw new IllegalArgumentException("Missing required parameter: analysisType");
+        }
+        String effectiveRegionId = RegionAlias.normalize(regionId);
+        List<BedrockDataCompletenessData> data = gdhmAnalyticsService.analyzeDataCompleteness(
+                analysisType, year, effectiveRegionId, phase, limit);
+        return BedrockToolResponse.ok("analyzeDataCompleteness", "Analyzed GDHM data completeness",
+                filters("analysisType", analysisType, "year", year, "regionId", effectiveRegionId, "phase", phase,
+                        "limit", limit),
+                data);
     }
 
     public BedrockToolResponse<?> executeApiInvocation(ApiInvocationInput apiInvocationInput) {
@@ -281,8 +358,37 @@ public class BedrockToolsService {
         if ("/metadata/years".equals(apiPath)) {
             return listYears();
         }
+        if ("/analytics/country-phase-trends".equals(apiPath)) {
+            return analyzeCountryPhaseTrends(optionalString(parameters, "regionId"),
+                    optionalString(parameters, "countryId"), optionalInteger(parameters, "categoryId"),
+                    optionalInteger(parameters, "indicatorId"), optionalString(parameters, "startYear"),
+                    optionalString(parameters, "endYear"), optionalString(parameters, "direction"),
+                    optionalInteger(parameters, "minSubmissionYears"), optionalInteger(parameters, "limit"));
+        }
+        if ("/analytics/country-rankings".equals(apiPath)) {
+            return rankCountries(optionalString(parameters, "regionId"), countryIdValues(parameters),
+                    optionalInteger(parameters, "categoryId"), optionalInteger(parameters, "indicatorId"),
+                    optionalString(parameters, "year"), optionalInteger(parameters, "minPhase"),
+                    optionalInteger(parameters, "maxPhase"), optionalString(parameters, "sort"),
+                    optionalInteger(parameters, "limit"),
+                    optionalInteger(parameters, "secondaryCategoryId"),
+                    optionalInteger(parameters, "secondaryIndicatorId"),
+                    optionalInteger(parameters, "secondaryMinPhase"),
+                    optionalInteger(parameters, "secondaryMaxPhase"));
+        }
+        if ("/analytics/data-completeness".equals(apiPath)) {
+            return analyzeDataCompleteness(requiredString(parameters, "analysisType"),
+                    optionalString(parameters, "year"), optionalString(parameters, "regionId"),
+                    optionalInteger(parameters, "phase"), optionalInteger(parameters, "limit"));
+        }
 
         throw new IllegalArgumentException("Unsupported Bedrock tool path: " + apiPath);
+    }
+
+    private List<String> countryIdValues(Map<String, List<String>> parameters) {
+        List<String> values = new ArrayList<>(listValues(parameters, "countryId"));
+        values.addAll(listValues(parameters, "countryIds"));
+        return values;
     }
 
     public BedrockToolResponse<Map<String, Object>> validationError(Exception ex) {
