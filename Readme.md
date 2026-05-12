@@ -105,7 +105,9 @@ To ensure your Intellij code style matches the checkstyle in the gradle build.
   - [QA](https://github.com/healthenabled/gdhi-service-version2/deployments/activity_log?environment=QA)
   - [Showcase](https://github.com/healthenabled/gdhi-service-version2/deployments/activity_log?environment=SHOWCASE) 
   - [Production](https://github.com/healthenabled/gdhi-service-version2/deployments/activity_log?environment=PROD)
-- We use `github actions` to configure our CI. The code for the same can be found in [`.github/workflows`](https://github.com/healthenabled/gdhi-service-version2/tree/main/.github/workflows) directory. 
+- We use `github actions` to configure our CI. The code for the same can be found in [`.github/workflows`](https://github.com/healthenabled/gdhi-service-version2/tree/main/.github/workflows) directory.
+- The service is deployed as a Spring Boot JAR through AWS CodeDeploy. This repository does not use Docker or nginx for application deployment.
+- `appspec.yml` points CodeDeploy at `scripts/start_server.sh` and `scripts/stop_server.sh`; those scripts download the chosen JAR from S3 and run it with `java -jar`.
 - Below is a sequence diagram for CI/CD of the application:
 ```mermaid
   sequenceDiagram;
@@ -142,4 +144,3 @@ To ensure your Intellij code style matches the checkstyle in the gradle build.
 4. Migration script checksum mismatch error
 - Delete the record and all record below it in schema_version table
 - Rerun bootrun or build
-
