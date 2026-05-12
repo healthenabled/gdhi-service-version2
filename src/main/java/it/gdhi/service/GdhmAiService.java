@@ -1,8 +1,10 @@
 package it.gdhi.service;
 
+import it.gdhi.config.BedrockAgentProperties;
 import it.gdhi.dto.AIRequest;
+import it.gdhi.utils.LanguageCode;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import reactor.core.publisher.Flux;
@@ -18,8 +20,8 @@ import software.amazon.awssdk.services.bedrockagentruntime.model.SessionState;
 import software.amazon.awssdk.services.bedrockagentruntime.model.Trace;
 import software.amazon.awssdk.services.bedrockagentruntime.model.TracePart;
 
-import java.util.Optional;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.CompletionException;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
@@ -29,35 +31,12 @@ import static java.util.UUID.randomUUID;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class GdhmAiService {
 
     private final BedrockAgentRuntimeAsyncClient client;
     private final BedrockReturnControlService returnControlService;
-    private final String agentId;
-    private final String agentAliasId;
-    private final int maxModelRetryAttempts;
-    private final boolean enableTrace;
-    private final int applyGuardrailInterval;
-    private final boolean logFullTrace;
-
-    public GdhmAiService(
-            BedrockAgentRuntimeAsyncClient client,
-            BedrockReturnControlService returnControlService,
-            @Value("${aws.bedrock.agentId}") String agentId,
-            @Value("${aws.bedrock.agentAliasId}") String agentAliasId,
-            @Value("${aws.bedrock.maxModelRetryAttempts:2}") int maxModelRetryAttempts,
-            @Value("${aws.bedrock.enableTrace:true}") boolean enableTrace,
-            @Value("${aws.bedrock.applyGuardrailInterval:20}") int applyGuardrailInterval,
-            @Value("${aws.bedrock.logFullTrace:false}") boolean logFullTrace) {
-        this.client = client;
-        this.returnControlService = returnControlService;
-        this.agentId = agentId;
-        this.agentAliasId = agentAliasId;
-        this.maxModelRetryAttempts = maxModelRetryAttempts;
-        this.enableTrace = enableTrace;
-        this.applyGuardrailInterval = applyGuardrailInterval;
-        this.logFullTrace = logFullTrace;
-    }
+    private final BedrockAgentProperties bedrockAgentProperties;
 
     public Flux<String> streamChat(AIRequest userQuery) {
         String sessionId = Optional.ofNullable(userQuery.getResponseId())
@@ -65,7 +44,7 @@ public class GdhmAiService {
                 .filter(StringUtils::hasText)
                 .orElseGet(() -> randomUUID().toString());
         String query = userQuery.getQuery();
-        String userLanguage = resolveUserLanguage(userQuery);
+        LanguageCode userLanguage = resolveUserLanguage(userQuery);
 
         log.info("Starting Bedrock agent sessionId={} queryLength={} userLanguage={}", sessionId,
                 query == null ? 0 : query.length(), userLanguage);
@@ -73,7 +52,7 @@ public class GdhmAiService {
                 userLanguage, new AtomicBoolean(false), 1));
     }
 
-    private void invokeAgent(InvokeAgentRequest request, FluxSink<String> sink, String userLanguage,
+    private void invokeAgent(InvokeAgentRequest request, FluxSink<String> sink, LanguageCode userLanguage,
                              AtomicBoolean hasEmittedText, int attemptNumber) {
         AtomicReference<ReturnControlPayload> pendingReturnControl = new AtomicReference<>();
 
@@ -103,7 +82,7 @@ public class GdhmAiService {
     }
 
     private void continueOrComplete(String sessionId, ReturnControlPayload payload, FluxSink<String> sink,
-                                    String userLanguage, AtomicBoolean hasEmittedText) {
+                                    LanguageCode userLanguage, AtomicBoolean hasEmittedText) {
         if (payload == null) {
             log.info("Bedrock agent sessionId={} completed without further return control", sessionId);
             sink.complete();
@@ -113,8 +92,9 @@ public class GdhmAiService {
         try {
             log.info("Bedrock agent sessionId={} returned control invocationId={} inputs={}",
                     sessionId, payload.invocationId(), payload.invocationInputs().size());
-            SessionState sessionState = returnControlService.buildSessionState(payload, userLanguage);
-            invokeAgent(buildReturnControlRequest(sessionId, sessionState), sink, userLanguage, hasEmittedText, 1);
+            SessionState sessionState = returnControlService.buildSessionState(payload, userLanguage.name());
+            invokeAgent(buildReturnControlRequest(sessionId, sessionState, userLanguage), sink, userLanguage,
+                    hasEmittedText, 1);
         }
         catch (Exception ex) {
             log.error("Failed while handling Bedrock return control for sessionId={}", sessionId, ex);
@@ -122,63 +102,74 @@ public class GdhmAiService {
         }
     }
 
-    private InvokeAgentRequest buildPromptRequest(String sessionId, String inputText, String userLanguage) {
-        return baseRequestBuilder(sessionId)
+    private InvokeAgentRequest buildPromptRequest(String sessionId, String inputText, LanguageCode userLanguage) {
+        return baseRequestBuilder(sessionId, userLanguage)
                 .inputText(buildInputText(inputText, userLanguage))
                 .sessionState(buildLanguageSessionState(userLanguage))
                 .build();
     }
 
-    private InvokeAgentRequest buildReturnControlRequest(String sessionId, SessionState sessionState) {
-        return baseRequestBuilder(sessionId)
+    private InvokeAgentRequest buildReturnControlRequest(String sessionId, SessionState sessionState,
+                                                         LanguageCode userLanguage) {
+        return baseRequestBuilder(sessionId, userLanguage)
                 .sessionState(sessionState)
                 .build();
     }
 
-    private InvokeAgentRequest.Builder baseRequestBuilder(String sessionId) {
+    private InvokeAgentRequest.Builder baseRequestBuilder(String sessionId, LanguageCode userLanguage) {
+        BedrockAgentProperties.Agent agent = bedrockAgentProperties.resolve(userLanguage);
         return InvokeAgentRequest.builder()
-                .agentId(agentId)
-                .agentAliasId(agentAliasId)
-                .enableTrace(enableTrace)
+                .agentId(agent.getAgentId())
+                .agentAliasId(agent.getAgentAliasId())
+                .enableTrace(bedrockAgentProperties.isEnableTrace())
                 .sessionId(sessionId)
                 .streamingConfigurations(sc -> sc
                         .streamFinalResponse(true)
-                        .applyGuardrailInterval(applyGuardrailInterval));
+                        .applyGuardrailInterval(bedrockAgentProperties.getApplyGuardrailInterval()));
     }
 
-    private SessionState buildLanguageSessionState(String userLanguage) {
+    private SessionState buildLanguageSessionState(LanguageCode userLanguage) {
+        Map<String, String> languageAttributes = languageAttributes(userLanguage.name());
         return SessionState.builder()
-                .sessionAttributes(Map.of(USER_LANGUAGE, userLanguage))
-                .promptSessionAttributes(Map.of(USER_LANGUAGE, userLanguage))
+                .sessionAttributes(languageAttributes)
+                .promptSessionAttributes(languageAttributes)
                 .build();
     }
 
-    private String buildInputText(String inputText, String userLanguage) {
+    private Map<String, String> languageAttributes(String userLanguage) {
+        return Map.of(USER_LANGUAGE, userLanguage);
+    }
+
+    private String buildInputText(String inputText, LanguageCode userLanguage) {
         String query = inputText == null ? "" : inputText.trim();
         return """
                 Preferred response language: %s.
-                Use this language for the full answer and for tool parameters when supported.
+                Use this language for the full answer. Do not add language parameters to tool calls.
                 For this turn, if the question involves live GDHM data, call the relevant tools again for this specific turn.
                 Do not rely on data retrieved in an earlier turn, even if the conversation is continuing.
 
                 User request:
                 %s
-                """.formatted(userLanguage, query);
+                """.formatted(languagePromptValue(userLanguage), query);
     }
 
-    private String resolveUserLanguage(AIRequest userQuery) {
+    private String languagePromptValue(LanguageCode userLanguage) {
+        return "%s (%s)".formatted(userLanguage.getName(), userLanguage.name());
+    }
+
+    private LanguageCode resolveUserLanguage(AIRequest userQuery) {
         String userLanguage = Optional.ofNullable(userQuery.getUserLanguage()).map(String::trim).orElse("en");
-        return StringUtils.hasText(userLanguage) ? userLanguage : "en";
+        return LanguageCode.getValueFor(StringUtils.hasText(userLanguage) ? userLanguage : "en");
     }
 
     private void handleInvokeError(InvokeAgentRequest request, Throwable error, FluxSink<String> sink,
-                                   String userLanguage, AtomicBoolean hasEmittedText, int attemptNumber) {
+                                   LanguageCode userLanguage, AtomicBoolean hasEmittedText, int attemptNumber) {
         String sessionId = request.sessionId();
         Throwable rootCause = unwrap(error);
         boolean afterToolResults = hasReturnControlResults(request);
         if (shouldRetry(request, rootCause, hasEmittedText, attemptNumber)) {
             log.warn("Retrying Bedrock agent sessionId={} after dependency failure attempt={}/{} cause={}", sessionId,
-                    attemptNumber, maxModelRetryAttempts, rootCause.getMessage());
+                    attemptNumber, bedrockAgentProperties.getMaxModelRetryAttempts(), rootCause.getMessage());
             invokeAgent(request, sink, userLanguage, hasEmittedText, attemptNumber + 1);
             return;
         }
@@ -194,7 +185,7 @@ public class GdhmAiService {
         return error instanceof DependencyFailedException
                 && !hasReturnControlResults(request)
                 && !hasEmittedText.get()
-                && attemptNumber < maxModelRetryAttempts;
+                && attemptNumber < bedrockAgentProperties.getMaxModelRetryAttempts();
     }
 
     private boolean hasReturnControlResults(InvokeAgentRequest request) {
@@ -266,7 +257,7 @@ public class GdhmAiService {
                     tracePart.sessionId(), trace.type());
         }
 
-        if (logFullTrace) {
+        if (bedrockAgentProperties.isLogFullTrace()) {
             log.info("Bedrock full trace sessionId={} payload={}", tracePart.sessionId(), trace);
         }
     }

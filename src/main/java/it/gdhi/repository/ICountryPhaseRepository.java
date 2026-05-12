@@ -3,6 +3,8 @@ package it.gdhi.repository;
 import it.gdhi.model.CountryPhase;
 import it.gdhi.model.id.CountryPhaseId;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -10,7 +12,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface ICountryPhaseRepository extends JpaRepository<CountryPhase, CountryPhaseId> {
+public interface ICountryPhaseRepository extends JpaRepository<CountryPhase, CountryPhaseId>,
+        JpaSpecificationExecutor<CountryPhase> {
 
     CountryPhase findByCountryPhaseIdCountryIdAndCountryPhaseIdYear(String countryId, String year);
 
@@ -26,7 +29,50 @@ public interface ICountryPhaseRepository extends JpaRepository<CountryPhase, Cou
     List<CountryPhase> findByCountryPhaseIdCountryIdInAndCountryPhaseIdYearIn(List<String> countryId,
                                                                               List<String> year);
 
+    List<CountryPhase> findByCountryPhaseIdCountryIdIn(List<String> countryId);
+
     List<CountryPhase> findByCountryPhaseIdCountryIdInAndCountryPhaseIdYear(List<String> countryId, String year);
 
+    List<CountryPhase> findByCountryPhaseIdYear(String year);
+
     List<CountryPhase> findByCountryPhaseIdYearAndCountryOverallPhase(String year, Integer countryOverallPhase);
+
+    List<CountryPhase> findByLatestTrue();
+
+    List<CountryPhase> findByLatestTrueAndCountryOverallPhase(Integer countryOverallPhase);
+
+    List<CountryPhase> findByLatestTrueAndCountryPhaseIdCountryIdIn(List<String> countryIds);
+
+    @Query(value = """
+            SELECT *
+            FROM country_health_data.country_phase
+            WHERE country_id = UPPER(:countryId)
+              AND latest = true
+            """, nativeQuery = true)
+    CountryPhase findLatestByCountryId(@Param("countryId") String countryId);
+
+    @Modifying
+    @Query(value = "UPDATE country_health_data.country_phase SET latest = false WHERE country_id = UPPER(:countryId)",
+            nativeQuery = true)
+    void clearLatestForCountry(@Param("countryId") String countryId);
+
+    @Modifying
+    @Query(value = """
+            UPDATE country_health_data.country_phase cp
+            SET latest = true
+            WHERE cp.country_id = UPPER(:countryId)
+              AND cp.year = (
+                  SELECT ranked.year
+                  FROM (
+                      SELECT year
+                      FROM country_health_data.country_phase
+                      WHERE country_id = UPPER(:countryId)
+                      ORDER BY
+                          CASE WHEN year ~ '^[0-9]{4}$' THEN year::int ELSE 0 END DESC,
+                          updated_at DESC
+                      LIMIT 1
+                  ) ranked
+              )
+            """, nativeQuery = true)
+    void markLatestForCountry(@Param("countryId") String countryId);
 }

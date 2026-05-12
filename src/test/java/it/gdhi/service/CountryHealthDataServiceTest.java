@@ -127,8 +127,10 @@ public class CountryHealthDataServiceTest {
         ArgumentCaptor<CountryPhase> phaseDetailsCaptor = ArgumentCaptor.forClass(CountryPhase.class);
 
         inOrder.verify(iCountryPhaseRepository).save(phaseDetailsCaptor.capture());
+        verifyLatestRefreshed(inOrder, countryId);
         assertThat(phaseDetailsCaptor.getValue().getCountryOverallPhase(), is(3));
         assertThat(phaseDetailsCaptor.getValue().getCountryPhaseId().getCountryId(), is(countryId));
+        assertFalse(phaseDetailsCaptor.getValue().isLatest());
 
     }
 
@@ -972,6 +974,7 @@ public class CountryHealthDataServiceTest {
 
         ArgumentCaptor<CountryPhase> phaseDetailsCaptor = ArgumentCaptor.forClass(CountryPhase.class);
         inOrder.verify(iCountryPhaseRepository, times(1)).save(phaseDetailsCaptor.capture());
+        verifyLatestRefreshed(inOrder, "IND");
         assertThat(phaseDetailsCaptor.getValue().getCountryPhaseId().getCountryId(), is("IND"));
         assertThat(phaseDetailsCaptor.getValue().getCountryOverallPhase(), is(2));
     }
@@ -1009,6 +1012,7 @@ public class CountryHealthDataServiceTest {
 
         ArgumentCaptor<CountryPhase> phaseDetailsCaptor = ArgumentCaptor.forClass(CountryPhase.class);
         inOrder.verify(iCountryPhaseRepository, times(1)).save(phaseDetailsCaptor.capture());
+        verifyLatestRefreshed(inOrder, "IND");
         assertThat(phaseDetailsCaptor.getValue().getCountryPhaseId().getCountryId(), is("IND"));
         assertThat(phaseDetailsCaptor.getValue().getCountryOverallPhase(), is(3));
     }
@@ -1060,6 +1064,7 @@ public class CountryHealthDataServiceTest {
 
         ArgumentCaptor<CountryPhase> phaseDetailsCaptor = ArgumentCaptor.forClass(CountryPhase.class);
         inOrder.verify(iCountryPhaseRepository, times(1)).save(phaseDetailsCaptor.capture());
+        verifyLatestRefreshed(inOrder, "IND");
         assertThat(phaseDetailsCaptor.getValue().getCountryPhaseId().getCountryId(), is("IND"));
         assertThat(phaseDetailsCaptor.getValue().getCountryOverallPhase(), is(4));
     }
@@ -1111,5 +1116,11 @@ public class CountryHealthDataServiceTest {
             healthIndicatorDtoList.add(new HealthIndicatorDto(1, 1, "PUBLISHED", score, supportText));
         }
         return healthIndicatorDtoList;
+    }
+
+    private void verifyLatestRefreshed(InOrder inOrder, String countryId) {
+        inOrder.verify(iCountryPhaseRepository).flush();
+        inOrder.verify(iCountryPhaseRepository).clearLatestForCountry(countryId);
+        inOrder.verify(iCountryPhaseRepository).markLatestForCountry(countryId);
     }
 }

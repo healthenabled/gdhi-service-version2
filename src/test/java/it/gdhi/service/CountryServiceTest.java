@@ -15,6 +15,7 @@ import it.gdhi.dto.HealthIndicatorDto;
 import it.gdhi.internationalization.service.CountryNameTranslator;
 import it.gdhi.model.Country;
 import it.gdhi.model.CountryHealthIndicator;
+import it.gdhi.model.CountryPhase;
 import it.gdhi.model.CountryResourceLink;
 import it.gdhi.model.CountrySummary;
 import it.gdhi.model.Indicator;
@@ -142,6 +143,36 @@ public class CountryServiceTest {
                 PUBLISHED.name())).thenReturn(null);
         CountrySummaryDto countrySummaryDto = countryService.fetchCountrySummary(countryId, year);
         assertNull(countrySummaryDto.getCountryId());
+    }
+
+    @Test
+    public void shouldReturnLatestCountrySummaryForGivenCountry() {
+        String countryId = "SDN";
+        String year = "2024";
+        CountrySummary countrySummary = CountrySummary.builder()
+                .countrySummaryId(new CountrySummaryId(countryId, year))
+                .country(new Country(countryId, "Sudan", randomUUID(), "SD"))
+                .summary("Latest summary")
+                .status(PUBLISHED.name())
+                .build();
+        when(iCountrySummaryRepository.findLatestByCountryIdAndStatus(countryId, PUBLISHED.name()))
+                .thenReturn(countrySummary);
+
+        CountrySummaryDto countrySummaryDto = countryService.fetchLatestCountrySummary(countryId);
+
+        assertThat(countrySummaryDto.getCountryId(), is(countryId));
+        assertThat(countrySummaryDto.getSummary(), is("Latest summary"));
+    }
+
+    @Test
+    public void shouldReturnLatestPublishedYearForGivenCountry() {
+        String countryId = "SDN";
+        when(iCountryPhaseRepository.findLatestByCountryId(countryId))
+                .thenReturn(new CountryPhase(countryId, 3, "2024", true));
+
+        String latestYear = countryService.fetchLatestPublishedYear(countryId);
+
+        assertThat(latestYear, is("2024"));
     }
 
     @Test

@@ -10,6 +10,7 @@ import it.gdhi.dto.HealthIndicatorDto;
 import it.gdhi.internationalization.service.CountryNameTranslator;
 import it.gdhi.model.Country;
 import it.gdhi.model.CountryHealthIndicator;
+import it.gdhi.model.CountryPhase;
 import it.gdhi.model.CountrySummary;
 import it.gdhi.repository.ICountryHealthIndicatorRepository;
 import it.gdhi.repository.ICountryPhaseRepository;
@@ -55,6 +56,11 @@ public class CountryService {
         return Optional.ofNullable(countrySummary).map(CountrySummaryDto::new).orElse(new CountrySummaryDto());
     }
 
+    public CountrySummaryDto fetchLatestCountrySummary(String countryId) {
+        CountrySummary countrySummary = iCountrySummaryRepository.findLatestByCountryIdAndStatus(countryId, PUBLISHED.name());
+        return Optional.ofNullable(countrySummary).map(CountrySummaryDto::new).orElse(new CountrySummaryDto());
+    }
+
     public GdhiQuestionnaire getDetails(UUID countryUUID, LanguageCode languageCode, boolean publishedOnly, String year) {
         String countryId = iCountryRepository.findByUniqueId(countryUUID).getId();
 
@@ -96,6 +102,12 @@ public class CountryService {
 
     public List<String> fetchPublishCountriesDistinctYears(Integer limit) {
         return iCountryPhaseRepository.findAllDistinctYearsOrderByUpdatedAtDesc(limit);
+    }
+
+    public String fetchLatestPublishedYear(String countryId) {
+        return Optional.ofNullable(iCountryPhaseRepository.findLatestByCountryId(countryId))
+                .map(CountryPhase::getYear)
+                .orElse(null);
     }
 
     public Boolean validateDefaultYear(String year) {

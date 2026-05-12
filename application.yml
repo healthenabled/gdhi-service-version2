@@ -56,8 +56,24 @@ info.status: 200
 aws:
   region:  ${AWS_REGION}
   bedrock:
-    agentId: ${AWS_BEDROCK_AGENT_ID}
-    agentAliasId: ${AWS_BEDROCK_AGENT_ALIAS_ID}
+    agentId: ${AWS_BEDROCK_AGENT_ID:}
+    agentAliasId: ${AWS_BEDROCK_AGENT_ALIAS_ID:}
+    agents:
+      en:
+        agentId: ${AWS_BEDROCK_EN_AGENT_ID:${AWS_BEDROCK_AGENT_ID:}}
+        agentAliasId: ${AWS_BEDROCK_EN_AGENT_ALIAS_ID:${AWS_BEDROCK_AGENT_ALIAS_ID:}}
+      es:
+        agentId: ${AWS_BEDROCK_ES_AGENT_ID:}
+        agentAliasId: ${AWS_BEDROCK_ES_AGENT_ALIAS_ID:}
+      ar:
+        agentId: ${AWS_BEDROCK_AR_AGENT_ID:}
+        agentAliasId: ${AWS_BEDROCK_AR_AGENT_ALIAS_ID:}
+      pt:
+        agentId: ${AWS_BEDROCK_PT_AGENT_ID:}
+        agentAliasId: ${AWS_BEDROCK_PT_AGENT_ALIAS_ID:}
+      fr:
+        agentId: ${AWS_BEDROCK_FR_AGENT_ID:}
+        agentAliasId: ${AWS_BEDROCK_FR_AGENT_ALIAS_ID:}
 
 frontEndURL: http://localhost:8080
 

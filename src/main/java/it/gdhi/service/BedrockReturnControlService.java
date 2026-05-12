@@ -3,6 +3,7 @@ package it.gdhi.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import it.gdhi.ai.dto.BedrockToolResponse;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -25,6 +26,7 @@ import static it.gdhi.utils.LanguageCode.USER_LANGUAGE;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class BedrockReturnControlService {
 
     private static final int LARGE_TOOL_RESPONSE_BYTES = 25_000;
@@ -32,24 +34,24 @@ public class BedrockReturnControlService {
     private final BedrockToolsService bedrockToolsService;
     private final ObjectMapper objectMapper;
 
-    public BedrockReturnControlService(BedrockToolsService bedrockToolsService, ObjectMapper objectMapper) {
-        this.bedrockToolsService = bedrockToolsService;
-        this.objectMapper = objectMapper;
-    }
-
     public SessionState buildSessionState(ReturnControlPayload payload, String userLanguage) {
         log.info("Processing Bedrock return control invocationId={} with {} input(s)",
                 payload.invocationId(), payload.invocationInputs().size());
         List<InvocationResultMember> results = payload.invocationInputs().stream()
                 .map(input -> executeInvocation(input, userLanguage))
                 .toList();
+        Map<String, String> languageAttributes = languageAttributes(userLanguage);
 
         return SessionState.builder()
                 .invocationId(payload.invocationId())
-                .sessionAttributes(Map.of(USER_LANGUAGE, userLanguage))
-                .promptSessionAttributes(Map.of(USER_LANGUAGE, userLanguage))
+                .sessionAttributes(languageAttributes)
+                .promptSessionAttributes(languageAttributes)
                 .returnControlInvocationResults(results)
                 .build();
+    }
+
+    private Map<String, String> languageAttributes(String userLanguage) {
+        return Map.of(USER_LANGUAGE, userLanguage);
     }
 
     private InvocationResultMember executeInvocation(InvocationInputMember inputMember, String userLanguage) {
@@ -130,13 +132,9 @@ public class BedrockReturnControlService {
             return apiInvocationInput;
         }
 
-        boolean alreadyPresent = apiInvocationInput.parameters().stream()
-                .anyMatch(parameter -> USER_LANGUAGE.equals(parameter.name()) && StringUtils.hasText(parameter.value()));
-        if (alreadyPresent) {
-            return apiInvocationInput;
-        }
-
-        List<ApiParameter> parameters = new ArrayList<>(apiInvocationInput.parameters());
+        List<ApiParameter> parameters = new ArrayList<>(apiInvocationInput.parameters().stream()
+                .filter(parameter -> !USER_LANGUAGE.equals(parameter.name()))
+                .toList());
         parameters.add(ApiParameter.builder()
                 .name(USER_LANGUAGE)
                 .type("string")

@@ -171,6 +171,13 @@ public class CountryHealthDataService {
         Double overallScore = countryHealthIndicators.getOverallScore();
         Integer countryPhaseVal = new Score(overallScore).convertToPhase();
         iCountryPhaseRepository.save(new CountryPhase(countryId, countryPhaseVal, year));
+        iCountryPhaseRepository.flush();
+        refreshLatestCountryPhase(countryId);
+    }
+
+    private void refreshLatestCountryPhase(String countryId) {
+        iCountryPhaseRepository.clearLatestForCountry(countryId);
+        iCountryPhaseRepository.markLatestForCountry(countryId);
     }
 
     private void sendMail(String feederName, String feederRole, String contactEmail, String countryId) {

@@ -2,7 +2,6 @@ package it.gdhi.controller;
 
 import it.gdhi.dto.CountriesHealthScoreDto;
 import it.gdhi.service.CountryHealthIndicatorService;
-import it.gdhi.service.DefaultYearDataService;
 import it.gdhi.utils.LanguageCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +20,6 @@ public class HealthIndicatorController {
     @Autowired
     private CountryHealthIndicatorService countryHealthIndicatorService;
 
-    @Autowired
-    private DefaultYearDataService defaultYearDataService;
-
     @GetMapping("/countries_health_indicator_scores")
     public CountriesHealthScoreDto getCountriesHealthIndicatorScores(
             HttpServletRequest request,
@@ -33,7 +29,7 @@ public class HealthIndicatorController {
             @RequestParam(value = "year", required = false) String year) {
         LanguageCode languageCode = getLanguageCode(request);
         if (year == null) {
-            year = defaultYearDataService.fetchDefaultYear();
+            return countryHealthIndicatorService.fetchCountriesLatestHealthScores(categoryId, score, languageCode);
         }
         return countryHealthIndicatorService.fetchCountriesHealthScores(categoryId, score, languageCode, year);
     }

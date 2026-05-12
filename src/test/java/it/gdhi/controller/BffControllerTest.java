@@ -110,11 +110,11 @@ class BffControllerTest {
     }
 
     @Test
-     void shouldGetGlobalBenchmarkDetailsForDefaultYearWhenYearIsNull() {
+    void shouldGetGlobalBenchmarkDetailsForLatestCountryYearWhenYearIsNull() {
         String countryID = "IND";
         Integer benchmarkType = -1;
-        String year = "2023";
-        when(defaultYearDataService.fetchDefaultYear()).thenReturn(year);
+        String year = "2024";
+        when(countryService.fetchLatestPublishedYear(countryID)).thenReturn(year);
         bffController.getBenchmarkDetailsFor(countryID, benchmarkType, null, null);
         verify(countryHealthDataService).getBenchmarkDetailsFor(countryID, benchmarkType, year);
     }
@@ -155,15 +155,13 @@ class BffControllerTest {
     }
 
     @Test
-     void shouldFetchDefaultYearWhenYearIsNull() {
+    void shouldFetchLatestGlobalHealthIndicatorWhenYearIsNull() {
         MockHttpServletRequest request = new MockHttpServletRequest();
         request.addHeader("USER_LANGUAGE", "en");
 
-        when(defaultYearDataService.fetchDefaultYear()).thenReturn("Version1");
-
         bffController.getGlobalHealthIndicator(request, null, 2, null, null);
 
-        verify(countryHealthIndicatorService).getGlobalHealthIndicator(null, 2, en, "Version1");
+        verify(countryHealthIndicatorService).getLatestGlobalHealthIndicator(null, 2, en);
     }
 
     @Test

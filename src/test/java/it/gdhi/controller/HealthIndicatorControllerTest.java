@@ -3,7 +3,6 @@ package it.gdhi.controller;
 import it.gdhi.dto.CountriesHealthScoreDto;
 import it.gdhi.dto.CountryHealthScoreDto;
 import it.gdhi.service.CountryHealthIndicatorService;
-import it.gdhi.service.DefaultYearDataService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -29,9 +28,6 @@ public class HealthIndicatorControllerTest {
     @Mock
     private CountryHealthIndicatorService countryHealthIndicatorService;
 
-    @Mock
-    private DefaultYearDataService defaultYearDataService;
-
     @Test
     public void shouldInvokeFetchHealthScoresOnGettingGlobalInfo() {
         CountriesHealthScoreDto mockGlobalHealthScore = mock(CountriesHealthScoreDto.class);
@@ -50,6 +46,22 @@ public class HealthIndicatorControllerTest {
         assertThat(size, is(1));
         assertThat(globalHealthIndicators.getCountryHealthScores().get(0).getCountryId(), is(countryHealthScoreDto.getCountryId()));
         verify(countryHealthIndicatorService).fetchCountriesHealthScores(4, null, fr, year);
+    }
+
+    @Test
+    public void shouldInvokeFetchLatestHealthScoresWhenYearIsMissing() {
+        CountriesHealthScoreDto mockGlobalHealthScore = mock(CountriesHealthScoreDto.class);
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        request.addHeader("USER_LANGUAGE", "pt");
+
+        when(countryHealthIndicatorService.fetchCountriesLatestHealthScores(4, 2, pt))
+                .thenReturn(mockGlobalHealthScore);
+
+        CountriesHealthScoreDto globalHealthIndicators =
+                healthIndicatorController.getCountriesHealthIndicatorScores(request, 4, 2, null, null);
+
+        assertThat(globalHealthIndicators, is(mockGlobalHealthScore));
+        verify(countryHealthIndicatorService).fetchCountriesLatestHealthScores(4, 2, pt);
     }
 
     @Test
