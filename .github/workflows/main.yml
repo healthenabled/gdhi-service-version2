@@ -28,31 +28,33 @@ jobs:
 
    
 
-  deploy-to-showcase:
-    runs-on: ubuntu-latest
-    environment: SHOWCASE
-    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/GDHI/CI-CD'
-    steps:
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1-node16
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ secrets.AWS_REGION }}
-
-      - name: Create CodeDeploy Deployment for Showcase
-        id: deploy
-        run: |
-          aws deploy create-deployment \
-            --application-name ${{ secrets.AWS_APPLICATION_NAME }} \
-            --deployment-group-name ${{ secrets.AWS_SHOWCASE_DEPLOYMENT_GROUP }} \
-            --deployment-config-name CodeDeployDefault.OneAtATime \
-            --github-location repository=${{ github.repository }},commitId=${{ github.sha }} \
-            --ignore-application-stop-failures
+  # TEMPORARILY DISABLED: Showcase is turned off for this production deployment.
+  # Re-enable this block when QA, Showcase, and Prod are all available again.
+  # deploy-to-showcase:
+  #   runs-on: ubuntu-latest
+  #   environment: SHOWCASE
+  #   if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/GDHI/CI-CD'
+  #   steps:
+  #     - name: Configure AWS credentials
+  #       uses: aws-actions/configure-aws-credentials@v1-node16
+  #       with:
+  #         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  #         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  #         aws-region: ${{ secrets.AWS_REGION }}
+  #
+  #     - name: Create CodeDeploy Deployment for Showcase
+  #       id: deploy
+  #       run: |
+  #         aws deploy create-deployment \
+  #           --application-name ${{ secrets.AWS_APPLICATION_NAME }} \
+  #           --deployment-group-name ${{ secrets.AWS_SHOWCASE_DEPLOYMENT_GROUP }} \
+  #           --deployment-config-name CodeDeployDefault.OneAtATime \
+  #           --github-location repository=${{ github.repository }},commitId=${{ github.sha }} \
+  #           --ignore-application-stop-failures
   deploy-to-prod:
     runs-on: ubuntu-latest
     environment: PROD
-    needs: [deploy-to-showcase]
+    needs: [set-build-number]
     if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/GDHI/CI-CD'
     steps:
       - name: Configure AWS credentials

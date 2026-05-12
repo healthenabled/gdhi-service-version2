@@ -37,4 +37,32 @@ public interface ICountrySummaryRepository extends JpaRepository<CountrySummary,
 
     List<CountrySummary> findByCountrySummaryIdCountryIdInAndCountrySummaryIdYearAndStatusAndGovtApproved(List<String> countryIds, String year,
                                                                                                           String status, Boolean govtApproved);
+
+    @Query(nativeQuery = true, value = """
+            SELECT cs.*
+            FROM country_health_data.country_summary cs
+            JOIN country_health_data.country_phase cp
+              ON cp.country_id = cs.country_id
+             AND cp.year = cs.year
+            WHERE cs.status = :status
+              AND cp.latest = true
+              AND cs.country_id = UPPER(:countryId)
+            """)
+    CountrySummary findLatestByCountryIdAndStatus(
+            @Param("countryId") String countryId,
+            @Param("status") String status);
+
+    @Query(nativeQuery = true, value = """
+            SELECT cs.*
+            FROM country_health_data.country_summary cs
+            JOIN country_health_data.country_phase cp
+              ON cp.country_id = cs.country_id
+             AND cp.year = cs.year
+            WHERE cs.status = :status
+              AND cp.latest = true
+              AND cs.country_id IN (:countryIds)
+            """)
+    List<CountrySummary> findLatestByCountryIdsAndStatus(
+            @Param("countryIds") List<String> countryIds,
+            @Param("status") String status);
 }

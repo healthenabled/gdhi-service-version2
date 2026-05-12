@@ -4,6 +4,7 @@ import it.gdhi.model.DefaultYearData;
 import it.gdhi.repository.IDefaultYearData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 import java.util.Date;
@@ -20,6 +21,7 @@ public class DefaultYearDataService {
         this.iDefaultYearData = iDefaultYearData;
     }
 
+    @Transactional(readOnly = true)
     public List<String> fetchYears() {
         List<DefaultYearData> defaultYears = iDefaultYearData.findAll();
         return defaultYears.stream().map(DefaultYearData::getYear).collect(Collectors.toList());
@@ -34,6 +36,7 @@ public class DefaultYearDataService {
         }
     }
 
+    @Transactional(readOnly = true)
     public String fetchDefaultYear() {
         DefaultYearData defaultYearData = iDefaultYearData.findFirstByOrderByCreatedAtDesc();
         return defaultYearData != null ? defaultYearData.getYear() : null;

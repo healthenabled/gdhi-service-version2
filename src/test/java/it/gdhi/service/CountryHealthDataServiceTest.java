@@ -127,8 +127,10 @@ public class CountryHealthDataServiceTest {
         ArgumentCaptor<CountryPhase> phaseDetailsCaptor = ArgumentCaptor.forClass(CountryPhase.class);
 
         inOrder.verify(iCountryPhaseRepository).save(phaseDetailsCaptor.capture());
+        verifyLatestRefreshed(inOrder, countryId);
         assertThat(phaseDetailsCaptor.getValue().getCountryOverallPhase(), is(3));
         assertThat(phaseDetailsCaptor.getValue().getCountryPhaseId().getCountryId(), is(countryId));
+        assertFalse(phaseDetailsCaptor.getValue().isLatest());
 
     }
 
@@ -291,16 +293,17 @@ public class CountryHealthDataServiceTest {
 
     @Test
     public void shouldGetAdminViewFormDetailsForCurrentYear() {
+        String currentYear = getCurrentYear();
         CountrySummary countrySummaryIND = getCountrySummary("IND", "PUBLISHED", "INDIA",
                 "IN", "Contact Name 1", "con1@gdhi.com", "Version1");
         CountrySummary countrySummaryARG = getCountrySummary("ARG", "REVIEW_PENDING",
-                "ARGENTINA", "AR", "Contact Name 1", "con1@gdhi.com", "2023");
+                "ARGENTINA", "AR", "Contact Name 1", "con1@gdhi.com", currentYear);
         CountrySummary countrySummaryALG = getCountrySummary("ALG", "NEW", "ALGERIA",
                 "AL", "Contact Name 2", "con2@gdhi.com", "Version1");
         CountrySummary countrySummaryINDNEW = getCountrySummary("IND", "NEW", "INDIA",
-                "IN", "Contact Name 1", "con1@gdhi.com", "2023");
+                "IN", "Contact Name 1", "con1@gdhi.com", currentYear);
 
-        when(iCountrySummaryRepository.findByCountrySummaryIdYearOrderByUpdatedAtDesc("2023")).thenReturn(asList(countrySummaryARG,
+        when(iCountrySummaryRepository.findByCountrySummaryIdYearOrderByUpdatedAtDesc(currentYear)).thenReturn(asList(countrySummaryARG,
                 countrySummaryINDNEW));
         CountrySummaryStatusYearDto adminViewFormDetails = countryHealthDataService.getAllCountryStatusSummaries();
         assertEquals(adminViewFormDetails.getNewStatus().size(), 1);
@@ -972,6 +975,7 @@ public class CountryHealthDataServiceTest {
 
         ArgumentCaptor<CountryPhase> phaseDetailsCaptor = ArgumentCaptor.forClass(CountryPhase.class);
         inOrder.verify(iCountryPhaseRepository, times(1)).save(phaseDetailsCaptor.capture());
+        verifyLatestRefreshed(inOrder, "IND");
         assertThat(phaseDetailsCaptor.getValue().getCountryPhaseId().getCountryId(), is("IND"));
         assertThat(phaseDetailsCaptor.getValue().getCountryOverallPhase(), is(2));
     }
@@ -1009,6 +1013,7 @@ public class CountryHealthDataServiceTest {
 
         ArgumentCaptor<CountryPhase> phaseDetailsCaptor = ArgumentCaptor.forClass(CountryPhase.class);
         inOrder.verify(iCountryPhaseRepository, times(1)).save(phaseDetailsCaptor.capture());
+        verifyLatestRefreshed(inOrder, "IND");
         assertThat(phaseDetailsCaptor.getValue().getCountryPhaseId().getCountryId(), is("IND"));
         assertThat(phaseDetailsCaptor.getValue().getCountryOverallPhase(), is(3));
     }
@@ -1060,6 +1065,7 @@ public class CountryHealthDataServiceTest {
 
         ArgumentCaptor<CountryPhase> phaseDetailsCaptor = ArgumentCaptor.forClass(CountryPhase.class);
         inOrder.verify(iCountryPhaseRepository, times(1)).save(phaseDetailsCaptor.capture());
+        verifyLatestRefreshed(inOrder, "IND");
         assertThat(phaseDetailsCaptor.getValue().getCountryPhaseId().getCountryId(), is("IND"));
         assertThat(phaseDetailsCaptor.getValue().getCountryOverallPhase(), is(4));
     }
@@ -1111,5 +1117,11 @@ public class CountryHealthDataServiceTest {
             healthIndicatorDtoList.add(new HealthIndicatorDto(1, 1, "PUBLISHED", score, supportText));
         }
         return healthIndicatorDtoList;
+    }
+
+    private void verifyLatestRefreshed(InOrder inOrder, String countryId) {
+        inOrder.verify(iCountryPhaseRepository).flush();
+        inOrder.verify(iCountryPhaseRepository).clearLatestForCountry(countryId);
+        inOrder.verify(iCountryPhaseRepository).markLatestForCountry(countryId);
     }
 }

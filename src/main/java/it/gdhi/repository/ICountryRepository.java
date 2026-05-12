@@ -12,6 +12,8 @@ public interface ICountryRepository extends JpaRepository<Country, Long> {
 
     List<Country> findAll();
 
+    List<Country> findByIdIn(List<String> ids);
+
     Country findById(String id);
 
     Country findByUniqueId(UUID countryUUID);

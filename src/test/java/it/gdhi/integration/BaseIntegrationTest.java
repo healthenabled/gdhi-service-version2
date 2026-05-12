@@ -61,7 +61,9 @@ public class BaseIntegrationTest {
         String expectedJSON = expectedResponseJson(expectedJsonFileName);
         HashMap actualMap = getMapper().readValue(responseJSON, HashMap.class);
         HashMap expectedMap = getMapper().readValue(expectedJSON, HashMap.class);
-        assertThat(actualMap).usingRecursiveComparison().ignoringFields("updatedDate" , "currentYear").isEqualTo(expectedMap);
+        assertThat(actualMap).usingRecursiveComparison()
+                .ignoringFields("updatedDate", "currentYear", "dataAvailableForYear")
+                .isEqualTo(expectedMap);
     }
 
     void assertCountryHealthScoreResponse(String responseJSON, String expectedJsonFileName) throws IOException {

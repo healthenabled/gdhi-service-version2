@@ -25,6 +25,7 @@ import it.gdhi.model.Indicator;
 import it.gdhi.model.IndicatorScore;
 import it.gdhi.model.id.CountryHealthIndicatorId;
 import it.gdhi.model.id.CountryPhaseId;
+import it.gdhi.model.id.CountrySummaryId;
 import it.gdhi.repository.ICountryHealthIndicatorRepository;
 import it.gdhi.repository.ICountryPhaseRepository;
 import it.gdhi.repository.ICountrySummaryRepository;
@@ -207,6 +208,46 @@ public class CountryHealthIndicatorServiceTest {
                 countryHealthIndicatorService.fetchCountryHealthScore(countryId, es, year);
 
         assertEquals(countryHealthScoreDtoES, healthScoreForACountry);
+    }
+
+    @Test
+    public void shouldReturnLatestCountryHealthScoreForGivenCountryId() {
+        String countryId = "SDN";
+        String year = "2024";
+        Category category = Category.builder().id(1).name("Leadership and Governance").build();
+        Country country = new Country(countryId, "Sudan", UUID.randomUUID(), "SD");
+        Indicator indicator = Indicator.builder().indicatorId(1).rank(1).build();
+        CountryHealthIndicator countryHealthIndicator = CountryHealthIndicator.builder()
+                .countryHealthIndicatorId(new CountryHealthIndicatorId(countryId, 1, 1, year))
+                .country(country)
+                .category(category)
+                .indicator(indicator)
+                .score(4)
+                .build();
+
+        when(iCountryHealthIndicatorRepository.findLatestByCountryAndCategoryAndStatus(countryId, null, PUBLISHED.name()))
+                .thenReturn(asList(countryHealthIndicator));
+        when(iCountryPhaseRepository.findLatestByCountryId(countryId))
+                .thenReturn(new CountryPhase(countryId, 3, year, true));
+        when(iCountrySummaryRepository.findLatestByCountryIdAndStatus(countryId, PUBLISHED.name()))
+                .thenReturn(CountrySummary.builder()
+                        .countrySummaryId(new CountrySummaryId(countryId, year))
+                        .build());
+        when(indicatorTranslator.translateCountryHealthScores(eq(en), any(CountryHealthScoreDto.class)))
+                .thenAnswer(invocation -> invocation.getArgument(1));
+
+        CountryHealthScoreDto healthScore =
+                countryHealthIndicatorService.fetchLatestCountryHealthScore(countryId, en);
+
+        assertThat(healthScore.getCountryId(), is(countryId));
+        assertThat(healthScore.getCountryName(), is("Sudan"));
+        assertThat(healthScore.getCountryAlpha2Code(), is("SD"));
+        assertThat(healthScore.getCountryPhase(), is(3));
+        assertThat(healthScore.getCategories().size(), is(1));
+        verify(iCountryHealthIndicatorRepository).findLatestByCountryAndCategoryAndStatus(countryId, null,
+                PUBLISHED.name());
+        verify(iCountryPhaseRepository).findLatestByCountryId(countryId);
+        verify(iCountrySummaryRepository).findLatestByCountryIdAndStatus(countryId, PUBLISHED.name());
     }
 
     private void assertSet1(CountryHealthScoreDto healthScoreForACountry, String countryId, String countryName) {
@@ -701,6 +742,76 @@ public class CountryHealthIndicatorServiceTest {
         CategoryHealthScoreDto actualCategory2 =
                 actualUSA.getCategories().stream().filter(c -> c.getId().equals(category2.getId())).findFirst().get();
         assertThat(actualCategory2.getOverallScore(), is(2.0));
+    }
+
+    @Test
+    public void shouldFetchLatestHealthScoresUsingLatestCountryPhaseRows() {
+        Category category1 = Category.builder().id(9).name("Category 1").build();
+        Country country1 = new Country("IND", "India", UUID.randomUUID(), "IN");
+        Indicator indicator1 = Indicator.builder().indicatorId(1).rank(1).build();
+        CountryHealthIndicator mock1 = CountryHealthIndicator.builder()
+                .countryHealthIndicatorId(new CountryHealthIndicatorId("IND", 9, 1, "2024"))
+                .country(country1)
+                .category(category1)
+                .indicator(indicator1)
+                .score(1)
+                .build();
+
+        Category category2 = Category.builder().id(8).name("Category 2").build();
+        Country country2 = new Country("USA", "United States", UUID.randomUUID(), "US");
+        Indicator indicator2 = Indicator.builder().indicatorId(2).rank(2).build();
+        CountryHealthIndicator mock2 = CountryHealthIndicator.builder()
+                .countryHealthIndicatorId(new CountryHealthIndicatorId("USA", 8, 2, "2023"))
+                .country(country2)
+                .category(category2)
+                .indicator(indicator2)
+                .score(2)
+                .build();
+
+        when(iCountryHealthIndicatorRepository.findLatestByCountryAndCategoryAndStatus(null, null, PUBLISHED.name()))
+                .thenReturn(asList(mock1, mock2));
+        when(iCountryPhaseRepository.findByLatestTrueAndCountryPhaseIdCountryIdIn(anyList()))
+                .thenReturn(asList(new CountryPhase("IND", 1, "2024", true),
+                        new CountryPhase("USA", 3, "2023", true)));
+        when(iCountrySummaryRepository.findLatestByCountryIdsAndStatus(anyList(), eq(PUBLISHED.name())))
+                .thenReturn(asList(
+                        CountrySummary.builder()
+                                .countrySummaryId(new CountrySummaryId("IND", "2024"))
+                                .build(),
+                        CountrySummary.builder()
+                                .countrySummaryId(new CountrySummaryId("USA", "2023"))
+                                .build()));
+
+        CategoryHealthScoreDto categoryHealthScoreDto1 = new CategoryHealthScoreDto(9, "Category 1", 1.0, 1,
+                of(new IndicatorScoreDto(1, null, null, null, null, 1, null, null)));
+        CountryHealthScoreDto countryHealthScoreDtoIN =
+                new CountryHealthScoreDto("IND", "India", "IN", of(categoryHealthScoreDto1), 1, "");
+        CategoryHealthScoreDto categoryHealthScoreDto2 = new CategoryHealthScoreDto(8, "Category 2", 2.0, 2,
+                of(new IndicatorScoreDto(2, null, null, null, null, 2, null, null)));
+        CountryHealthScoreDto countryHealthScoreDtoUS =
+                new CountryHealthScoreDto("USA", "United States", "US", of(categoryHealthScoreDto2), 3, "");
+        when(indicatorTranslator.translateCountryHealthScoreCountryNameAndCategory(en, countryHealthScoreDtoIN))
+                .thenReturn(countryHealthScoreDtoIN);
+        when(indicatorTranslator.translateCountryHealthScoreCountryNameAndCategory(en, countryHealthScoreDtoUS))
+                .thenReturn(countryHealthScoreDtoUS);
+
+        CountriesHealthScoreDto countriesHealthScoreDto =
+                countryHealthIndicatorService.fetchCountriesLatestHealthScores(null, null, en);
+
+        assertThat(countriesHealthScoreDto.getCountryHealthScores().size(), is(2));
+        CountryHealthScoreDto actualInd = countriesHealthScoreDto.getCountryHealthScores().stream()
+                .filter(country -> country.getCountryId().equals("IND"))
+                .findFirst()
+                .get();
+        CountryHealthScoreDto actualUsa = countriesHealthScoreDto.getCountryHealthScores().stream()
+                .filter(country -> country.getCountryId().equals("USA"))
+                .findFirst()
+                .get();
+        assertThat(actualInd.getCountryPhase(), is(1));
+        assertThat(actualUsa.getCountryPhase(), is(3));
+        verify(iCountryHealthIndicatorRepository).findLatestByCountryAndCategoryAndStatus(null, null, PUBLISHED.name());
+        verify(iCountryPhaseRepository).findByLatestTrueAndCountryPhaseIdCountryIdIn(anyList());
+        verify(iCountrySummaryRepository).findLatestByCountryIdsAndStatus(anyList(), eq(PUBLISHED.name()));
     }
 
     @Test

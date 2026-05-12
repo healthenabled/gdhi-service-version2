@@ -10,6 +10,7 @@ import it.gdhi.dto.HealthIndicatorDto;
 import it.gdhi.internationalization.service.CountryNameTranslator;
 import it.gdhi.model.Country;
 import it.gdhi.model.CountryHealthIndicator;
+import it.gdhi.model.CountryPhase;
 import it.gdhi.model.CountrySummary;
 import it.gdhi.repository.ICountryHealthIndicatorRepository;
 import it.gdhi.repository.ICountryPhaseRepository;
@@ -18,6 +19,7 @@ import it.gdhi.repository.ICountrySummaryRepository;
 import it.gdhi.utils.LanguageCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import static it.gdhi.utils.ApplicationConstants.defaultLimit;
 import static it.gdhi.utils.FormStatus.PUBLISHED;
@@ -26,6 +28,7 @@ import static it.gdhi.utils.Util.*;
 
 
 @Service
+@Transactional(readOnly = true)
 public class CountryService {
 
     private final ICountryRepository iCountryRepository;
@@ -50,6 +53,11 @@ public class CountryService {
 
     public CountrySummaryDto fetchCountrySummary(String countryId, String year) {
         CountrySummary countrySummary = iCountrySummaryRepository.findByCountrySummaryIdCountryIdAndCountrySummaryIdYearAndStatus(countryId, year, PUBLISHED.name());
+        return Optional.ofNullable(countrySummary).map(CountrySummaryDto::new).orElse(new CountrySummaryDto());
+    }
+
+    public CountrySummaryDto fetchLatestCountrySummary(String countryId) {
+        CountrySummary countrySummary = iCountrySummaryRepository.findLatestByCountryIdAndStatus(countryId, PUBLISHED.name());
         return Optional.ofNullable(countrySummary).map(CountrySummaryDto::new).orElse(new CountrySummaryDto());
     }
 
@@ -94,6 +102,12 @@ public class CountryService {
 
     public List<String> fetchPublishCountriesDistinctYears(Integer limit) {
         return iCountryPhaseRepository.findAllDistinctYearsOrderByUpdatedAtDesc(limit);
+    }
+
+    public String fetchLatestPublishedYear(String countryId) {
+        return Optional.ofNullable(iCountryPhaseRepository.findLatestByCountryId(countryId))
+                .map(CountryPhase::getYear)
+                .orElse(null);
     }
 
     public Boolean validateDefaultYear(String year) {
