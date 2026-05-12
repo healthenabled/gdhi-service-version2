@@ -21,10 +21,12 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Map;
 import java.util.List;
 
 import static it.gdhi.utils.FormStatus.PUBLISHED;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
@@ -138,6 +140,113 @@ public class GdhmAnalyticsServiceTest {
                 () -> service.analyzeDataCompleteness("proxy_only", null, null, null, null));
         assertEquals(List.of("missing_country_data", "phase_count_by_indicator"),
                 service.supportedDataCompletenessAnalysisTypes());
+    }
+
+    @Test
+    public void shouldDefaultTrendDirectionToAdvancedWhenUnknown() {
+        when(countryPhaseRepository.findByCountryPhaseIdCountryIdIn(List.of("BRA"))).thenReturn(List.of(
+                new CountryPhase("BRA", 1, "2020"),
+                new CountryPhase("BRA", 3, "2023")));
+        when(countryRepository.findByIdIn(List.of("BRA"))).thenReturn(List.of(new Country("BRA", "Brazil", null,
+                "BR")));
+
+        List<BedrockCountryPhaseTrendData> trends = service.analyzeCountryPhaseTrends(
+                null, "BRA", null, null, null, null, "not-a-direction", null, null);
+
+        assertEquals(1, trends.size());
+        assertTrue(trends.get(0).phaseChange() > 0);
+    }
+
+    @Test
+    public void shouldBuildRegressedTrendWhenDirectionIsRegressed() {
+        when(countryPhaseRepository.findByCountryPhaseIdCountryIdIn(List.of("BRA"))).thenReturn(List.of(
+                new CountryPhase("BRA", 4, "2020"),
+                new CountryPhase("BRA", 2, "2023")));
+        when(countryRepository.findByIdIn(List.of("BRA"))).thenReturn(List.of(new Country("BRA", "Brazil", null,
+                "BR")));
+
+        List<BedrockCountryPhaseTrendData> trends = service.analyzeCountryPhaseTrends(
+                null, "BRA", null, null, null, null, "regressed", null, null);
+
+        assertEquals(1, trends.size());
+        assertTrue(trends.get(0).phaseChange() < 0);
+    }
+
+    @Test
+    public void shouldComputeCategoryAverageTrendAcrossYears() {
+        when(countryHealthIndicatorRepository.findAll(
+                org.mockito.ArgumentMatchers.<org.springframework.data.jpa.domain.Specification<CountryHealthIndicator>>any()))
+                .thenReturn(List.of(
+                indicator("BRA", 5, 14, "2020", 2),
+                indicator("BRA", 5, 15, "2020", 4),
+                indicator("BRA", 5, 14, "2023", 5),
+                indicator("BRA", 5, 15, "2023", 5)));
+        when(countryRepository.findByIdIn(List.of("BRA"))).thenReturn(List.of(new Country("BRA", "Brazil", null,
+                "BR")));
+        when(regionCountryRepository.findByRegionCountryIdCountryId("BRA"))
+                .thenReturn(regionCountry("PAHO", "BRA"));
+
+        List<BedrockCountryPhaseTrendData> trends = service.analyzeCountryPhaseTrends(
+                null, "BRA", 5, null, "2020", "2023", "changed", null, null);
+
+        assertEquals(1, trends.size());
+        BedrockCountryPhaseTrendData trend = trends.get(0);
+        assertEquals("category", trend.scoreType());
+        assertEquals(5, trend.scoreId());
+        assertEquals(List.of("2020", "2023"), trend.submissionYears());
+        assertEquals(2, trend.trajectory().size());
+    }
+
+    @Test
+    public void shouldComputeIndicatorTrendAcrossYears() {
+        when(countryHealthIndicatorRepository.findAll(
+                org.mockito.ArgumentMatchers.<org.springframework.data.jpa.domain.Specification<CountryHealthIndicator>>any()))
+                .thenReturn(List.of(
+                indicator("BRA", 5, 14, "2020", 2),
+                indicator("BRA", 5, 14, "2023", 5)));
+        when(countryRepository.findByIdIn(List.of("BRA"))).thenReturn(List.of(new Country("BRA", "Brazil", null,
+                "BR")));
+        when(regionCountryRepository.findByRegionCountryIdCountryId("BRA"))
+                .thenReturn(regionCountry("PAHO", "BRA"));
+
+        List<BedrockCountryPhaseTrendData> trends = service.analyzeCountryPhaseTrends(
+                null, "BRA", 5, 14, "2020", "2023", "advanced", null, null);
+
+        assertEquals(1, trends.size());
+        BedrockCountryPhaseTrendData trend = trends.get(0);
+        assertEquals("indicator", trend.scoreType());
+        assertEquals(14, trend.scoreId());
+    }
+
+    @Test
+    public void shouldExcludeSecondaryRankingWhenSecondaryScoreMissing() {
+        List<String> countryIds = List.of("BRA");
+        when(countryHealthIndicatorRepository.findLatestByCountryAndCategoryAndStatus(null, 5, PUBLISHED.name()))
+                .thenReturn(List.of(indicator("BRA", 5, 14, "2024", 5)));
+        when(countryRepository.findByIdIn(countryIds)).thenReturn(List.of(new Country("BRA", "Brazil", null, "BR")));
+        when(regionCountryRepository.findByRegionCountryIdCountryId("BRA"))
+                .thenReturn(regionCountry("PAHO", "BRA"));
+
+        List<BedrockCountryRankingData> rankings = service.rankCountries(
+                null, countryIds, 5, null, null, null, null, "highest", null, 6, null, null, null);
+
+        assertEquals(List.of(), rankings);
+    }
+
+    @Test
+    public void shouldComputePhaseCountByIndicator() {
+        when(countryHealthIndicatorRepository.findLatestByCountryAndCategoryAndStatus(null, null, PUBLISHED.name()))
+                .thenReturn(List.of(
+                        indicator("BRA", 5, 14, "2024", 1),
+                        indicator("ZAF", 5, 14, "2024", 1),
+                        indicator("BRA", 5, 15, "2024", 2)));
+
+        List<BedrockDataCompletenessData> data = service.analyzeDataCompleteness(
+                "phase_count_by_indicator", null, null, 1, 10);
+
+        assertEquals(1, data.size());
+        assertEquals(Integer.valueOf(14), data.get(0).indicatorId());
+        assertEquals(Integer.valueOf(2), data.get(0).countryCount());
     }
 
     private CountryHealthIndicator indicator(String countryId, Integer categoryId, Integer indicatorId, String year,
