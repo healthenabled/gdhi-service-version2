@@ -26,3 +26,27 @@ db:
   username: gdhi_test
   password: testpassword
   driverClassName: org.postgresql.Driver
+
+aws:
+  accessKey: test-access-key
+  secretKey: test-secret-key
+  region: us-east-1
+  bedrock:
+    agentId: test-english-agent
+    agentAliasId: test-english-alias
+    agents:
+      en:
+        agentId: test-english-agent
+        agentAliasId: test-english-alias
+      es:
+        agentId: test-spanish-agent
+        agentAliasId: test-spanish-alias
+      ar:
+        agentId: test-arabic-agent
+        agentAliasId: test-arabic-alias
+      pt:
+        agentId: test-portuguese-agent
+        agentAliasId: test-portuguese-alias
+      fr:
+        agentId: test-french-agent
+        agentAliasId: test-french-alias

@@ -4,11 +4,13 @@ import it.gdhi.dto.PhaseDto;
 import it.gdhi.repository.IPhaseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional(readOnly = true)
 public class PhaseService {
 
     @Autowired

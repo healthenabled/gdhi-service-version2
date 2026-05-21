@@ -84,7 +84,7 @@ public class CountryController {
                                                                        @RequestParam(value = "year", required = false) String year) {
         LanguageCode languageCode = LanguageCode.getValueFor(request.getHeader(USER_LANGUAGE));
         if (year == null) {
-            year = defaultYearDataService.fetchDefaultYear();
+            return countryHealthIndicatorService.fetchLatestCountryHealthScore(countryId, languageCode);
         }
         return countryHealthIndicatorService.fetchCountryHealthScore(countryId, languageCode, year);
     }
@@ -93,7 +93,7 @@ public class CountryController {
     public CountrySummaryDto fetchCountrySummary(@PathVariable("id") String countryId,
                                                  @RequestParam(value = "year", required = false) String year) {
         if (year == null) {
-            year = defaultYearDataService.fetchDefaultYear();
+            return countryService.fetchLatestCountrySummary(countryId);
         }
         return countryService.fetchCountrySummary(countryId, year);
     }

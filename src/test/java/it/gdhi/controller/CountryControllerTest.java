@@ -103,6 +103,24 @@ public class CountryControllerTest {
     }
 
     @Test
+    public void shouldInvokeLatestHealthIndicatorServiceWhenYearIsMissing() {
+        String countryId = "SDN";
+        CountryHealthScoreDto countryHealthScoreMock = mock(CountryHealthScoreDto.class);
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        request.addHeader("USER_LANGUAGE", "en");
+
+        when(countryHealthIndicatorService.fetchLatestCountryHealthScore(countryId, LanguageCode.en))
+                .thenReturn(countryHealthScoreMock);
+
+        CountryHealthScoreDto actual =
+                countryController.getHealthIndicatorForGivenCountryCode(request, countryId, null);
+
+        assertThat(actual, is(countryHealthScoreMock));
+        verify(countryHealthIndicatorService).fetchLatestCountryHealthScore(countryId, LanguageCode.en);
+        verify(countryHealthIndicatorService, never()).fetchCountryHealthScore(anyString(), any(), anyString());
+    }
+
+    @Test
     public void shouldSubmitHealthIndicatorsForCurrentYear() {
         GdhiQuestionnaire mock = mock(GdhiQuestionnaire.class);
         doNothing().when(countryHealthDataService).submit(mock);
@@ -175,6 +193,19 @@ public class CountryControllerTest {
         when(countryService.fetchCountrySummary(countryId, year)).thenReturn(countrySummary);
         CountrySummaryDto actualCountrySummary = countryController.fetchCountrySummary(countryId, year);
         assertThat(actualCountrySummary, is(countrySummary));
+    }
+
+    @Test
+    public void shouldFetchLatestCountrySummaryWhenYearIsMissing() {
+        CountrySummaryDto countrySummary = mock(CountrySummaryDto.class);
+        String countryId = "SDN";
+        when(countryService.fetchLatestCountrySummary(countryId)).thenReturn(countrySummary);
+
+        CountrySummaryDto actualCountrySummary = countryController.fetchCountrySummary(countryId, null);
+
+        assertThat(actualCountrySummary, is(countrySummary));
+        verify(countryService).fetchLatestCountrySummary(countryId);
+        verify(countryService, never()).fetchCountrySummary(anyString(), anyString());
     }
 
     @Test

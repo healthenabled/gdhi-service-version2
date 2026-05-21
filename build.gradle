@@ -30,6 +30,10 @@ repositories {
     mavenCentral()
 }
 
+jacoco {
+    toolVersion = "0.8.12"
+}
+
 jacocoTestReport {
     dependsOn test
 
@@ -70,16 +74,25 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.boot:spring-boot-starter-jetty'
+    implementation platform('software.amazon.awssdk:bom:2.42.18')
+    // The specific dependency for Bedrock Agent Runtime
+    implementation 'software.amazon.awssdk:bedrockagentruntime'
+    implementation 'io.projectreactor:reactor-core'
+    implementation 'software.amazon.awssdk:auth'
+    implementation 'software.amazon.awssdk:regions'
     runtimeOnly 'org.postgresql:postgresql'
-    compileOnly 'org.projectlombok:lombok'
-    annotationProcessor 'org.projectlombok:lombok'
+    compileOnly 'org.projectlombok:lombok:1.18.36'
+    annotationProcessor 'org.projectlombok:lombok:1.18.36'
+    testCompileOnly 'org.projectlombok:lombok:1.18.36'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.36'
     implementation 'org.apache.poi:poi:5.2.2'
     implementation 'org.apache.poi:poi-ooxml:5.2.2'
     implementation 'org.flywaydb:flyway-core:9.11.0'
     implementation group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.1'
     implementation 'org.springframework.boot:spring-boot-starter-mail'
-    testImplementation 'org.jacoco:org.jacoco.core:0.8.5'
+    testImplementation 'org.jacoco:org.jacoco.core:0.8.12'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'io.rest-assured:rest-assured:4.3.1'
     testImplementation 'io.rest-assured:json-schema-validator:4.3.1'

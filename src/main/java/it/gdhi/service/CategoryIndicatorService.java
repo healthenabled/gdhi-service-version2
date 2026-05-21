@@ -7,6 +7,7 @@ import it.gdhi.repository.ICategoryRepository;
 import it.gdhi.utils.LanguageCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -15,6 +16,7 @@ import static java.util.stream.Collectors.toList;
 
 
 @Service
+@Transactional(readOnly = true)
 public class CategoryIndicatorService {
 
     private final ICategoryRepository iCategoryRepository;

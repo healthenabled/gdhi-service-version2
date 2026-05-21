@@ -8,7 +8,6 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
-import javax.transaction.Transactional;
 
 import it.gdhi.dto.BenchmarkDto;
 import it.gdhi.dto.CategoryHealthScoreDto;
@@ -45,6 +44,7 @@ import it.gdhi.repository.IRegionalOverallDataRepository;
 import it.gdhi.utils.LanguageCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import static it.gdhi.controller.strategy.FilterStrategy.getCategoryPhaseFilter;
 import static it.gdhi.utils.FormStatus.PUBLISHED;
@@ -106,15 +106,18 @@ public class RegionService {
     @Autowired
     private ICountrySummaryRepository iCountrySummaryRepository;
 
+    @Transactional(readOnly = true)
     public List<Region> fetchRegions(LanguageCode languageCode) {
         List<Region> regions = iRegionRepository.findAll();
         return regionNameTranslator.translate(regions, languageCode);
     }
 
+    @Transactional(readOnly = true)
     public List<String> fetchCountriesForARegion(String regionId) {
         return iRegionCountryRepository.findByRegionCountryIdRegionId(regionId);
     }
 
+    @Transactional(readOnly = true)
     public Integer fetchRegionOverallScore(String regionID, String year) {
         RegionalOverallData regionalOverallData =
                 iRegionalOverallRepository.findByRegionalOverallIdRegionIdAndRegionalOverallIdYear(regionID, year);
@@ -291,6 +294,7 @@ public class RegionService {
         }
     }
 
+    @Transactional(readOnly = true)
     public Map<String, List<String>> getListOfCountriesAndRegionId(String countryId) {
         RegionCountry regionCountry = iRegionCountryRepository.findByRegionCountryIdCountryId(countryId);
         String regionId = regionCountry.getRegionCountryId().getRegionId();
@@ -301,10 +305,12 @@ public class RegionService {
         return map;
     }
 
+    @Transactional(readOnly = true)
     public List<RegionalCategoryData> fetchRegionalCategoryScores(String regionId, String year) {
         return iRegionalCategoryDataRepository.findByRegionalCategoryIdRegionIdAndRegionalCategoryIdYearOrderByRegionalCategoryIdCategoryId(regionId, year);
     }
 
+    @Transactional(readOnly = true)
     public GlobalHealthScoreDto fetchRegionalHealthScores(Integer categoryId, String regionId,
                                                           LanguageCode languageCode, String year) {
         if (isRegionalCategoryDataPresent(regionId, year)) {
@@ -329,6 +335,7 @@ public class RegionService {
         }
     }
 
+    @Transactional(readOnly = true)
     public Map<Integer, Integer> fetchRegionalIndicatorScoreData(String regionId, String year) {
         List<RegionalIndicatorData> regionalIndicatorsData =
                 iRegionalIndicatorDataRepository.findByRegionalIndicatorIdRegionIdAndRegionalIndicatorIdYear(regionId
@@ -337,6 +344,7 @@ public class RegionService {
                 RegionalIndicatorData::getScore));
     }
 
+    @Transactional(readOnly = true)
     public Map<Integer, BenchmarkDto> getBenchmarkDetailsForRegion(String countryId, String year, String region) {
         return benchmarkService.getBenchMarkForRegion(countryId, year, region);
     }
@@ -348,10 +356,11 @@ public class RegionService {
                     String translatedCategory = healthIndicatorTranslator.getTranslatedCategory(category.getName(),
                             code);
                     category.translateCategoryName(translatedCategory);
-                });
+        });
         return globalHealthScoreDto;
     }
 
+    @Transactional(readOnly = true)
     public boolean isRegionalCategoryDataPresent(String regionId, String year) {
         List<RegionalCategoryData> regionalCategoriesData =
                 iRegionalCategoryDataRepository.findDistinctByRegionalCategoryIdRegionIdOrderByRegionalCategoryIdCategoryId(regionId);
@@ -365,6 +374,7 @@ public class RegionService {
         }
     }
 
+    @Transactional(readOnly = true)
     public RegionCountriesDto getRegionCountriesData(String regionId, List<String> years,
                                                      LanguageCode languageCode) {
         List<String> countries = iRegionCountryRepository.findByRegionCountryIdRegionId(regionId);
@@ -383,6 +393,7 @@ public class RegionService {
         return govtApprovedCountries;
     }
 
+    @Transactional(readOnly = true)
     public RegionCountriesDto fetchRegionCountriesHealthScoresForGivenYears(LanguageCode languageCode, Map<String, List<String>> yearCountryIdsMapWithGovtApprovedData) {
         List<CountryHealthIndicator> countryHealthIndicators = new ArrayList<>();
         List<CountryPhase> countryPhases = new ArrayList<>();
@@ -393,6 +404,7 @@ public class RegionService {
         return constructRegionCountriesDto(countryHealthIndicators,countryPhases,languageCode);
     }
 
+    @Transactional(readOnly = true)
     public RegionCountriesDto constructRegionCountriesDto(List<CountryHealthIndicator> countryHealthIndicators,
                                                           List<CountryPhase> countryPhases, LanguageCode languageCode) {
         RegionCountriesDto regionCountriesDto = new RegionCountriesDto();
@@ -411,6 +423,7 @@ public class RegionService {
         return regionCountriesDto;
     }
 
+    @Transactional(readOnly = true)
     public List<RegionCountryHealthScoreYearDto> constructRegionCountryHealthScoreYearDto(String countryId,
                                                                                           Map<String,
                                                                                                   List<CountryHealthIndicator>> regionCountryHealthIndicatorsMap,
@@ -428,6 +441,7 @@ public class RegionService {
 
     }
 
+    @Transactional(readOnly = true)
     public RegionCountryHealthScoreDto constructRegionCountryHealthScoreDto(CountryHealthIndicators countryHealthIndicators, CountryPhase countryPhase) {
         List<CategoryHealthScoreDto> categoryDtos =
                 countryHealthIndicatorService.getCategoriesWithIndicators(countryHealthIndicators,
@@ -442,6 +456,7 @@ public class RegionService {
         return RegionCountryHealthScoreDto.builder().countryPhase(countryPhase.getCountryOverallPhase()).categories(categoryDtosWithoutIndicators).build();
     }
 
+    @Transactional(readOnly = true)
     public List<String> fetchYearsForARegion(String regionId, Integer limit) {
         return iRegionalOverallRepository.findByRegionIdOrderByUpdatedAtDesc(regionId, limit);
     }
