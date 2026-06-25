@@ -38,7 +38,6 @@ import java.util.Objects;
 
 import static it.gdhi.utils.ApplicationConstants.defaultLimit;
 import static it.gdhi.utils.LanguageCode.USER_LANGUAGE;
-import static it.gdhi.utils.Util.getCurrentYear;
 
 @Service
 @Transactional(readOnly = true)
@@ -66,35 +65,22 @@ public class BedrockToolsService {
     public BedrockToolResponse<BedrockCountrySummaryData> getCountrySummary(
             String countryId, String year, String languageHeader) {
         LanguageCode languageCode = LanguageCode.getValueFor(languageHeader);
-        CountryPhase latestCountryPhase = null;
-        String effectiveYear = year;
-        if (!StringUtils.hasText(effectiveYear)) {
-            latestCountryPhase = countryPhaseRepository.findLatestByCountryId(countryId);
-            effectiveYear = latestCountryPhase == null ? resolveYear(year) : latestCountryPhase.getYear();
-        }
+        String effectiveYear = requireCountryYear(year, countryId, "country summary data");
         CountrySummaryDto dto = countryService.fetchCountrySummary(countryId, effectiveYear);
         translateSummaryCountryName(dto, countryId, languageCode);
-        Integer countryPhase = latestCountryPhase == null
-                ? fetchCountryOverallPhaseValue(countryId, effectiveYear)
-                : latestCountryPhase.getCountryOverallPhase();
+        Integer countryPhase = fetchCountryOverallPhaseValue(countryId, effectiveYear);
         BedrockCountrySummaryData data = BedrockCountrySummaryData.from(dto, effectiveYear, countryPhase);
         return BedrockToolResponse.ok("getCountrySummary",
-                "Fetched country summary without personal contact details, including overall phase for the requested year",
+                "Fetched country summary without personal contact details, including overall phase "
+                        + "for the requested year",
                 filters("countryId", countryId, "year", effectiveYear, "language", languageCode.name()), data);
     }
 
     public BedrockToolResponse<BedrockCountryPhaseData> getCountryPhase(
             String countryId, String year, String languageHeader) {
         LanguageCode languageCode = LanguageCode.getValueFor(languageHeader);
-        CountryPhase countryPhase = null;
-        String effectiveYear = year;
-        if (!StringUtils.hasText(effectiveYear)) {
-            countryPhase = countryPhaseRepository.findLatestByCountryId(countryId);
-            effectiveYear = countryPhase == null ? resolveYear(year) : countryPhase.getYear();
-        }
-        BedrockCountryPhaseData data = countryPhase == null
-                ? buildCountryPhaseData(countryId, effectiveYear, languageCode)
-                : buildCountryPhaseData(countryId, effectiveYear, languageCode, countryPhase);
+        String effectiveYear = requireCountryYear(year, countryId, "country phase data");
+        BedrockCountryPhaseData data = buildCountryPhaseData(countryId, effectiveYear, languageCode);
         return BedrockToolResponse.ok("getCountryPhase", "Fetched country overall phase",
                 filters("countryId", countryId, "year", effectiveYear, "language", languageCode.name()), data);
     }
@@ -102,19 +88,9 @@ public class BedrockToolsService {
     public BedrockToolResponse<CountryHealthScoreDto> getCountryHealthIndicators(
             String countryId, String year, String languageHeader) {
         LanguageCode languageCode = LanguageCode.getValueFor(languageHeader);
-        CountryPhase latestCountryPhase = null;
-        String effectiveYear = year;
-        CountryHealthScoreDto dto;
-        if (StringUtils.hasText(effectiveYear)) {
-            dto = countryHealthIndicatorService.fetchCountryHealthScore(countryId, languageCode, effectiveYear);
-        }
-        else {
-            latestCountryPhase = countryPhaseRepository.findLatestByCountryId(countryId);
-            effectiveYear = latestCountryPhase == null ? resolveYear(year) : latestCountryPhase.getYear();
-            dto = latestCountryPhase == null
-                    ? countryHealthIndicatorService.fetchCountryHealthScore(countryId, languageCode, effectiveYear)
-                    : countryHealthIndicatorService.fetchLatestCountryHealthScore(countryId, languageCode);
-        }
+        String effectiveYear = requireCountryYear(year, countryId, "country health indicator scores");
+        CountryHealthScoreDto dto = countryHealthIndicatorService.fetchCountryHealthScore(countryId, languageCode,
+                effectiveYear);
         return BedrockToolResponse.ok("getCountryHealthIndicators", "Fetched country health indicators",
                 filters("countryId", countryId, "year", effectiveYear, "language", languageCode.name()), dto);
     }
@@ -124,23 +100,12 @@ public class BedrockToolsService {
         String effectiveRegionId = RegionAlias.normalize(regionId);
         requireAnyFilter("global health indicators", categoryId, phase, effectiveRegionId);
         LanguageCode languageCode = LanguageCode.getValueFor(languageHeader);
-        String effectiveYear = year;
-        GlobalHealthScoreDto dto;
-        if (StringUtils.hasText(effectiveYear)) {
-            dto = effectiveRegionId == null
-                    ? countryHealthIndicatorService.getGlobalHealthIndicator(categoryId, phase, languageCode,
-                            effectiveYear)
-                    : regionService.fetchRegionalHealthScores(categoryId, effectiveRegionId, languageCode,
-                            effectiveYear);
-        }
-        else if (effectiveRegionId == null) {
-            effectiveYear = "latest";
-            dto = countryHealthIndicatorService.getLatestGlobalHealthIndicator(categoryId, phase, languageCode);
-        }
-        else {
-            effectiveYear = resolveLatestRegionalYear(effectiveRegionId);
-            dto = regionService.fetchRegionalHealthScores(categoryId, effectiveRegionId, languageCode, effectiveYear);
-        }
+        String effectiveYear = requireYear(year, "global health indicator data");
+        GlobalHealthScoreDto dto = effectiveRegionId == null
+                ? countryHealthIndicatorService.getGlobalHealthIndicator(categoryId, phase, languageCode,
+                        effectiveYear)
+                : regionService.fetchRegionalHealthScores(categoryId, effectiveRegionId, languageCode,
+                        effectiveYear);
         return BedrockToolResponse.ok("getGlobalHealthIndicators", "Fetched global health indicators",
                 filters("categoryId", categoryId, "phase", phase, "regionId", effectiveRegionId, "year", effectiveYear,
                         "language", languageCode.name()), dto);
@@ -150,16 +115,9 @@ public class BedrockToolsService {
             Integer categoryId, Integer phase, String year, String languageHeader) {
         requireAnyFilter("country score comparisons", categoryId, phase);
         LanguageCode languageCode = LanguageCode.getValueFor(languageHeader);
-        String effectiveYear = year;
-        CountriesHealthScoreDto dto;
-        if (StringUtils.hasText(effectiveYear)) {
-            dto = countryHealthIndicatorService.fetchCountriesHealthScores(categoryId, phase, languageCode,
-                    effectiveYear);
-        }
-        else {
-            effectiveYear = "latest";
-            dto = countryHealthIndicatorService.fetchCountriesLatestHealthScores(categoryId, phase, languageCode);
-        }
+        String effectiveYear = requireYear(year, "country health indicator score comparisons");
+        CountriesHealthScoreDto dto = countryHealthIndicatorService.fetchCountriesHealthScores(categoryId, phase,
+                languageCode, effectiveYear);
         return BedrockToolResponse.ok("getCountriesHealthIndicatorScores", "Fetched countries health indicator scores",
                 filters("categoryId", categoryId, "phase", phase, "year", effectiveYear, "language",
                         languageCode.name()), dto);
@@ -213,15 +171,9 @@ public class BedrockToolsService {
         }
 
         LanguageCode languageCode = LanguageCode.getValueFor(languageHeader);
-        String effectiveYear = year;
-        List<CountryPhase> countryPhases;
-        if (StringUtils.hasText(effectiveYear)) {
-            countryPhases = countryPhaseRepository.findByCountryPhaseIdYearAndCountryOverallPhase(effectiveYear, phase);
-        }
-        else {
-            effectiveYear = "latest";
-            countryPhases = countryPhaseRepository.findByLatestTrueAndCountryOverallPhase(phase);
-        }
+        String effectiveYear = requireYear(year, "countries by phase data");
+        List<CountryPhase> countryPhases = countryPhaseRepository.findByCountryPhaseIdYearAndCountryOverallPhase(
+                effectiveYear, phase);
         List<BedrockCountryPhaseData> countries = countryPhases.stream()
                 .map(countryPhase -> buildCountryPhaseData(countryPhase.getCountryPhaseId().getCountryId(),
                         countryPhase.getYear(),
@@ -246,6 +198,7 @@ public class BedrockToolsService {
             Integer limit) {
         String effectiveRegionId = RegionAlias.normalize(regionId);
         String effectiveDirection = StringUtils.hasText(direction) ? direction : "advanced";
+        requireYearRange(startYear, endYear, "country phase trend analysis");
         List<BedrockCountryPhaseTrendData> trends = gdhmAnalyticsService.analyzeCountryPhaseTrends(
                 effectiveRegionId, countryId, categoryId, indicatorId, startYear, endYear, effectiveDirection,
                 minSubmissionYears, limit);
@@ -272,12 +225,13 @@ public class BedrockToolsService {
             Integer secondaryMaxPhase) {
         String effectiveRegionId = RegionAlias.normalize(regionId);
         String effectiveSort = StringUtils.hasText(sort) ? sort : "highest";
+        String effectiveYear = requireYear(year, "country ranking data");
         List<BedrockCountryRankingData> rankings = gdhmAnalyticsService.rankCountries(
-                effectiveRegionId, countryIds, categoryId, indicatorId, year, minPhase, maxPhase, effectiveSort, limit,
-                secondaryCategoryId, secondaryIndicatorId, secondaryMinPhase, secondaryMaxPhase);
+                effectiveRegionId, countryIds, categoryId, indicatorId, effectiveYear, minPhase, maxPhase,
+                effectiveSort, limit, secondaryCategoryId, secondaryIndicatorId, secondaryMinPhase, secondaryMaxPhase);
         return BedrockToolResponse.ok("rankCountries", "Ranked countries by GDHM score filters",
                 filters("regionId", effectiveRegionId, "countryId", countryIds, "categoryId", categoryId,
-                        "indicatorId", indicatorId, "year", year, "minPhase", minPhase, "maxPhase", maxPhase,
+                        "indicatorId", indicatorId, "year", effectiveYear, "minPhase", minPhase, "maxPhase", maxPhase,
                         "sort", effectiveSort, "limit", limit, "secondaryCategoryId", secondaryCategoryId,
                         "secondaryIndicatorId", secondaryIndicatorId, "secondaryMinPhase", secondaryMinPhase,
                         "secondaryMaxPhase", secondaryMaxPhase),
@@ -293,18 +247,20 @@ public class BedrockToolsService {
         if (!StringUtils.hasText(analysisType)) {
             throw new IllegalArgumentException("Missing required parameter: analysisType");
         }
+        String effectiveYear = requireYear(year, "data completeness analysis");
         String effectiveRegionId = RegionAlias.normalize(regionId);
         List<BedrockDataCompletenessData> data = gdhmAnalyticsService.analyzeDataCompleteness(
-                analysisType, year, effectiveRegionId, phase, limit);
+                analysisType, effectiveYear, effectiveRegionId, phase, limit);
         return BedrockToolResponse.ok("analyzeDataCompleteness", "Analyzed GDHM data completeness",
-                filters("analysisType", analysisType, "year", year, "regionId", effectiveRegionId, "phase", phase,
-                        "limit", limit),
+                filters("analysisType", analysisType, "year", effectiveYear, "regionId", effectiveRegionId, "phase",
+                        phase, "limit", limit),
                 data);
     }
 
     public BedrockToolResponse<?> executeApiInvocation(ApiInvocationInput apiInvocationInput) {
         if (!"GET".equalsIgnoreCase(apiInvocationInput.httpMethod())) {
-            throw new IllegalArgumentException("Unsupported Bedrock tool HTTP method: " + apiInvocationInput.httpMethod());
+            throw new IllegalArgumentException("Unsupported Bedrock tool HTTP method: "
+                    + apiInvocationInput.httpMethod());
         }
 
         Map<String, List<String>> parameters = groupParameters(apiInvocationInput.parameters());
@@ -392,12 +348,19 @@ public class BedrockToolsService {
     }
 
     public BedrockToolResponse<Map<String, Object>> validationError(Exception ex) {
+        String message = StringUtils.hasText(ex.getMessage())
+                ? ex.getMessage()
+                : "The request needs more specific filters before I can safely run it.";
+        Map<String, Object> data = filters("error", message);
+        if (ex instanceof MissingYearException missingYearException) {
+            data.putAll(missingYearException.details());
+        }
         return new BedrockToolResponse<>(
                 "validation",
                 "error",
-                "The request needs more specific filters before I can safely run it.",
+                message,
                 filters(),
-                filters("error", ex.getMessage()),
+                data,
                 Instant.now()
         );
     }
@@ -411,17 +374,6 @@ public class BedrockToolsService {
                 filters("error", "An internal error occurred."),
                 Instant.now()
         );
-    }
-
-    private String resolveYear(String year) {
-        if (year != null && !year.isBlank()) {
-            return year;
-        }
-        String defaultYear = defaultYearDataService.fetchDefaultYear();
-        if (defaultYear != null && !defaultYear.isBlank()) {
-            return defaultYear;
-        }
-        return getCurrentYear();
     }
 
     private Map<String, List<String>> groupParameters(List<ApiParameter> parameters) {
@@ -503,21 +455,69 @@ public class BedrockToolsService {
         });
         if (!hasFilter) {
             throw new IllegalArgumentException(
-                    "Please ask for a narrower " + queryName + " query. Include at least one specific filter such as category, phase, or region.");
+                    "Please ask for a narrower " + queryName + " query. Include at least one specific filter such as "
+                            + "category, phase, or region.");
         }
+    }
+
+    private String requireYear(String year, String queryName) {
+        if (StringUtils.hasText(year)) {
+            return year.trim();
+        }
+        throw new IllegalArgumentException("A year is required for " + queryName
+                + ". Ask the user which year they want before returning GDHM figures.");
+    }
+
+    private String requireCountryYear(String year, String countryId, String queryName) {
+        if (StringUtils.hasText(year)) {
+            return year.trim();
+        }
+        List<String> countryYears = countryPhaseRepository.findByCountryPhaseIdOrderByYearDesc(countryId,
+                defaultLimit);
+        List<String> availableYears = sortYears(countryYears == null ? List.of() : countryYears);
+        String countryName = countryName(countryId);
+        String countryLabel = StringUtils.hasText(countryName) ? countryName : countryId;
+        String message = availableYears.isEmpty()
+                ? "A year is required for " + queryName + ". Ask the user which year they want before returning "
+                        + "GDHM figures."
+                : "A year is required for " + queryName + ". Available years for " + countryLabel + " are: "
+                        + String.join(", ", availableYears) + ". Ask the user which year they want before returning "
+                        + "GDHM figures.";
+        throw new MissingYearException(message, filters(
+                "missingParameter", "year",
+                "countryId", countryId,
+                "countryName", countryName,
+                "availableYears", availableYears));
+    }
+
+    private void requireYearRange(String startYear, String endYear, String queryName) {
+        if (StringUtils.hasText(startYear) || StringUtils.hasText(endYear)) {
+            return;
+        }
+        throw new IllegalArgumentException("A year or year range is required for " + queryName
+                + ". Ask the user which year or range they want before returning GDHM figures.");
     }
 
     private Integer fetchCountryOverallPhaseValue(String countryId, String year) {
-        CountryPhase countryPhase = countryPhaseRepository.findByCountryPhaseIdCountryIdAndCountryPhaseIdYear(countryId, year);
+        CountryPhase countryPhase = countryPhaseRepository.findByCountryPhaseIdCountryIdAndCountryPhaseIdYear(
+                countryId, year);
         return countryPhase == null ? null : countryPhase.getCountryOverallPhase();
     }
 
-    private String resolveLatestRegionalYear(String regionId) {
-        List<String> years = regionService.fetchYearsForARegion(regionId, 1);
-        if (years != null && !years.isEmpty() && StringUtils.hasText(years.get(0))) {
-            return years.get(0);
+    private String countryName(String countryId) {
+        Country country = countryRepository.findById(countryId);
+        return country == null ? null : country.getName();
+    }
+
+    private List<String> sortYears(List<String> years) {
+        return years.stream().sorted((left, right) -> yearSortValue(left).compareTo(yearSortValue(right))).toList();
+    }
+
+    private Integer yearSortValue(String year) {
+        if (year != null && year.matches("\\d{4}")) {
+            return Integer.valueOf(year);
         }
-        return resolveYear(null);
+        return 0;
     }
 
     private void translateSummaryCountryName(CountrySummaryDto dto, String countryId, LanguageCode languageCode) {
@@ -532,7 +532,8 @@ public class BedrockToolsService {
     }
 
     private BedrockCountryPhaseData buildCountryPhaseData(String countryId, String year, LanguageCode languageCode) {
-        CountryPhase countryPhase = countryPhaseRepository.findByCountryPhaseIdCountryIdAndCountryPhaseIdYear(countryId, year);
+        CountryPhase countryPhase = countryPhaseRepository.findByCountryPhaseIdCountryIdAndCountryPhaseIdYear(
+                countryId, year);
         return buildCountryPhaseData(countryId, year, languageCode, countryPhase);
     }
 
@@ -560,5 +561,19 @@ public class BedrockToolsService {
                 countryOverallPhase,
                 BedrockCountryPhaseData.phaseLabelFor(countryOverallPhase)
         );
+    }
+
+    private static class MissingYearException extends IllegalArgumentException {
+
+        private final Map<String, Object> details;
+
+        MissingYearException(String message, Map<String, Object> details) {
+            super(message);
+            this.details = details;
+        }
+
+        private Map<String, Object> details() {
+            return details;
+        }
     }
 }
