@@ -71,7 +71,7 @@ public interface ICountryPhaseRepository extends JpaRepository<CountryPhase, Cou
                       FROM country_health_data.country_phase
                       WHERE country_id = UPPER(:countryId)
                       ORDER BY
-                          CASE WHEN year ~ '^[0-9]{4}$' THEN year::int ELSE 0 END DESC,
+                          CASE WHEN year ~ '^[0-9]{4}$' THEN CAST(year AS integer) ELSE 0 END DESC,
                           updated_at DESC
                       LIMIT 1
                   ) ranked
